@@ -13,3 +13,5 @@ yarn-error.log
 /.idea/vcs.xml
 /.idea/workspace.xml
 /.idea
+/.idea/modules.xml
+/.idea/php.xml
