@@ -13,7 +13,7 @@
                 <div class="user-div">
                     @php
                         $details=array();
-                        if(array_key_exists('details',$query))
+                        if(isset($query->details))
                         {
                          $details=$query->details;
                         }

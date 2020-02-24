@@ -91,7 +91,7 @@ class CartController extends Controller
             session()->put('cart', $cart);
         }
         else{
-            if(array_key_exists($item_id,$cart))
+            if(isset($cart[$item_id]))
             {
                 unset($cart[$item_id]);
 
@@ -118,7 +118,7 @@ class CartController extends Controller
     public function delete($id)
     {
         $cart = session()->get('cart');
-        if(array_key_exists($id,$cart))
+        if(isset($cart[$id]))
         {
             unset($cart[$id]);
             session()->put('cart', $cart);
@@ -130,7 +130,7 @@ class CartController extends Controller
         $cart = session()->get('cart');
         $qty=0;
         $total=0;
-        if(array_key_exists($id,$cart))
+        if(isset($cart[$id]))
         {
             $item=$cart[$id];
             $qty=$item['quantity']+1;

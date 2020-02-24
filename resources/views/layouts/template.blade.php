@@ -54,7 +54,7 @@
 
                     <div class="row">
                         @php
-                        if($flag==='login')
+                        if(!isset($flag) || $flag==='login')
                         {
                          $flag=false;
                         }

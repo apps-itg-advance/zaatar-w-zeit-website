@@ -1,5 +1,4 @@
 @php
-    dump(session()->all());
     $_address=array($cart_info->City,$cart_info->Line1,$cart_info->Line2,$cart_info->Apartment);
     $_total=0;
 
