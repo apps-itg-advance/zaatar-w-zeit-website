@@ -7,6 +7,8 @@
     <form id="Form" action="#">
     <div class="col-lg-11 float-none p-0 mx-auto">
         <div class="row row-favourite">
+            <input type="hidden" name="SItemId" id="SItemId">
+            <input type="hidden" name="SQty" id="SQty">
             @foreach($query->data as $row)
                 {{csrf_field()}}
             <div class="col-xl-6 col-lg-12 mb-5 col-favourite">
