@@ -55,12 +55,13 @@
 
                     <div class="row">
                         @php
-                        if(!isset($flag) || $flag==='login')
+                        echo $flag;
+                        if(!isset($flag) or $flag==='login')
                         {
                          $flag=false;
                         }
                         @endphp
-                        @if($flag)
+                            @if($flag)
 
                         @include('partials.left')
                         @endif
