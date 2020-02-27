@@ -55,8 +55,7 @@
 
                     <div class="row">
                         @php
-                        echo $flag;
-                        if(!isset($flag) or $flag==='login')
+                        if(!isset($flag) or $flag==='login' or $flag==='pin')
                         {
                          $flag=false;
                         }
