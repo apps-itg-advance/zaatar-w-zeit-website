@@ -5,11 +5,11 @@
             @php
                 $cat_id=!isset($cat_id) ? 0 : $cat_id;
                 $array_name=json_decode($nav->Label,true);
-                    if(is_array($array_name) and array_key_exists('en',$array_name))
+                    if(is_array($array_name) and isset($array_name['en']))
                     {
                         $url_name=str_replace(' ','-',$array_name['en']);
                     }
-                    elseif(is_array($array_name) and !array_key_exists('en',$array_name))
+                    elseif(is_array($array_name) and !isset($array_name['en']))
                     {
                     $url_name=str_replace(' ','-',$array_name[0]);
                     }

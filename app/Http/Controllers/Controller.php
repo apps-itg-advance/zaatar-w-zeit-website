@@ -27,7 +27,7 @@ class Controller extends BaseController
             if (!session::has('navigations')) {
                 $navigation=MenuLibrary::GetCategories($this->_org->id,$this->_org->token);
 
-                if(array_key_exists('data',$navigation))
+                if(isset($navigation->data))
                 {
                     session::put('navigations',$navigation->data);
                     session::put('first_category',$navigation->data[0]->ID);

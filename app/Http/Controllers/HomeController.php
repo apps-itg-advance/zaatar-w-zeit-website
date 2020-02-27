@@ -18,11 +18,11 @@ class HomeController extends Controller
         $_cat_title=($name==null) ? session()->get('first_category_name'):str_replace('-',' ',$name);
         $query=MenuLibrary::GetMenuItems($id,$this->_org->id,$this->_org->token);
         $array_name=json_decode($_cat_title,true);
-        if(is_array($array_name) and array_key_exists('en',$array_name))
+        if(is_array($array_name) and isset($array_name['en']))
         {
             $cat_title=str_replace(' ','-',$array_name['en']);
         }
-        elseif(is_array($array_name) and !array_key_exists('en',$array_name))
+        elseif(is_array($array_name) and !isset($array_name['en']))
         {
             $cat_title=str_replace(' ','-',$array_name[0]);
         }
@@ -38,11 +38,11 @@ class HomeController extends Controller
         $_cat_title=($name==null) ? session()->get('first_category_name'):str_replace('-',' ',$name);
         $query=MenuLibrary::GetMenuItems($id);
         $array_name=json_decode($_cat_title,true);
-        if(is_array($array_name) and array_key_exists('en',$array_name))
+        if(is_array($array_name) and isset($array_name['en']))
         {
             $cat_title=str_replace(' ','-',$array_name['en']);
         }
-        elseif(is_array($array_name) and !array_key_exists('en',$array_name))
+        elseif(is_array($array_name) and !isset($array_name['en']))
         {
             $cat_title=str_replace(' ','-',$array_name[0]);
         }
