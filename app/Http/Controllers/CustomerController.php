@@ -37,11 +37,12 @@ class CustomerController extends Controller
 
     public function orders()
     {
-        $query=array();
-        //$cart = Session::get('cart');
+        $loyalty_id=session()->get('loyalty_id');
+        $query=CustomerLibrary::GetOrdersHistory($loyalty_id);
         $class_css='orders-wrapper';
         $flag=true;
-        return view('customers.orders',compact('query','class_css','flag'));  //
+        $sub_active='orders';
+        return view('customers.orders',compact('query','class_css','flag','sub_active'));  //
     }
 
     public function order_details()

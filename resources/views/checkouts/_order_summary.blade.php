@@ -1,10 +1,11 @@
 @php
-    dump(session()->all());
     $_address=array($cart_info->City,$cart_info->Line1,$cart_info->Line2,$cart_info->Apartment);
     $_total=0;
 
 @endphp
-<div class="modal-dialog modal-dialog-centered" role="document">
+<form action="{{route('checkout.store')}}" method="post">
+    @csrf
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header col-xl-12 float-none mx-auto">
             <h5 class="modal-title" id="exampleModalCenterTitle">Order Summary</h5>
@@ -30,7 +31,7 @@
                         <div class="col-sm-9">
                             @foreach($cart as $key=>$values)
                             <div class="mb-3">
-                                <h5 class="mb-0">{{$values['name']}} <span class="d-inline-block ml-3">{{$values['price']}}</span></h5>
+                                <h5 class="mb-0">{{$values['name']}} (x{{$values['quantity']}}) <span class="d-inline-block ml-3">{{$values['price']}}</span></h5>
                                 <div class="text-808080">
                                     @php
                                         $modifiers=$values['modifiers'];
@@ -61,7 +62,26 @@
                             Wallet
                         </div>
                         <div class="col-8 text-808080 mb-3">
-                            10% discount
+                            @php
+                                if(isset($cart_vouchers['Id']) and $cart_vouchers['Id']!='')
+                                {
+                                    if($cart_vouchers['ValueType']=='percentage')
+                                    {
+                                        echo $cart_vouchers['Value'] .' %';
+                                    }
+                                    elseif($cart_vouchers['ValueType']=='flat_rate')
+                                    {
+                                        echo ' - '.$cart_vouchers['Value'].' '.$currency;
+                                    }
+                                    else{
+                                    echo $cart_vouchers['Value'];
+                                    }
+                                   //  echo ' From : '.$cart_gift->GiftFrom.'<br> To : '.$cart_gift->GiftTo.'<br> Message : '.$cart_gift->GiftOpenItem;
+                                }
+                                else{
+                                    echo 'N/A';
+                                }
+                            @endphp
                         </div>
                     </div>
                     <div class="row align-items-center">
@@ -69,7 +89,16 @@
                             Gift
                         </div>
                         <div class="col-8 text-808080 mb-3">
-                            Yes
+                            @php
+                                if(isset($cart_gift->GiftOpenItem) and $cart_gift->GiftOpenItem!='')
+                                {
+                                    echo 'Yes';
+                                   //  echo ' From : '.$cart_gift->GiftFrom.'<br> To : '.$cart_gift->GiftTo.'<br> Message : '.$cart_gift->GiftOpenItem;
+                                }
+                                else{
+                                    echo 'No';
+                                }
+                            @endphp
                         </div>
                     </div>
                     <div class="row align-items-center">
@@ -77,7 +106,16 @@
                             Go Green
                         </div>
                         <div class="col-8 text-808080 mb-3">
-                            Yes
+                            @php
+                                if(isset($cart_green) and $cart_green!='')
+                                {
+                                    echo $cart_green;
+                                   //  echo ' From : '.$cart_gift->GiftFrom.'<br> To : '.$cart_gift->GiftTo.'<br> Message : '.$cart_gift->GiftOpenItem;
+                                }
+                                else{
+                                    echo 'No';
+                                }
+                            @endphp
                         </div>
                     </div>
                     <div class="row align-items-center">
@@ -85,15 +123,25 @@
                             Method
                         </div>
                         <div class="col-8 text-808080 mb-3">
-                            Online Payment
+                            @php
+                                if(isset($cart_payment->PaymentId) and $cart_payment->PaymentId!='')
+                                {
+                                    echo $cart_payment->Label;
+                                   //  echo ' From : '.$cart_gift->GiftFrom.'<br> To : '.$cart_gift->GiftTo.'<br> Message : '.$cart_gift->GiftOpenItem;
+                                }
+                                else{
+                                    echo 'N/A';
+                                }
+                            @endphp
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-B3B3B3 mb-3 mr-sm-4 text-uppercase">Close</button>
-            <button type="button" class="btn btn-8DBF43 mb-3 text-uppercase">Confirm</button>
+            <button type="button" class="btn btn-B3B3B3 mb-3 mr-sm-4 text-uppercase close" data-dismiss="modal" >Close</button>
+            <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase confirm">Confirm</button>
         </div>
     </div>
 </div>
+</form>

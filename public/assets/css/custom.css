@@ -1,0 +1,9 @@
+.img-thum {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+.media-body{
+    overflow: hidden;
+    max-height: 205px;
+}

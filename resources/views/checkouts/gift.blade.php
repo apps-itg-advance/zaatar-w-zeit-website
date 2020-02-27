@@ -54,7 +54,19 @@
 @section('javascript')
     <script>
         $(".skip").click(function(){
-            window.location = '{{route('checkout.green')}}';
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                dataType:'json',
+                url: '{{route('checkout.gift.delete')}}',
+                success: function (data) {
+                    window.location = '{{route('checkout.green')}}';
+                }
+            });
+
         });
         $(".confirm").click(function(){
             to=$("#gift_to{{$skey}}").val();

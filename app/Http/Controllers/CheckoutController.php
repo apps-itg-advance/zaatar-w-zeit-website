@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Extensions\MongoSessionHandler;
 use Illuminate\Support\Facades\Session;
 use App\Http\Libraries\SettingsLib;
+use App\Http\Libraries\OrdersLibrary;
 
 class CheckoutController extends Controller
 {
@@ -80,10 +81,51 @@ class CheckoutController extends Controller
     }
     public function wallet()
     {
+        $skey=session()->get('skey');
+        $user=session()->get('user'.$skey);
+        $v=$user->vouchers;
+        $array_keys=array();
+        $vouchers=array();
+        for ($i=0;$i<count($v);$i++)
+        {
+            $qty=1;
+            $array_exp=array($v[$i]->ExpiryDate=>1);
+            $array_ids=array($v[$i]->Id);
+            if($i>1)
+            {
+                for ($j=$i+1;$j<count($v);$j++)
+                {
+                    if($v[$i]->Value==$v[$j]->Value and $v[$i]->ValueType==$v[$j]->ValueType)
+                    {
+                        $qty++;
+                        if(isset($array_exp[$v[$j]->ExpiryDate]))
+                        {
+                            $array_exp[$v[$j]->ExpiryDate]=$array_exp[$v[$j]->ExpiryDate]+1;
+                        }
+                        else{
+                            $array_exp[$v[$j]->ExpiryDate]=1;
+                        }
+                        $array_ids[]=$v[$j]->Id;
+                        $array_keys[]=$v[$j]->Id;
+                    }
+
+
+                }
+            }
+
+            if(!in_array($v[$i]->Id,$array_keys))
+            {
+                $array_keys[]=$v[$i]->Id;
+                array_push($vouchers,array('Qty'=>$qty,'Value'=>$v[$i]->Value,'ValueType'=>$v[$i]->ValueType,'ExpiryDates'=>$array_exp,'Ids'=>$array_keys));
+
+            }
+
+        }
         $cart = Session::get('cart');
+
         $_active_css='wallet';
         $class_css='checkout-wrapper';
-        return view('checkouts.wallet',compact('cart','class_css','_active_css'));  //
+        return view('checkouts.wallet',compact('cart','class_css','_active_css','vouchers'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
     public function gift()
@@ -108,6 +150,60 @@ class CheckoutController extends Controller
         return 'true';
 
     }
+    public function gift_delete()
+    {
+        session()->forget('cart_gift');
+        session()->save();
+        return 'true';
+
+    }
+    public function loyalty_store(Request $request)
+    {
+        $query=$request->input('query');
+        $_array=explode('-',$query);
+        $type=$_array[1];
+        $value=$_array[0];
+
+        $skey=session()->get('skey');
+        $user=session()->get('user'.$skey);
+        $v=$user->vouchers;
+        $voucher_id=0;
+        for ($i=0;$i<count($v);$i++)
+        {
+            $voucher_id=$v[$i]->Id;
+            if($i>1)
+            {
+                if($v[$i]->Value==$value and $v[$i]->ValueType==$type)
+                {
+                    for ($j=$i+1;$j<count($v);$j++)
+                    {
+                        if($v[$j]->Value==$value and $v[$j]->ValueType==$type) {
+                            if($v[$j]->ExpiryDate < $v[$i]->ExpiryDate)
+                            {
+                                $voucher_id=$v[$j]->Id;
+                            }
+                        }
+                    }
+                    break;
+
+                }
+            }
+
+
+
+        }
+        if($voucher_id>0)
+        $array_voucher=array(
+            'Id'=>$voucher_id,
+            'Value'=>$value,
+            'ValueType'=>$type,
+        );
+        session()->forget('cart_vouchers');
+        session()->save();
+        session()->put('cart_vouchers',$array_voucher);
+        return 'true';
+    }
+
     public function green()
     {
         $cart = Session::get('cart');
@@ -124,6 +220,7 @@ class CheckoutController extends Controller
         return 'true';
 
     }
+
     public function payment()
     {
         $cart = Session::get('cart');
@@ -163,11 +260,13 @@ class CheckoutController extends Controller
         $cart_payment=session()->get('cart_payment');
         $cart_sp_instructions=session()->get('cart_sp_instructions');
         $cart_green=session()->get('cart_green');
+        $cart_vouchers=session()->get('cart_vouchers');
         $_org=session()->get('_org');
         $delivery_charge=$_org->delivery_charge;
         $currency=$_org->currency;
-       return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency'));
+       return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -175,9 +274,35 @@ class CheckoutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+      $query=OrdersLibrary::SaveOrders();
+        $cart=session()->get('cart');
+        $cart_info=session()->get('cart_info');
+        $cart_gift=session()->get('cart_gift');
+        $cart_payment=session()->get('cart_payment');
+        $cart_sp_instructions=session()->get('cart_sp_instructions');
+        $cart_green=session()->get('cart_green');
+        $cart_vouchers=session()->get('cart_vouchers');
+        $_org=session()->get('_org');
+        $delivery_charge=$_org->delivery_charge;
+        $currency=$_org->currency;
+      if($query->message=='success')
+      {
+          session()->forget('cart_sp_instructions');
+          session()->forget('cart');
+          session()->forget('cart_info');
+          session()->forget('cart_gift');
+          session()->forget('cart_payment');
+          session()->forget('cart_sp_instructions');
+          session()->forget('cart_green');
+          session()->forget('cart_vouchers');
+          session()->save();
+      }
+
+        return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers'));
+
+
     }
 
     /**

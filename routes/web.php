@@ -47,9 +47,16 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::get('/checkout/address', 'CheckoutController@address')->name('checkout.address');
     Route::post('/checkout/address-store', 'CheckoutController@address_store')->name('checkout.address.store');
     Route::post('/checkout/gift-store', 'CheckoutController@gift_store')->name('checkout.gift.store');
+    Route::post('/checkout/gift-delete', 'CheckoutController@gift_delete')->name('checkout.gift.delete');
     Route::post('/checkout/green-store', 'CheckoutController@green_store')->name('checkout.green.store');
     Route::post('/checkout/payment-store', 'CheckoutController@payment_store')->name('checkout.payment.store');
     Route::post('/checkout/special-instructions-store', 'CheckoutController@special_instructions_store')->name('checkout.special.instructions.store');
+    Route::post('/checkout/loyalty-store', 'CheckoutController@loyalty_store')->name('checkout.loyalty.store');
+
+    Route::post('/checkout/store', 'CheckoutController@store')->name('checkout.store');
+
+
+
 
     Route::post('/customer/set-favourite', 'CustomerController@set_favourite')->name('customer.set.favourite');
 

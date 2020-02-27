@@ -1,11 +1,9 @@
 @extends('layouts.template')
 @section('content')
-<div class="col-xl-9 col-lg-9 col-md-8 col-sm-12 col-favourite-items">
-    <div class="title-div mb-4 pb-2 text-center">
-        <h2 class="title">Favourites</h2>
-    </div>
+<div class="col-xl-7 col-lg-5 col-md-12 col-sm-12 col-favourite-items">
     <form id="Form" action="#">
     <div class="col-lg-11 float-none p-0 mx-auto">
+        @include('customers._favourite_menu')
         <div class="row row-favourite">
             <input type="hidden" name="SItemId" id="SItemId">
             <input type="hidden" name="SQty" id="SQty">
@@ -134,7 +132,7 @@
     </div>
     </form>
 </div>
-
+@include('partials.cart')
 @endsection
 @section('javascript')
     <script src="{{asset('assets/js/jquery.matchHeight-min.js')}}"></script>

@@ -54,16 +54,6 @@
                 <div class="content-container">
 
                     <div class="row">
-                        @php
-                        if(!isset($flag) or $flag==='login')
-                        {
-                         $flag=false;
-                        }
-                        @endphp
-                        @if($flag)
-
-                        @include('partials.left')
-                        @endif
                         @yield('content')
                     </div>
 

@@ -372,7 +372,7 @@ button {
 .checkout-navblock .checkout-nav li.active:after { border-left-color: #8DBF43;}
 
 
-.checkout-wrapper .item-summary .title-div .title { font-size: 30px; font-family: 'Futura-Bold';}
+.checkout-wrapper .item-summary .title-div .title { font-size: 30px; font-family: 'Futura-Bold'; margin-left: 35px;}
 .checkout-wrapper .item-summary .title-div .title img { width: 30px;}
 .checkout-wrapper .item-summary .col-form-label { color: #808080; font-family: 'Futura-Medium'; font-size: 18px;}
 .checkout-wrapper .item-summary .summary-items .summary-item { position: relative;}
@@ -418,6 +418,8 @@ button {
 .checkout-wrapper .item-summary .greeninfo .line-2 { font-family: 'Futura-Bold';}
 .checkout-wrapper .item-summary .radios-green .custom-control-label { color: #999999;}
 
+.checkout-wrapper .gift-summary .custom-control-label { font-family: 'Futura-Medium';}
+
 
 .cartbig-modal .close { position: absolute; top: 12px; right: 12px; z-index: 9;}
 .cartbig-modal h4 { font-family: 'Futura-Bold';}
@@ -447,7 +449,7 @@ button {
 
 .editprofileModal .modal-header { border: none;}
 .editprofileModal .modal-header .modal-title { font-size: 30px;}
-.editprofileModal .close { position: absolute; right: 10px; top: 10px;}
+.editprofileModal .close { position: absolute; right: 10px; top: 10px;z-index: 9;}
 .editprofileModal .modal-footer { border: none;}
 .editprofileModal .modal-body h4 { font-family: 'Futura-Bold'; font-size: 22px;}
 .editprofileModal .modal-body .form-control { border-radius: 10px;}
@@ -470,6 +472,12 @@ button {
 .login-modal .modal-content .form-group label { color: #8dbf43;}
 .login-modal .modal-content .form-group .form-control { background: rgba(255,255,255,0.20); border: none; color: #FFFFFF; border-radius: 10px;}
 .login-modal .modal-content .btn-submit { border-radius: 10px; color: #000000; background: #8dbf43; font-family: 'Futura-Medium'; padding-top: 5px; padding-bottom: 5px;}
+
+/*NEW CSS S*/
+.editprofileModal .modal-dialog .modal-content{margin:62px 32px;}
+.wallet-wrapper .item-box{min-height: 150px;border-radius: 15px;height: 100%;width: auto;}
+.wallet-wrapper .item-box .item-div .buttons .btn{border-radius: 20px;padding: 4px 30px;font-family: 'Futura-Medium';font-size: 17px;border-color: #FFFFFF;color: #FFFFFF;}
+.checkout-wrapper .wallet-wrapper .item-box .item-div .items-vouchers{min-height: 80px}
 
 
 /*Big-Tablet view*/
@@ -561,7 +569,7 @@ button {
     .header-wrapper .logo-col .flag { width: 40px;}
 
     .header-wrapper .menu-col { padding: 0;}
-    .header-wrapper .main-nav a { font-size: 16px;}
+    .header-wrapper .main-nav a { font-size: 15px;margin-left: 0px;margin-right: 0px;}
 
     .content-wrapper .favourite-box .media { display: block;}
     .content-wrapper .favourite-box .media .media-body { margin-top: 15px;}
@@ -582,11 +590,6 @@ button {
     .content-wrapper .favourite-box .input-group .form-control { max-width: 60px;}
 
     .cartbox-wrapper .cart-dropdown .action-buttons .btn { padding: 6px 15px;}
+    .editprofileModal .modal-dialog .modal-content{margin:120px 32px;}
 
-}
-
-.img-thum{
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
 }
