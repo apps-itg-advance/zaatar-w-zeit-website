@@ -113,7 +113,7 @@ class LoginController extends Controller
 
         if($res->message=='success')
         {
-           AuthLibrary::LoginSession($res);
+           AuthLibrary::RegisterSession($res);
         }
 
         echo json_encode($res);

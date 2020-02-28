@@ -87,6 +87,13 @@
                             <label>Email</label>
                             <input type="text" readonly="readonly" class="form-control" name="email{{$sKey}}" id="R_Email{{$sKey}}" />
                         </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select name="gender{{$sKey}}" id="R_Gender" class="form-control">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
                         <div class="py-5">
                             <button type="button" id="Registerbtn"  class="btn btn-submit btn-login btn-block text-uppercase">Register</button>
                         </div>
