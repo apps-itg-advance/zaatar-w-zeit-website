@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
         @yield('css')
-        <link rel="stylesheet" href="{{asset('assets/css/template.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/template1.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
         <title>Zaatar W Zeit - ZWZ Web ordering-redesign-Menu</title>
         <meta name="csrf-token" content="{{ csrf_token() }}">
