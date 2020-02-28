@@ -29,7 +29,7 @@
                         <button type="button" id="Loginbtn"  class="btn btn-submit btn-login btn-block text-uppercase">Login</button>
                     </div>
                     <div class="mt-5">
-                        <p class="text-white mb-2">Not Registered yet?</p>
+                        <p class="text-white mb-2 futura-medium">Not Registered yet?</p>
                         <button type="button" class="btn btn-submit btn-login btn-block text-uppercase">Sign up</button>
                     </div>
                 </div>

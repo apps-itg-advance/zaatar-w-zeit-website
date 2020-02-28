@@ -5,7 +5,7 @@
             <h2 class="title">Checkout</h2>
         </div>
         @include('partials.checkout_bread')
-        <div class="col-xl-7 col-lg-8 col-md-9 col-sm-12 item-summary float-none p-0 mx-auto">
+        <div class="col-xl-6 col-lg-8 col-md-9 col-sm-12 item-summary float-none p-0 mx-auto">
             <div class="title-div mb-4">
                 <h4 class="title">Summary</h4>
             </div>

@@ -9,15 +9,15 @@
             <h2 class="title">Checkout</h2>
         </div>
         @include('partials.checkout_bread')
-        <div class="col-xl-7 col-lg-10 col-md-12 col-sm-12 float-none p-0 mx-auto item-summary">
+        <div class="col-xl-6 col-lg-10 col-md-12 col-sm-12 float-none p-0 mx-auto item-summary">
             <div class="title-div mb-4">
                 <h2 class="title">Gift</h2>
             </div>
-            <div class="row align-items-center">
+            <div class="row">
                 <div class="col-sm-6">
                     <p><img src="{{asset('assets/images/gift-image.png')}}" class="img-fluid d-block mx-auto" /></p>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 pl-4">
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">To</label>

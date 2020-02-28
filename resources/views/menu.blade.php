@@ -61,7 +61,7 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <div class="row align-items-center">
+                                    <div class="row align-items-center pl-3 pt-3 pr-3">
                                         <div class="col-lg-6 image-col">
                                             <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                                         </div>

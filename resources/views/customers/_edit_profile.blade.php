@@ -4,13 +4,16 @@
             <form action="{{route('customer.store')}}" method="post">
                 @csrf
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Edit Profile</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body col-xl-10 float-none mx-auto">
-
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="futura-medium">Edit Profile</h2>
+                    </div>
+                </div>
                 <div class="row">
                     <input type="hidden" name="LoyaltyId" value="{{@$details->LoyaltyId}}">
                     <input type="hidden" name="is_default{{$Skey}}" value="1">
@@ -38,7 +41,7 @@
                             <input type="text" class="form-control" name="email{{$Skey}}" value="{{@$details->Email}}" />
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-2">
                         <div class="form-group">
                             <h4 class="m-0">Main Address</h4>
                         </div>

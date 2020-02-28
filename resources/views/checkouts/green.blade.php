@@ -9,9 +9,9 @@
             <h2 class="title">Checkout</h2>
         </div>
         @include('partials.checkout_bread')
-        <div class="col-xl-7 col-lg-10 float-none p-0 mx-auto item-summary">
+        <div class="col-xl-6 col-lg-10 float-none p-0 mx-auto item-summary">
             <div class="title-div mb-4">
-                <h2 class="title">The Real Green</h2>
+                <h2 class="title ml-0">The Real Green</h2>
             </div>
             <div class="greeninfo mb-5">
                 <div class="line-1">Our aim is to reduce waste for sustainability.</div>
