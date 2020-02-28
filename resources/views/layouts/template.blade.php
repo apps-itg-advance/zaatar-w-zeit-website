@@ -66,7 +66,9 @@
                         @endif
                         @yield('content')
                     </div>
-
+                    <div class="cartbig-modal modal fade" id="edit-cart-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div id="edit-cart"></div>
+                    </div>
                 </div>
 
             </div>
@@ -121,8 +123,8 @@
                     type:'GET',
                     url:'{{route('carts.edit')}}'+'/'+key,
                     success:function(data){
-                        $("#edit-data-"+key).html(data);
-                        jQuery('#cartbig-modal-'+key).modal();
+                        $("#edit-cart").html(data);
+                        jQuery('#edit-cart-modal').modal();
                         //OpenCart();
                     }
                 });
