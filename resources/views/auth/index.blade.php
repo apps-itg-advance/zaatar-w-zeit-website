@@ -8,45 +8,9 @@
 </style>
 @endsection
 @section('content')
-    <form id="Register" action="#">
-        <input type="hidden" name="request_id{{$sKey}}" id="RequestId{{$sKey}}" value="{{$RequestId}}" />
-        <div class="login-modal modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-            <div class="modal-content col-sm-7 float-none p-0 mx-auto">
-                <div class="modal-body">
-                    <h3 class="text-center my-4 title text-uppercase">Create an account</h3>
-                    <div class="form-group">
-                        <label id="LoginMsg" style="color: red !important;"></label>
-                    </div>
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text"  name="first_name{{$sKey}}" id="FirstName{{$sKey}}" class="form-control" value="Joe" />
-                    </div>
-                    <div class="form-group">
-                        <label>Family Name</label>
-                        <input type="text"  name="family_name{{$sKey}}" id="FamilyName{{$sKey}}" class="form-control" value="Zaloum" />
-                    </div>
-                    <div class="form-group">
-                        <label>Mobile</label>
-                        <input type="hidden" name="country_code{{$sKey}}" id="country_code{{$sKey}}" />
-                        <input type="tel"  value="{{$mobile}}" class="form-control phone-css" name="mobile{{$sKey}}" id="mobile{{$sKey}}" />
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="text"  value="{{$email}}" readonly="readonly" class="form-control" name="email{{$sKey}}" />
-                    </div>
-                    <div class="py-5">
-                        <button type="button" id="Loginbtn"  class="btn btn-submit btn-login btn-block text-uppercase">Login</button>
-                    </div>
-                    <div class="mt-5">
-                        <p class="text-white mb-2">Not Registered yet?</p>
-                        <button type="button" class="btn btn-submit btn-login btn-block text-uppercase">Sign up</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </form>
+    @include('auth._login',array('sKey'=>$sKey));
+    @include('auth._pin',array('sKey'=>$sKey));
+    @include('auth._register',array('sKey'=>$sKey));
 @endsection
 @section('javascript')
     <script src="{{asset('assets/js/jquery.matchHeight-min.js')}}"></script>
@@ -132,7 +96,7 @@
                         {
                            // jQuery('#mobileNb{{$sKey}}').val(result.data['MobileNumber']);
                            // jQuery('#request_id{{$sKey}}').val(result.data['RequestId']);
-                           // jQuery('#country_code{{$sKey}}').val(result.data['CountryCode']);
+                           $('#Pin{{$sKey}}').val(result.data['CountryCode']);
                             jQuery('#login-modal').modal('hide');
                             jQuery('#pin-modal').modal();
                         }
@@ -152,14 +116,50 @@
                     url:'{{route('auth.pin')}}',
                     data:$("#PinForm").serialize(),
                     dataType:'json',
-                    success:function(data){
-                        if(data.message=='success')
+                    success:function(result){
+                        if(result.message=='success')
                         {
-                            location.replace('{{route('customer.index')}}'+'/'+data.type);
+                            if(result.type=='register')
+                            {
+                                 $('#R_RequestId{{$sKey}}').val(result.data['RequestId']);
+                                 $('#R_MobileNumber{{$sKey}}').val(result.data['MobileNumber']);
+                                 $('#R_Email{{$sKey}}').val(result.data['Email']);
+                                jQuery('#pin-modal').modal('hide');
+                                jQuery('#register-modal').modal();
+                            }
+                            else{
+                                location.replace('{{route('customer.index')}}'+'/'+data.type);
+                            }
                         }
                         else{
 
                             jQuery('#PinMsg').html(data.message);
+                        }
+                    }
+                });
+            });
+            $('#Registerbtn').on('click', function(event){
+                event.preventDefault();
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type:'POST',
+                    url:'{{route('auth.register')}}',
+                    data:$("#Register").serialize(),
+                    dataType:'json',
+                    success:function(result){
+                        if(result.message=='success')
+                        {
+                            // jQuery('#mobileNb{{$sKey}}').val(result.data['MobileNumber']);
+                            // jQuery('#request_id{{$sKey}}').val(result.data['RequestId']);
+                            // jQuery('#country_code{{$sKey}}').val(result.data['CountryCode']);
+                           // jQuery('#login-modal').modal('hide');
+                          //  jQuery('#pin-modal').modal();
+                            location.replace('{{route('customer.index')}}'+'/'+data.type);
+                        }
+                        else{
+                            jQuery('#RegisterMsg').html(data.message);
                         }
                     }
                 });
@@ -178,7 +178,6 @@
                     }
                 });
             });
-
             $('#Backbtn').on('click', function(event){
                 event.preventDefault();
                 $.ajax({
@@ -195,14 +194,11 @@
                             location.replace('{{route('customer.index')}}'+'/'+data.type);
                         }
                         else{
-
                             jQuery('#PinMsg').html(data.message);
                         }
                     }
                 });
             });
         });
-
-
     </script>
 @endsection
