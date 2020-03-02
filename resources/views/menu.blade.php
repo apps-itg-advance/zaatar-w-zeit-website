@@ -12,11 +12,16 @@
 
                     <input type="hidden" name="SItemId" id="SItemId">
                     <input type="hidden" name="SQty" id="SQty">
+                    <input type="hidden" name="ItemModify" id="ItemModify" value="0">
                     @foreach($query->data as $row)
                    {{csrf_field()}}
+                @php
+                    $has_meal=is_object($row->MakeMeal)  ? 1 :0;
+                @endphp
                 <div class="col-xl-6 col-lg-12 col-md-6 mb-5 col-favourite">
                     <div class="favourite-box">
                         <div class="media">
+                            <input type="hidden" id="MakeMeal{{$row->ID}}" value="{{$has_meal}}">
                             <input type="hidden" name="ItemsName[{{$row->ID}}]" value="{{$row->ItemName}}">
                             <input type="hidden" name="ItemsPLU[{{$row->ID}}]" value="{{$row->PLU}}">
                             <img src="{{$row->ThumbnailImg}}" class="mr-3 img-thum"  alt="...">
@@ -54,89 +59,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="cartbig-modal modal fade" id="cartbig-modal-{{$row->ID}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="row pl-3 pt-3 pr-3">
-                                        <div class="col-lg-6 image-col">
-                                            <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
-                                        </div>
-                                        <div class="col-lg-6 text-col">
-                                            <h5>{{$row->ItemName}}<span>{{$row->Price}}</span></h5>
-                                            <div class="info">{{$row->Details}}</div>
-                                        </div>
-                                    </div>
-                                    @php
-                                    $modifiers=$row->Modifiers;
-                                    @endphp
-
-                                    <div class="items-row row mt-4">
-                                        @foreach($modifiers as $modifier)
-                                        <div class="col-lg-4 col-md-6 item-col"  data-mh="matchHeight">
-                                            @php
-                                                $m_details=$modifier->details;
-                                                $category_name=$m_details->CategoryName;
-                                                $category_id=$m_details->ID;
-                                                $modifier_items=$m_details->items;
-                                                $max_qty=$m_details->MaxQuantity;
-                                             @endphp
-                                            <h5 class="text-uppercase text-center mb-3">{{$category_name}}</h5>
-                                            @foreach($modifier_items as $m_item)
-                                            <div class="custom-control custom-radio mb-1">
-                                                <input type="checkbox" onclick="CalculateTotal({{$category_id}},{{$max_qty}},{{$m_item->RowId}},{{$row->ID}})" id="Modifier{{$m_item->RowId}}"  name="modifiers{{$row->ID}}[{{$category_id}}][]" value="{{$m_item->ID.'-'.$m_item->PLU.'-'.$m_item->Price.'-'.$category_name.' '.$m_item->ModifierName}}" class="custom-control-input m-{{$category_id}}-{{$row->ID}}">
-                                                <label class="custom-control-label" for="Modifier{{$m_item->RowId}}">
-                                                    {{$m_item->ModifierName}}
-                                                    <span class="price">{{$m_item->Price}}</span>
-                                                </label>
-                                            </div>
-                                            @endforeach
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                    @php
-                                        $make_meal=$row->MakeMeal;
-                                    @endphp
-                                    @if(is_object($make_meal))
-                                    <div class="items-row items-meal-row row align-items-center mt-3">
-                                        <div class="col-lg-4 col-md-12 item-col">
-                                            <div class="custom-control custom-radio mb-1">
-                                                <input type="checkbox"  value="{{$make_meal->ID.'-'.$make_meal->Price}}"  onclick="CalculateMakeMealTotal({{$make_meal->ID}},{{$row->ID}})"  id="makeMealH{{$make_meal->ID}}" name="make_meal[{{$make_meal->ID}}]"  name="customRadio" class="custom-control-input">
-                                                <label class="custom-control-label text-uppercase" for="makeMealH{{$make_meal->ID}}">
-                                                    {{$make_meal->Title}}
-                                                    <span class="price">{{$make_meal->Price}}</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-12 py-3 text-left text-lg-center text-808080">
-                                            {{$make_meal->Details}}
-                                        </div>
-                                        <div class="col-lg-5 col-md-12">
-                                            @php
-                                                $meal_items=$make_meal->Items;
-                                            @endphp
-                                            @foreach($meal_items as $meal_item)
-                                            <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="checkbox" value="{{$meal_item->ID.'-'.$meal_item->PLU}}" id="makeMeal{{$meal_item->ID}}" name="make_meal[{{$meal_item->ID}}]" class="custom-control-input">
-                                                <label class="custom-control-label" for="makeMeal{{$meal_item->ID}}">{{$meal_item->Name}}</label>
-                                            </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                        @endif
-                                </div>
-                                <div class="modal-footer pt-0">
-                                    <span class="title d-inline-block">Total</span>
-                                    <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{$row->Price}} {{$currency}}</span>
-                                    <input type="hidden" id="TotalAmount{{$row->ID}}" name="TotalAmount[{{$row->ID}}]" value="{{$row->Price}}">
-                                    <button class="btn btn-8DBF43 text-uppercase" onclick="SubmitForm({{$row->ID}})">Confirm</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                @include('menu._menu_details',array('row'=>$row))
+                @include('menu._make_meal',array('row'=>$row))
                 @endforeach
 
             </div>
@@ -149,12 +73,30 @@
 @section('javascript')
     <script src="{{asset('assets/js/jquery.matchHeight-min.js')}}"></script>
     <script type="text/javascript">
+        function CustomizeItem() {
+            $("#ItemModify").val(1);
+        }
 
         function OpenModel(id) {
             $("#SItemId").val(id);
             var qty=$("#qty_"+id).val();
             $("#SQty").val(qty);
             jQuery('#cartbig-modal-'+id).modal();
+            return false;
+        }
+        function MakeMealModel(id) {
+
+            var hasM= $("#MakeMeal"+id).val();
+            $("#SItemId").val(id);
+            var qty=$("#qty_"+id).val();
+            $("#SQty").val(qty);
+            if(hasM >0){
+                jQuery('#makeMeal-modal'+id).modal();
+            }
+            else{
+
+                AddToCart();
+            }
             return false;
         }
         function CalculateTotal(cat_id,max_qty,id,item_id) {
@@ -169,7 +111,6 @@
             var GCount=parseInt($('.'+GroupCss+':checked').length);
             if(max_qty >0 && GCount>max_qty)
             {
-                alert('Max Qty :'+max_qty);
                 $("#"+CheckId).prop('checked', false);
                 return false;
             }
@@ -202,18 +143,39 @@
                     var nTotal=parseFloat($("#TotalAmount"+item_id).val())-parseFloat(res[1]);
                 }
 
-                $("#TotalAmount"+item_id).val(nTotal);
-                $("#DisplayTotal"+item_id).text(nTotal+' LBP');
+               // $("#TotalAmount"+item_id).val(nTotal);
+                $("#DisplayTotal"+item_id).text(nTotal+' {{$currency}}');
             }
+        function CalculateMakeMealTotalQ(id,item_id) {
+            var CheckId='makeMealL'+id;
+
+            var mVal=$("#"+CheckId).val();
+            var res = mVal.split("-");
+
+            if($("#"+CheckId).is(':checked'))
+            {
+                var nTotal=parseFloat($("#TotalAmountQ"+item_id).val())+parseFloat(res[1]);
+            }
+            else{
+                var nTotal=parseFloat($("#TotalAmountQ"+item_id).val())-parseFloat(res[1]);
+            }
+            $("#TotalAmountQ"+item_id).val(nTotal);
+            $("#DisplayTotalQ"+item_id).text(nTotal+' {{$currency}}');
+        }
+
         function AddQty(id) {
+
             var currentTotal=parseFloat($("#TotalAmount"+id).val());
             var ItemId="qty_"+id;
             var currentQty=parseInt($("#"+ItemId).val());
             var newQty=currentQty+1;
             $("#"+ItemId).val(newQty);
-            var newTotal=currentTotal*newQty;
+            var newTotal=currentTotal;
             $("#TotalAmount"+id).val(newTotal);
             $("#DisplayTotal"+id).text(newTotal+' LBP');
+
+             MakeMealModel(id);
+
         }
         function SubQty(id) {
             var currentTotal=parseFloat($("#TotalAmount"+id).val());
@@ -230,8 +192,8 @@
 
 
         }
-        $('#Form').on('submit', function(event){
-            event.preventDefault();
+        function AddToCart()
+        {
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -245,6 +207,12 @@
                     jQuery('.cartbig-modal').modal('hide');
                 }
             });
+
+        }
+        $('#Form').on('submit', function(event){
+            event.preventDefault();
+            AddToCart();
+
         });
         function SetFavourite(item)
         {

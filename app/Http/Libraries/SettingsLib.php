@@ -200,6 +200,15 @@ class SettingsLib
         $res=$query->data;
         return $res;
     }
+    public static function GetLoyaltyLevels()
+    {
+        $_org=self::GetSelectedCompany();
+        $loyalty_id=session()->get('loyalty_id');
+        $url=env('BASE_URL').'LoyaltiesApi/GetLoyaltyLevel?token='.$_org->token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+        $query=Helper::getApi($url);
+        $res=$query->data;
+        return $res;
+    }
 
 
 }

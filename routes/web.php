@@ -20,6 +20,8 @@ Route::get('/menu/details/{id}', function($id){
 Route::post('/cart/store', 'CartController@store')->name('carts.store');
 Route::get('/cart', 'CartController@index')->name('carts.index');
 Route::get('/cart/delete/{id?}', 'CartController@delete')->name('carts.delete');
+Route::get('/cart/delete-meal/{id?}', 'CartController@delete_meal')->name('carts.delete.meal');
+Route::get('/cart/copy-item/{id?}', 'CartController@copy_item')->name('carts.copy.item');
 Route::get('/cart/add-qty/{id?}', 'CartController@add_qty')->name('carts.add_qty');
 Route::get('/cart/edit/{id?}', 'CartController@edit')->name('carts.edit');
 Route::post('/cart/update/{id?}', 'CartController@update')->name('carts.update');
@@ -31,6 +33,7 @@ Route::get('/login', 'Auth\LoginController@index')->name('auth.login');
 Route::post('/signin', 'Auth\LoginController@signin')->name('auth.signin');
 Route::post('/pin', 'Auth\LoginController@pin')->name('auth.pin');
 Route::post('/pin-resend', 'Auth\LoginController@resend_pin')->name('auth.pinresend');
+Route::post('/register', 'Auth\LoginController@register')->name('auth.register');
 Route::get('/switch-org/{id?}', 'Controller@switch_organization')->name('switch.organization');
 
 

@@ -29,10 +29,21 @@
                         {{implode(', ',$md_array )}}
                     </div>
                     <div class="cart-btns">
-                        <a href="addQty({{$key}},'')"><img src="{{asset('assets/images/icon-cart-edit.png')}}" /></a>
-                        <a href="#"><img src="{{asset('assets/images/icon-cart-add.png')}}" /></a>
-                        <a href="#" onclick="_deleteItem({{$key}})"><img src="{{asset('assets/images/icon-cart-delete.png')}}" /></a>
+                        <a href="javascript:void(0)" onclick="editItem({{$key}})"><img src="{{asset('assets/images/icon-cart-edit.png')}}" /></a>
+                        <a href="javascript:void(0)" onclick="_copyItem({{$key}})"><img src="{{asset('assets/images/icon-cart-add.png')}}" /></a>
+                        <a href="javascript:void(0)" onclick="_deleteItem({{$key}})"><img src="{{asset('assets/images/icon-cart-delete.png')}}" /></a>
                     </div>
+                    @if(isset($values['meal']))
+                        @php
+                            $meal=$values['meal'];
+                        @endphp
+                        @if($meal!=null)
+                    <div class="speacial-meal bg-8DBF43">
+                        MEAL <span class="d-inline-block mx-3">{{$meal['name']}}</span><span class="d-inline-block">{{$meal['price']}}</span>
+                        <a href="javascript:void(0)" onclick="_deleteMeal({{$key}})" class="close"><img src="{{asset('assets/images/icon-close-white.png')}}" /></a>
+                    </div>
+                    @endif
+                    @endif
                 </div>
             @endforeach
             @endif

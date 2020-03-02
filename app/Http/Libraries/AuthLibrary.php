@@ -49,14 +49,26 @@ class AuthLibrary
     {
         $Skey=session()->get('skey');
         $data=$res->data;
-        if($res->type=='login')
-        {
-
-        }
         $loyalty_id=$data->customer->details->LoyaltyId;
         $org_id=$data->customer->details->OrgId;
         session()->put('user'.$Skey,$data->customer);
         session()->put('addresses'.$Skey,$data->addresses);
+        session()->put('is_login',true);
+        session()->put('token',$data->token);
+        session()->put('loyalty_id',$loyalty_id);
+        session()->put('OrgId',$org_id);
+        SettingsLib::UserTokens($loyalty_id);
+
+
+    }
+    public static function RegisterSession($res)
+    {
+        $Skey=session()->get('skey');
+        $data=$res->data;
+        $loyalty_id=$data->details->LoyaltyId;
+        $org_id=$data->details->OrgId;
+        session()->put('user'.$Skey,$data->details);
+        //session()->put('addresses'.$Skey,$data->addresses);
         session()->put('is_login',true);
         session()->put('token',$data->token);
         session()->put('loyalty_id',$loyalty_id);
@@ -92,5 +104,25 @@ class AuthLibrary
         $url=env('BASE_URL').'auth/ResendSMS';
         $query=Helper::postApi($url,$post_array);
         return $query;
+    }
+    public static function Register($array)
+    {
+        $s_org=session()->get('_org');
+        $Skey=session()->get('skey');
+        $post_array['token']=$s_org->token;
+        $post_array['organization_id']=$s_org->id;
+        $post_array['channel_id']=1;
+        $post_array['RequestId']=$array['request_id'.$Skey];
+        $post_array['MobileNumber']=$array['mobile'.$Skey];
+        $post_array['Email']=$array['email'.$Skey];
+        $post_array['FirstName']=$array['first_name'.$Skey];
+        $post_array['LastName']=$array['family_name'.$Skey];
+        $post_array['Gender']=$array['gender'.$Skey];
+
+        $url=env('BASE_URL').'auth/Register';
+        $query=Helper::postApi($url,$post_array);
+        return $query;
+
+
     }
 }

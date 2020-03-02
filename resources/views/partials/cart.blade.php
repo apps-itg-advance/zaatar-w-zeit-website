@@ -27,6 +27,30 @@
                 }
             });
         }
+        function _deleteMeal(id) {
+            $.ajax({
+                type:'GET',
+                url:'{{route('carts.delete.meal')}}'+'/'+id,
+                success:function(data){
+                    _getCountCartItems();
+                    LoadCart();
+                    return false;
+                    //OpenCart();
+                }
+            });
+        }
+        function _copyItem(id) {
+            $.ajax({
+                type:'GET',
+                url:'{{route('carts.copy.item')}}'+'/'+id,
+                success:function(data){
+                    _getCountCartItems();
+                    LoadCart();
+                    return false;
+                }
+            });
+        }
+
         function _destroyCart() {
             $.ajax({
                 type:'GET',

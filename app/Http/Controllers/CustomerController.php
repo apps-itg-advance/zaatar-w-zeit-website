@@ -23,16 +23,27 @@ class CustomerController extends Controller
         $type=$type ? $type : 'login';
         $class_css='profile-wrapper';
         $flag=true;
-        if(!session()->has('user'))
-        {
-            //AuthLibrary::LogOut();
-            //redirect(route('auth.login'));
-        }
         $cities=SettingsLib::GetCities();
+        $loyalty_levels=SettingsLib::GetLoyaltyLevels();
+
         $query=session()->has('user'.$Skey) ? session()->get('user'.$Skey) : array();
+        $current_max=$query->LevelMaxCollection;
+        $next_level=array();
+        if(count($loyalty_levels)>0)
+        {
+            foreach ($loyalty_levels as $loyalty_level)
+            {
+                if($loyalty_level->MinYearlyCollection==$current_max+1)
+                {
+                    $next_level=$loyalty_level;
+                    $next_level->NeededPoints=$loyalty_level->MinYearlyCollection-$query->TierBalance;
+                    break;
+                }
+            }
+        }
         $addresses=session()->has('addresses'.$Skey) ? session()->get('addresses'.$Skey) : array();
 
-        return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities'));  //
+        return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level'));  //
     }
 
     public function orders()

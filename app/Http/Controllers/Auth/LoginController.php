@@ -38,15 +38,20 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        parent::__construct();
+       $this->middleware('guest')->except('logout');
     }
     public function index()
     {
+        if(session()->has('is_login') and session()->get('is_login')==true)
+        {
+            return redirect(route('customer.index'));
+        }
         $query=array();
         $body_css='login-bg';
         $sKey= session()->get('skey');
         $flag='testnav';
-        return view('auth.login',compact('query','body_css','sKey','flag'));
+        return view('auth.index',compact('query','body_css','sKey','flag'));
     }
     public function signin(Request $request)
     {
@@ -81,10 +86,17 @@ class LoginController extends Controller
         $request_id=session()->get($request_id_key);
         $pin=$request->input($pin_key);
         $res=AuthLibrary::PinConfirmation(array('mobile'=>$mobile,'country_code'=>$country_code,'request_id'=>$request_id,'pin'=>$pin));
+
         if($res->message=='success')
         {
-            AuthLibrary::LoginSession($res);
+            if($res->type=='login')
+            {
+                AuthLibrary::LoginSession($res);
+            }
+
+
         }
+
         echo json_encode($res);
     }
     public function resend_pin()
@@ -95,6 +107,19 @@ class LoginController extends Controller
     public function logout()
     {
         AuthLibrary::LogOut();
-        return redirect(route('auth.login'));
+        return redirect(route('home.menu'));
+    }
+
+    public function register(Request $request)
+    {
+        $_array=$request->input();
+        $res=AuthLibrary::Register($_array);
+
+        if($res->message=='success')
+        {
+           AuthLibrary::RegisterSession($res);
+        }
+
+        echo json_encode($res);
     }
 }

@@ -12,11 +12,10 @@
             <div class="summary-items">
                 @php
                     $_total=0;
-
                 @endphp
                 @foreach($cart as $key=>$values)
                 <div class="summary-item mb-4">
-                    <h4><span id="Qty-{{$key}}">{{$values['quantity']}} </span>{{$values['name']}} <span class="d-inline-block ml-3">{{$values['price']}}</span></h4>
+                    <h4>{{$values['name']}} <span class="d-inline-block ml-3">{{$values['price']}}</span></h4>
                     <div class="info text-808080">
                         @php
 
@@ -27,18 +26,19 @@
                             {
                                 array_push($md_array,$modifiers[$i]['name']);
                             }
+                        $meal=$values['meal'];
                         @endphp
                         {{implode(', ',$md_array )}}
+
+                        {!! isset($meal['name'])? '<br>Make meal : '.$meal['name'].' '.$meal['price']:'' !!}
                     </div>
                     <div class="buttons">
-                        <a href="javascript:void(0)" onclick="addItemQty({{$key}},'Qty-','TotalV')" class="d-inline-block mx-1"><img src="{{asset('assets/images/icon-checkout-plus.png')}}" /></a>
+                        <a href="javascript:void(0)" onclick="_copyItem({{$key}})" class="d-inline-block mx-1"><img src="{{asset('assets/images/icon-checkout-plus.png')}}" /></a>
                         <a href="javascript:void(0)" onclick="editItem({{$key}})" class="d-inline-block"><img src="{{asset('assets/images/icon-checkout-edit.png')}}" /></a>
-                        <a href="#" class="d-inline-block"><img src="{{asset('assets/svg/icon-checkout-close.svg')}}" class="icon-checkou" /></a>
+                        <a href="javascript:void(0)"  onclick="_deleteItem({{$key}})" class="d-inline-block"><img src="{{asset('assets/svg/icon-checkout-close.svg')}}" class="icon-checkou" /></a>
                     </div>
                 </div>
-                    <div class="cartbig-modal modal fade" id="cartbig-modal-{{$key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div id="edit-data-{{$key}}"></div>
-                    </div>
+
 
                 @endforeach
             </div>
@@ -62,6 +62,24 @@
         $(".confirm").click(function(){
             window.location = '{{route('checkout.address')}}';
         });
-
+        function _copyItem(id) {
+            $.ajax({
+                type:'GET',
+                url:'{{route('carts.copy.item')}}'+'/'+id,
+                success:function(data){
+                    window.location = '{{route('checkout.summary')}}';
+                }
+            });
+        }
+        function _deleteItem(id) {
+            $.ajax({
+                type:'GET',
+                url:'{{route('carts.delete')}}'+'/'+id,
+                success:function(data){
+                    window.location = '{{route('checkout.summary')}}';
+                    //OpenCart();
+                }
+            });
+        }
     </script>
 @endsection
