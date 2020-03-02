@@ -43,6 +43,10 @@ class LoginController extends Controller
     }
     public function index()
     {
+        if(session()->has('is_login') and session()->get('is_login')==true)
+        {
+            return redirect(route('customer.index'));
+        }
         $query=array();
         $body_css='login-bg';
         $sKey= session()->get('skey');

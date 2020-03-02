@@ -5,6 +5,24 @@
     .phone-css{
         padding-left: 75px !important;
     }
+    .intl-tel-input {
+        display: table-cell;
+    }
+
+    .intl-tel-input .selected-flag {
+        z-index: 4;
+    }
+
+    .intl-tel-input .country-list {
+        z-index: 5;
+    }
+
+    .input-group .intl-tel-input .form-control {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 0;
+    }
 </style>
 @endsection
 @section('content')
@@ -149,6 +167,7 @@
                     data:$("#Register").serialize(),
                     dataType:'json',
                     success:function(result){
+
                         if(result.message=='success')
                         {
                             // jQuery('#mobileNb{{$sKey}}').val(result.data['MobileNumber']);
@@ -156,10 +175,10 @@
                             // jQuery('#country_code{{$sKey}}').val(result.data['CountryCode']);
                            // jQuery('#login-modal').modal('hide');
                           //  jQuery('#pin-modal').modal();
-                            location.replace('{{route('customer.index')}}'+'/'+data.type);
+                            location.replace('{{route('customer.index')}}');
                         }
                         else{
-                            jQuery('#RegisterMsg').html(data.message);
+                            jQuery('#RegisterMsg').html(result.message);
                         }
                     }
                 });

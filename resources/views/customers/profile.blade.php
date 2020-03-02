@@ -4,11 +4,44 @@
 @endsection
 
 @section('content')
+    <style>
+        .arrow {
+            width: 400px;
+            height: 400px;
+            border: 50px solid #0E9A00;
+            border-radius: 50%;
+            position: relative;
+        }
+        .arrow:before {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 30px;
+            background: #0E9A00;
+            position: absolute;
+            bottom: 0;
+            top: 0;
+            right: -75px;
+            margin: auto;
+        }
+        .arrow:after {
+            content: "";
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-top: 50px solid #0E9A00;
+            position: absolute;
+            bottom: 106px;
+            right: -50px;
+        }
+    </style>
     <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12 col-favourite-items">
-        <div class="title-div mb-4 pb-2">
-            <h2 class="title">Loyalty</h2>
-        </div>
+
         <div class="col-xl-12 float-none p-0 mx-auto">
+            <div class="title-div mb-4 pb-2">
+                <h2 class="title">Loyalty</h2>
+            </div>
             <div class="loyaltygraph-wrapper">
                 <div class="user-div">
                     @php
@@ -19,11 +52,10 @@
                         }
                     @endphp
                     <h4>{{@$details->FirstName.' '.@$details->LastName}}</h4>
-                    <button type="button" id="edit-profile" class="btn btn-8DBF43 text-uppercase">Edit Profile</button><br>
-                    <button onclick="window.location = '{{route('customer.orders')}}';" type="button" class="btn btn-8DBF43 text-uppercase">Order History</button>
+                    <button type="button" id="edit-profile" class="btn btn-8DBF43 text-uppercase">Edit Profile</button>
                 </div>
                 <div class="col-xl-8 col-lg-10 float-none p-0 mx-auto loyaltygraph-div pt-4 mb-5 pb-3">
-                    <img src="{{asset('assets/images/loyalty.png')}}" class="img-fluid d-block mx-auto" />
+                    <div class="arrow"></div>
                 </div>
                 <div class="col-xl-10 col-lg-10 float-none p-0 mx-auto wallet-wrapper">
                     <div class="title-div mb-4">
