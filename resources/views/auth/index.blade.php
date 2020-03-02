@@ -38,6 +38,8 @@
         $('body').on('click keydown','#country-listbox li', function(e){
             if ( e.which == 13 || e.which == 1 ) {
                 var code = $(this).find('.iti__dial-code').text();
+
+
                 $('input[type="hidden"][name="country_code{{$sKey}}"]').val(code);
             }
         });
@@ -45,10 +47,7 @@
 
 
         jQuery(document).ready( function() {
-            $('body').on('load','#country-listbox li', function(e){
-                var code = $(this).find('.iti__dial-code').text();
-                $('input[type="hidden"][name="country_code{{$sKey}}"]').val(code);
-            });
+
             var input = document.querySelector(".phone-css");
             window.intlTelInput(input, {
                 allowDropdown: true,
@@ -63,7 +62,7 @@
                 //     callback(countryCode);
                 //   });
                 // },
-                hiddenInput: "full_number{{$sKey}}",
+                hiddenInput: "full_number",
                 // initialCountry: "auto",
                 // localizedCountries: { 'de': 'Deutschland' },
                 // nationalMode: false,
@@ -73,6 +72,8 @@
                 separateDialCode: true,
                 utilsScript: "{{asset('assets/phone-input/js/utils.js')}}",
             });
+                var code = $("#country-listbox").find('.iti__active').data('dial-code');
+                $('input[type="hidden"][name="country_code{{$sKey}}"]').val(code);
             @php
             $fkey='LoginRequestId'.$sKey;
             if (session()->has($fkey)) {
