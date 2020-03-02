@@ -76,18 +76,6 @@
     src: url('../fonts/futura-fonts/futura medium condensed bt.ttf');
 }
 
-
-
-@font-face {
-    font-family: 'Futura-Std-Heavy';
-    src: url('../fonts/Futura/Futura Std Heavy.ttf');
-}
-
-@font-face {
-    font-family: 'Futura-Std-Medium';
-    src: url('../fonts/Futura/Futura Std Medium.ttf');
-}
-
 .futura-b{
 	font-family: 'Futura-B' !important;
 }
@@ -101,7 +89,7 @@
 }
 
 .futura-medium{
-	font-family: 'Futura-Medium' !important;
+	font-family: 'Futura-Medium-BT' !important;
 }
 
 .futura-light{
