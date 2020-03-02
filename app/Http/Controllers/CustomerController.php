@@ -41,7 +41,6 @@ class CustomerController extends Controller
                 }
             }
         }
-        dump($next_level);
         $addresses=session()->has('addresses'.$Skey) ? session()->get('addresses'.$Skey) : array();
 
         return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level'));  //
