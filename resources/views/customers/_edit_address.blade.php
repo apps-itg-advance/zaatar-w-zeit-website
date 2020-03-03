@@ -20,7 +20,6 @@
 
                                 $main_address=array();
 
-
                                     $selectedCity=$address->CityId;
                                     $array_line2=explode('Bldg',$address->Line2);
                                     $array_apartment=explode('Ext:',$address->AptNumber);
@@ -34,8 +33,6 @@
                                         $floor=@$array_apartment[0];
                                         $ext=@$array_apartment[1];
                                     }
-
-
 
                         @endphp
                         <div class="col-md-6">
@@ -110,7 +107,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase">Confirm</button>
+                    <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase futura-book">Confirm</button>
                 </div>
             </form>
         </div>

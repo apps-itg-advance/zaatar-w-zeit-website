@@ -15,7 +15,7 @@
             <div class="modal-body py-0 col-xl-12 orders-wrapper float-none mx-auto">
                 <div class="row">
                     <div class="col-md-6 offset-2">
-                        <h2 class="futura-medium">Order Summary</h2>
+                        <h2 class="futura-book">Order Summary</h2>
                     </div>
                 </div>
                 <div class="order-box">
@@ -145,7 +145,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase confirm float-right">Confirm</button>
+                <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase confirm float-right futura-book">Confirm</button>
             </div>
         </div>
     </div>

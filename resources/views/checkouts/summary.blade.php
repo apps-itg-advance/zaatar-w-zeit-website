@@ -7,7 +7,7 @@
         @include('partials.checkout_bread')
         <div class="col-xl-6 col-lg-8 col-md-9 col-sm-12 item-summary float-none p-0 mx-auto">
             <div class="title-div mb-4">
-                <h4 class="title">Summary</h4>
+                <h4 class="title ml-0">Summary</h4>
             </div>
             <div class="summary-items">
                 @php

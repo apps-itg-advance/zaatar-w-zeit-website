@@ -13,7 +13,7 @@
         @php
             $array_colors=array('bg-AFD27C','bg-9DBFC1','bg-808080','bg-8DBF43');
         @endphp
-        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-10 float-none p-0 mx-auto item-summary wallet-wrapper">
+        <div class="col-xl-6 col-lg-9 col-md-9 col-sm-10 float-none p-0 mx-auto item-summary wallet-wrapper">
 
             <div class="title-div">
                 <h2 class="title ml-0">Wallet</h2>
