@@ -3,14 +3,17 @@
         <div class="modal-content">
             <form action="{{route('customer.store')}}" method="post">
                 @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Edit Address</h5>
+                <div class="modal-header border-0">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body col-xl-10 float-none mx-auto">
-
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="futura-medium">Edit Address</h2>
+                        </div>
+                    </div>
                     <div class="row">
                         <input type="hidden" name="AddressId{{$skey}}" value="{{$address->ID}}">
                         <input type="hidden" name="LoyaltyId" value="{{@$details->LoyaltyId}}">

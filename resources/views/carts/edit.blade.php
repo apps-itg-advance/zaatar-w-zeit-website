@@ -12,7 +12,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <div class="row align-items-center">
+            <div class="row">
                 <div class="col-lg-6 image-col">
                     <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                 </div>
