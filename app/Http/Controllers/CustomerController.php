@@ -25,9 +25,8 @@ class CustomerController extends Controller
         $flag=true;
         $cities=SettingsLib::GetCities();
         $loyalty_levels=SettingsLib::GetLoyaltyLevels();
-
         $query=session()->has('user'.$Skey) ? session()->get('user'.$Skey) : array();
-        $current_max=$query->LevelMaxCollection;
+        $current_max=$query->details->LevelMaxCollection;
         $next_level=array();
         if(count($loyalty_levels)>0)
         {
