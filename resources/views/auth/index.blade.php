@@ -147,12 +147,12 @@
                                 jQuery('#register-modal').modal();
                             }
                             else{
-                                location.replace('{{route('customer.index')}}'+'/'+data.type);
+                                location.replace('{{route('customer.index')}}'+'/'+result.type);
                             }
                         }
                         else{
 
-                            jQuery('#PinMsg').html(data.message);
+                            jQuery('#PinMsg').html(result.message);
                         }
                     }
                 });
