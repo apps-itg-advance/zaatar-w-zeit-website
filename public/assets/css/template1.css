@@ -1,55 +1,87 @@
 
-@font-face {
-    font-family: 'Futura-Light';
-    src: url('../fonts/Futura-Light/Futura-Light.eot');
-    src: url('../fonts/Futura-Light/Futura-Light.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/Futura-Light/Futura-Light.woff2') format('woff2'),
-    url('../fonts/Futura-Light/Futura-Light.woff') format('woff'),
-    url('../fonts/Futura-Light/Futura-Light.ttf') format('truetype'),
-    url('../fonts/Futura-Light/Futura-Light.svg#Futura-Light') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
-@font-face {
-    font-family: 'Futura-Medium';
-    src: url('../fonts/Futura-Medium/Futura-Medium.eot');
-    src: url('../fonts/Futura-Medium/Futura-Medium.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/Futura-Medium/Futura-Medium.woff2') format('woff2'),
-    url('../fonts/Futura-Medium/Futura-Medium.woff') format('woff'),
-    url('../fonts/Futura-Medium/Futura-Medium.ttf') format('truetype'),
-    url('../fonts/Futura-Medium/Futura-Medium.svg#Futura-Medium') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
 /*@font-face {*/
-    /*font-family: 'Futura-Bold';*/
-    /*src: url('../fonts/Futura-Bold/Futura-Bold.eot');*/
-    /*src: url('../fonts/Futura-Bold/Futura-Bold.eot?#iefix') format('embedded-opentype'),*/
-    /*url('../fonts/Futura-Bold/Futura-Bold.woff2') format('woff2'),*/
-    /*url('../fonts/Futura-Bold/Futura-Bold.woff') format('woff'),*/
-    /*url('../fonts/Futura-Bold/Futura-Bold.ttf') format('truetype'),*/
-    /*url('../fonts/Futura-Bold/Futura-Bold.svg#Futura-Bold') format('svg');*/
+    /*font-family: 'Futura-Light';*/
+    /*src: url('../fonts/Futura-Light/Futura-Light.eot');*/
+    /*src: url('../fonts/Futura-Light/Futura-Light.eot?#iefix') format('embedded-opentype'),*/
+    /*url('../fonts/Futura-Light/Futura-Light.woff2') format('woff2'),*/
+    /*url('../fonts/Futura-Light/Futura-Light.woff') format('woff'),*/
+    /*url('../fonts/Futura-Light/Futura-Light.ttf') format('truetype'),*/
+    /*url('../fonts/Futura-Light/Futura-Light.svg#Futura-Light') format('svg');*/
     /*font-weight: normal;*/
     /*font-style: normal;*/
 /*}*/
 
+
+/*@font-face {*/
+    /*font-family: 'Futura-Medium';*/
+    /*src: url('../fonts/Futura-Medium/Futura-Medium.eot');*/
+    /*src: url('../fonts/Futura-Medium/Futura-Medium.eot?#iefix') format('embedded-opentype'),*/
+    /*url('../fonts/Futura-Medium/Futura-Medium.woff2') format('woff2'),*/
+    /*url('../fonts/Futura-Medium/Futura-Medium.woff') format('woff'),*/
+    /*url('../fonts/Futura-Medium/Futura-Medium.ttf') format('truetype'),*/
+    /*url('../fonts/Futura-Medium/Futura-Medium.svg#Futura-Medium') format('svg');*/
+    /*font-weight: normal;*/
+    /*font-style: normal;*/
+/*}*/
+
+/*@font-face {*/
+    /*font-family: 'Futura-Bold';*/
+    /*src: url('../fonts/Futura-Bold/Futura-Bold.ttf');*/
+/*}*/
+
+
+
+@font-face {
+    font-family: 'Futura-B';
+    src: url('../fonts/futura-fonts/unicode.futurab.ttf');
+}
+
+@font-face {
+    font-family: 'Futura-Heavy';
+    src: url('../fonts/futura-fonts/Futura Heavy font.ttf');
+}
+
+@font-face {
+    font-family: 'Futura-BB';
+    src: url('../fonts/futura-fonts/unicode.futurabb.ttf');
+}
+
+@font-face {
+    font-family: 'Futura-Extra-Black';
+    src: url('../fonts/futura-fonts/Futura Extra Black font.ttf');
+}
+
 @font-face {
     font-family: 'Futura-Bold';
-    src: url('../fonts/Futura-Bold/Futura-Bold.ttf');
+    src: url('../fonts/futura-fonts/Futura Bold font.ttf');
 }
 
 @font-face {
-    font-family: 'Futura-Std-Heavy';
-    src: url('../fonts/Futura/Futura Std Heavy.ttf');
+    font-family: 'Futura-Book';
+    src: url('../fonts/futura-fonts/Futura Book font.ttf');
 }
 
 @font-face {
-    font-family: 'Futura-Std-Medium';
-    src: url('../fonts/Futura/Futura Std Medium.ttf');
+    font-family: 'Futura-Light';
+    src: url('../fonts/futura-fonts/Futura Light font.ttf');
+}
+
+@font-face {
+    font-family: 'Futura-Medium-BT';
+    src: url('../fonts/futura-fonts/futura medium bt.ttf');
+}
+
+@font-face {
+    font-family: 'Futura-Medium-Condensed';
+    src: url('../fonts/futura-fonts/futura medium condensed bt.ttf');
+}
+
+.futura-b{
+	font-family: 'Futura-B' !important;
+}
+
+.futura-bb{
+	font-family: 'Futura-BB' !important;
 }
 
 .futura-bold{
@@ -57,7 +89,7 @@
 }
 
 .futura-medium{
-	font-family: 'Futura-Medium' !important;
+	font-family: 'Futura-Medium-BT' !important;
 }
 
 .futura-light{
@@ -201,7 +233,7 @@ button {
 .btn-808080:focus { background: #808080; color: #FFFFFF;}
 
 
-.title-div .title { font-size: 35px; color: #4D4D4D; font-family: 'Futura-Medium';}
+.title-div .title { font-size: 35px; color: #4D4D4D; font-family: 'Futura-Book';}
 
 
 
@@ -210,12 +242,12 @@ button {
 
 /***** HEADER WRAPPER *****/
 
-.header-wrapper .main-nav a { text-transform: uppercase; color: #FFFFFF; font-family: 'Futura-Bold'; font-size: 20px; padding-left: 20px; padding-right: 20px; position: relative; margin-left: 20px; margin-right: 20px;}
+.header-wrapper .main-nav a { text-transform: uppercase; color: #FFFFFF; font-family: 'Futura-B'; font-size: 20px; padding-left: 20px; padding-right: 20px; position: relative; margin-left: 20px; margin-right: 20px;}
 .header-wrapper .main-nav a.active,.header-wrapper .main-nav a:hover { color: #8DBF43;}
 .header-wrapper .main-nav a.active:after,.header-wrapper .main-nav a:hover:after { content: ''; background: #8DBF43; height: 5px; width: 100%; display: block; position: absolute; bottom: -15px; left: 0;}
 
 .header-wrapper .cart-col { color: #FFFFFF;}
-.header-wrapper .cart-col .cart-link { color: #FFFFFF; font-family: 'Futura-Bold'; background: url("../svg/icon-cart.svg") no-repeat center center #4D4D4D; height: 44px; width: 44px; text-align: center; float: right; padding-top: 9px; font-size: 24px; border: none; background-size: 100%;}
+.header-wrapper .cart-col .cart-link { color: #FFFFFF; font-family: 'Futura-Bold'; background: url("../svg/icon-cart.svg") no-repeat center center #4D4D4D; height: 44px; width: 44px; text-align: center; float: right; padding-top: 11px; font-size: 20px; border: none; background-size: 100%;}
 .header-wrapper .cart-col .cart-link:after { display: none;}
 
 .header-wrapper .lebanon-a.dropdown-toggle { border: none;}
@@ -232,8 +264,8 @@ button {
     box-shadow: 0px 0px 28px -13px rgba(0,0,0,0.75);
 }
 
-.cartbox-wrapper .cart-dropdown .title { font-family: 'Futura-Bold'; color: #4D4D4D; font-size: 28px; margin-bottom: 30px; margin-top: 10px;}
-.cartbox-wrapper .cart-dropdown .user { font-family: 'Futura-Bold'; color: #8DBF43; font-size: 18px;}
+.cartbox-wrapper .cart-dropdown .title { font-family: 'Futura-B'; color: #4D4D4D; font-size: 24px; margin-bottom: 30px; margin-top: 10px;}
+.cartbox-wrapper .cart-dropdown .user { font-family: 'Futura-B'; color: #8DBF43; font-size: 18px;}
 .cartbox-wrapper .cart-dropdown.empty-cart .action-buttons {
     position: absolute;
     width: 100%;
@@ -241,7 +273,7 @@ button {
     left: 0;
 }
 .cartbox-wrapper .cart-dropdown .action-buttons .btn {
-    border-radius: 20px; padding: 6px 20px; font-family: 'Futura-Medium';
+    border-radius: 20px; padding: 6px 20px; font-family: 'Futura-Medium-BT';
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
@@ -251,12 +283,12 @@ button {
 .cartbox-wrapper .cart-dropdown .speacial-meal .close { opacity: 1; margin-top: -4px;}
 .cartbox-wrapper .cart-dropdown .cart-items { min-height: 300px;}
 .cartbox-wrapper .cart-dropdown .cart-items .notice { font-size: 20px;}
-.cartbox-wrapper .cart-dropdown .carttotal-block .delivery-fee { font-family: 'Futura-Medium'}
+.cartbox-wrapper .cart-dropdown .carttotal-block .delivery-fee { font-family: 'Futura-Medium-BT'}
 .cartbox-wrapper .cart-dropdown .cart-item { font-size: 15px; position: relative;}
-.cartbox-wrapper .cart-dropdown .cart-item .name { font-size: 15px;font-family: 'Futura-Medium'}
+.cartbox-wrapper .cart-dropdown .cart-item .name { font-size: 15px;font-family: 'Futura-Medium-BT'}
 .cartbox-wrapper .cart-dropdown .cart-item .info { width: 200px; font-size: 14px; line-height: normal;}
 .cartbox-wrapper .cart-dropdown .cart-item .cart-btns { position: absolute; top: -4px; right: 0;}
-.cartbox-wrapper .total-fee { font-family: 'Futura-Bold'; font-size: 18px;}
+.cartbox-wrapper .total-fee { font-family: 'Futura-B'; font-size: 16px;}
 .cartbox-wrapper .cart-dropdown .action-buttons { }
 .cartbox-wrapper .cart-dropdown .cart-item .cart-btns img{width: 22px;height: 22px;}
 
@@ -268,7 +300,7 @@ button {
 .content-wrapper .items-container .media { margin-bottom: 5px; padding: 10px; border: 1px solid #FFFFFF; border-radius: 6px;}
 .content-wrapper .items-container .media img { min-width: 60px;}
 .content-wrapper .items-container .media.active { border-color: #8DBF43;}
-.content-wrapper .items-container .media h5 { font-size: 17px; font-family: 'Futura-Bold'; color: #808080; margin-bottom: 0;}
+.content-wrapper .items-container .media h5 { font-size: 15px; font-family: 'Futura-B'; color: #808080; margin-bottom: 0;}
 .content-wrapper .items-container .media h5 a { color: #808080;}
 .content-wrapper .items-container .media.active h5 a { color: #8DBF43;}
 
@@ -284,11 +316,11 @@ button {
 }
 .content-wrapper .favourite-box.active { border-color: #8dbf43;}
 .content-wrapper .favourite-box .media { padding: 15px; border-bottom: 1px solid #BFBFBF;}
-.content-wrapper .favourite-box .mediabox { padding: 10px 0;font-family: 'Futura-Medium';}
+.content-wrapper .favourite-box .mediabox { padding: 10px 0;font-family: 'Futura-Medium-BT';}
 .content-wrapper .favourite-box .media .media-body h5 { color: #4D4D4D;}
-.content-wrapper .favourite-box .media .media-body a { color: #4D4D4D;font-family: 'Futura-Medium';font-size: 18px; }
-.content-wrapper .favourite-box .media .media-body .price { float: right;font-family: 'Futura-Medium';font-size: 18px;}
-.content-wrapper .favourite-box .content { font-family: 'Futura-Medium'; font-size: 14px;}
+.content-wrapper .favourite-box .media .media-body a { color: #4D4D4D;font-family: 'Futura-Medium-BT';font-size: 18px; }
+.content-wrapper .favourite-box .media .media-body .price { float: right;font-family: 'Futura-Medium-BT';font-size: 18px;}
+.content-wrapper .favourite-box .content { font-family: 'Futura-Medium-BT'; font-size: 14px;}
 .content-wrapper .favourite-box .link-close { position: absolute; top: -15px; right: -12px; background: #FFFFFF; display: block; border-radius: 30px;}
 .content-wrapper .favourite-box .link-customize { padding-left: 25px; background: url("../images/icon-pencil.png") no-repeat left center; color: #808080; float: right;}
 .content-wrapper .favourite-box .link-customize:hover {}
@@ -297,7 +329,7 @@ button {
 .content-wrapper .favourite-box .link-favourite:hover {}
 .content-wrapper .favourite-box .link-favourite.active { background-image: url("../svg/icon-heart-active.svg"); color: #8DBF43;}
 .content-wrapper .favourite-box .input-group { /*width: 120px;*/ width: auto; float: right; position: relative; right: 15px;}
-.content-wrapper .favourite-box .input-group .form-control { max-width: 50px; border: none; color: #808080; font-family: 'Futura-Bold'; text-align: center; font-size: 18px; padding-left: 0; padding-right: 0;}
+.content-wrapper .favourite-box .input-group .form-control { max-width: 50px; border: none; color: #808080; font-family: 'Futura-Medium-BT'; text-align: center; font-size: 18px; padding-left: 0; padding-right: 0;}
 .content-wrapper .favourite-box .input-group .btn { padding: 6px 0;}
 
 
@@ -314,9 +346,9 @@ button {
 
 
 
-.orders-wrapper .title-div .title { font-family: 'Futura-Bold';}
+.orders-wrapper .title-div .title { font-family: 'Futura-Book';}
 .orders-wrapper .order-box {}
-.orders-wrapper .order-box .order-info h5{ font-family: 'Futura-Medium'; }
+.orders-wrapper .order-box .order-info h5{ font-family: 'Futura-Medium-BT'; }
 .orders-wrapper .order-box .title { font-family: 'Futura-Bold'; font-size: 22px;}
 .orders-wrapper .order-box .title span { font-family: 'Futura-Light'; float: right; font-size: 18px;}
 .orders-wrapper .order-box .text-label { font-family: 'Futura-Bold'; font-size: 20px;}
@@ -348,8 +380,8 @@ button {
 .wallet-wrapper .item-div .item-quantity { font-family: 'Futura-Bold';}
 .wallet-wrapper .item-div .item-quantity div { width: 60px; text-align: center; line-height: 18px; font-size: 18px; margin-top: -20px;}
 .wallet-wrapper .item-div .item-quantity span { font-family: 'Futura-Light';}
-.wallet-wrapper .item-div .item-discount { font-family: 'Futura-Medium'; font-size: 33px; line-height: normal; margin: 5px 0 25px 0;}
-.wallet-wrapper .item-div .items-vouchers { font-family: 'Futura-Medium'; font-size: 13px; margin-bottom: 20px;}
+.wallet-wrapper .item-div .item-discount { font-family: 'Futura-Medium-BT'; font-size: 33px; line-height: normal; margin: 5px 0 25px 0;}
+.wallet-wrapper .item-div .items-vouchers { font-family: 'Futura-Medium-BT'; font-size: 13px; margin-bottom: 20px;}
 .wallet-wrapper .item-div .items-vouchers .voucher { display: inline-block; margin-right: 5px;}
 .wallet-wrapper .item-div .logo-img { height: 20px;}
 .wallet-wrapper .wallet-carousel .owl-stage { display: flex;}
@@ -364,7 +396,7 @@ button {
     width: 100%;*/
 }
 .wallet-wrapper .wallet-carousel .buttons .btn {
-    border-radius: 20px; padding: 4px 30px; font-family: 'Futura-Medium'; font-size: 17px;
+    border-radius: 20px; padding: 4px 30px; font-family: 'Futura-Medium-BT'; font-size: 17px;
     border-color: #FFFFFF; color: #FFFFFF;
 }
 
@@ -400,16 +432,16 @@ button {
 .checkout-navblock .checkout-nav li.active:after { border-left-color: #8DBF43;}
 
 
-.checkout-wrapper .item-summary .title-div .title { font-size: 30px; font-family: 'Futura-Bold'; margin-left: 35px;}
+.checkout-wrapper .item-summary .title-div .title { font-size: 30px; font-family: 'Futura-Book'; margin-left: 35px;}
 .checkout-wrapper .item-summary .title-div .title img { width: 30px;}
 .checkout-wrapper .item-summary .col-form-label { color: #808080; font-family: 'Futura-Std-Medium'; font-size: 22px;}
 .checkout-wrapper .item-summary .summary-items .summary-item { position: relative;}
-.checkout-wrapper .item-summary .summary-items .summary-item h4 { font-size: 22px;    font-family: 'Futura-Medium';}
-.checkout-wrapper .item-summary .delivery-block { font-family: 'Futura-Medium';}
-.checkout-wrapper .item-summary .total-block { font-family: 'Futura-Medium';}
+.checkout-wrapper .item-summary .summary-items .summary-item h4 { font-size: 18px;    font-family: 'Futura-Medium-BT';}
+.checkout-wrapper .item-summary .delivery-block { font-family: 'Futura-Medium-BT';font-size: 18px;}
+.checkout-wrapper .item-summary .total-block { font-family: 'Futura-B';font-size: 20px;}
 .checkout-wrapper .item-summary .summary-items .summary-item h4 span { font-size: 18px;}
 .checkout-wrapper .item-summary .summary-items .summary-item .custom-control-label { font-size: 25px; font-family: 'Futura-Bold'; padding-left: 10px;}
-.checkout-wrapper .item-summary .summary-items .summary-item .custom-control-label span { font-size: 16px; font-family: 'Futura-Medium';color: #808080;}
+.checkout-wrapper .item-summary .summary-items .summary-item .custom-control-label span { font-size: 16px; font-family: 'Futura-Medium-BT';color: #808080;}
 .checkout-wrapper .item-summary .summary-items .summary-item .custom-control-label::before,
 .checkout-wrapper .item-summary .summary-items .summary-item .custom-control-label::after { top: 10px;}
 .checkout-wrapper .item-summary .summary-items .summary-item .buttons { position: absolute; top: 10px; right: 0;}
@@ -418,7 +450,7 @@ button {
 .checkout-wrapper .item-summary .action-buttons .btn {
     border-radius: 20px;
     padding: 5px 35px;
-    font-family: 'Futura-Medium';
+    font-family: 'Futura-Medium-BT';
     font-size: 18px;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
@@ -444,11 +476,11 @@ button {
 .checkout-wrapper .item-summary .form-control { border-radius: 10px;}
 .checkout-wrapper .item-summary .custom-control-label { font-family: 'Futura-Std-Heavy'; font-size: 20px; margin-bottom: 5px; color: #808080;}
 
-.checkout-wrapper .item-summary .greeninfo { font-family: 'Futura-Medium'; font-size: 20px;}
+.checkout-wrapper .item-summary .greeninfo { font-family: 'Futura-Medium-BT'; font-size: 20px;}
 .checkout-wrapper .item-summary .greeninfo .line-2 { font-family: 'Futura-Bold';    font-size: 22px;}
 .checkout-wrapper .item-summary .radios-green .custom-control-label { color: #999999;}
 
-.checkout-wrapper .gift-summary .custom-control-label { font-family: 'Futura-Medium';}
+.checkout-wrapper .gift-summary .custom-control-label { font-family: 'Futura-Medium-BT';}
 
 
 .cartbig-modal .close { position: absolute; top: 12px; right: 12px; z-index: 9;}
@@ -456,22 +488,22 @@ button {
 .cartbig-modal h5 {
 	font-size: 22px;
 	margin-bottom: 20px;
-	font-family: 'Futura-Medium';
+	font-family: 'Futura-Medium-BT';
 }
 .cartbig-modal h5 span { float: right;}
-.cartbig-modal .info { font-family: 'Futura-Medium';}
+.cartbig-modal .info { font-family: 'Futura-Medium-BT';}
 .cartbig-modal .item-col { border-right: 1px solid #808080;}
 .cartbig-modal .item-col:last-child { border: none;}
-.cartbig-modal .item-col h5 { font-family: 'Futura-Bold';font-size: 20px;}
+.cartbig-modal .item-col h5 { font-family: 'Futura-B';font-size: 16px;}
 .cartbig-modal .item-col .custom-control { padding-left: 25px;}
-.cartbig-modal .item-col .custom-control-label { font-family: 'Futura-Medium'; display: block;}
+.cartbig-modal .item-col .custom-control-label { font-family: 'Futura-Medium-BT'; display: block;}
 .cartbig-modal .item-col .custom-control-label span { float: right;}
 .cartbig-modal .items-meal-row .item-col { border: none;}
 .cartbig-modal .items-meal-row .custom-control-inline { margin-right: 10px;}
 .cartbig-modal .modal-footer { border: none;}
-.cartbig-modal .modal-footer span { font-family: 'Futura-Bold'; font-size: 22px;}
+.cartbig-modal .modal-footer span { font-family: 'Futura-B'; font-size: 20px;}
 .cartbig-modal .modal-footer .btn {
-    border-radius: 20px; padding: 6px 20px; font-family: 'Futura-Medium';
+    border-radius: 20px; padding: 6px 20px; font-family: 'Futura-Medium-BT';
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
@@ -489,7 +521,7 @@ button {
 .editprofileModal .modal-body .form-control { border-radius: 10px;}
 .editprofileModal .modal-body textarea.form-control { height: 100px;}
 .editprofileModal .modal-footer .btn {
-    border-radius: 20px; padding: 6px 30px; font-family: 'Futura-Medium';
+    border-radius: 20px; padding: 6px 30px; font-family: 'Futura-Medium-BT';
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
@@ -510,11 +542,11 @@ button {
 /*NEW CSS S*/
 .editprofileModal .modal-dialog .modal-content{margin:62px 32px;}
 .wallet-wrapper .item-box{min-height: 150px;border-radius: 15px;height: 100%;width: auto;}
-.wallet-wrapper .item-box .item-div .buttons .btn{border-radius: 20px;padding: 4px 30px;font-family: 'Futura-Medium';font-size: 17px;border-color: #FFFFFF;color: #FFFFFF;}
+.wallet-wrapper .item-box .item-div .buttons .btn{border-radius: 20px;padding: 4px 30px;font-family: 'Futura-Medium-BT';font-size: 17px;border-color: #FFFFFF;color: #FFFFFF;}
 .checkout-wrapper .wallet-wrapper .item-box .item-div .items-vouchers{min-height: 80px}
 
-.modal-title { font-family: 'Futura-Medium'; }
-.modal-body label{font-family: 'Futura-Medium';font-size: 17px;}
+.modal-title { font-family: 'Futura-Medium-BT'; }
+.modal-body label{font-family: 'Futura-Medium-BT';font-size: 16px;}
 
 /*Big-Tablet view*/
 @media screen and (max-width:1600px) {

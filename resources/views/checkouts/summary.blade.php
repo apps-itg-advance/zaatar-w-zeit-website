@@ -42,10 +42,11 @@
 
                 @endforeach
             </div>
+            <br>
             <div class="delivery-block text-right">
                 Delivery fee <span class="price d-inline-block ml-4">{{$delivery_fees.' '.$currency}}</span>
             </div>
-            <hr/>
+            <hr class="m-0" />
             <div class="total-block text-right mb-5">
                 Total <span class="price d-inline-block ml-4" id="TotalV">{{($_total+$delivery_fees).' '.$currency}}</span>
             </div>

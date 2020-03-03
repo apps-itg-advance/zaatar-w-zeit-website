@@ -25,7 +25,7 @@
                             <input type="hidden" name="ItemsName[{{$row->ID}}]" value="{{$row->ItemName}}">
                             <input type="hidden" name="ItemsPLU[{{$row->ID}}]" value="{{$row->PLU}}">
                             <img src="{{$row->ThumbnailImg}}" class="mr-3 img-thum"  alt="...">
-                            <div class="align-self-center media-body">
+                            <div class="media-body">
                                 <h5 class="mt-0">
                                     <a href="#">{{$row->ItemName}}</a>
                                     <span class="price">{{$row->Price}} {{$currency}}</span>
@@ -59,8 +59,8 @@
                         </div>
                     </div>
                 </div>
-                    @include('menu._menu_details',array('row'=>$row))
-                    @include('menu._make_meal',array('row'=>$row))
+                @include('menu._menu_details',array('row'=>$row))
+                @include('menu._make_meal',array('row'=>$row))
                 @endforeach
 
             </div>
