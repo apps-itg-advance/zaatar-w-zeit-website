@@ -35,7 +35,7 @@ class CustomerController extends Controller
                 if($loyalty_level->MinYearlyCollection==$current_max+1)
                 {
                     $next_level=$loyalty_level;
-                    $next_level->NeededPoints=$loyalty_level->MinYearlyCollection-$query->TierBalance;
+                    $next_level->NeededPoints=$loyalty_level->MinYearlyCollection-$query->details->TierBalance;
                     break;
                 }
             }
