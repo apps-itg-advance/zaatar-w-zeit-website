@@ -5,7 +5,7 @@
         <input type="hidden" id="item_id" name="item_id" value="{{$row->ID}}">
         <input type="hidden" id="plu" name="plu" value="{{$row->PLU}}">
         <input type="hidden" id="item_name" name="item_name" value="{{$row->ItemName}}">
-        <input type="hidden" id="amount" name="amount" value="{{$row->Price}}">
+        <input type="hidden" id="amount" name="amount" valnav main-nav justify-content-centerue="{{$row->Price}}">
         <input type="hidden" id="key" name="key" value="{{$key}}">
     <div class="modal-content">
         <div class="modal-body">
