@@ -300,7 +300,7 @@ button {
 .content-wrapper .favourite-box .media { padding: 15px; border-bottom: 1px solid #BFBFBF;}
 .content-wrapper .favourite-box .mediabox { padding: 10px 0;font-family: 'Futura-Medium-BT';}
 .content-wrapper .favourite-box .media .media-body h5 { color: #4D4D4D;}
-.content-wrapper .favourite-box .media .media-body a { color: #4D4D4D;font-family: 'Futura-Medium-BT';font-size: 18px; }
+.content-wrapper .favourite-box .media .media-body a { color: #4D4D4D;font-family: 'Futura-Medium-BT';font-size: 18px; float: left;}
 .content-wrapper .favourite-box .media .media-body .price { float: right;font-family: 'Futura-Medium-BT';font-size: 18px;}
 .content-wrapper .favourite-box .content { font-family: 'Futura-Medium-BT'; font-size: 14px;}
 .content-wrapper .favourite-box .link-close { position: absolute; top: -15px; right: -12px; background: #FFFFFF; display: block; border-radius: 30px;}
