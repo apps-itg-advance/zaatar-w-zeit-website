@@ -56,7 +56,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-12 py-3 text-left text-lg-center text-808080">
+                        <div class="col-lg-3 col-md-12 py-3 text-left text-lg-center text-808080 futura-medium">
                             {{$make_meal->Details}}
                         </div>
                         <div class="col-lg-5 col-md-12">

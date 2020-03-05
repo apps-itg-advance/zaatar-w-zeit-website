@@ -15,7 +15,7 @@
             <div class="modal-body py-0 col-xl-12 orders-wrapper float-none mx-auto">
                 <div class="row">
                     <div class="col-md-6 offset-2">
-                        <h2 class="futura-book">Order Summary</h2>
+                        <h2 class="futura-medium">Order Summary</h2>
                     </div>
                 </div>
                 <div class="order-box">
@@ -24,7 +24,7 @@
                             <div class="col-sm-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                 Address
                             </div>
-                            <div class="col-sm-6 text-808080 mb-3">
+                            <div class="col-sm-6 text-808080 mb-3 futura-book">
                                 {{implode(', ',$_address)}}
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                 Wallet
                             </div>
-                            <div class="col-6 text-808080 mb-3">
+                            <div class="col-6 text-808080 mb-3 futura-book">
                                 @php
                                     if(isset($cart_vouchers['Id']) and $cart_vouchers['Id']!='')
                                     {
@@ -96,7 +96,7 @@
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                 Gift
                             </div>
-                            <div class="col-6 text-808080 mb-3">
+                            <div class="col-6 text-808080 mb-3 futura-book">
                                 @php
                                     if(isset($cart_gift->GiftOpenItem) and $cart_gift->GiftOpenItem!='')
                                     {
@@ -113,7 +113,7 @@
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                 Go Green
                             </div>
-                            <div class="col-6 text-808080 mb-3">
+                            <div class="col-6 text-808080 mb-3 futura-book">
                                 @php
                                     if(isset($cart_green) and $cart_green!='')
                                     {
@@ -130,7 +130,7 @@
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                 Method
                             </div>
-                            <div class="col-6 text-808080 mb-3">
+                            <div class="col-6 text-808080 mb-3 futura-book">
                                 @php
                                     if(isset($cart_payment->PaymentId) and $cart_payment->PaymentId!='')
                                     {
@@ -145,7 +145,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase confirm float-right futura-book">Confirm</button>
+                <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase confirm float-right futura-book btn-confirm">Confirm</button>
             </div>
         </div>
     </div>

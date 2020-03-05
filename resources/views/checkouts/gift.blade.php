@@ -36,7 +36,7 @@
                         @foreach($query as $row)
                         <div class="custom-control custom-radio mb-1">
                             <input type="radio" id="customRadio{{$row->ID}}" name="gift_value" value="{{$row->Title}}" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio{{$row->ID}}">
+                            <label class="custom-control-label futura-medium" for="customRadio{{$row->ID}}">
                                 {{$row->Title}}
                             </label>
                         </div>

@@ -11,7 +11,7 @@
     @include('partials.checkout_bread')
     <div class="col-xl-6 col-lg-8 col-md-9 col-sm-12 item-summary float-none p-0 mx-auto">
         <div class="title-div mb-4">
-            <h4 class="title ml-0">Address
+            <h4 class="title">Address
                 @if(count($addresses)<3)
                 <a href="#" class="d-inline-block ml-5"><img src="{{asset('assets/images/icon-checkout-plus.png')}}" /></a>
                 @endif
@@ -31,7 +31,7 @@
                     <input type="radio" {{$checked}} id="customRadio{{$address->ID}}" name="AddressId" value="{{$address->ID}}" class="custom-control-input">
                     <input type="hidden" id="{{$address->ID}}" name="{{$address->ID}}" value="{{json_encode($address)}}">
                     <label class="custom-control-label" for="customRadio{{$address->ID}}">
-                        {{$address->Name}}
+                        <p class="text-uppercase m-0">{{$address->Name}}</p>
                         <span class="d-block">{{$address->CityName}} , {{$address->ProvinceName}} <br>{{$address->Line1}}<br>{{$address->Line2}}</span>
                     </label>
                 </div>
