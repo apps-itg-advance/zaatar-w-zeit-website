@@ -87,13 +87,16 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 menu-col">
                     <nav class="nav main-nav justify-content-center">
-                        <a class="nav-link {{ (\Request::route()->getName() == 'this.route') ? 'active' : '' }}" href="{{route('home.menu')}}">Menu</a>
-                        <a class="nav-link {{@$this->favourite_active}}" href="{{route('customer.favourites')}}">Favourites</a>
+                        <a class="nav-link {{ (\Request::route()->getName() == 'home.menu') ? 'active' : '' }}" href="{{route('home.menu')}}">Menu</a>
+                        {{--<a class="nav-link {{@$this->favourite_active}}" href="{{route('customer.favourites')}}">Favourites</a>--}}
+                        <a class="nav-link {{\Request::segment(2)=='favourites'?'active':''}}" href="{{route('customer.favourites')}}">Favourites</a>
                         @php if(session()->get('is_login')){
-                        echo '<a class="nav-link '.@$this->profile_active.'" href="'.route('customer.index').'">Profile</a>';
+                        //echo '<a class="nav-link '.@$this->profile_active.'" href="'.route('customer.index').'">Profile</a>';
+                        echo '<a class="nav-link '.(\Request::segment(2)=='profile'?'active':'').'" href="'.route('customer.index').'">Profile</a>';
                         }
                         else{
-                        echo '<a class="nav-link '.@$this->login_active.'" href="'.route('auth.login').'">Sign In</a>';
+                        //echo '<a class="nav-link '.@$this->login_active.'" href="'.route('auth.login').'">Sign In</a>';
+                        echo '<a class="nav-link '.(\Request::segment(1)=='login'?'active':'').'" href="'.route('auth.login').'">Sign In</a>';
                         }
                         @endphp
 

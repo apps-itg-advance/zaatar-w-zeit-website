@@ -15,7 +15,7 @@
                         <input type="hidden" name="ItemsName[{{$row->ID}}]" value="{{$row->ItemName}}">
                         <input type="hidden" name="ItemsPLU[{{$row->ID}}]" value="{{$row->PLU}}">
                         <img src="{{$row->ThumbnailImg}}" class="mr-3 img-thum"  alt="...">
-                        <div class="align-self-center media-body">
+                        <div class="media-body">
                             <h5 class="mt-0">
                                 <a href="#">{{$row->ItemName}}</a>
                                 <span class="price">{{$row->Price}} {{$currency}}</span>
@@ -49,7 +49,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                                <div class="row align-items-center">
+                                <div class="row">
                                     <div class="col-lg-6 image-col">
                                         <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                                     </div>

@@ -3,14 +3,17 @@
         <div class="modal-content">
             <form action="{{route('customer.store')}}" method="post">
                 @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Edit Address</h5>
+                <div class="modal-header border-0">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body col-xl-10 float-none mx-auto">
-
+                <div class="modal-body col-xl-10 float-none mx-auto pt-0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="futura-medium">Edit Address</h2>
+                        </div>
+                    </div>
                     <div class="row">
                         <input type="hidden" name="AddressId{{$skey}}" value="{{$address->ID}}">
                         <input type="hidden" name="LoyaltyId" value="{{@$details->LoyaltyId}}">
@@ -19,7 +22,6 @@
                             $selectedCity='';
 
                                 $main_address=array();
-
 
                                     $selectedCity=$address->CityId;
                                     $array_line2=explode('Bldg',$address->Line2);
@@ -34,8 +36,6 @@
                                         $floor=@$array_apartment[0];
                                         $ext=@$array_apartment[1];
                                     }
-
-
 
                         @endphp
                         <div class="col-md-6">
@@ -110,7 +110,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase">Confirm</button>
+                    <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase futura-book btn-confirm">Confirm</button>
                 </div>
             </form>
         </div>

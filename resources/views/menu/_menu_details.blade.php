@@ -5,7 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <div class="row align-items-center">
+                <div class="row">
                     <div class="col-lg-6 image-col">
                         <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                     </div>
@@ -50,13 +50,13 @@
                         <div class="col-lg-4 col-md-12 item-col">
                             <div class="custom-control custom-radio mb-1">
                                 <input type="checkbox"  value="{{$make_meal->ID.'-'.$make_meal->Price.'-'.$make_meal->Details}}"  onclick="CalculateMakeMealTotal({{$make_meal->ID}},{{$row->ID}})"  id="makeMealH{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]" class="custom-control-input">
-                                <label class="custom-control-label text-uppercase" for="makeMealH{{$make_meal->ID}}">
+                                <label class="custom-control-label text-uppercase futura-b" for="makeMealH{{$make_meal->ID}}">
                                     {{$make_meal->Title}}
                                     <span class="price">{{$make_meal->Price}}</span>
                                 </label>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-12 py-3 text-left text-lg-center text-808080">
+                        <div class="col-lg-3 col-md-12 py-3 text-left text-lg-center text-808080 futura-medium">
                             {{$make_meal->Details}}
                         </div>
                         <div class="col-lg-5 col-md-12">

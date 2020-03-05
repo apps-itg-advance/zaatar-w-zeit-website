@@ -14,7 +14,7 @@
                         <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                     </div>
                     <div class="col-lg-6 text-col pt-4">
-                        <h4>MAKE IT A MEAL ! </h4>
+                        <h4 class="futura-b">MAKE IT A MEAL ! </h4>
                         <div class="info">
                             {{$row->ItemName}}  {{$row->Price}}
                         </div>
