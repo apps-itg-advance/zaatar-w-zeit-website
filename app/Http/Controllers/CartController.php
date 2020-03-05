@@ -54,9 +54,8 @@ class CartController extends BaseController
         $_plu=$items_plu[$item_id];
         $_amounts=$items_amounts[$item_id];
         $modifiers=$request->input('modifiers'.$item_id);
-        $make_meal=$request->input('make_meal');
-
-        $cart = session()->get('cart');
+        $make_meals=$request->input('make_meal');
+               $cart = session()->get('cart');
         $_modifiers=array();
         $_make_meal=array();
         if($qty==0)
@@ -73,59 +72,41 @@ class CartController extends BaseController
                 }
             }
         }
-        if($make_meal!=null) {
-            foreach ($make_meal as $key1 => $value1) {
-                $_mk=$value1['Items'];
-                $_mk2=$value1['Title'];
-                $_mk2_array=explode('-',$_mk2);
-                $_amounts=$_amounts+$_mk2_array[1];
-                $_make_meal['id']=$_mk2_array[0];
-                $_make_meal['price']=$_mk2_array[1];
-                $_make_meal['name']=$_mk2_array[2];
-                $_itm=array();
-                foreach ($_mk as $ky=>$vl) {
+        if(isset($make_meals[$item_id])) {
 
-                    $meal_array = explode('-', $vl);
-                    array_push($_itm, ['id' => $meal_array[0], 'plu' => $meal_array[1], 'name' => $meal_array[3], 'details' => $meal_array[2], 'price' => 0]);
 
+            $make_meal = $make_meals[$item_id];
+
+            if ($make_meal != null) {
+                foreach ($make_meal as $key1 => $value1) {
+                    $_mk = $make_meal['Items'];
+                    $_mk2 = $make_meal['Title'];
+                    $_mk2_array = explode('-', $_mk2);
+                    $_amounts = $_amounts + $_mk2_array[1];
+                    $_make_meal['id'] = $_mk2_array[0];
+                    $_make_meal['price'] = $_mk2_array[1];
+                    $_make_meal['name'] = $_mk2_array[2];
+                    $_itm = array();
+                    foreach ($_mk as $ky => $vl) {
+
+                        $meal_array = explode('-', $vl);
+                        array_push($_itm, ['id' => $meal_array[0], 'plu' => $meal_array[1], 'name' => $meal_array[3], 'details' => $meal_array[2], 'price' => 0]);
+
+                    }
+                    $_make_meal['items'] = $_itm;
                 }
-                $_make_meal['items']=$_itm;
             }
         }
-        if(!$cart) {
-            $cart = [
-                 [
-                    'name' => $_name,
-                    'quantity' => $qty,
-                    'price' => $_amounts,
-                    'plu' => $_plu,
-                    'item_modify' => $item_modify,
-                    'modifiers'=>$_modifiers,
-                    'meal'=>$_make_meal
-                ]
-            ];
-
-            session()->put('cart', $cart);
-        }
-        else{
-            if(isset($cart[$item_id]))
-            {
-                unset($cart[$item_id]);
-
-            }
-            $cart[]= [
-                'name' => $_name,
-                'quantity' => $qty,
-                'price' => $_amounts,
-                'plu' => $_plu,
-                'item_modify' => $item_modify,
-                'modifiers'=>$_modifiers,
-                'meal'=>$_make_meal
-            ];
-            session()->put('cart', $cart);
-        }
-        var_dump($cart);
-        //
+        $cart[]= [
+            'name' => $_name,
+            'quantity' => $qty,
+            'price' => $_amounts,
+            'plu' => $_plu,
+            'item_modify' => $item_modify,
+            'modifiers'=>$_modifiers,
+            'meal'=>$_make_meal
+        ];
+        session()->put('cart', $cart);
     }
 
     /**
