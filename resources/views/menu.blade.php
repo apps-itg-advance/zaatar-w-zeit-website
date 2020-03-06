@@ -7,8 +7,8 @@
             <h2 class="title text-8DBF43">{{$cat_title}}</h2>
         </div>
         <form id="Form" action="#">
-        <div class="col-lg-11 float-none p-0 mx-auto">
-            <div class="row row-favourite">
+        <div class="col-lg-12 float-none p-0 mx-auto">
+            <div class="row-favourite mx-auto">
 
                     <input type="hidden" name="SItemId" id="SItemId">
                     <input type="hidden" name="SQty" id="SQty">
@@ -18,7 +18,7 @@
                 @php
                     $has_meal=is_object($row->MakeMeal)  ? 1 :0;
                 @endphp
-                <div class="col-xl-6 col-lg-12 col-md-6 mb-5 col-favourite">
+                <div class="col-favourite">
                     <div class="favourite-box">
                         <div class="media">
                             <input type="hidden" id="MakeMeal{{$row->ID}}" value="{{$has_meal}}">

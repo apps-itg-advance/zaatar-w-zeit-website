@@ -2,14 +2,14 @@
 @section('content')
 <div class="col-xl-7 col-lg-5 col-md-12 col-sm-12 col-favourite-items">
     <form id="Form" action="#">
-    <div class="col-lg-11 float-none p-0 mx-auto">
+    <div class="col-lg-12 float-none p-0 mx-auto">
         @include('customers._favourite_menu')
-        <div class="row row-favourite">
+        <div class="row row-favourite mx-auto">
             <input type="hidden" name="SItemId" id="SItemId">
             <input type="hidden" name="SQty" id="SQty">
             @foreach($query->data as $row)
                 {{csrf_field()}}
-            <div class="col-xl-6 col-lg-12 mb-5 col-favourite">
+            <div class="col-xl-6 col-lg-12 col-favourite">
                 <div class="favourite-box">
                     <div class="media">
                         <input type="hidden" name="ItemsName[{{$row->ID}}]" value="{{$row->ItemName}}">
