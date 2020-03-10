@@ -684,7 +684,7 @@ button {
 
     /* MOBILE HORIZONTAL DIV WITH SCROLL */
     .content-wrapper .items-container { overflow-x: auto; white-space: nowrap; flex-wrap: nowrap; margin-bottom: 15px;}
-    .content-wrapper .items-container .media { display: inline-block; float: none; min-width: 140px; text-align: center;
+    .content-wrapper .items-container .media { display: inline-block; float: none; min-width: 0; text-align: center;
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         border-radius: 0;
