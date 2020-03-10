@@ -1,4 +1,4 @@
-<div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-items">
+<div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-items aside-menu">
     <div class="items-container">
         @if (session()->has('navigations'))
             @foreach(session()->get('navigations') as $nav)
