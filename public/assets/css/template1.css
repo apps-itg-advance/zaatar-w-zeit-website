@@ -684,13 +684,15 @@ button {
 
     /* MOBILE HORIZONTAL DIV WITH SCROLL */
     .content-wrapper .items-container { overflow-x: auto; white-space: nowrap; flex-wrap: nowrap; margin-bottom: 15px;}
-    .content-wrapper .items-container .media { display: inline-block; float: none; min-width: 50px; text-align: center;
+    .content-wrapper .items-container .media { display: inline-block; float: none; min-width: 130px; text-align: center;
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         border-radius: 0;
         border: 1px solid #d0d0d0;
     }
-    .content-wrapper .items-container .media img { margin-right: 0!important;}
+    .content-wrapper .items-container .media h5{font-size: 14px;}
+    .content-wrapper .items-container .media img { margin-right: 0!important;width: 50px !important; height: 50px;
+        min-width: 50px;}
     .content-wrapper .items-container .media .media-body { margin-top: 10px;}
 
     .cartbox-wrapper { margin-top: 0;}
