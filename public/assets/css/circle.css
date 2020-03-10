@@ -1075,6 +1075,6 @@
   position: absolute;
   bottom: 26px;
   right: 30px;
-  z-index: 9999;
+  z-index: 1;
   background-size: 100%;
 }
