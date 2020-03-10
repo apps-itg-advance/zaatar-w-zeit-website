@@ -18,7 +18,6 @@ class CustomerController extends Controller
      */
     public function index($type=null)
     {
-
         $Skey=session()->get('skey');
         $type=$type ? $type : 'login';
         $class_css='profile-wrapper';
@@ -41,7 +40,6 @@ class CustomerController extends Controller
             }
         }
         $addresses=session()->has('addresses'.$Skey) ? session()->get('addresses'.$Skey) : array();
-
         return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level'));  //
     }
 
