@@ -21,7 +21,7 @@
                         <div class="items-row items-meal-row row align-items-center mt-4">
                             <div class="col-12 item-col">
                                 <div class="custom-control custom-radio mb-3">
-                                    <input type="checkbox"  value="{{$make_meal->ID.'-'.$make_meal->Price.'-'.$make_meal->Details}}"  onclick="CalculateMakeMealTotalQ({{$make_meal->ID}},{{$row->ID}})"  id="makeMealL{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]"  class="custom-control-input">
+                                    <input type="checkbox"  value="{{$make_meal->ID.'-'.str_replace(',','',$make_meal->Price).'-'.$make_meal->Details}}"  onclick="CalculateMakeMealTotalQ({{$make_meal->ID}},{{$row->ID}})"  id="makeMealL{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]"  class="custom-control-input">
 
                                     <label class="custom-control-label text-uppercase" for="makeMealL{{$make_meal->ID}}">
                                         {{$make_meal->Details}}
@@ -43,7 +43,7 @@
                         <div class="modal-footer text-left justify-content-start p-0 mt-3 mt-lg-4">
                             <span class="title d-inline-block">Total</span>
                             <span class="amount d-inline-block mx-5"  id="DisplayTotalQ{{$row->ID}}">{{$row->Price}} {{$currency}}</span>
-                            <input type="hidden" id="TotalAmountQ{{$row->ID}}" name="TotalAmountQ[{{$row->ID}}]" value="{{$row->Price}}">
+                            <input type="hidden" id="TotalAmountQ{{$row->ID}}" name="TotalAmountQ[{{$row->ID}}]" value="{{str_replace(',','',$row->Price)}}">
 
                             <button class="btn btn-8DBF43 text-uppercase">Confirm</button>
                         </div>

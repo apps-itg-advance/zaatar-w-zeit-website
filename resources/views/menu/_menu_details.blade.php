@@ -31,7 +31,7 @@
                             <h5 class="text-uppercase text-center mb-3">{{$category_name}}</h5>
                             @foreach($modifier_items as $m_item)
                                 <div class="custom-control custom-radio mb-1">
-                                    <input type="checkbox" onclick="CalculateTotal({{$category_id}},{{$max_qty}},{{$m_item->RowId}},{{$row->ID}})" id="Modifier{{$m_item->RowId}}"  name="modifiers{{$row->ID}}[{{$category_id}}][]" value="{{$m_item->ID.'-'.$m_item->PLU.'-'.$m_item->Price.'-'.$category_name.' '.$m_item->ModifierName}}" class="custom-control-input m-{{$category_id}}-{{$row->ID}}">
+                                    <input type="checkbox" onclick="CalculateTotal({{$category_id}},{{$max_qty}},{{$m_item->RowId}},{{$row->ID}})" id="Modifier{{$m_item->RowId}}"  name="modifiers{{$row->ID}}[{{$category_id}}][]" value="{{$m_item->ID.'-'.$m_item->PLU.'-'.str_replace(',','',$m_item->Price).'-'.$category_name.' '.$m_item->ModifierName}}" class="custom-control-input m-{{$category_id}}-{{$row->ID}}">
                                     <label class="custom-control-label" for="Modifier{{$m_item->RowId}}">
                                         {{$m_item->ModifierName}}
                                         <span class="price">{{$m_item->Price}}</span>
@@ -49,7 +49,7 @@
                     <div class="items-row items-meal-row row align-items-center mt-3">
                         <div class="col-lg-4 col-md-12 item-col">
                             <div class="custom-control custom-radio mb-1">
-                                <input type="checkbox"  value="{{$make_meal->ID.'-'.$make_meal->Price.'-'.$make_meal->Details}}"  onclick="CalculateMakeMealTotal({{$make_meal->ID}},{{$row->ID}})"  id="makeMealH{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]" class="custom-control-input">
+                                <input type="checkbox"  value="{{$make_meal->ID.'-'.str_replace(',','',$make_meal->Price).'-'.$make_meal->Details}}"  onclick="CalculateMakeMealTotal({{$make_meal->ID}},{{$row->ID}})"  id="makeMealH{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]" class="custom-control-input">
                                 <label class="custom-control-label text-uppercase futura-b" for="makeMealH{{$make_meal->ID}}">
                                     {{$make_meal->Title}}
                                     <span class="price">{{$make_meal->Price}}</span>
@@ -76,7 +76,7 @@
             <div class="modal-footer pt-0">
                 <span class="title d-inline-block">Total</span>
                 <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{$row->Price}} {{$currency}}</span>
-                <input type="hidden" id="TotalAmount{{$row->ID}}" name="TotalAmount[{{$row->ID}}]" value="{{$row->Price}}">
+                <input type="hidden" id="TotalAmount{{$row->ID}}" name="TotalAmount[{{$row->ID}}]" value="{{str_replace(',','',$row->Price)}}">
                 <button class="btn btn-8DBF43 text-uppercase" onclick="SubmitForm({{$row->ID}})">Confirm</button>
             </div>
         </div>

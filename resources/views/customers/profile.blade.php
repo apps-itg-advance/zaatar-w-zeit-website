@@ -51,7 +51,6 @@
                               COLLECT {{$query->details->Threshold-$query->details->TierBalance}} points for a {{$query->details->TotalOp}} % discount
                                  @endif
                             </div>
-
                         </div>
                         </div>
                     </div>
@@ -60,87 +59,31 @@
                         <div class="title-div mb-4">
                             <h2 class="title">Wallet</h2>
                         </div>
+                        @php
+                            $array_colors=array('bg-AFD27C','bg-9DBFC1','bg-808080','bg-8DBF43');
+                        @endphp
                         <div id="wallet-carousel" class="owl-carousel wallet-carousel">
-                            <div class="item bg-AFD27C" data-mh="matchHeight">
+                            @for($i=0;$i<count($vouchers);$i++)
+                                @php
+                                    $rand = array_rand($array_colors, 1);
+                                    $type_l=$vouchers[$i]['ValueType']=='percentage' ? '%':'';
+                                @endphp
+                            <div class="item {{$array_colors[$rand]}}" data-mh="matchHeight">
                                 <div class="item-div text-white p-4">
                                     <div class="py-4 item-quantity text-right">
-                                        <div class="float-right">10 quantity</div>
+                                        <div class="float-right">{{$vouchers[$i]['Qty']}} quantity</div>
                                     </div>
                                     <div class="item-discount text-uppercase">
-                                        10% Discount
+                                        {{$vouchers[$i]['Value'].$type_l}} Discount
                                     </div>
                                     <div class="items-vouchers">
-                                        <div class="voucher mb-1">5 vouchers expire 1/1/2020</div>
-                                        <div class="voucher">5 vouchers expire 1/1/2021</div>
+                                        @foreach($vouchers[$i]['ExpiryDates'] as $key=>$value)
+                                            <div class="voucher mb-1">{{$value}} vouchers expire {{$key}}</div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
-                            <div class="item bg-8DBF43" data-mh="matchHeight">
-                                <div class="item-div text-white p-4">
-                                    <div class="py-4 item-quantity text-right">
-                                        <div class="float-right">10 quantity</div>
-                                    </div>
-                                    <div class="item-discount text-uppercase">
-                                        10% Discount
-                                    </div>
-                                    <div class="items-vouchers">
-                                        <div class="voucher">5 vouchers expire 1/1/2021</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item bg-808080" data-mh="matchHeight">
-                                <div class="item-div text-white p-4">
-                                    <div class="py-4 item-quantity text-right">
-                                        <div class="float-right">10 quantity</div>
-                                    </div>
-                                    <div class="item-discount text-uppercase">
-                                        Free Kids Meal
-                                    </div>
-                                    <div class="items-vouchers">
-                                        <div class="voucher">5 vouchers expire 1/1/2021</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item bg-AFD27C" data-mh="matchHeight">
-                                <div class="item-div text-white p-4">
-                                    <div class="py-4 item-quantity text-right">
-                                        <div class="float-right">10 quantity</div>
-                                    </div>
-                                    <div class="item-discount text-uppercase">
-                                        10% Discount
-                                    </div>
-                                    <div class="items-vouchers">
-                                        <div class="voucher mb-1">5 vouchers expire 1/1/2020</div>
-                                        <div class="voucher">5 vouchers expire 1/1/2021</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item bg-8DBF43" data-mh="matchHeight">
-                                <div class="item-div text-white p-4">
-                                    <div class="py-4 item-quantity text-right">
-                                        <div class="float-right">10 quantity</div>
-                                    </div>
-                                    <div class="item-discount text-uppercase">
-                                        10% Discount
-                                    </div>
-                                    <div class="items-vouchers">
-                                        <div class="voucher">5 vouchers expire 1/1/2021</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item bg-808080" data-mh="matchHeight">
-                                <div class="item-div text-white p-4">
-                                    <div class="py-4 item-quantity text-right">
-                                        <div class="float-right">10 quantity</div>
-                                    </div>
-                                    <div class="item-discount text-uppercase">
-                                        Free Kids Meal
-                                    </div>
-                                    <div class="items-vouchers">
-                                        <div class="voucher">5 vouchers expire 1/1/2021</div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endfor
                         </div>
                     </div>
                 </div>
@@ -153,10 +96,9 @@
         <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
         <script type="text/javascript">
             jQuery('.wallet-carousel').owlCarousel({
-                loop : true,
-                center : true,
+                loop : false,
                 navText : ['', ''],
-                margin : 20,
+                margin : 40,
                 dots : false,
                 nav : true,
                 responsive:{
@@ -164,19 +106,23 @@
                         items:1
                     },
                     575:{
-                        items:2
+                        items:1
                     },
                     767:{
                         items:2
                     },
                     991:{
-                        items:2
+                        items:1
                     },
                     1200:{
-                        items:3
+                        items:2
+                    },
+                    1500:{
+                        items:2
                     }
                 }
             });
+
             @php
                 if($type=='register')
             {

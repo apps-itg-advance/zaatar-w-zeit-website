@@ -25,6 +25,44 @@ class CustomerController extends Controller
         $cities=SettingsLib::GetCities();
         $loyalty_levels=SettingsLib::GetLoyaltyLevels();
         $query=session()->has('user'.$Skey) ? session()->get('user'.$Skey) : array();
+        $v=$query->vouchers;
+        $array_keys=array();
+        $vouchers=array();
+        for ($i=0;$i<count($v);$i++)
+        {
+            $qty=1;
+            $array_exp=array($v[$i]->ExpiryDate=>1);
+            $array_ids=array($v[$i]->Id);
+            if($i>1)
+            {
+                for ($j=$i+1;$j<count($v);$j++)
+                {
+                    if($v[$i]->Value==$v[$j]->Value and $v[$i]->ValueType==$v[$j]->ValueType)
+                    {
+                        $qty++;
+                        if(isset($array_exp[$v[$j]->ExpiryDate]))
+                        {
+                            $array_exp[$v[$j]->ExpiryDate]=$array_exp[$v[$j]->ExpiryDate]+1;
+                        }
+                        else{
+                            $array_exp[$v[$j]->ExpiryDate]=1;
+                        }
+                        $array_ids[]=$v[$j]->Id;
+                        $array_keys[]=$v[$j]->Id;
+                    }
+
+
+                }
+            }
+
+            if(!in_array($v[$i]->Id,$array_keys))
+            {
+                $array_keys[]=$v[$i]->Id;
+                array_push($vouchers,array('Qty'=>$qty,'Value'=>$v[$i]->Value,'ValueType'=>$v[$i]->ValueType,'ExpiryDates'=>$array_exp,'Ids'=>$array_keys));
+
+            }
+
+        }
         $current_max=$query->details->LevelMaxCollection;
         $next_level=array();
         if(count($loyalty_levels)>0)
@@ -40,7 +78,7 @@ class CustomerController extends Controller
             }
         }
         $addresses=session()->has('addresses'.$Skey) ? session()->get('addresses'.$Skey) : array();
-        return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level'));  //
+        return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level','vouchers'));  //
     }
 
     public function orders()

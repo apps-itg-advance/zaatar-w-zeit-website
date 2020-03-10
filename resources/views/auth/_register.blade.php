@@ -1,6 +1,6 @@
 <form id="Register" action="#">
     <input type="hidden" name="request_id{{$sKey}}" id="R_RequestId{{$sKey}}" />
-    <div class="login-modal modal fade" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="login-modal modal fade" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-md modal-dialog-centered" role="document">
             <div class="modal-content col-sm-7 float-none p-0 mx-auto">
                 <div class="modal-body">

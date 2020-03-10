@@ -49,11 +49,10 @@ class CartController extends BaseController
         $item_modify=$request->input('ItemModify');
         $items_name=$request->input('ItemsName');
         $items_plu=$request->input('ItemsPLU');
-        $items_amounts=$request->input('TotalAmount');
+        $items_amounts=str_replace(',','',$request->input('TotalAmount'));
         $_name=$items_name[$item_id];
         $_plu=$items_plu[$item_id];
         $_amounts=$items_amounts[$item_id];
-
         $modifiers=$request->input('modifiers'.$item_id);
         $make_meals=$request->input('make_meal');
         $cart = session()->get('cart');
@@ -81,7 +80,7 @@ class CartController extends BaseController
                     $_mk2_array = explode('-', $_mk2);
                     $_amounts = $_amounts + $_mk2_array[1];
                     $_make_meal['id'] = $_mk2_array[0];
-                    $_make_meal['price'] = $_mk2_array[1];
+                    $_make_meal['price'] = str_replace(',','',$_mk2_array[1]);
                     $_make_meal['name'] = $_mk2_array[2];
                     $_itm = array();
                     foreach ($_mk as $ky => $vl) {
@@ -209,7 +208,8 @@ class CartController extends BaseController
         $qty=$request->input('qty');
         $_name=$request->input('item_name');
         $_plu=$request->input('plu');
-        $_amounts=$request->input('TotalAmount');
+        $_amounts=str_replace(',','',$request->input('TotalAmount'));
+       
         $modifiers=$request->input('modifiers');
         $make_meal=$request->input('make_meal');
       //  echo $key_item;

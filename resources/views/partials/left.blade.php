@@ -19,7 +19,7 @@
                 @endphp
                     <a href="{{route('home.menu', ['id'=>$nav->ID,'name'=>$url_name])}}">
                 <div class="media @if($nav->ID==$cat_id) active  @endif">
-                        <img src="{{$nav->URL}}" style="!important; border-radius: 50%;" class="mr-3" alt="...">
+                        <img src="{{$nav->URL}}" style="!important; border-radius: 50%; width: 50px" class="mr-3" alt="...">
                         <div class="align-self-center media-body">
                             <h5 class="mt-0">
                                 {{strtoupper($url_name)}}
