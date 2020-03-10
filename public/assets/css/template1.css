@@ -267,8 +267,7 @@ button {
 .cartbox-wrapper .cart-dropdown .cart-items .notice { font-size: 20px;}
 .cartbox-wrapper .cart-dropdown .carttotal-block .delivery-fee { font-family: 'Futura-Medium-BT'}
 .cartbox-wrapper .cart-dropdown .cart-item { font-size: 15px; position: relative;}
-.cartbox-wrapper .cart-dropdown .cart-item .name { font-size: 15px;font-family: 'Futura-Medium-BT'; width: 75%;}
-.cartbox-wrapper .cart-dropdown .cart-item .name .price {float: right;}
+.cartbox-wrapper .cart-dropdown .cart-item .name { font-size: 15px;font-family: 'Futura-Medium-BT'}
 .cartbox-wrapper .cart-dropdown .cart-item .info { width: 200px; font-size: 14px; line-height: normal;}
 .cartbox-wrapper .cart-dropdown .cart-item .cart-btns { position: absolute; top: -4px; right: 0;}
 .cartbox-wrapper .total-fee { font-family: 'Futura-B'; font-size: 16px;}
