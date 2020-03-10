@@ -323,8 +323,8 @@ button {
 .content-wrapper .favourite-box .input-group .form-control { max-width: 50px; border: none; color: #808080; text-align: center; font-size: 18px; padding-left: 0; padding-right: 0;}
 .content-wrapper .favourite-box .input-group .btn { padding: 6px 0;}
 .content-wrapper .favourite-box .media .img-thum {
-    width: 180px;
-    height: 180px;
+    width: 175px;
+    height: 175px;
 }
 @media screen and (max-width:1900px) {
     .content-wrapper .row-favourite{
