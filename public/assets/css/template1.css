@@ -696,8 +696,7 @@ button {
         border: 1px solid #d0d0d0;
     }
     .content-wrapper .items-container .media h5{font-size: 14px;}
-    .content-wrapper .items-container .media img { margin-right: 0!important;width: 50px !important; height: 50px;
-        min-width: 50px;}
+    .content-wrapper .items-container .media img { margin-right: 0!important;width: 50px !important; height: 50px !important;min-width: 50px !important;}
     .content-wrapper .items-container .media .media-body { margin-top: 10px;}
 
     .cartbox-wrapper { margin-top: 0;}
@@ -754,4 +753,33 @@ button {
     .cartbox-wrapper .cart-dropdown .action-buttons .btn { padding: 6px 15px;}
     .editprofileModal .modal-dialog .modal-content{margin:120px 32px;}
 
+}
+
+
+
+
+a.effect-underline{
+    position: relative;
+}
+/*effect-underline*/
+a.effect-underline:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    height: 1em;
+    width: 100%;
+    border-bottom: 1px solid;
+    margin-top: 10px;
+    opacity: 0;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: scale(0,1);
+    transform: scale(0,1);
+}
+
+a.effect-underline:hover:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
 }
