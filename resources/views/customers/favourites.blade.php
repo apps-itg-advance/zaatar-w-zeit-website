@@ -25,7 +25,7 @@
                     </div>
                     <div class="mediabox row align-items-center">
                         <div class="col-sm-7 text-center">
-                            <a onclick="OpenModel({{$row->ID}})" class="link-customize pointer">Customize</a>
+                            <a onclick="OpenModel({{$row->ID}})" class="link-customize pointer effect-underline">Customize</a>
                         </div>
                         <div class="col-sm-5 text-center">
                             <div class="input-group mx-auto">

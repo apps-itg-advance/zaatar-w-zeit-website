@@ -42,8 +42,8 @@
                                            $active_f='active';
                                        }
                                 @endphp
-                                <a onclick="SetFavourite({{json_encode($row)}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="link-favourite mr-3 {{$active_f}}">Favourite</a>
-                                <a onclick="OpenModel({{$row->ID}})" class="link-customize pointer">Customize</a>
+                                <a onclick="SetFavourite({{json_encode($row)}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite mr-3 {{$active_f}}">Favourite</a>
+                                <a onclick="OpenModel({{$row->ID}})" class="link-customize pointer effect-underline">Customize</a>
                             </div>
                             <div class="col-sm-5 text-center">
                                 <div class="input-group mx-auto">
