@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function ($view) {
 
            // $class_css= 'favourites-wrapper';
-            $view->with('currency', 'LL');
+            $view->with('currency', 'LBP');
             $view->with('delivery_fees','2000');
 
             //$view->with('class_css',$class_css);
