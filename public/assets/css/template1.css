@@ -310,7 +310,7 @@ button {
 .content-wrapper .favourite-box .media .media-body h5 { color: #4D4D4D;}
 .content-wrapper .favourite-box .media .media-body a { color: #4D4D4D;font-family: 'Futura-Medium-BT';font-size: 16px; float: left;}
 .content-wrapper .favourite-box .media .media-body .price { float: right;font-family: 'Futura-Medium-BT';font-size: 16px;}
-.content-wrapper .favourite-box .content { font-family: 'Futura-Medium-BT'; font-size: 13px;clear: both;}
+.content-wrapper .favourite-box .content { font-family: 'Futura-Medium-BT'; font-size: 13px;clear: both;margin-top: 25px;}
 .content-wrapper .favourite-box .link-close { position: absolute; top: -15px; right: -12px; background: #FFFFFF; display: block; border-radius: 30px;}
 .content-wrapper .favourite-box .link-close img { width: 22px;height: 22px; }
 .content-wrapper .favourite-box .link-customize { font-size: 15px;padding-left: 25px; background: url("../images/icon-pencil.png") no-repeat left center; color: #808080; float: right;}
