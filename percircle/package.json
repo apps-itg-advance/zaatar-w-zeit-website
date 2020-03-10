@@ -1,0 +1,58 @@
+{
+  "name": "percircle",
+  "version": "1.0.29",
+  "description": "CSS percentage circle built with jQuery selectors.",
+  "main": "dist/js/percircle.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toubou91/percircle.git"
+  },
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery",
+    "percentage",
+    "circle",
+    "ui"
+  ],
+  "author": {
+    "name": "Thodoris Bais",
+    "email": "thodoris.bais@gmail.com",
+    "url": "http://thodorisbais.com/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/toubou91/percircle/issues"
+  },
+  "homepage": "https://github.com/toubou91/percircle#readme",
+  "peerDependencies": {
+    "jquery": "3.4.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "9.6.5",
+    "babel-plugin-syntax-dynamic-import": "6.18.0",
+    "clean-webpack-plugin": "3.0.0",
+    "css-loader": "3.2.0",
+    "cssnano": "4.1.10",
+    "html-webpack-plugin": "3.2.0",
+    "jshint": "2.10.2",
+    "jshint-stylish": "2.2.1",
+    "jshint-stylish-summary": "1.0.0",
+    "less": "3.10.3",
+    "less-loader": "5.0.0",
+    "mini-css-extract-plugin": "0.8.0",
+    "postcss": "7.0.18",
+    "postcss-loader": "3.0.0",
+    "webpack": "4.41.2",
+    "webpack-cli": "3.3.9",
+    "webpack-dev-server": "3.8.2",
+    "webpack-merge": "4.2.2",
+    "webpack-rtl-plugin": "2.0.0"
+  },
+  "browserslist": [
+    "last 4 versions"
+  ],
+  "scripts": {
+    "build": "webpack --env.production --config config/webpack.prod.js",
+    "start": "webpack-dev-server --env.development --open --config config/webpack.dev.js"
+  }
+}
