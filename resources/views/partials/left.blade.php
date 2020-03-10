@@ -1,4 +1,4 @@
-<div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-items">
+<div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-items aside-menu">
     <div class="items-container">
         @if (session()->has('navigations'))
             @foreach(session()->get('navigations') as $nav)
@@ -19,7 +19,7 @@
                 @endphp
                     <a href="{{route('home.menu', ['id'=>$nav->ID,'name'=>$url_name])}}">
                 <div class="media @if($nav->ID==$cat_id) active  @endif">
-                        <img src="{{$nav->URL}}" style="width: 60px !important; height: 60px !important; border-radius: 50%;" class="mr-3" alt="...">
+                        <img src="{{$nav->URL}}" style="!important; border-radius: 50%;" class="mr-3" alt="...">
                         <div class="align-self-center media-body">
                             <h5 class="mt-0">
                                 {{strtoupper($url_name)}}
