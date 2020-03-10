@@ -386,7 +386,7 @@ button {
         padding-left: 20px;
     }
 }
-@media screen and (max-width:520px) {
+@media screen and (max-width:577px) {
     .content-wrapper .favourite-box .media .img-thum{
         width: 100%;
         height: auto;
