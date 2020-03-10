@@ -1,7 +1,6 @@
-<form action="{{route('customer.address.update')}}" method="post">
+<form action="{{route('customer.address.save')}}" method="post">
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form action="{{route('customer.store')}}" method="post">
                 @csrf
                 <div class="modal-header border-0">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -11,50 +10,28 @@
                 <div class="modal-body col-xl-10 float-none mx-auto pt-0">
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 class="futura-medium">Edit Address</h2>
+                            <h2 class="futura-medium">Add Address</h2>
                         </div>
                     </div>
                     <div class="row">
-                        <input type="hidden" name="address_id{{$skey}}" value="{{$address->ID}}">
                         <input type="hidden" name="LoyaltyId" value="{{@$query->LoyaltyId}}">
-                        <input type="hidden" name="is_default{{$skey}}" value="1">
-                        @php
-                            $selectedCity='';
-
-                                $main_address=array();
-
-                                    $selectedCity=$address->CityId;
-                                    $array_line2=explode('Bldg',$address->Line2);
-                                    $array_apartment=explode('Ext:',$address->AptNumber);
-                                    if(count($array_line2)>0)
-                                    {
-                                        $building_name=@$array_line2[0];
-                                        $building_nbr=@$array_line2[1];
-                                    }
-                                    if(count($array_apartment)>0)
-                                    {
-                                        $floor=@$array_apartment[0];
-                                        $ext=@$array_apartment[1];
-                                    }
-
-                        @endphp
                         <div class="col-md-12">
                             <label>Address Type</label>
                             <div class="row">
                                 @foreach($addresses_types as $add_type)
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>{{$add_type->Title}}</label>
-                                        <input type="radio" {{(in_array($add_type->ID,$address_types) and $address->TypeID!=$add_type->ID)? 'disabled' :''}}  {{$address->TypeID==$add_type->ID? 'checked' :''}} name="address_type{{$skey}}" value="{{$add_type->ID}}" />
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>{{$add_type->Title}}</label>
+                                            <input type="radio" {{in_array($add_type->ID,$address_types)? 'disabled' :''}} name="address_type{{$skey}}" value="{{$add_type->ID}}" />
+                                        </div>
                                     </div>
-                                </div>
                                 @endforeach
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Address Name</label>
-                                <input type="text" class="form-control" name="name{{$skey}}" value="{{@$address->Name}}" />
+                                <input type="text" class="form-control" name="name{{$skey}}" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -63,7 +40,7 @@
                                 <select class="form-control" name="geo{{$skey}}">
                                     @if (count($cities)>0)
                                         @foreach($cities as $city)
-                                            <option value="{{ $city->CityId.'-'.$city->ProvinceId }}" {{ $selectedCity == $city->CityId ? 'selected="selected"' : '' }}>{{ $city->CityName.' - '.$city->ProvinceName }}</option>
+                                            <option value="{{ $city->CityId.'-'.$city->ProvinceId }}">{{ $city->CityName.' - '.$city->ProvinceName }}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -72,7 +49,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Street</label>
-                                <input type="text" class="form-control" name="line1{{$skey}}" value="{{@$address->Line1}}" />
+                                <input type="text" class="form-control" name="line1{{$skey}}" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -86,13 +63,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Building Number</label>
-                                        <input type="text" class="form-control"  name="building_nbr{{$skey}}" value="{{@$building_nbr}}"  />
+                                        <input type="text" class="form-control"  name="building_nbr{{$skey}}"  />
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Floor</label>
-                                        <input type="text" class="form-control" name="floor{{$skey}}" value="{{@$floor}}" />
+                                        <input type="text" class="form-control" name="floor{{$skey}}" />
                                     </div>
                                 </div>
                             </div>
@@ -102,13 +79,13 @@
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label>Phone Number</label>
-                                        <input type="text" class="form-control"  name="phone{{$skey}}" value="{{$address->Phone}}" />
+                                        <input type="text" class="form-control"  name="phone{{$skey}}" value="{{$query->FullMobile}}" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Ext.</label>
-                                        <input type="text" class="form-control" name="ext{{$skey}}" value="{{@$ext}}" />
+                                        <input type="text" class="form-control" name="ext{{$skey}}" />
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +99,7 @@
                         <div class="col-md-12">
                             <div class="form-group mb-0">
                                 <label>More Details</label>
-                                <textarea class="form-control" name="more_details{{$skey}}">{{$address->ExtraAddress}}</textarea>
+                                <textarea class="form-control" name="more_details{{$skey}}"></textarea>
                             </div>
                         </div>
                     </div>
@@ -131,7 +108,6 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase futura-book btn-confirm">Confirm</button>
                 </div>
-            </form>
         </div>
     </div>
 </form>

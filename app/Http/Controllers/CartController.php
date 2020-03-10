@@ -228,14 +228,15 @@ class CartController extends BaseController
         $_make_meal=array();
 
         $value1=$make_meal[$item_id];
+
         if($make_meal!=null) {
            // foreach ($make_meal as $key1 => $value1) {
                 $_mk2=$value1['Title'];
 
-                $_mk=$value1['Items'];
+                $_mk=isset($value1['Items'])? $value1['Items']: array();
 
                 $_mk2_array=explode('-',$_mk2);
-                $_amounts=$_amounts+$_mk2_array[1];
+                //$_amounts=$_amounts+$_mk2_array[1];
                 $_make_meal['id']=$_mk2_array[0];
                 $_make_meal['price']=$_mk2_array[1];
                 $_make_meal['name']=$_mk2_array[2];
@@ -249,6 +250,7 @@ class CartController extends BaseController
                 $_make_meal['items']=$_itm;
           //  }
         }
+
         $cart = session()->get('cart');
        // dump($cart);
       //  dump($cart[$key_item]);

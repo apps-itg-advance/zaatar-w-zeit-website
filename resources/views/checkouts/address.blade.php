@@ -13,7 +13,7 @@
         <div class="title-div mb-4">
             <h4 class="title">Address
                 @if(count($addresses)<3)
-                <a href="#" class="d-inline-block ml-5"><img src="{{asset('assets/images/icon-checkout-plus.png')}}" /></a>
+                <a href="javascript:void(0)" onclick="AddAddress()" class="d-inline-block ml-5"><img src="{{asset('assets/images/icon-checkout-plus.png')}}" /></a>
                 @endif
             </h4>
         </div>
@@ -37,13 +37,16 @@
                 </div>
                 <div class="buttons">
                     <a href="#" onclick="EditAddress({{json_encode($address)}})" class="d-inline-block mr-3"><img src="{{asset('assets/images/icon-checkout-edit.png')}}" /></a>
-                    <a href="#" class="d-inline-block"><img src="{{asset('assets/images/icon-checkout-close.png')}}" /></a>
+                    <a href="{{route('customer.address.delete',['id'=>$address->ID])}}" class="d-inline-block"><img src="{{asset('assets/images/icon-checkout-close.png')}}" /></a>
                 </div>
             </div>
 
             @endforeach
                 <div class="edit-address modal fade" id="edit-address" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div id="displayData"></div>
+                </div>
+                <div class="add-address modal fade" id="add-address" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div id="displayAddData"></div>
                 </div>
         </div>
         <div class="action-buttons text-center">
@@ -96,6 +99,24 @@
                 }
             });
            //jQuery('#editprofileModal').modal();
+        }
+        function AddAddress()
+        {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'POST',
+                url:'{{route('customer.address.add')}}',
+                success:function(data){
+                    $("#displayAddData").html(data);
+                    jQuery('#add-address').modal();
+                    // LoadCart();
+                    // _getCountCartItems();
+                    //$(".col-cartitems").html(data);
+                }
+            });
+            //jQuery('#editprofileModal').modal();
         }
 
     </script>

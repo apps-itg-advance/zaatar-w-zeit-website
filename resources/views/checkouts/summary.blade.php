@@ -26,7 +26,7 @@
                             {
                                 array_push($md_array,$modifiers[$i]['name']);
                             }
-                        $meal=$values['meal'];
+                        $meal=isset($values['meal']) ? $values['meal']:array();
                         @endphp
                         {{implode(', ',$md_array )}}
 

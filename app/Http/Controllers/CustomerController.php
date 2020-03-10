@@ -174,10 +174,50 @@ class CustomerController extends Controller
      */
     public function address_edit(Request $request)
     {
+        $data_all=SettingsLib::GetDeliveryScreenDataSteps();
+        $addresses_types=$data_all->AddressTypes;
         $address=(object)$request->input();
         $cities=SettingsLib::GetCities();
         $skey = session()->get('skey');
-        return view('customers._edit_address',compact('address','skey','cities'));
+        $customer=session()->has('user'.$skey) ? session()->get('user'.$skey) : array();
+        $addresses=session()->has('addresses'.$skey) ? session()->get('addresses'.$skey) : array();
+        $address_types=array();
+        if(count($addresses)>0)
+        {
+            foreach ($addresses as $addr)
+            {
+                array_push($address_types,$addr->TypeID);
+            }
+        }
+        $query=$customer->details;
+        return view('customers._edit_address',compact('query','addresses_types','address','address_types','skey','cities'));
+    }
+    public function address_add()
+    {
+        $data_all=SettingsLib::GetDeliveryScreenDataSteps();
+        $addresses_types=$data_all->AddressTypes;
+        $cities=SettingsLib::GetCities();
+        $skey = session()->get('skey');
+        $customer=session()->has('user'.$skey) ? session()->get('user'.$skey) : array();
+        $addresses=session()->has('addresses'.$skey) ? session()->get('addresses'.$skey) : array();
+        $address_types=array();
+        if(count($addresses)>0)
+        {
+            foreach ($addresses as $addr)
+            {
+                array_push($address_types,$addr->TypeID);
+            }
+        }
+        $query=$customer->details;
+        return view('customers._add_address',compact('query','addresses_types','address_types','skey','cities'));
+    }
+    public function address_delete($id)
+    {
+        $skey = session()->get('skey');
+        $query=session()->has('user'.$skey) ? session()->get('user'.$skey) : array();
+        $loyalty_id=$query->details->LoyaltyId;
+        $res=CustomerLibrary::DeleteAddress($id,$loyalty_id);
+        return back();
     }
 
     /**
@@ -189,7 +229,99 @@ class CustomerController extends Controller
      */
     public function address_update(Request $request)
     {
-        dump($request->input());
+        $Skey = session()->get('skey');
+
+        $loyalty_id=$request->input('LoyaltyId');
+        $name=$request->input('name'.$Skey);
+        $geo=$request->input('geo'.$Skey);
+        $line1=$request->input('line1'.$Skey);
+        $building_name=$request->input('building_name'.$Skey);
+        $building_nbr=$request->input('building_nbr'.$Skey);
+        $floor=$request->input('floor'.$Skey);
+        $phone=$request->input('phone'.$Skey);
+        $ext=$request->input('ext'.$Skey);
+        $line2=$building_name.' Bldg '.$building_nbr;
+        $x_location=$request->input('x_location'.$Skey);
+        $y_location=$request->input('y_location'.$Skey);
+        $more_details=$request->input('more_details'.$Skey);
+        $is_default=$request->input('is_default'.$Skey);
+        $address_id=$request->input('address_id'.$Skey);
+        $address_type=$request->input('address_type'.$Skey);
+
+        $apartment=$floor.' Ext: '.$ext;
+        $geo_array=explode('-',$geo);
+        $city_id=@$geo_array[0];
+        $province_id=@$geo_array[1];
+
+        $array=array(
+            'ID'=>$address_id,
+            'LoyaltyId'=>$loyalty_id,
+            'Name'=>$name,
+            'AptNumber'=>$apartment,
+            'Line1'=>$line1,
+            'Line2'=>$line2,
+            'PhoneCode'=>$loyalty_id,
+            'Phone'=>$phone,
+            'CityId'=>$city_id,
+            'XLocation'=>$x_location,
+            'YLocation'=>$y_location,
+            'PersonalInfo'=>'',
+            'AddressType'=>$address_type,
+            'Company'=>'',
+            'IsDefault'=>$is_default==1 ? 1:0,
+            'ExtraAddress'=>$more_details,
+        );
+        $address=CustomerLibrary::UpdateAddress($array);
+        CustomerLibrary::UpdateSessionAddresses($loyalty_id);
+        return back();
+    }
+
+    public function address_save(Request $request)
+    {
+        $Skey = session()->get('skey');
+
+        $loyalty_id=$request->input('LoyaltyId');
+        $name=$request->input('name'.$Skey);
+        $geo=$request->input('geo'.$Skey);
+        $line1=$request->input('line1'.$Skey);
+        $building_name=$request->input('building_name'.$Skey);
+        $building_nbr=$request->input('building_nbr'.$Skey);
+        $floor=$request->input('floor'.$Skey);
+        $phone=$request->input('phone'.$Skey);
+        $ext=$request->input('ext'.$Skey);
+        $line2=$building_name.' Bldg '.$building_nbr;
+        $x_location=$request->input('x_location'.$Skey);
+        $y_location=$request->input('y_location'.$Skey);
+        $more_details=$request->input('more_details'.$Skey);
+        $is_default=$request->input('is_default'.$Skey);
+        $address_type=$request->input('address_type'.$Skey);
+
+
+        $apartment=$floor.' Ext: '.$ext;
+        $geo_array=explode('-',$geo);
+        $city_id=@$geo_array[0];
+        $province_id=@$geo_array[1];
+
+        $array=array(
+            'LoyaltyId'=>$loyalty_id,
+            'Name'=>$name,
+            'AptNumber'=>$apartment,
+            'Line1'=>$line1,
+            'Line2'=>$line2,
+            'PhoneCode'=>$loyalty_id,
+            'Phone'=>$phone,
+            'CityId'=>$city_id,
+            'XLocation'=>$x_location,
+            'YLocation'=>$y_location,
+            'PersonalInfo'=>'',
+            'AddressType'=>$address_type,
+            'Company'=>'',
+            'IsDefault'=>$is_default==1 ? 1:0,
+            'ExtraAddress'=>$more_details,
+        );
+        $address=CustomerLibrary::AddAddress($array);
+        CustomerLibrary::UpdateSessionAddresses($loyalty_id);
+       return back();
     }
 
     /**

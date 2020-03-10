@@ -7,14 +7,14 @@
                     $array_name=json_decode($nav->Label,true);
                         if(is_array($array_name) and isset($array_name['en']))
                         {
-                            $url_name=str_replace(' ','-',$array_name['en']);
+                            $url_name=str_replace('-',' ',$array_name['en']);
                         }
                         elseif(is_array($array_name) and !isset($array_name['en']))
                         {
-                        $url_name=str_replace(' ','-',$array_name[0]);
+                        $url_name=str_replace('-',' ',$array_name[0]);
                         }
                         else{
-                        $url_name=str_replace(' ','-',$nav->Label);
+                        $url_name=str_replace('-',' ',$nav->Label);
                         }
                 @endphp
                     <a href="{{route('home.menu', ['id'=>$nav->ID,'name'=>$url_name])}}">

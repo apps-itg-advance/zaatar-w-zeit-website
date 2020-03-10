@@ -15,12 +15,14 @@
             </div>
             <div class="radios-green mb-5">
                 @foreach($query as $row)
-                <div class="custom-control custom-radio mb-4">
-                    <input type="radio" id="payment{{$row->PaymentId}}" name="payments" value="{{json_encode($row)}}" class="custom-control-input">
-                    <label class="custom-control-label text-uppercase" for="payment{{$row->PaymentId}}">
-                        {{$row->Label}}
-                    </label>
-                </div>
+                    @if($row->Promo=='0')
+                        <div class="custom-control custom-radio mb-4">
+                            <input type="radio" id="payment{{$row->PaymentId}}" name="payments" value="{{json_encode($row)}}" class="custom-control-input">
+                            <label class="custom-control-label text-uppercase" for="payment{{$row->PaymentId}}">
+                                {{$row->Label}}
+                            </label>
+                        </div>
+                    @endif
                 @endforeach
             </div>
             <div class="action-buttons text-center">
