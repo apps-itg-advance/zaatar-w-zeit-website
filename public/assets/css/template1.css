@@ -610,6 +610,11 @@ button {
 .modal-title { font-family: 'Futura-Medium-BT'; }
 .modal-body label{font-family: 'Futura-Medium-BT';font-size: 17px;color: #808080;}
 
+.content-wrapper .items-container .media img{
+    width: 60px !important;
+    height: 60px !important;
+}
+
 /*Big-Tablet view*/
 @media screen and (max-width:1600px) {
 
@@ -662,7 +667,7 @@ button {
     .content-wrapper .col-favourite { padding-left: 15px; padding-right: 15px;}
 
     .wallet-wrapper .wallet-carousel .owl-nav { display: table; margin: 30px auto;}
-    .wallet-wrapper .wallet-carousel .owl-nav button { position: relative; left: 0!important; right: 0!important;; height: 50px; background-size: 25px; height: 30px; width: 30px;}
+    .wallet-wrapper .wallet-carousel .owl-nav button { position: relative; left: 0!important; right: 0; background-size: 25px; height: 30px; width: 30px;}
 
 
     .checkout-navblock .checkout-nav li { margin: 0 2px;}
