@@ -177,7 +177,7 @@ class OrdersLibrary{
         $post_array['organization_id']=$s_org->id;
         $post_array['channel_id']=1;
         $post_array['LoyaltyId']=session()->get('loyalty_id');
-        $post_array['OrderId']=0;
+        $post_array['OrderId']='';
         $post_array['OrderDate']=$datatime;
         $post_array['CardNumber']='';
         $post_array['TotalPrice']=$_total;

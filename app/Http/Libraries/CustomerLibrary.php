@@ -37,19 +37,20 @@ class CustomerLibrary
         return $query;
     }
 
-    public static function DeleteAddress($res)
+    public static function DeleteAddress($id,$loyalty_id)
     {
-        $Skey=session()->get('skey');
-        $data=$res->data;
-        if($res->type=='login')
-        {
-            session()->put('user'.$Skey,$data->customer);
-            session()->put('addresses'.$Skey,$data->addresses);
-        }
-        session()->put('is_login',true);
-        session()->put('token',$data->token);
+        $s_org=session()->get('_org');
 
+        $array['token']=$s_org->token;
+        $array['organization_id']=$s_org->id;
+        $array['channel_id']=1;
+        $array['ID']=$id;
+        $array['LoyaltyId']=$loyalty_id;
 
+        $url=env('BASE_URL').'addresses/delete';
+        $query=Helper::postApi($url,$array);
+        self::UpdateSessionAddresses($loyalty_id);
+        return $query;
     }
     public static function UpdateCustomers($array)
     {
@@ -74,6 +75,15 @@ class CustomerLibrary
         return $res;
     }
     public static function GetOrdersHistory($loyalty_id)
+    {
+        $Skey=session()->get('skey');
+        $s_org=session()->get('_org');
+        $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$s_org->token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+        $query=Helper::getApi($url);
+        $res=$query->data;
+        return $res;
+    }
+    public static function GetAddressTypes($loyalty_id)
     {
         $Skey=session()->get('skey');
         $s_org=session()->get('_org');
