@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{asset('assets/phone-input/css/intlTelInput.css')}}">
 <style type="text/css">
     .phone-css{
-        padding-left: 75px !important;
+        padding-left: 95px !important;
     }
     .intl-tel-input {
         display: table-cell;
