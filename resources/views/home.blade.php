@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="modal-footer pt-0">
                                     <span class="title d-inline-block">Total</span>
-                                    <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{$row->Price}} LL</span>
+                                    <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{$row->Price}}</span>
                                     <input type="hidden" id="TotalAmount{{$row->ID}}" name="total_amount[]" value="{{$row->Price}}">
                                     <button class="btn btn-8DBF43 text-uppercase">Confirm</button>
                                 </div>
