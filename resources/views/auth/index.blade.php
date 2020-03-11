@@ -234,24 +234,8 @@ echo "jQuery('#login-modal').modal();";
             });
             $('#Backbtn').on('click', function(event){
                 event.preventDefault();
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type:'POST',
-                    url:'{{route('auth.pin')}}',
-                    data:$("#PinForm").serialize(),
-                    dataType:'json',
-                    success:function(data){
-                        if(data.status=='success')
-                        {
-                            location.replace('{{route('customer.index')}}'+'/'+data.type);
-                        }
-                        else{
-                            jQuery('#PinMsg').html(data.message);
-                        }
-                    }
-                });
+                jQuery('#pin-modal').modal('hide');
+                jQuery('#login-modal').modal();
             });
         });
     </script>
