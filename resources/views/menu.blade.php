@@ -46,13 +46,13 @@
                                 <a onclick="OpenModel({{$row->ID}})" class="link-customize pointer effect-underline">Customize</a>
                             </div>
                             <div class="col-sm-5 text-center">
-                                <div class="input-group mx-auto">
+                                <div class="input-group mx-auto item-plus-minus">
                                     <div class="input-group-prepend">
                                         <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="AddQty({{$row->ID}})"><img src="{{asset('assets/images/icon-plus.png')}}" /></button>
                                     </div>
                                     <input type="text" name="qty[{{$row->ID}}]" id="qty_{{$row->ID}}" class="form-control" value="0">
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-link pointer" onclick="SubQty({{$row->ID}})"><img src="{{asset('assets/images/icon-minus.png')}}" /></button>
+                                        <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="SubQty({{$row->ID}})"><img src="{{asset('assets/images/icon-minus.png')}}" /></button>
                                     </div>
                                 </div>
                             </div>
@@ -170,10 +170,22 @@
             $("#TotalAmountQ"+item_id).val(nTotal);
             $("#DisplayTotalQ"+item_id).text(formatNumber(nTotal)+' {{$currency}}');
         }
+        function spinner(mode, el){
+	        if(mode=='show'){
+		        el.find('*').addClass('d-none');
+		        el.append('<div class="sp-container"><div class="sp sp-circle"></div></div>');
+	        }else{
+		        el.find('.sp-container').remove();
+		        el.find('*').removeClass('d-none');
+	        }
+        }
+
         function AddQty(id) {
 	        var hasM = $("#MakeMeal"+id).val();
 	        if(hasM==0){
-		        loader('show');
+		        // loader('show');
+		        var spinnerContainerElement = $("button[data-code='" + id + "']").closest('.item-plus-minus');
+		        spinner('show', spinnerContainerElement);
 		        $("button[data-code='" + id + "']").prop('disabled',true);
 	        }
             var currentTotal=parseFloat($("#TotalAmount"+id).val());
@@ -188,7 +200,11 @@
              MakeMealModel(id);
         }
         function SubQty(id) {
-            var currentTotal=parseFloat($("#TotalAmount"+id).val());
+        	//sp spinner
+            var spinnerContainerElement = $("button[data-code='" + id + "']").closest('.item-plus-minus');
+            spinner('show', spinnerContainerElement);
+
+	        var currentTotal=parseFloat($("#TotalAmount"+id).val());
             var ItemId="qty_"+id;
             var currentQty=parseInt($("#"+ItemId).val());
             if(currentQty >0)
@@ -200,10 +216,11 @@
                 $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
             }
 
-
+	        spinner('hide', spinnerContainerElement);
         }
         function AddToCart(id)
         {
+	        var spinnerContainerElement = $("button[data-code='" + id + "']").closest('.item-plus-minus');
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -216,7 +233,8 @@
                     LoadCart();
                     jQuery('.cartbig-modal').modal('hide');
 	                $("button[data-code='" + id + "']").prop('disabled',false);
-	                loader('hide');
+	                // loader('hide');
+	                spinner('hide', spinnerContainerElement);
                 }
             });
 

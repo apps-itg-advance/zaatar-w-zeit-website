@@ -113,11 +113,12 @@
         }
 
         function AddQty(id) {
-	        var hasM= $("#MakeMeal"+id).val();
-	        if(hasM==0){
-		        loader('show');
-		        $("button[data-code='" + id + "']").prop('disabled',true);
-	        }
+	        // var hasM= $("#MakeMeal"+id).val();
+	        // console.log(hasM);
+	        // if(hasM==0){
+		    //     loader('show');
+		    //     $("button[data-code='" + id + "']").prop('disabled',true);
+	        // }
             var currentTotal=parseFloat($("#TotalAmount"+id).val());
             var ItemId="qty_"+id;
             var currentQty=parseInt($("#"+ItemId).val());
