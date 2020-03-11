@@ -96,7 +96,6 @@
                 jQuery('#makeMeal-modal'+id).modal();
             }
             else{
-
                 AddToCart(id);
             }
             return false;
@@ -171,9 +170,20 @@
             $("#TotalAmountQ"+item_id).val(nTotal);
             $("#DisplayTotalQ"+item_id).text(formatNumber(nTotal)+' {{$currency}}');
         }
-
+        function loader(mode){
+            $("#loader").css('backgroundColor','rgba(255,255,255,0.3)');
+	        if(mode==='hide'){
+		        $("#loader").fadeOut(200);
+	        }else{
+		        $("#loader").fadeIn(200);
+            }
+        }
         function AddQty(id) {
-	        $("button[data-code='" + id + "']").prop('disabled',true);
+	        var hasM= $("#MakeMeal"+id).val();
+	        if(hasM==0){
+		        loader('show');
+		        $("button[data-code='" + id + "']").prop('disabled',true);
+	        }
 	        $('button').data('code');
             var currentTotal=parseFloat($("#TotalAmount"+id).val());
             var ItemId="qty_"+id;
@@ -215,6 +225,7 @@
                     LoadCart();
                     jQuery('.cartbig-modal').modal('hide');
 	                $("button[data-code='" + id + "']").prop('disabled',false);
+	                loader('hide');
                 }
             });
 
