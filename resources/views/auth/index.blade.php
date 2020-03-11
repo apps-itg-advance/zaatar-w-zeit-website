@@ -1,6 +1,7 @@
 @extends('layouts.template')
 @section('css')
 <link rel="stylesheet" href="{{asset('assets/phone-input/css/intlTelInput.css')}}">
+<link rel="stylesheet" href="{{asset('assets/datepicker/css/bootstrap-datepicker.css')}}">
 <style type="text/css">
     .phone-css{
         padding-left: 95px !important;
@@ -23,6 +24,9 @@
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 0;
     }
+    .required{
+        color: red;
+    }
 </style>
 @endsection
 @section('content')
@@ -33,6 +37,7 @@
 @section('javascript')
     <script src="{{asset('assets/js/jquery.matchHeight-min.js')}}"></script>
     <script src="{{asset('assets/phone-input/js/intlTelInput.js')}}"></script>
+    <script src="{{asset('assets/datepicker/js/bootstrap-datepicker.js')}}"></script>
     <script type="text/javascript">
 
         $('body').on('click keydown','#country-listbox li', function(e){
@@ -51,6 +56,9 @@
         }
 
         jQuery(document).ready( function() {
+            $('.datepicker').datepicker({
+                format: 'YY-mm-dd',
+            });
             $('.phone-css').on('keypress', function(key) {
                 if(key.charCode < 48 || key.charCode > 57) return false;
             });
@@ -165,6 +173,17 @@
                 });
             });
             $('#Registerbtn').on('click', function(event){
+                var dob=$('#R_dob{{$sKey}}').val();
+                var firstn=$('#R_FirstName{{$sKey}}').val();
+                var lastn=$('#R_FamilyName{{$sKey}}').val();
+                if(dob=='' || firstn=='' || lastn=='')
+                {
+                    jQuery('#R_dob').html('DOB is required');
+                    jQuery('#R_FirstName').html('Name is required');
+                    jQuery('#R_FamilyName').html('Family Name is required');
+                    return false;
+                }
+
                 event.preventDefault();
                 $.ajax({
                     headers: {
