@@ -1,5 +1,5 @@
 <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-items aside-menu">
-    <div class="items-container">
+    <div class="items-container" id="items-container">
         @if (session()->has('navigations'))
             @foreach(session()->get('navigations') as $nav)
                 @php
@@ -31,3 +31,37 @@
         @endif
     </div>
 </div>
+
+<script>
+	$( document ).ready(function() {
+		function adjustWidth() {
+			var asideMenuWidth = $(".aside-menu").width();
+			document.getElementById("items-container").style.width = asideMenuWidth+'px';
+		}
+		$(function() {
+			adjustWidth();
+		});
+		$(window).resize(
+			function() {
+				adjustWidth();
+			});
+
+		function adjustScrolling(){
+			var scroll = $(window).scrollTop();
+			if(scroll>75){
+				$('.aside-menu .items-container').css('marginTop','-110px');
+			}else{
+				$('.aside-menu .items-container').css('marginTop','-30px');
+			}
+        }
+
+		$(function() {
+			adjustScrolling();
+		});
+
+		$(window).scroll(function (event) {
+			adjustScrolling();
+		});
+
+	});
+</script>

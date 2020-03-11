@@ -4,7 +4,7 @@
 
 @endphp
 <div class="cartbox-wrapper">
-    <div class="cart-dropdown">
+    <div class="cart-dropdown" id="cart-dropdown">
         <h4 class="title text-center">Order Summary</h4>
         <h5 class="user">{{@$user->details->FirstName.' '.@$user->details->LastName}}</h5>
         <div class="cart-items my-5">
@@ -61,3 +61,37 @@
             @endif
     </div>
 </div>
+
+<script>
+	$( document ).ready(function() {
+		function adjustWidth() {
+			var parentwidth = $(".col-cartitems").width();
+			document.getElementById("cart-dropdown").style.width = parentwidth+'px';
+		}
+		$(function() {
+			adjustWidth();
+		});
+		$(window).resize(
+			function() {
+				adjustWidth();
+			});
+
+		function adjustScrolling(){
+			var scroll = $(window).scrollTop();
+			if(scroll>75){
+				$('.cartbox-wrapper .cart-dropdown').css('marginTop','-80px');
+			}else{
+				$('.cartbox-wrapper .cart-dropdown').css('marginTop','0px');
+			}
+		}
+
+		$(function() {
+			adjustScrolling();
+		});
+
+		$(window).scroll(function (event) {
+			adjustScrolling();
+		});
+
+	});
+</script>
