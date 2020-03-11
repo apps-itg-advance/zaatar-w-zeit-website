@@ -26,14 +26,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         view()->composer('*', function ($view) {
-
-           // $class_css= 'favourites-wrapper';
-            $view->with('currency', 'LBP');
-            $view->with('delivery_fees','2000');
-
-            //$view->with('class_css',$class_css);
-
+            $_org=session()->get('_org');
+            $this->currency=$_org->currency;
+            $this->delivery_charge=$_org->delivery_charge;
+            $view->with('currency',  $this->currency);
+            $view->with('delivery_fees',$this->delivery_charge);
         });
         //
     }
