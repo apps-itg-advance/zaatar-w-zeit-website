@@ -20,6 +20,7 @@
             </h4>
         </div>
         <div class="summary-items">
+            @if(isset($addresses))
             @foreach($addresses as $address)
                 @php
                     $checked='';
@@ -44,6 +45,7 @@
             </div>
 
             @endforeach
+            @endif
                 <div class="edit-address modal fade" id="edit-address" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div id="displayData"></div>
                 </div>
