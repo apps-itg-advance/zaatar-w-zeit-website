@@ -25,7 +25,7 @@ class CustomerController extends Controller
         $cities=SettingsLib::GetCities();
         $loyalty_levels=SettingsLib::GetLoyaltyLevels();
         $query=session()->has('user'.$Skey) ? session()->get('user'.$Skey) : array();
-        $v=$query->vouchers;
+        $v=isset($query->vouchers)  ? $query->vouchers : array();
         $array_keys=array();
         $vouchers=array();
         for ($i=0;$i<count($v);$i++)

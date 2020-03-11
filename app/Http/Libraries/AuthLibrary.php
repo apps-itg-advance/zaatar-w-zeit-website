@@ -67,7 +67,7 @@ class AuthLibrary
         $data=$res->data;
         $loyalty_id=$data->details->LoyaltyId;
         $org_id=$data->details->OrgId;
-        session()->put('user'.$Skey,$data->details);
+        session()->put('user'.$Skey,$data);
         //session()->put('addresses'.$Skey,$data->addresses);
         session()->put('is_login',true);
         session()->put('token',$data->token);
