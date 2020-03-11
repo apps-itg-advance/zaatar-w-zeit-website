@@ -25,7 +25,7 @@
 		$(window).load(function() {
 			// Animate loader off screen
 			// $(".se-pre-con").fadeOut(2000);
-			$("#loader").fadeOut(2000);
+			$("#loader").fadeOut(500);
 			_getCountCartItems();
 		});
 
@@ -67,7 +67,7 @@
 <script src="{{asset('assets/js/popper.min.js')}}"></script>
 <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('assets/js/template.js')}}"></script>
-
+<script src="{{asset('assets/jquery-validation-1.19.1/dist/jquery.validate.js')}}"></script>
 
 <script type="text/javascript">
 
