@@ -75,5 +75,23 @@
 			function() {
 				adjustWidth();
 			});
+
+		function adjustScrolling(){
+			var scroll = $(window).scrollTop();
+			if(scroll>75){
+				$('.cartbox-wrapper .cart-dropdown').css('marginTop','-80px');
+			}else{
+				$('.cartbox-wrapper .cart-dropdown').css('marginTop','0px');
+			}
+		}
+
+		$(function() {
+			adjustScrolling();
+		});
+
+		$(window).scroll(function (event) {
+			adjustScrolling();
+		});
+
 	});
 </script>

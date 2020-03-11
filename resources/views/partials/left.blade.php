@@ -45,5 +45,23 @@
 			function() {
 				adjustWidth();
 			});
+
+		function adjustScrolling(){
+			var scroll = $(window).scrollTop();
+			if(scroll>75){
+				$('.aside-menu .items-container').css('marginTop','-110px');
+			}else{
+				$('.aside-menu .items-container').css('marginTop','-30px');
+			}
+        }
+
+		$(function() {
+			adjustScrolling();
+		});
+
+		$(window).scroll(function (event) {
+			adjustScrolling();
+		});
+
 	});
 </script>
