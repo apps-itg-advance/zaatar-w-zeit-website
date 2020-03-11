@@ -118,7 +118,8 @@
             else{
                 var mVal=$("#"+CheckId).val();
                 var res = mVal.split("-");
-                var mPrice=parseFloat(res[2])*currentQty;
+               // var mPrice=parseFloat(res[2])*currentQty;
+                var mPrice=parseFloat(res[2]);
                 if($("#"+CheckId).is(':checked'))
                 {
 
@@ -181,7 +182,7 @@
             var newQty=currentQty+1;
             $("#"+ItemId).val(newQty);
             var newTotal=currentTotal;
-            $("#TotalAmount"+id).val(newTotal);
+           // $("#TotalAmount"+id).val(newTotal);
             $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
 
              MakeMealModel(id);
@@ -195,7 +196,7 @@
                 var newQty=currentQty-1;
                 $("#"+ItemId).val(newQty);
                 var newTotal=currentTotal*newQty;
-                $("#TotalAmount"+id).val(newTotal);
+              //  $("#TotalAmount"+id).val(newTotal);
                 $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
             }
 
