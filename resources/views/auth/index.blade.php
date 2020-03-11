@@ -44,9 +44,16 @@
             }
         });
 
-
+        function ValidateMobile(id) {
+            var s=$("#"+id).val();
+            new_mobile= s.replace(/^0+/, '');
+            $("#"+id).val(new_mobile);
+        }
 
         jQuery(document).ready( function() {
+            $('.phone-css').on('keypress', function(key) {
+                if(key.charCode < 48 || key.charCode > 57) return false;
+            });
 
             var input = document.querySelector(".phone-css");
             window.intlTelInput(input, {
