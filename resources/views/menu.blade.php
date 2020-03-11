@@ -147,8 +147,7 @@
                     $(".Sub"+id).attr("disabled", true);
                     var nTotal=parseFloat($("#TotalAmount"+item_id).val())-parseFloat(res[1]);
                 }
-
-               // $("#TotalAmount"+item_id).val(nTotal);
+                $("#TotalAmount"+item_id).val(nTotal);
                 $("#DisplayTotal"+item_id).text(formatNumber(nTotal)+' {{$currency}}');
             }
         function CalculateMakeMealTotalQ(id,item_id) {

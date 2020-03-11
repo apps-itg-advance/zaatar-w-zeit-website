@@ -106,16 +106,24 @@
 
                 $flag='login';
             }
-
-             if($flag=='pin'){
+echo "jQuery('#login-modal').modal();";
+        /*     if($flag=='pin'){
                 echo "jQuery('#pin-modal').modal();";
             }
             else{
                 echo "jQuery('#login-modal').modal();";
-            }
+            } */
             @endphp
            // jQuery('#login-modal').modal();
-            $('#Loginbtn').on('click', function(event){
+            $('#Loginbtn, #Loginbtn1').on('click', function(event){
+                var mobile=$('#mobile{{$sKey}}').val();
+                var email=$('#email{{$sKey}}').val();
+                if(mobile=='' || email=='')
+                {
+                    jQuery('#R_Mobile').html('Mobile is required');
+                    jQuery('#R_Email').html('Email is required');
+                    return false;
+                }
                 event.preventDefault();
                 $.ajax({
                     headers: {
