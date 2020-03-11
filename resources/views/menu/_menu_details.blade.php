@@ -10,7 +10,7 @@
                         <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                     </div>
                     <div class="col-lg-6 text-col py-4">
-                        <h5>{{$row->ItemName}}<span>{{$row->Price}}</span></h5>
+                        <h5>{{$row->ItemName}}<span>{{number_format($row->Price)}}</span></h5>
                         <div class="info">{{$row->Details}}</div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                             @endphp
                             @foreach($meal_items as $meal_item)
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="checkbox" value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal{{$meal_item->ID}}" name="make_meal[{{$row->ID}}][Items][{{$meal_item->ID}}]" class="custom-control-input">
+                                    <input type="checkbox" value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal{{$meal_item->ID}}" name="make_meal[{{$row->ID}}][Items][{{$meal_item->ID}}]" class="custom-control-input Sub{{$make_meal->ID}}" disabled>
                                     <label class="custom-control-label" for="makeMeal{{$meal_item->ID}}">{{$meal_item->Name}}</label>
                                 </div>
                             @endforeach
@@ -75,7 +75,7 @@
             </div>
             <div class="modal-footer pt-0">
                 <span class="title d-inline-block">Total</span>
-                <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{$row->Price}} {{$currency}}</span>
+                <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{number_format($row->Price)}} {{$currency}}</span>
                 <input type="hidden" id="TotalAmount{{$row->ID}}" name="TotalAmount[{{$row->ID}}]" value="{{str_replace(',','',$row->Price)}}">
                 <button class="btn btn-8DBF43 text-uppercase" onclick="SubmitForm({{$row->ID}})">Confirm</button>
             </div>

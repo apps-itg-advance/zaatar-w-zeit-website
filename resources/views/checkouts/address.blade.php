@@ -12,12 +12,15 @@
     <div class="col-xl-6 col-lg-8 col-md-9 col-sm-12 item-summary float-none p-0 mx-auto">
         <div class="title-div mb-4">
             <h4 class="title">Address
-                @if(count($addresses)<3)
+                @if(isset($addresses))
+                @if(!isset($addresses) or (isset($addresses) and count($addresses)<3))
                 <a href="javascript:void(0)" onclick="AddAddress()" class="d-inline-block ml-5"><img src="{{asset('assets/images/icon-checkout-plus.png')}}" /></a>
+                @endif
                 @endif
             </h4>
         </div>
         <div class="summary-items">
+            @if(isset($addresses))
             @foreach($addresses as $address)
                 @php
                     $checked='';
@@ -42,6 +45,7 @@
             </div>
 
             @endforeach
+            @endif
                 <div class="edit-address modal fade" id="edit-address" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div id="displayData"></div>
                 </div>

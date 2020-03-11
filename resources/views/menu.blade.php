@@ -28,7 +28,7 @@
                             <div class="media-body">
                                 <h5 class="mt-0">
                                     <a href="#">{{$row->ItemName}}</a>
-                                    <span class="price">{{$row->Price}} {{$currency}}</span>
+                                    <span class="price">{{number_format($row->Price)}} {{$currency}}</span>
                                 </h5>
                                 <div class="content">{{$row->Details}}</div>
                             </div>
@@ -138,9 +138,13 @@
                 var res = mVal.split("-");
                 if($("#"+CheckId).is(':checked'))
                 {
+                    $(".Sub"+id).removeAttr("disabled");
+
                     var nTotal=parseFloat($("#TotalAmount"+item_id).val())+parseFloat(res[1]);
                 }
                 else{
+                    $(".Sub"+id).prop("checked", false);
+                    $(".Sub"+id).attr("disabled", true);
                     var nTotal=parseFloat($("#TotalAmount"+item_id).val())-parseFloat(res[1]);
                 }
 
@@ -155,9 +159,12 @@
 
             if($("#"+CheckId).is(':checked'))
             {
+                $(".Sub"+id).removeAttr("disabled");
                 var nTotal=parseFloat($("#TotalAmountQ"+item_id).val())+parseFloat(res[1]);
             }
             else{
+                $(".Sub"+id).prop("checked", false);
+                $(".Sub"+id).attr("disabled", true);
                 var nTotal=parseFloat($("#TotalAmountQ"+item_id).val())-parseFloat(res[1]);
             }
             $("#TotalAmountQ"+item_id).val(nTotal);
