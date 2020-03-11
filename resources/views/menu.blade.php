@@ -48,7 +48,7 @@
                             <div class="col-sm-5 text-center">
                                 <div class="input-group mx-auto">
                                     <div class="input-group-prepend">
-                                        <button type="button" class="btn btn-link pointer"  onclick="AddQty({{$row->ID}})"><img src="{{asset('assets/images/icon-plus.png')}}" /></button>
+                                        <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="AddQty({{$row->ID}})"><img src="{{asset('assets/images/icon-plus.png')}}" /></button>
                                     </div>
                                     <input type="text" name="qty[{{$row->ID}}]" id="qty_{{$row->ID}}" class="form-control" value="0">
                                     <div class="input-group-append">
@@ -88,7 +88,6 @@
             return false;
         }
         function MakeMealModel(id) {
-
             var hasM= $("#MakeMeal"+id).val();
             $("#SItemId").val(id);
             var qty=$("#qty_"+id).val();
@@ -98,7 +97,7 @@
             }
             else{
 
-                AddToCart();
+                AddToCart(id);
             }
             return false;
         }
@@ -167,7 +166,8 @@
         }
 
         function AddQty(id) {
-
+	        $("button[data-code='" + id + "']").prop('disabled',true);
+	        $('button').data('code');
             var currentTotal=parseFloat($("#TotalAmount"+id).val());
             var ItemId="qty_"+id;
             var currentQty=parseInt($("#"+ItemId).val());
@@ -178,7 +178,6 @@
             $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
 
              MakeMealModel(id);
-
         }
         function SubQty(id) {
             var currentTotal=parseFloat($("#TotalAmount"+id).val());
@@ -195,7 +194,7 @@
 
 
         }
-        function AddToCart()
+        function AddToCart(id)
         {
             $.ajax({
                 headers: {
@@ -208,13 +207,14 @@
                     _getCountCartItems();
                     LoadCart();
                     jQuery('.cartbig-modal').modal('hide');
+	                $("button[data-code='" + id + "']").prop('disabled',false);
                 }
             });
 
         }
         $('#Form').on('submit', function(event){
             event.preventDefault();
-            AddToCart();
+            AddToCart(0);
 
         });
         function SetFavourite(item)
