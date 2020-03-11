@@ -203,6 +203,7 @@ class OrdersLibrary{
         $post_array['DeliveryCharge']=$delivery_charge;
         $post_array['paymentParts']=$array_payments;
         $post_array['Items']=$array_items;
+        $post_array['ReferralSource']='web';
 
         $url=env('BASE_URL').'orders/Save';
         $query=Helper::postApi($url,$post_array);

@@ -23,6 +23,7 @@ class AuthLibrary
         $post_array['MobileNumber']=$array['mobile'];
         $post_array['Email']=$array['email'];
         $post_array['CountryCode']=$array['country_code'];
+        $post_array['ReferralSource']='web';
 
         $url=env('BASE_URL').'auth/Signup';
         $query=Helper::postApi($url,$post_array);
@@ -118,6 +119,8 @@ class AuthLibrary
         $post_array['FirstName']=$array['first_name'.$Skey];
         $post_array['LastName']=$array['family_name'.$Skey];
         $post_array['Gender']=$array['gender'.$Skey];
+        $post_array['Birthday']=$array['dob'.$Skey];
+
 
         $url=env('BASE_URL').'auth/Register';
         $query=Helper::postApi($url,$post_array);
