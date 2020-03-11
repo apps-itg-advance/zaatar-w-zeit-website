@@ -34,7 +34,7 @@
                                     <input type="checkbox" onclick="CalculateTotal({{$category_id}},{{$max_qty}},{{$m_item->RowId}},{{$row->ID}})" id="Modifier{{$m_item->RowId}}"  name="modifiers{{$row->ID}}[{{$category_id}}][]" value="{{$m_item->ID.'-'.$m_item->PLU.'-'.str_replace(',','',$m_item->Price).'-'.$category_name.' '.$m_item->ModifierName}}" class="custom-control-input m-{{$category_id}}-{{$row->ID}}">
                                     <label class="custom-control-label" for="Modifier{{$m_item->RowId}}">
                                         {{$m_item->ModifierName}}
-                                        <span class="price">{{$m_item->Price}}</span>
+                                        <span class="price">{{number_format($m_item->Price)}}</span>
                                     </label>
                                 </div>
                             @endforeach
@@ -52,7 +52,7 @@
                                 <input type="checkbox"  value="{{$make_meal->ID.'-'.str_replace(',','',$make_meal->Price).'-'.$make_meal->Details}}"  onclick="CalculateMakeMealTotal({{$make_meal->ID}},{{$row->ID}})"  id="makeMealH{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]" class="custom-control-input">
                                 <label class="custom-control-label text-uppercase futura-b" for="makeMealH{{$make_meal->ID}}">
                                     {{$make_meal->Title}}
-                                    <span class="price">{{$make_meal->Price}}</span>
+                                    <span class="price">{{number_format($make_meal->Price)}}</span>
                                 </label>
                             </div>
                         </div>

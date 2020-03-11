@@ -14,7 +14,7 @@
             @if($cart!=null)
             @foreach($cart as $key=>$values)
                 <div class="cart-item mb-4">
-                    <h5 class="name text-4D4D4D"> {{$values['name']}}<span class="price d-inline-block ml-3">{{$values['price']}}</span></h5>
+                    <h5 class="name text-4D4D4D"> {{$values['name']}}<span class="price d-inline-block ml-3">{{number_format($values['price'])}}</span></h5>
                     <div class="info text-808080">
                         @php
 
@@ -39,7 +39,7 @@
                         @endphp
                         @if($meal!=null)
                     <div class="speacial-meal bg-8DBF43">
-                        MEAL <span class="d-inline-block mx-3">{{$meal['name']}}</span><span class="d-inline-block">{{$meal['price']}}</span>
+                        MEAL <span class="d-inline-block mx-3">{{$meal['name']}}</span><span class="d-inline-block">{{number_format($meal['price'])}}</span>
                         <a href="javascript:void(0)" onclick="_deleteMeal({{$key}})" class="close"><img src="{{asset('assets/images/icon-close-white.png')}}" /></a>
                     </div>
                     @endif
@@ -50,9 +50,9 @@
         </div>
         @if($cart!=null)
         <div class="carttotal-block mt-3">
-            <div class="delivery-fee text-right"><span class="float-left">Delivery fee</span> {{$delivery_fees.' '.$currency}}</div>
+            <div class="delivery-fee text-right"><span class="float-left">Delivery fee</span> {{number_format($delivery_fees).' '.$currency}}</div>
             <hr/>
-            <div class="total-fee text-right"><span class="float-left">Total</span> {{($_total+$delivery_fees).' '.$currency}}</div>
+            <div class="total-fee text-right"><span class="float-left">Total</span> {{number_format(($_total+$delivery_fees)).' '.$currency}}</div>
         </div>
         <div class="action-buttons text-center mt-5 mb-3">
             <button class="btn btn-B3B3B3 text-uppercase" onclick="_destroyCart()" id="DestroyBtn">Clear All</button>

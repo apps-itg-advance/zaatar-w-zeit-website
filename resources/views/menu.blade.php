@@ -73,6 +73,9 @@
 @section('javascript')
     <script src="{{asset('assets/js/jquery.matchHeight-min.js')}}"></script>
     <script type="text/javascript">
+        function formatNumber(num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
         function CustomizeItem() {
             $("#ItemModify").val(1);
         }
@@ -127,7 +130,7 @@
                     var nTotal=parseFloat($("#TotalAmount"+item_id).val())-mPrice;
                 }
                 $("#TotalAmount"+item_id).val(nTotal);
-                $("#DisplayTotal"+item_id).text(nTotal+' LBP');
+                $("#DisplayTotal"+item_id).text(formatNumber(nTotal)+' LBP');
             }
         }
         function CalculateMakeMealTotal(id,item_id) {
@@ -144,7 +147,7 @@
                 }
 
                // $("#TotalAmount"+item_id).val(nTotal);
-                $("#DisplayTotal"+item_id).text(nTotal+' {{$currency}}');
+                $("#DisplayTotal"+item_id).text(formatNumber(nTotal)+' {{$currency}}');
             }
         function CalculateMakeMealTotalQ(id,item_id) {
             var CheckId='makeMealL'+id;
@@ -160,7 +163,7 @@
                 var nTotal=parseFloat($("#TotalAmountQ"+item_id).val())-parseFloat(res[1]);
             }
             $("#TotalAmountQ"+item_id).val(nTotal);
-            $("#DisplayTotalQ"+item_id).text(nTotal+' {{$currency}}');
+            $("#DisplayTotalQ"+item_id).text(formatNumber(nTotal)+' {{$currency}}');
         }
 
         function AddQty(id) {
@@ -172,7 +175,7 @@
             $("#"+ItemId).val(newQty);
             var newTotal=currentTotal;
             $("#TotalAmount"+id).val(newTotal);
-            $("#DisplayTotal"+id).text(newTotal+' LBP');
+            $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
 
              MakeMealModel(id);
 
@@ -187,7 +190,7 @@
                 $("#"+ItemId).val(newQty);
                 var newTotal=currentTotal*newQty;
                 $("#TotalAmount"+id).val(newTotal);
-                $("#DisplayTotal"+id).text(newTotal+' LBP');
+                $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
             }
 
 

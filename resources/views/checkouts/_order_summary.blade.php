@@ -35,7 +35,7 @@
                             <div class="col-sm-6">
                                 @foreach($cart as $key=>$values)
                                     <div class="mb-3">
-                                        <h5 class="mb-0">{{$values['name']}} (x{{$values['quantity']}}) <span class="d-inline-block ml-3">{{$values['price']}}</span></h5>
+                                        <h5 class="mb-0">{{$values['name']}} (x{{$values['quantity']}}) <span class="d-inline-block ml-3">{{number_format($values['price'])}}</span></h5>
                                         <div class="text-808080">
                                             @php
                                                 $modifiers=$values['modifiers'];
@@ -56,11 +56,11 @@
                     <div class="row">
                         <div class="col-md-8 offset-2">
                             <div class="delivery-block text-right mb-2">
-                                Delivery fee <span class="price d-inline-block ml-4">{{$delivery_charge}} {{$currency}}</span>
+                                Delivery fee <span class="price d-inline-block ml-4">{{number_format($delivery_charge)}} {{$currency}}</span>
                             </div>
                             <hr/>
                             <div class="total-block text-right">
-                                Total <span class="price d-inline-block ml-4">{{$_total}}</span>
+                                Total <span class="price d-inline-block ml-4">{{number_format($_total)}}</span>
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                                         }
                                         elseif($cart_vouchers['ValueType']=='flat_rate')
                                         {
-                                            echo ' - '.$cart_vouchers['Value'].' '.$currency;
+                                            echo ' - '.number_format($cart_vouchers['Value']).' '.$currency;
                                         }
                                         else{
                                         echo $cart_vouchers['Value'];

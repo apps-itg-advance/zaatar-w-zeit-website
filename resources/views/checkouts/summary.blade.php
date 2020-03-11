@@ -15,7 +15,7 @@
                 @endphp
                 @foreach($cart as $key=>$values)
                 <div class="summary-item mb-4">
-                    <h4>{{$values['name']}} <span class="d-inline-block ml-3">{{$values['price']}}</span></h4>
+                    <h4>{{$values['name']}} <span class="d-inline-block ml-3">{{number_format($values['price'])}}</span></h4>
                     <div class="info text-808080">
                         @php
 
@@ -44,11 +44,11 @@
             </div>
             <br>
             <div class="delivery-block text-right">
-                Delivery fee <span class="price d-inline-block ml-4">{{$delivery_fees.' '.$currency}}</span>
+                Delivery fee <span class="price d-inline-block ml-4">{{number_format($delivery_fees).' '.$currency}}</span>
             </div>
             <hr class="m-0" />
             <div class="total-block text-right mb-5">
-                Total <span class="price d-inline-block ml-4" id="TotalV">{{($_total+$delivery_fees).' '.$currency}}</span>
+                Total <span class="price d-inline-block ml-4" id="TotalV">{{number_format(($_total+$delivery_fees)).' '.$currency}}</span>
             </div>
             <div class="action-buttons text-center">
                 <button type="button" class="btn btn-8DBF43 text-uppercase confirm">Confirm</button>
