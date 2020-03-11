@@ -7,7 +7,7 @@
     <div class="cart-dropdown" id="cart-dropdown">
         <h4 class="title text-center">Order Summary</h4>
         <h5 class="user">{{@$user->details->FirstName.' '.@$user->details->LastName}}</h5>
-        <div class="cart-items my-5">
+        <div class="cart-items my-3">
             @php
                 $_total=0;
             @endphp

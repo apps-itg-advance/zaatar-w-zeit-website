@@ -80,6 +80,10 @@ body { font-family: 'Futura-Light'; font-size: 16px; color: #4D4D4D;}
     color: #b3b3b3;
 }
 
+.cursor-pointer{
+    cursor: pointer;
+}
+
 .col-2dot4,
 .col-sm-2dot4,
 .col-md-2dot4,
@@ -266,7 +270,17 @@ button {
 .cartbox-wrapper .cart-dropdown .action-buttons .btn:first-child { margin-right: 15px;}
 .cartbox-wrapper .cart-dropdown .speacial-meal { padding: 6px 15px; position: relative; margin-top: 15px; color: #FFFFFF; border-radius: 20px;}
 .cartbox-wrapper .cart-dropdown .speacial-meal .close { opacity: 1; margin-top: -4px;}
-.cartbox-wrapper .cart-dropdown .cart-items {overflow-x: auto;overflow-y: scroll;height: 55vh;padding-top: 10px;}
+.cartbox-wrapper .cart-dropdown .cart-items {overflow-x: auto;overflow-y: scroll;height: 50vh;padding-top: 10px;}
+/*@media only screen and (device-height: 800px) and (orientation: portrait) {*/
+@media screen and (max-height:800px) {
+        .cartbox-wrapper .cart-dropdown .cart-items {height: 40vh;}
+}
+@media screen and (max-height:600px) {
+        .cartbox-wrapper .cart-dropdown .cart-items {height: 25vh;}
+}
+@media screen and (max-height:480px) {
+        .cartbox-wrapper .cart-dropdown .cart-items {height: 15vh;}
+}
 .cartbox-wrapper .cart-dropdown .cart-items .notice { font-size: 20px;}
 .cartbox-wrapper .cart-dropdown .carttotal-block .delivery-fee { font-family: 'Futura-Medium-BT'}
 .cartbox-wrapper .cart-dropdown .cart-item { font-size: 15px; position: relative;}

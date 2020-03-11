@@ -30,7 +30,7 @@
                         <div class="col-sm-5 text-center">
                             <div class="input-group mx-auto">
                                 <div class="input-group-prepend">
-                                    <button type="button" class="btn btn-link pointer"  onclick="AddQty({{$row->ID}})"><img src="{{asset('assets/images/icon-plus.png')}}" /></button>
+                                    <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="AddQty({{$row->ID}})"><img src="{{asset('assets/images/icon-plus.png')}}" /></button>
                                 </div>
                                 <input type="text" name="qty[{{$row->ID}}]" id="qty_{{$row->ID}}" class="form-control" value="0">
                                 <div class="input-group-append">
@@ -113,7 +113,11 @@
         }
 
         function AddQty(id) {
-
+	        var hasM= $("#MakeMeal"+id).val();
+	        if(hasM==0){
+		        loader('show');
+		        $("button[data-code='" + id + "']").prop('disabled',true);
+	        }
             var currentTotal=parseFloat($("#TotalAmount"+id).val());
             var ItemId="qty_"+id;
             var currentQty=parseInt($("#"+ItemId).val());
@@ -137,11 +141,11 @@
             }
             else{
 
-                AddToCart();
+                AddToCart(id);
             }
             return false;
         }
-        function AddToCart()
+        function AddToCart(id)
         {
             $.ajax({
                 headers: {
@@ -154,6 +158,8 @@
                     _getCountCartItems();
                     LoadCart();
                     jQuery('.cartbig-modal').modal('hide');
+	                $("button[data-code='" + id + "']").prop('disabled',false);
+	                loader('hide');
                 }
             });
 
