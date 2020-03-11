@@ -810,7 +810,9 @@ a.effect-underline:hover:after {
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background-color: #AFD27C;
+    /*background-color: #AFD27C;*/
+    /*background-color: rgba(186,179,174,0.5);*/
+    background-color: rgb(221, 221, 221);
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
