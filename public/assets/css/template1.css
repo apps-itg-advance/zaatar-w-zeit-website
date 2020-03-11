@@ -892,3 +892,47 @@ a.effect-underline:hover:after {
     /*0% { transform: rotate(0deg); }*/
     /*100% { transform: rotate(360deg);}*/
 /*}*/
+
+
+
+
+
+
+/*spinner for items*/
+.sp {
+    width: 32px;
+    height: 32px;
+    clear: both;
+    margin: 20px auto;
+}
+/* Spinner Circle Rotation */
+.sp-container{
+    width: 86px;
+    height: 41px;
+}
+.sp-circle {
+    border: 4px rgba(0, 0, 0, 0.25) solid;
+    border-top: 4px black solid;
+    border-radius: 50%;
+    -webkit-animation: spCircRot .6s infinite linear;
+    animation: spCircRot .6s infinite linear;
+    margin: 0 auto;
+    margin-top: 7px;
+}
+
+@-webkit-keyframes spCircRot {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+    }
+}
+@keyframes spCircRot {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
