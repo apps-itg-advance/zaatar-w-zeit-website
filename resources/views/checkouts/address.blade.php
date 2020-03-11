@@ -13,7 +13,7 @@
         <div class="title-div mb-4">
             <h4 class="title">Address
                 @if(isset($addresses))
-                @if(count($addresses)<3)
+                @if(!isset($addresses) or (isset($addresses) and count($addresses)<3))
                 <a href="javascript:void(0)" onclick="AddAddress()" class="d-inline-block ml-5"><img src="{{asset('assets/images/icon-checkout-plus.png')}}" /></a>
                 @endif
                 @endif
