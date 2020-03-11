@@ -9,28 +9,38 @@
                         <label id="RegisterMsg" style="color: red !important;"></label>
                     </div>
                     <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text"  name="first_name{{$sKey}}" id="R_FirstName{{$sKey}}" class="form-control" />
+                        <label>Name</label>
+                        <div class="required" id="R_FirstName"></div>
+                        <input type="text"  name="first_name{{$sKey}}" id="R_FirstName{{$sKey}}" class="form-control" required />
                     </div>
                     <div class="form-group">
                         <label>Family Name</label>
-                        <input type="text"  name="family_name{{$sKey}}" id="R_FamilyName{{$sKey}}" class="form-control"  />
+                        <div class="required" id="R_FamilyName"></div>
+                        <input type="text"  name="family_name{{$sKey}}" id="R_FamilyName{{$sKey}}" class="form-control"  required />
                     </div>
-                    <div class="form-group">
-                        <label>Mobile</label>
+
                         <input type="hidden" name="country_code{{$sKey}}" id="R_CountryCode{{$sKey}}" />
-                        <input type="tel" class="form-control phone-css" name="mobile{{$sKey}}" id="R_MobileNumber{{$sKey}}" />
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="text" readonly="readonly" class="form-control" name="email{{$sKey}}" id="R_Email{{$sKey}}" />
-                    </div>
+                        <input type="hidden" class="form-control phone-css" name="mobile{{$sKey}}" id="R_MobileNumber{{$sKey}}" />
+
+                        <input type="hidden" readonly="readonly" class="form-control" name="email{{$sKey}}" id="R_Email{{$sKey}}" />
+
                     <div class="form-group">
                         <label>Gender</label>
                         <select name="gender{{$sKey}}" id="R_Gender" class="form-control">
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label>DOB</label>
+                        <div class="required" id="R_dob"></div>
+                        <div class="input-group date " data-provide="datepicker" data-date-format="yyyy-mm-dd" >
+                            <input type="text" class="form-control"  name="dob{{$sKey}}" id="R_dob{{$sKey}}"  required />
+                            <div class="input-group-addon" style="float: right">
+                                <i class="fa fa-calendar fa-2x" style="color: #8dbf43" aria-hidden="true"></i>
+
+                            </div>
+                        </div>
                     </div>
                     <div class="py-5">
                         <button type="button" id="Registerbtn"  class="btn btn-submit btn-login btn-block text-uppercase">Register</button>
