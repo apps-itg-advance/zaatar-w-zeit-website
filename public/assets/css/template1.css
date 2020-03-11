@@ -853,17 +853,22 @@ a.effect-underline:hover:after {
 }
 
 #loader > svg{
--webkit-animation: spin1 1s infinite linear;
--moz-animation: spin1 1s infinite linear;
--o-animation: spin1 1s infinite linear;
--ms-animation: spin1 1s infinite linear;
-animation: spin1 1s infinite linear;
+    -webkit-animation: spin1 1s infinite linear;
+    -moz-animation: spin1 1s infinite linear;
+    -o-animation: spin1 1s infinite linear;
+    -ms-animation: spin1 1s infinite linear;
+    animation: spin1 1s infinite linear;
     -webkit-transform-origin: 50% 50%;
     -moz-transform-origin: 50% 50%;
     -o-transform-origin: 50% 50%;
     transform-origin: 50% 50%;
     width: 150px;
     height: 150px;
+    position: fixed;
+    top: 40%;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
 }
  
 @-webkit-keyframes spin1 {
