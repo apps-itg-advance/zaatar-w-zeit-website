@@ -126,5 +126,17 @@
 </script>
 @yield('javascript')
 @yield('javascriptCart')
+
+<script>
+	function loader(mode){
+		$("#loader").css('backgroundColor','rgba(255,255,255,0.3)');
+		if(mode==='hide'){
+			$("#loader").fadeOut(200);
+		}else{
+			$("#loader").fadeIn(200);
+		}
+	}
+</script>
+
 </body>
 </html>
