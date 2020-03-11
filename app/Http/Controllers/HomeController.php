@@ -34,7 +34,7 @@ class HomeController extends Controller
     {
         $cat_id=($id==null) ? session()->get('first_category'):$id;
         $_cat_title=($name==null) ? session()->get('first_category_name'):str_replace('-',' ',$name);
-        $query=MenuLibrary::GetMenuItems($id);
+        $query=MenuLibrary::GetMenuItems($cat_id);
         $array_name=json_decode($_cat_title,true);
         if(is_array($array_name) and isset($array_name['en']))
         {
