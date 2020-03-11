@@ -32,13 +32,16 @@
 
                     <div  class="col-md-3 d-flex align-items-end">
                         <div style="font-size: 16px !important;">
-                            {{$next_level->NeededPoints}} Points left
+                            @php
+                                isset($next_level->NeededPoints) ? $next_level->NeededPoints.' Points left' : ''
+                            @endphp
+
                         </div>
 
                         </div>
                         <div  class="col-md-6">
                             <div class="c100 p{{$per}} big green">
-                                <span><div>{{$query->details->LevelName}} <br> <small>{{$query->details->TierBalance}} points</small></div></span>
+                                <span><div>{{$query->details->LevelName}} <br> <small>{{number_format($query->details->TierBalance)}} points</small></div></span>
                                 <div class="slice">
                                     <div class="bar"></div>
                                     <div class="fill"></div>
