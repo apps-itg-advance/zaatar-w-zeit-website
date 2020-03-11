@@ -240,8 +240,7 @@ button {
     box-shadow: 0px 0px 28px -13px rgba(0,0,0,0.75);
 
     height: calc( 100vh - 95px );
-    overflow-x: auto;
-    overflow-y: scroll;
+    position: fixed;
 }
 
 .cartbox-wrapper .cart-dropdown .title { font-family: 'Futura-B'; color: #4D4D4D; font-size: 24px; margin-bottom: 30px; margin-top: 10px;}
@@ -267,7 +266,7 @@ button {
 .cartbox-wrapper .cart-dropdown .action-buttons .btn:first-child { margin-right: 15px;}
 .cartbox-wrapper .cart-dropdown .speacial-meal { padding: 6px 15px; position: relative; margin-top: 15px; color: #FFFFFF; border-radius: 20px;}
 .cartbox-wrapper .cart-dropdown .speacial-meal .close { opacity: 1; margin-top: -4px;}
-.cartbox-wrapper .cart-dropdown .cart-items { min-height: 300px;}
+.cartbox-wrapper .cart-dropdown .cart-items {overflow-x: auto;overflow-y: scroll;height: 55vh;padding-top: 10px;}
 .cartbox-wrapper .cart-dropdown .cart-items .notice { font-size: 20px;}
 .cartbox-wrapper .cart-dropdown .carttotal-block .delivery-fee { font-family: 'Futura-Medium-BT'}
 .cartbox-wrapper .cart-dropdown .cart-item { font-size: 15px; position: relative;}
@@ -624,6 +623,8 @@ button {
     overflow-x: auto;
     overflow-y: scroll;
     padding-right: 5px;
+    position: fixed;
+    margin-top: -30px;
 }
 
 /*Big-Tablet view*/
@@ -662,6 +663,7 @@ button {
         -webkit-overflow-scrolling: touch;
         margin-top: 15px;
         height: auto;
+        position: relative;
     }
     .content-wrapper .aside-menu .items-container::-webkit-scrollbar {
         display: none;
