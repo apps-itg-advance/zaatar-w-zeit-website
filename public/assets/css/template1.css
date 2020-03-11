@@ -239,7 +239,7 @@ button {
     -moz-box-shadow: 0px 0px 28px -13px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 28px -13px rgba(0,0,0,0.75);
 
-    height: calc( 100vh - 95px );
+    height: calc( 100vh - 55px );
     position: fixed;
 }
 
