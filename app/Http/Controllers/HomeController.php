@@ -12,7 +12,6 @@ class HomeController extends Controller
 
     public  function index($id = null,$name=null)
     {
-
         $cat_id=($id==null) ? session()->get('first_category'):$id;
 
         $_cat_title=($name==null) ? session()->get('first_category_name'):str_replace('-',' ',$name);
@@ -31,9 +30,8 @@ class HomeController extends Controller
         }
         return view('home',compact('cat_id','cat_title','query'));
     }
-    public  function menu($id = null,$name=null)
+    public function menu($id = null,$name=null)
     {
-
         $cat_id=($id==null) ? session()->get('first_category'):$id;
         $_cat_title=($name==null) ? session()->get('first_category_name'):str_replace('-',' ',$name);
         $query=MenuLibrary::GetMenuItems($id);
@@ -46,11 +44,13 @@ class HomeController extends Controller
         {
             $cat_title=str_replace(' ','-',$array_name[0]);
         }
-        else{
+        else
+        {
             $cat_title=str_replace(' ','-',$_cat_title);
         }
+//	    dd($_cat_title, $array_name, $cat_title);
         $flag=true;
-        return view('menu',compact('cat_id','cat_title','query','flag'));
+        return view('menu',compact('cat_id','cat_title','query','flag','_cat_title'));
     }
     public  function favourites()
     {

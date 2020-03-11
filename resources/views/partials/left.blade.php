@@ -14,18 +14,18 @@
                         $url_name=str_replace('-',' ',$array_name[0]);
                         }
                         else{
-                        $url_name=str_replace('-',' ',$nav->Label);
+                        $url_name=str_replace(' ','-',$nav->Label);
                         }
                 @endphp
-                    <a href="{{route('home.menu', ['id'=>$nav->ID,'name'=>$url_name])}}">
-                <div class="media @if($nav->ID==$cat_id) active  @endif">
+                <a href="{{route('home.menu', ['id'=>$nav->ID,'name'=>$url_name])}}">
+                    <div class="media @if($nav->ID==$cat_id) active  @endif">
                         <img src="{{$nav->URL}}" style="!important; border-radius: 50%; width: 50px" class="mr-3" alt="...">
                         <div class="align-self-center media-body">
                             <h5 class="mt-0">
-                                {{strtoupper($url_name)}}
+                                {{strtoupper($nav->Label)}}
                             </h5>
                         </div>
-                </div>
+                    </div>
                 </a>
             @endforeach
         @endif
