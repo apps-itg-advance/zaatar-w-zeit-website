@@ -275,6 +275,12 @@ button {
 @media screen and (max-height:800px) {
         .cartbox-wrapper .cart-dropdown .cart-items {height: 40vh;}
 }
+@media screen and (max-height:600px) {
+        .cartbox-wrapper .cart-dropdown .cart-items {height: 25vh;}
+}
+@media screen and (max-height:480px) {
+        .cartbox-wrapper .cart-dropdown .cart-items {height: 15vh;}
+}
 .cartbox-wrapper .cart-dropdown .cart-items .notice { font-size: 20px;}
 .cartbox-wrapper .cart-dropdown .carttotal-block .delivery-fee { font-family: 'Futura-Medium-BT'}
 .cartbox-wrapper .cart-dropdown .cart-item { font-size: 15px; position: relative;}
