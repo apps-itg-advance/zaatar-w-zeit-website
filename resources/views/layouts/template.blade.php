@@ -81,7 +81,9 @@
 
         <script type="text/javascript">
 
-
+            function formatNumber(num) {
+                return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+            }
             jQuery(document).ready( function() {
                 var windowHeight = jQuery(window).height();
                 var headerHeight = jQuery('.header-wrapper').height();

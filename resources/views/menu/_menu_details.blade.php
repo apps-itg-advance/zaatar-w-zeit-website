@@ -52,7 +52,7 @@
                                 <input type="checkbox"  value="{{$make_meal->ID.'-'.str_replace(',','',$make_meal->Price).'-'.$make_meal->Details}}"  onclick="CalculateMakeMealTotal({{$make_meal->ID}},{{$row->ID}})"  id="makeMealH{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]" class="custom-control-input">
                                 <label class="custom-control-label text-uppercase futura-b" for="makeMealH{{$make_meal->ID}}">
                                     {{$make_meal->Title}}
-                                    <span class="price">{{$make_meal->Price}}</span>
+                                    <span class="price">{{number_format($make_meal->Price)}}</span>
                                 </label>
                             </div>
                         </div>
