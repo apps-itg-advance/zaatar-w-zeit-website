@@ -4,7 +4,7 @@
 
     <div class="col-xl-7 col-lg-5 col-md-12 col-sm-12 col-favourite-items">
         <div class="title-div mb-4 pb-2 text-center">
-            <h2 class="title text-8DBF43">{{$cat_title}}</h2>
+            <h2 class="title text-8DBF43">{{$_cat_title}}</h2>
         </div>
         <form id="Form" action="#">
         <div class="col-lg-12 float-none p-0 mx-auto">
