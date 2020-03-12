@@ -2,6 +2,7 @@
 @section('css')
 <link rel="stylesheet" href="{{asset('assets/phone-input/css/intlTelInput.css')}}">
 <link rel="stylesheet" href="{{asset('assets/datepicker/css/bootstrap-datepicker.css')}}">
+<link href="/assets/bootstrap-pincode-input-master/css/bootstrap-pincode-input.css" rel="stylesheet">
 <style type="text/css">
     .phone-css{
         padding-left: 95px !important;
@@ -27,6 +28,29 @@
     .required{
         color: red;
     }
+    .modal-dialog{
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+    }
+    .modal-content{
+        height: 100%;
+    }
+    .modal-body{
+        width: 20%;
+        margin: 0 auto;
+        margin-top: 6%;
+    }
+    .modal-close{
+        position: absolute;
+        right: 15px;
+        top: 100px;
+    }
+    .modal-close img{
+        width: 40px;
+    }
 </style>
 @endsection
 @section('content')
@@ -38,6 +62,7 @@
     <script src="{{asset('assets/js/jquery.matchHeight-min.js')}}"></script>
     <script src="{{asset('assets/phone-input/js/intlTelInput.js')}}"></script>
     <script src="{{asset('assets/datepicker/js/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('assets/bootstrap-pincode-input-master/js/bootstrap-pincode-input.js')}}"></script>
     <script type="text/javascript">
 
         $('body').on('click keydown','#country-listbox li', function(e){
@@ -62,7 +87,6 @@
             $('.phone-css').on('keypress', function(key) {
                 if(key.charCode < 48 || key.charCode > 57) return false;
             });
-
             var input = document.querySelector(".phone-css");
             window.intlTelInput(input, {
                 allowDropdown: true,
@@ -148,6 +172,8 @@ echo "jQuery('#login-modal').modal();";
                     }
                 });
             });
+
+
             $('#Pinbtn').on('click', function(event){
                 event.preventDefault();
                 $.ajax({

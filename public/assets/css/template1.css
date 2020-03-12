@@ -615,7 +615,7 @@ button {
 .login-modal .modal-content .title { color: #8cbe43; font-size: 25px;}
 .login-modal .modal-content { background: none; border: none;}
 .login-modal .modal-content .form-group label { color: #8dbf43;}
-.login-modal .modal-content .form-group .form-control { background: rgba(255,255,255,0.20); border: none; color: #FFFFFF; border-radius: 10px;}
+.login-modal .modal-content .form-group .form-control { background: rgba(255,255,255,0.20); border: none; color: #FFFFFF; border-radius: 10px; margin-right: 2px; margin-left: 2px;}
 .login-modal .modal-content .btn-submit { border-radius: 10px; color: #000000; background: #8dbf43; font-family: 'Futura-Medium-BT'; font-size: 17px; padding-top: 5px; padding-bottom: 5px;}
 
 /*NEW CSS S*/
@@ -852,13 +852,12 @@ a.effect-underline:hover:after {
     bottom: 0;
 }
 
-#loader > svg
-{
-    -webkit-animation: spin1 2s infinite linear;
-    -moz-animation: spin1 2s infinite linear;
-    -o-animation: spin1 2s infinite linear;
-    -ms-animation: spin1 2s infinite linear;
-    animation: spin1 2s infinite linear;
+#loader > svg{
+    -webkit-animation: spin1 1s infinite linear;
+    -moz-animation: spin1 1s infinite linear;
+    -o-animation: spin1 1s infinite linear;
+    -ms-animation: spin1 1s infinite linear;
+    animation: spin1 1s infinite linear;
     -webkit-transform-origin: 50% 50%;
     -moz-transform-origin: 50% 50%;
     -o-transform-origin: 50% 50%;
@@ -871,32 +870,27 @@ a.effect-underline:hover:after {
     left: 0;
     margin: 0 auto;
 }
-
+ 
 @-webkit-keyframes spin1 {
-    0% { -webkit-transform: rotate(0deg);}
-    100% { -webkit-transform: rotate(360deg);}
+0% { transform: scale(1); }
+   50% { transform: scale(1.2); }
+   100% { transform: scale(1); } 
 }
 @-moz-keyframes spin1 {
-    0% { -moz-transform: rotate(0deg); }
-    100% { -moz-transform: rotate(360deg);}
+0% { transform: scale(1); }
+   50% { transform: scale(1.2); }
+   100% { transform: scale(1); } 
 }
 @-o-keyframes spin1 {
-    0% { -o-transform: rotate(0deg);}
-    100% { -o-transform: rotate(360deg);}
+0% { transform: scale(1); }
+   50% { transform: scale(1.2); }
+   100% { transform: scale(1); } 
 }
 @-ms-keyframes spin1 {
-    0% { -ms-transform: rotate(0deg);}
-    100% { -ms-transform: rotate(360deg);}
+0% { transform: scale(1); }
+   50% { transform: scale(1.2); }
+   100% { transform: scale(1); } 
 }
-/*@-keyframes spin1 {*/
-    /*0% { transform: rotate(0deg); }*/
-    /*100% { transform: rotate(360deg);}*/
-/*}*/
-
-
-
-
-
 
 /*spinner for items*/
 .sp {
