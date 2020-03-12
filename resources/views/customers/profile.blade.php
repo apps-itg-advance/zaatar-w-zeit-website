@@ -21,7 +21,7 @@
                         }
                     @endphp
                     <h4>{{@$details->FirstName.' '.@$details->LastName}}</h4>
-                    <button type="button" id="edit-profile" class="btn btn-8DBF43 text-uppercase">Edit Profile</button>
+                    <button type="button" id="edit-profile" class="btn btn-8DBF43 text-uppercase bg-white text-8DBF43">Edit Profile</button>
                     <br>
                     <button type="button" class="btn btn-8DBF43 text-uppercase mt-2"><a href="{{route('logout')}}" class="cursor-pointer text-white">Logout</a></button>
                 </div>

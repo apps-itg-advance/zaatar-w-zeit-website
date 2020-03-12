@@ -105,7 +105,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Building Number</label>
+                                    <label>Building #</label>
                                     <input type="text" class="form-control"  name="building_nbr{{$Skey}}" value="{{@$building_nbr}}"  />
                                 </div>
                             </div>

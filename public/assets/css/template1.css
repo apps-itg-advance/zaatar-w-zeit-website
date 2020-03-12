@@ -930,3 +930,9 @@ a.effect-underline:hover:after {
         transform: rotate(359deg);
     }
 }
+
+
+
+.modal-content .close:focus{
+    outline: none;
+}
