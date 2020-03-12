@@ -36,6 +36,20 @@ class MenuLibrary
         $query=Helper::getApi($url);
         return $query;
     }
+    public static function RemoveFavoriteItem($itemId){
+	    $s_org=session()->get('_org');
+
+	    $post_array['token']=$s_org->token;
+	    $post_array['organization_id']=$s_org->id;
+	    $post_array['channel_id']=1;
+	    $post_array['LoyaltyId']=session()->get('loyalty_id');
+	    $post_array['favorites_item_id']=$itemId;
+//	    $post_array['item_data']=json_encode($array);
+
+	    $url=env('BASE_URL').'items/DeleteFavoriteItem';
+	    $query=Helper::postApi($url,$post_array);
+	    return $query;
+    }
     public static function SetFavoriteItem($array)
     {
 

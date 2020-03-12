@@ -123,7 +123,14 @@ class CustomerController extends Controller
         echo $query->message;
     }
 
-    /**
+	public function remove_favourite(Request $request)
+	{
+		$itemId=$request->item_id;
+		$query=MenuLibrary::RemoveFavoriteItem($itemId);
+		echo $query->message;
+	}
+
+	/**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

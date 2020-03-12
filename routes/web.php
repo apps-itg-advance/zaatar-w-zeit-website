@@ -65,6 +65,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
 
 
     Route::post('/customer/set-favourite', 'CustomerController@set_favourite')->name('customer.set.favourite');
+    Route::post('/customer/remove-favourite', 'CustomerController@remove_favourite')->name('customer.remove.favourite');
 
     Route::get('/checkout/wallet', 'CheckoutController@wallet')->name('checkout.wallet');
     Route::get('/checkout/gift', 'CheckoutController@gift')->name('checkout.gift');

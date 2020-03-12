@@ -170,15 +170,6 @@
             $("#TotalAmountQ"+item_id).val(nTotal);
             $("#DisplayTotalQ"+item_id).text(formatNumber(nTotal)+' {{$currency}}');
         }
-        function spinner(mode, el){
-	        if(mode=='show'){
-		        el.find('*').addClass('d-none');
-		        el.append('<div class="sp-container"><div class="sp sp-circle"></div></div>');
-	        }else{
-		        el.find('.sp-container').remove();
-		        el.find('*').removeClass('d-none');
-	        }
-        }
         function AddQty(id) {
 	        var hasM = $("#MakeMeal"+id).val();
 	        if(hasM==0){

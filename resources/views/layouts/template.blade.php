@@ -124,6 +124,24 @@
 		});
 		return false;
 	}
+	function spinnerOver(mode, el){
+		if(mode=='show'){
+			el.find('*').addClass('d-none');
+			el.append('<div class="sp-over-container"><div class="sp sp-circle"></div></div>');
+		}else{
+			el.find('.sp-container').remove();
+			el.find('*').removeClass('d-none');
+		}
+	}
+	function spinner(mode, el){
+		if(mode=='show'){
+			el.find('*').addClass('d-none');
+			el.append('<div class="sp-container"><div class="sp sp-circle"></div></div>');
+		}else{
+			el.find('.sp-container').remove();
+			el.find('*').removeClass('d-none');
+		}
+	}
 	function spinnerButtons(mode, el){
 		if(mode=='show'){
 			el.prepend('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true">').addClass('disabled').prop('disabled',true);
