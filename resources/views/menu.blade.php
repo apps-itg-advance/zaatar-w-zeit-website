@@ -179,7 +179,6 @@
 		        el.find('*').removeClass('d-none');
 	        }
         }
-
         function AddQty(id) {
 	        var hasM = $("#MakeMeal"+id).val();
 	        if(hasM==0){
