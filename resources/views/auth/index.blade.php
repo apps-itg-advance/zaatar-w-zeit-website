@@ -26,7 +26,8 @@
         border-bottom-right-radius: 0;
     }
     .required{
-        color: red;
+        color: #d9534f;
+        font-family: 'Futura-Medium-BT';
     }
     .modal-dialog{
         width: 100%;
@@ -138,17 +139,53 @@ echo "jQuery('#login-modal').modal();";
                 echo "jQuery('#login-modal').modal();";
             } */
             @endphp
+
+            function validateEmail(email) {
+	            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	            return re.test(email);
+            }
+
            // jQuery('#login-modal').modal();
             $('#Loginbtn, #Loginbtn1').on('click', function(event){
+	            spinnerButtons('show', $(this));
+	            var that = this;
+                event.preventDefault();
+            	var validated = true;
                 var mobile=$('#mobile{{$sKey}}').val();
                 var email=$('#email{{$sKey}}').val();
-                if(mobile=='' || email=='')
+                if(mobile=='')
                 {
                     jQuery('#R_Mobile').html('Mobile is required');
-                    jQuery('#R_Email').html('Email is required');
-                    return false;
+                    validated = false;
                 }
-                event.preventDefault();
+                else
+                {
+	                jQuery('#R_Mobile').html(' ');
+                }
+                if( email==''){
+	                jQuery('#R_Email').html('Email is required');
+	                validated = false;
+                }
+                else if( !validateEmail(email)){
+	                jQuery('#R_Email').html('Email is not valid');
+	                validated = false;
+                }
+                else
+                {
+	                jQuery('#R_Email').html(' ');
+                }
+
+                if(!validated){
+	                Swal.fire({
+		                title: 'Warning!',
+		                text: 'Invalid Data: some fields are invalid!',
+		                icon: 'warning',
+		                confirmButtonText: 'Close'
+	                });
+	                spinnerButtons('hide', $(this));
+	                return null;
+                }
+
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -162,6 +199,7 @@ echo "jQuery('#login-modal').modal();";
                         {
                            // jQuery('#mobileNb{{$sKey}}').val(result.data['MobileNumber']);
                            // jQuery('#request_id{{$sKey}}').val(result.data['RequestId']);
+	                        spinnerButtons('hide', $(that));
                            $('#Pin{{$sKey}}').val(result.data['CountryCode']);
                             jQuery('#login-modal').modal('hide');
                             jQuery('#pin-modal').modal();
@@ -176,7 +214,10 @@ echo "jQuery('#login-modal').modal();";
 
             $('#Pinbtn').on('click', function(event){
                 event.preventDefault();
-                $.ajax({
+	            spinnerButtons('show', $(this));
+	            var that = this;
+
+	            $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -185,6 +226,8 @@ echo "jQuery('#login-modal').modal();";
                     data:$("#PinForm").serialize(),
                     dataType:'json',
                     success:function(result){
+	                    spinnerButtons('hide', $(that));
+	                    $('.pincode-input-container').find('input').prop('disabled',false);
                         if(result.message=='success')
                         {
                             if(result.type=='register')
@@ -200,7 +243,12 @@ echo "jQuery('#login-modal').modal();";
                             }
                         }
                         else{
-
+	                        Swal.fire({
+		                        title: 'Warning!',
+		                        text: 'Invalid Data: some fields are invalid!',
+		                        icon: 'warning',
+		                        confirmButtonText: 'Close'
+	                        });
                             jQuery('#PinMsg').html(result.message);
                         }
                     }
@@ -245,6 +293,8 @@ echo "jQuery('#login-modal').modal();";
                 });
             });
             $('#Resendbtn').on('click', function(event){
+	            spinnerButtons('show', $(this));
+	            var that = this;
                 event.preventDefault();
                 $.ajax({
                     headers: {
@@ -254,7 +304,14 @@ echo "jQuery('#login-modal').modal();";
                     url:'{{route('auth.pinresend')}}',
                     dataType:'json',
                     success:function(data){
-                        jQuery('#PinMsg').html(data.message);
+	                    spinnerButtons('hide', $(that));
+                        // jQuery('#PinMsg').html(data.message);
+	                    Swal.fire({
+		                    title: 'Resend Pin Code!',
+		                    text: 'New Pin Code was sent to your mobile number.',
+		                    icon: 'success',
+		                    confirmButtonText: 'Close'
+	                    });
                     }
                 });
             });

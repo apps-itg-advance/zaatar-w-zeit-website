@@ -4,12 +4,10 @@
             <div class="modal-content float-none p-0 mx-auto">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label id="PinMsg" style="color: red !important;"></label>
-                    </div>
-                    <div class="form-group">
-                        <label>PIN Code</label>
                         {{--<input type="text" class="form-control" id="Pin" name="pin{{$sKey}}" />--}}
+                        <label>PIN Code</label>
                         <input name="pin{{$sKey}}" type="text" id="Pin" class="mb-2">
+                        <label id="PinMsg" class="text-danger"></label>
                     </div>
                     <div class="py-5">
                         <button type="button" id="Pinbtn" class="btn btn-submit btn-login btn-block text-uppercase">Confirmation</button>
@@ -27,6 +25,7 @@
 	$(document).ready(function() {
 		$('#Pin').pincodeInput({
 			hidedigits: false, inputs: 6, complete: function (value, e, errorElement) {
+				$('.pincode-input-container').find('input').prop('disabled',true);
 				// $("#pincode-callback").html("Complete callback from 6-digit test: Current value: " + value);
 				// $(errorElement).html("I'm sorry, but the code not correct");
 

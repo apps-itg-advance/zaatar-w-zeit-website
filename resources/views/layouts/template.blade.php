@@ -19,6 +19,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+    <script src="/assets/sweetalert2-9.10.0/package/dist/sweetalert2.all.js"></script>
     <script>
 		//paste this code under head tag or in a seperate js file.
 		// Wait for window load
@@ -68,9 +69,9 @@
 <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('assets/js/template.js')}}"></script>
 <script src="{{asset('assets/jquery-validation-1.19.1/dist/jquery.validate.js')}}"></script>
+<link rel="stylesheet" href="/assets/sweetalert2-9.10.0/package/dist/sweetalert2.css">
 
 <script type="text/javascript">
-
 	function formatNumber(num) {
 		return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 	}
@@ -123,14 +124,14 @@
 		});
 		return false;
 	}
-	// function loader(mode){
-	// 	// $("#loader").css('backgroundColor','rgba(255,255,255,0.3)');
-	// 	if(mode==='hide'){
-	// 		// $("#loader").fadeOut(200);
-	// 	}else{
-	// 		// $("#loader").fadeIn(200);
-	// 	}
-	// }
+	function spinnerButtons(mode, el){
+		if(mode=='show'){
+			el.prepend('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true">').addClass('disabled').prop('disabled',true);
+		}else{
+			el.find('.spinner-border').remove();
+			el.removeClass('disabled').prop('disabled',false);
+		}
+	}
 </script>
 @yield('javascript')
 @yield('javascriptCart')
