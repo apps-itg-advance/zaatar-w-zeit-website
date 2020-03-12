@@ -44,30 +44,34 @@ class CartController extends BaseController
      */
     public function store(Request $request)
     {
-        $item_id=$request->input('SItemId');
+        $item_id=$request->input('ItemId');
+        $quick_order=$request->input('QuickOrder'.$item_id);
         $qty=$request->input('SQty');
         $item_modify=$request->input('ItemModify');
-        $items_name=$request->input('ItemsName');
-        $items_plu=$request->input('ItemsPLU');
-        $items_amounts=str_replace(',','',$request->input('TotalAmount'));
-        $_name=$items_name[$item_id];
-        $_plu=$items_plu[$item_id];
-        $_amounts=$items_amounts[$item_id];
+        $_name=$request->input('ItemsName');
+        $_plu=$request->input('ItemsPLU');
+        $_amounts=$request->input('TotalAmounts');
+        //$_amounts=$items_amounts[$item_id];
         $modifiers=$request->input('modifiers'.$item_id);
         $make_meals=$request->input('make_meal');
         $cart = session()->get('cart');
         $_modifiers=array();
         $_make_meal=array();
         $qty=1;
-        if($modifiers!=null) {
-            foreach ($modifiers as $key => $value) {
-                for ($i = 0; $i < count($value); $i++) {
-                    $modifier_array = explode('-', $value[$i]);
-                    array_push($_modifiers, ['id' => $modifier_array[0], 'plu' => $modifier_array[1], 'name' => $modifier_array[3], 'price' => $modifier_array[2]]);
+        if($quick_order=='0')
+        {
+            if($modifiers!=null) {
+                foreach ($modifiers as $key => $value) {
+                    for ($i = 0; $i < count($value); $i++) {
+                        $modifier_array = explode('-', $value[$i]);
+                        $_amounts=$_amounts+$modifier_array[2];
+                        array_push($_modifiers, ['id' => $modifier_array[0], 'plu' => $modifier_array[1], 'name' => $modifier_array[3], 'price' => $modifier_array[2]]);
 
+                    }
                 }
             }
         }
+
         if(isset($make_meals[$item_id])) {
 
 
@@ -102,6 +106,7 @@ class CartController extends BaseController
             'modifiers'=>$_modifiers,
             'meal'=>$_make_meal
         ];
+
 
         session()->put('cart', $cart);
     }

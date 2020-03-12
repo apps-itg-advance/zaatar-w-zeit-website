@@ -6,7 +6,7 @@
         <div class="title-div mb-4 pb-2 text-center">
             <h2 class="title text-8DBF43">{{$_cat_title}}</h2>
         </div>
-        <form id="Form" action="#">
+
         <div class="col-lg-12 float-none p-0 mx-auto">
             <div class="row-favourite mx-auto">
 
@@ -14,6 +14,7 @@
                     <input type="hidden" name="SQty" id="SQty">
                     <input type="hidden" name="ItemModify" id="ItemModify" value="0">
                     @foreach($query->data as $row)
+                    <form id="Form{{$row->ID}}" action="#" method="post">
                    {{csrf_field()}}
                 @php
                     $has_meal=is_object($row->MakeMeal)  ? 1 :0;
@@ -21,9 +22,13 @@
                 <div class="col-favourite">
                     <div class="favourite-box">
                         <div class="media">
+                            <input type="hidden" name="ItemId" value="{{$row->ID}}">
                             <input type="hidden" id="MakeMeal{{$row->ID}}" value="{{$has_meal}}">
-                            <input type="hidden" name="ItemsName[{{$row->ID}}]" value="{{$row->ItemName}}">
-                            <input type="hidden" name="ItemsPLU[{{$row->ID}}]" value="{{$row->PLU}}">
+                            <input type="hidden" name="ItemsName" value="{{$row->ItemName}}">
+                            <input type="hidden" name="ItemsPLU" value="{{$row->PLU}}">
+                            <input type="hidden" name="TotalAmounts" value="{{$row->Price}}">
+                            <input type="hidden" name="QuickOrder{{$row->ID}}" id="QuickOrder{{$row->ID}}" value="0">
+
                             <img src="{{$row->ThumbnailImg}}" class="mr-3 img-thum"  alt="...">
                             <div class="media-body">
                                 <h5 class="mt-0">
@@ -61,11 +66,12 @@
                 </div>
                 @include('menu._menu_details',array('row'=>$row))
                 @include('menu._make_meal',array('row'=>$row))
+                    </form>
                 @endforeach
 
             </div>
         </div>
-        </form>
+
     </div>
     @include('partials.cart')
 @endsection
@@ -100,6 +106,10 @@
             }
             return false;
         }
+        function SubmitCustomize(id) {
+            $("#QuickOrder"+id).val(1);
+            AddToCart(id);
+        }
         function CalculateTotal(cat_id,max_qty,id,item_id) {
             var ItemId="qty_"+item_id;
             var currentQty=parseInt($("#"+ItemId).val());
@@ -128,6 +138,7 @@
                 else{
                     var nTotal=parseFloat($("#TotalAmount"+item_id).val())-mPrice;
                 }
+                alert(nTotal);
                 $("#TotalAmount"+item_id).val(nTotal);
                 $("#DisplayTotal"+item_id).text(formatNumber(nTotal)+' LBP');
             }
@@ -195,8 +206,8 @@
             $("#"+ItemId).val(newQty);
             var newTotal=currentTotal;
            // $("#TotalAmount"+id).val(newTotal);
+            $("#QuickOrder").val('1');
             $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
-
              MakeMealModel(id);
         }
         function SubQty(id) {
@@ -227,7 +238,7 @@
                 },
                 type:'POST',
                 url:'{{route('carts.store')}}',
-                data:$("#Form").serialize(),
+                data:$("#Form"+id).serialize(),
                 success:function(data){
                     _getCountCartItems();
                     LoadCart();
@@ -240,8 +251,8 @@
 
         }
         $('#Form').on('submit', function(event){
-            event.preventDefault();
-            AddToCart(0);
+           // event.preventDefault();
+         //   AddToCart(0);
 
         });
         function SetFavourite(item)
