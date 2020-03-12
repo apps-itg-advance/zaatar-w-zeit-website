@@ -98,6 +98,7 @@
   .iti--separate-dial-code .iti__selected-flag {
     background-color: rgba(0, 0, 0, 0.05); }
   .iti--separate-dial-code .iti__selected-dial-code {
+    font-family: 'Futura-Medium-BT', sans-serif;
     margin-left: 6px; color:white }
   .iti--container {
     position: absolute;
