@@ -260,6 +260,11 @@
         });
         function SetFavourite(item)
         {
+        	// console.log(item.ID);
+            if($("#Favourite" + item.ID).hasClass('href-disabled')){
+            	return null;
+            }
+	        $("#Favourite" + item.ID).addClass('href-disabled');
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -268,11 +273,15 @@
                 data:{item:item},
                 url:'{{route('customer.set.favourite')}}',
                 success:function(data){
-                   // $("#displayData").html(data);
-                    //jQuery('#edit-address').modal();
-                    // LoadCart();
-                    // _getCountCartItems();
-                    //$(".col-cartitems").html(data);
+	                Swal.fire({
+		                // position: 'top-end',
+		                icon: 'success',
+		                title: 'Your favourite item was added successfully.',
+		                showConfirmButton: false,
+		                timer: 1200
+	                });
+
+	                $("#Favourite" + item.ID).removeClass('href-disabled');
                 }
             });
             //jQuery('#editprofileModal').modal();

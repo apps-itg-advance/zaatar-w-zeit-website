@@ -73,10 +73,11 @@
 			        _getCountCartItems();
 			        LoadCart();
 			        Swal.fire({
-				        title: 'Removed Item!',
-				        text: 'Your favourites item was removed successfully.',
+				        // position: 'top-end',
 				        icon: 'success',
-				        confirmButtonText: 'Close'
+				        title: 'Your favourite item was removed successfully.',
+				        showConfirmButton: false,
+				        timer: 1200
 			        });
 			        // spinner('hide', $(that).closest('.favourite-box'));
 			        // jQuery('.cartbig-modal').modal('hide');
