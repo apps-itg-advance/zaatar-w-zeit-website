@@ -1,3 +1,4 @@
+<script src="{{asset('assets/js/jquery.validate.min.js')}}"></script>
 <form action="{{route('customer.address.update')}}" method="post">
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -135,3 +136,40 @@
         </div>
     </div>
 </form>
+<script>
+    $(document).ready(function () {
+
+        $('#AddAddress').validate({ // initialize the plugin
+            rules: {
+                address_type{{$skey}}: {
+                    required: true
+                },
+                name{{$skey}}: {
+                    required: true,
+                    maxlength: 30
+                },
+                geo{{$skey}}: {
+                    required: true
+                },
+                line1{{$skey}}: {
+                    required: true,
+                    maxlength: 30
+                },
+                building_name{{$skey}}: {
+                    maxlength: 30
+                },
+                building_nbr{{$skey}}: {
+                    maxlength: 30
+                },
+                floor{{$skey}}: {
+                    maxlength: 30
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();// for demo
+                return false; // for demo
+            }
+        });
+
+    });
+</script>

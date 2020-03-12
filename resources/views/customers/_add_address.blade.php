@@ -112,7 +112,6 @@
         </div>
     </div>
 </form>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
 <script>
     $(document).ready(function () {
 
@@ -144,7 +143,6 @@
             },
             submitHandler: function (form) {
                 form.submit();// for demo
-                alert('valid form submitted'); // for demo
                 return false; // for demo
             }
         });
