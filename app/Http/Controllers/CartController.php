@@ -204,12 +204,25 @@ class CartController extends BaseController
     }
     public function copy_item($id)
     {
+        $item_id='';
         $cart = session()->get('cart');
         if(isset($cart[$id]))
         {
+            $item_id=$cart[$id]['id'];
             $cart[]=$cart[$id];
             session()->put('cart', $cart);
         }
+        $qty=0;
+        $cart_n = session()->get('cart');
+        for ($j=0;$j<count($cart_n);$j++)
+        {
+            if($cart_n[$j]['id']==$item_id)
+            {
+                $qty++;
+            }
+        }
+
+        echo $qty.'-'.$item_id;
     }
 
     public function add_qty($id)
