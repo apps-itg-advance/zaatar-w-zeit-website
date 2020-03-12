@@ -180,7 +180,7 @@ echo "jQuery('#login-modal').modal();";
 		                title: 'Error!',
 		                text: 'Invalid Input Data: some fields are not valid!',
 		                icon: 'error',
-		                confirmButtonText: 'Cool'
+		                confirmButtonText: 'Close'
 	                });
 	                spinnerButtons('hide', $(this));
 	                return null;

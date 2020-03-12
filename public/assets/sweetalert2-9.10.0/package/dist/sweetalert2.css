@@ -30,6 +30,7 @@
 .swal2-popup.swal2-toast .swal2-content {
   justify-content: flex-start;
   font-size: 1em;
+  font-family: 'Futura-Medium-BT', sans-serif;
 }
 .swal2-popup.swal2-toast .swal2-icon {
   width: 2em;
@@ -233,6 +234,7 @@
 }
 .swal2-container:not(.swal2-top):not(.swal2-top-start):not(.swal2-top-end):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-start):not(.swal2-center-end):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-start):not(.swal2-bottom-end):not(.swal2-bottom-left):not(.swal2-bottom-right):not(.swal2-grow-fullscreen) > .swal2-modal {
   margin: auto;
+  font-family: 'Futura-Medium-BT', sans-serif;
 }
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .swal2-container .swal2-modal {
@@ -279,6 +281,7 @@
   text-align: center;
   text-transform: none;
   word-wrap: break-word;
+  font-family: 'Futura-Medium-BT', sans-serif;
 }
 
 .swal2-actions {
