@@ -177,9 +177,9 @@ echo "jQuery('#login-modal').modal();";
 
                 if(!validated){
 	                Swal.fire({
-		                title: 'Error!',
-		                text: 'Invalid Input Data: some fields are not valid!',
-		                icon: 'error',
+		                title: 'Warning!',
+		                text: 'Invalid Data: some fields are invalid!',
+		                icon: 'warning',
 		                confirmButtonText: 'Close'
 	                });
 	                spinnerButtons('hide', $(this));
@@ -244,7 +244,8 @@ echo "jQuery('#login-modal').modal();";
                         }
                         else{
 	                        Swal.fire({
-		                        title: 'Some fields are required!',
+		                        title: 'Warning!',
+		                        text: 'Invalid Data: some fields are invalid!',
 		                        icon: 'warning',
 		                        confirmButtonText: 'Close'
 	                        });
