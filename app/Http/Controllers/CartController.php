@@ -79,7 +79,7 @@ class CartController extends BaseController
 
             if ($make_meal != null) {
               //  foreach ($make_meal as $key1 => $value1) {
-                    $_mk = $make_meal['Items'];
+
                     $_mk2 = $make_meal['Title'];
                     $_mk2_array = explode('-', $_mk2);
                     $_amounts = $_amounts + $_mk2_array[1];
@@ -87,17 +87,24 @@ class CartController extends BaseController
                     $_make_meal['price'] = str_replace(',','',$_mk2_array[1]);
                     $_make_meal['name'] = $_mk2_array[2];
                     $_itm = array();
-                    foreach ($_mk as $ky => $vl) {
+                    if(isset($make_meal['Items']))
+                    {
+                        $_mk = $make_meal['Items'];
+                        foreach ($_mk as $ky => $vl) {
 
-                        $meal_array = explode('-', $vl);
-                        array_push($_itm, ['id' => $meal_array[0], 'plu' => $meal_array[1], 'name' => $meal_array[3], 'details' => $meal_array[2], 'price' => 0]);
+                            $meal_array = explode('-', $vl);
+                            array_push($_itm, ['id' => $meal_array[0], 'plu' => $meal_array[1], 'name' => $meal_array[3], 'details' => $meal_array[2], 'price' => 0]);
+
+                        }
 
                     }
+
                     $_make_meal['items'] = $_itm;
               //  }
             }
         }
         $cart[]= [
+            'id' => $item_id,
             'name' => $_name,
             'quantity' => $qty,
             'price' => $_amounts,
@@ -109,6 +116,16 @@ class CartController extends BaseController
 
 
         session()->put('cart', $cart);
+        $qty=0;
+        $cart_n = session()->get('cart');
+        for ($j=0;$j<count($cart_n);$j++)
+        {
+            if($cart[$j]['plu']==$_plu)
+            {
+                $qty++;
+            }
+        }
+        echo $qty;
     }
 
     /**
@@ -117,14 +134,60 @@ class CartController extends BaseController
      * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
+    public function remove(Request $request)
+    {
+        $id=$request->input('id');
+        $cart = session()->get('cart');
+        if(isset($cart))
+        {
+            for ($i=count($cart)-1;$i>=0;$i--)
+            {
+                if($cart[$i]['plu']==$id)
+                {
+                    unset($cart[$i]);
+                    break;
+                }
+            }
+            session()->forget('cart');
+            session()->save();
+            if(count($cart)>0)
+            {
+                session()->put('cart', array_values($cart));
+            }
+
+        }
+        $qty=0;
+        $cart_n = session()->get('cart');
+        for ($j=0;$j<count($cart_n);$j++)
+        {
+            if($cart_n[$j]['plu']==$id)
+            {
+               $qty++;
+            }
+        }
+        echo $qty;
+    }
     public function delete($id)
     {
         $cart = session()->get('cart');
+        $item_id='';
         if(isset($cart[$id]))
         {
+            $item_id=$cart[$id]['id'];
             unset($cart[$id]);
-            session()->put('cart', $cart);
+            session()->put('cart', array_values($cart));
         }
+        $qty=0;
+        $cart_n = session()->get('cart');
+        for ($j=0;$j<count($cart_n);$j++)
+        {
+            if($cart_n[$j]['id']==$item_id)
+            {
+                $qty++;
+            }
+        }
+
+        echo $qty.'-'.$item_id;
     }
     public function delete_meal($id)
     {
@@ -232,9 +295,10 @@ class CartController extends BaseController
         }
         $_make_meal=array();
 
-        $value1=$make_meal[$item_id];
 
-        if($make_meal!=null) {
+
+        if(isset($make_meal[$item_id])) {
+            $value1=$make_meal[$item_id];
            // foreach ($make_meal as $key1 => $value1) {
                 $_mk2=$value1['Title'];
 
@@ -262,6 +326,7 @@ class CartController extends BaseController
         unset($cart[$key_item]);
 
         $cart[$key_item]=[
+            'id'=>$item_id,
             'name' => $_name,
             'quantity' => $qty,
             'price' => $_amounts,

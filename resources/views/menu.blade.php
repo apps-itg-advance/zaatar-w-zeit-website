@@ -55,9 +55,9 @@
                                     <div class="input-group-prepend">
                                         <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="AddQty({{$row->ID}})"><img src="{{asset('assets/images/icon-plus.png')}}" /></button>
                                     </div>
-                                    <input type="text" name="qty[{{$row->ID}}]" id="qty_{{$row->ID}}" class="form-control" value="0">
+                                    <input type="text" name="qty[{{$row->ID}}]" id="qty_{{$row->ID}}" class="form-control" value="{{isset($item_qty[$row->PLU])? $item_qty[$row->PLU]:0}}">
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="SubQty({{$row->ID}})"><img src="{{asset('assets/images/icon-minus.png')}}" /></button>
+                                        <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="SubQty({{$row->ID}},{{$row->PLU}})"><img src="{{asset('assets/images/icon-minus.png')}}" /></button>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +138,6 @@
                 else{
                     var nTotal=parseFloat($("#TotalAmount"+item_id).val())-mPrice;
                 }
-                alert(nTotal);
                 $("#TotalAmount"+item_id).val(nTotal);
                 $("#DisplayTotal"+item_id).text(formatNumber(nTotal)+' LBP');
             }
@@ -209,13 +208,14 @@
             $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
              MakeMealModel(id);
         }
-        function SubQty(id) {
+        function SubQty(id,plu) {
         	//sp spinner
             var spinnerContainerElement = $("button[data-code='" + id + "']").closest('.item-plus-minus');
             spinner('show', spinnerContainerElement);
 
 	        var currentTotal=parseFloat($("#TotalAmount"+id).val());
             var ItemId="qty_"+id;
+
             var currentQty=parseInt($("#"+ItemId).val());
             if(currentQty >0)
             {
@@ -225,7 +225,19 @@
               //  $("#TotalAmount"+id).val(newTotal);
                 $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
             }
-
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'POST',
+                url:'{{route('carts.remove')}}',
+                data:{id:plu},
+                success:function(data){
+                    _getCountCartItems();
+                    LoadCart();
+                    spinner('hide', spinnerContainerElement);
+                }
+            });
 	        spinner('hide', spinnerContainerElement);
         }
         function AddToCart(id)
@@ -244,6 +256,7 @@
                     jQuery('.cartbig-modal').modal('hide');
 	                $("button[data-code='" + id + "']").prop('disabled',false);
 	                // loader('hide');
+                    $('#qty_'+id).val(data);
 	                spinner('hide', spinnerContainerElement);
                 }
             });
