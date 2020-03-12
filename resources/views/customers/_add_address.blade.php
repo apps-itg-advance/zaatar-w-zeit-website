@@ -1,4 +1,5 @@
-<form action="{{route('customer.address.save')}}" method="post">
+<script src="{{asset('assets/js/jquery.validate.min.js')}}"></script>
+<form action="{{route('customer.address.save')}}" method="post" id="AddAddress">
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
                 @csrf
@@ -79,7 +80,7 @@
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label>Phone Number</label>
-                                        <input type="text" class="form-control"  name="phone{{$skey}}" value="{{$query->FullMobile}}" />
+                                        <input type="text" class="form-control"  name="phone{{$skey}}" readonly value="{{$query->FullMobile}}" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -111,3 +112,40 @@
         </div>
     </div>
 </form>
+<script>
+    $(document).ready(function () {
+
+        $('#AddAddress').validate({ // initialize the plugin
+            rules: {
+                address_type{{$skey}}: {
+                    required: true
+                },
+                name{{$skey}}: {
+                    required: true,
+                    maxlength: 30
+                },
+                geo{{$skey}}: {
+                    required: true
+                },
+                line1{{$skey}}: {
+                    required: true,
+                    maxlength: 30
+                },
+                building_name{{$skey}}: {
+                    maxlength: 30
+                },
+                building_nbr{{$skey}}: {
+                    maxlength: 30
+                },
+                floor{{$skey}}: {
+                    maxlength: 30
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();// for demo
+                return false; // for demo
+            }
+        });
+
+    });
+</script>

@@ -7,3 +7,7 @@
     overflow: hidden;
     max-height: 205px;
 }
+.error {
+    color: #F00 !important;
+    font-size: 14px !important;
+}
