@@ -150,7 +150,7 @@ class CartController extends BaseController
             }
             session()->forget('cart');
             session()->save();
-            if(count($cart)>0)
+            if(is_array($cart) and count($cart)>0)
             {
                 session()->put('cart', array_values($cart));
             }

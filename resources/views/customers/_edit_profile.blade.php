@@ -1,7 +1,8 @@
 <div class="editprofileModal modal fade" id="editprofileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <script src="{{asset('assets/js/jquery.validate.min.js')}}"></script>
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form action="{{route('customer.store')}}" method="post">
+            <form action="{{route('customer.store')}}" method="post" id="ProfileForm">
                 @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -20,13 +21,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" name="first_name{{$Skey}}" value="{{@$details->FirstName}}" />
+                            <input type="text" class="form-control" id="FirstName" name="first_name{{$Skey}}" value="{{@$details->FirstName}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Family Name</label>
-                            <input type="text" class="form-control" name="last_name{{$Skey}}" value="{{@$details->LastName}}" />
+                            <input type="text" class="form-control" id="LastName" name="last_name{{$Skey}}" value="{{@$details->LastName}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -38,7 +39,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="text" class="form-control" name="email{{$Skey}}" value="{{@$details->Email}}" />
+                            <input type="text" class="form-control" readonly="readonly" name="email{{$Skey}}" value="{{@$details->Email}}" />
                         </div>
                     </div>
                     <div class="col-md-12 mt-2">
@@ -80,7 +81,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>City</label>
-                            <select class="form-control" name="geo{{$Skey}}">
+                            <select class="form-control" id="Geo" name="geo{{$Skey}}">
                                 @if (count($cities)>0)
                                     @foreach($cities as $city)
                                         <option value="{{ $city->CityId.'-'.$city->ProvinceId }}" {{ $selectedCity == $city->CityId ? 'selected="selected"' : '' }}>{{ $city->CityName.' - '.$city->ProvinceName }}</option>
@@ -92,7 +93,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Street</label>
-                            <input type="text" class="form-control" name="line1{{$Skey}}" value="{{@$main_address->Line1}}" />
+                            <input type="text" class="form-control" id="Line1" name="line1{{$Skey}}" value="{{@$main_address->Line1}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -149,3 +150,40 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+
+        $('#ProfileForm').validate({ // initialize the plugin
+            rules: {
+                first_name{{$Skey}}: {
+                    required: true
+                },
+                last_name{{$Skey}}: {
+                    required: true,
+                    maxlength: 30
+                },
+                geo{{$Skey}}: {
+                    required: true
+                },
+                line1{{$Skey}}: {
+                    required: true,
+                    maxlength: 30
+                },
+                building_name{{$Skey}}: {
+                    maxlength: 30
+                },
+                building_nbr{{$Skey}}: {
+                    maxlength: 30
+                },
+                floor{{$Skey}}: {
+                    maxlength: 30
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();// for demo
+                return false; // for demo
+            }
+        });
+
+    });
+</script>
