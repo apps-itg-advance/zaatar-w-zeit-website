@@ -72,6 +72,12 @@
 			        $('#cartbig-modal-'+itemId).remove();
 			        _getCountCartItems();
 			        LoadCart();
+			        Swal.fire({
+				        title: 'Removed Item!',
+				        text: 'Your favourites item was removed successfully.',
+				        icon: 'success',
+				        confirmButtonText: 'Close'
+			        });
 			        // spinner('hide', $(that).closest('.favourite-box'));
 			        // jQuery('.cartbig-modal').modal('hide');
 			        // $("button[data-code='" + itemId + "']").prop('disabled',false);
