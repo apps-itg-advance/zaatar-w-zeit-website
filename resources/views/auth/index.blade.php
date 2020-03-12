@@ -189,7 +189,7 @@ echo "jQuery('#login-modal').modal();";
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
+                    }, 
                     type:'POST',
                     url:'{{route('auth.signin')}}',
                     data:$("#LogIn").serialize(),
