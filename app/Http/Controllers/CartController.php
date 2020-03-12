@@ -151,7 +151,7 @@ class CartController extends BaseController
             session()->forget('cart');
             session()->save();
             session()->put('cart', array_values($cart));
-           
+
         }
         $qty=0;
         $cart_n = session()->get('cart');
