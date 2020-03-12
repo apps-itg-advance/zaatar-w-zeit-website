@@ -44,30 +44,34 @@ class CartController extends BaseController
      */
     public function store(Request $request)
     {
-        $item_id=$request->input('SItemId');
+        $item_id=$request->input('ItemId');
+        $quick_order=$request->input('QuickOrder'.$item_id);
         $qty=$request->input('SQty');
         $item_modify=$request->input('ItemModify');
-        $items_name=$request->input('ItemsName');
-        $items_plu=$request->input('ItemsPLU');
-        $items_amounts=str_replace(',','',$request->input('TotalAmount'));
-        $_name=$items_name[$item_id];
-        $_plu=$items_plu[$item_id];
-        $_amounts=$items_amounts[$item_id];
+        $_name=$request->input('ItemsName');
+        $_plu=$request->input('ItemsPLU');
+        $_amounts=$request->input('TotalAmounts');
+        //$_amounts=$items_amounts[$item_id];
         $modifiers=$request->input('modifiers'.$item_id);
         $make_meals=$request->input('make_meal');
         $cart = session()->get('cart');
         $_modifiers=array();
         $_make_meal=array();
         $qty=1;
-        if($modifiers!=null) {
-            foreach ($modifiers as $key => $value) {
-                for ($i = 0; $i < count($value); $i++) {
-                    $modifier_array = explode('-', $value[$i]);
-                    array_push($_modifiers, ['id' => $modifier_array[0], 'plu' => $modifier_array[1], 'name' => $modifier_array[3], 'price' => $modifier_array[2]]);
+        if($quick_order=='0')
+        {
+            if($modifiers!=null) {
+                foreach ($modifiers as $key => $value) {
+                    for ($i = 0; $i < count($value); $i++) {
+                        $modifier_array = explode('-', $value[$i]);
+                        $_amounts=$_amounts+$modifier_array[2];
+                        array_push($_modifiers, ['id' => $modifier_array[0], 'plu' => $modifier_array[1], 'name' => $modifier_array[3], 'price' => $modifier_array[2]]);
 
+                    }
                 }
             }
         }
+
         if(isset($make_meals[$item_id])) {
 
 
@@ -75,7 +79,7 @@ class CartController extends BaseController
 
             if ($make_meal != null) {
               //  foreach ($make_meal as $key1 => $value1) {
-                    $_mk = $make_meal['Items'];
+
                     $_mk2 = $make_meal['Title'];
                     $_mk2_array = explode('-', $_mk2);
                     $_amounts = $_amounts + $_mk2_array[1];
@@ -83,17 +87,24 @@ class CartController extends BaseController
                     $_make_meal['price'] = str_replace(',','',$_mk2_array[1]);
                     $_make_meal['name'] = $_mk2_array[2];
                     $_itm = array();
-                    foreach ($_mk as $ky => $vl) {
+                    if(isset($make_meal['Items']))
+                    {
+                        $_mk = $make_meal['Items'];
+                        foreach ($_mk as $ky => $vl) {
 
-                        $meal_array = explode('-', $vl);
-                        array_push($_itm, ['id' => $meal_array[0], 'plu' => $meal_array[1], 'name' => $meal_array[3], 'details' => $meal_array[2], 'price' => 0]);
+                            $meal_array = explode('-', $vl);
+                            array_push($_itm, ['id' => $meal_array[0], 'plu' => $meal_array[1], 'name' => $meal_array[3], 'details' => $meal_array[2], 'price' => 0]);
+
+                        }
 
                     }
+
                     $_make_meal['items'] = $_itm;
               //  }
             }
         }
         $cart[]= [
+            'id' => $item_id,
             'name' => $_name,
             'quantity' => $qty,
             'price' => $_amounts,
@@ -103,7 +114,18 @@ class CartController extends BaseController
             'meal'=>$_make_meal
         ];
 
+
         session()->put('cart', $cart);
+        $qty=0;
+        $cart_n = session()->get('cart');
+        for ($j=0;$j<count($cart_n);$j++)
+        {
+            if($cart[$j]['plu']==$_plu)
+            {
+                $qty++;
+            }
+        }
+        echo $qty;
     }
 
     /**
@@ -112,14 +134,57 @@ class CartController extends BaseController
      * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
+    public function remove(Request $request)
+    {
+        $id=$request->input('id');
+        $cart = session()->get('cart');
+        if(isset($cart))
+        {
+            for ($i=count($cart)-1;$i>=0;$i--)
+            {
+                if($cart[$i]['plu']==$id)
+                {
+                    unset($cart[$i]);
+                    break;
+                }
+            }
+            session()->forget('cart');
+            session()->save();
+            session()->put('cart', array_values($cart));
+
+        }
+        $qty=0;
+        $cart_n = session()->get('cart');
+        for ($j=0;$j<count($cart_n);$j++)
+        {
+            if($cart_n[$j]['plu']==$id)
+            {
+               $qty++;
+            }
+        }
+        echo $qty;
+    }
     public function delete($id)
     {
         $cart = session()->get('cart');
+        $item_id='';
         if(isset($cart[$id]))
         {
+            $item_id=$cart[$id]['id'];
             unset($cart[$id]);
-            session()->put('cart', $cart);
+            session()->put('cart', array_values($cart));
         }
+        $qty=0;
+        $cart_n = session()->get('cart');
+        for ($j=0;$j<count($cart_n);$j++)
+        {
+            if($cart_n[$j]['id']==$item_id)
+            {
+                $qty++;
+            }
+        }
+
+        echo $qty.'-'.$item_id;
     }
     public function delete_meal($id)
     {
@@ -136,12 +201,25 @@ class CartController extends BaseController
     }
     public function copy_item($id)
     {
+        $item_id='';
         $cart = session()->get('cart');
         if(isset($cart[$id]))
         {
+            $item_id=$cart[$id]['id'];
             $cart[]=$cart[$id];
             session()->put('cart', $cart);
         }
+        $qty=0;
+        $cart_n = session()->get('cart');
+        for ($j=0;$j<count($cart_n);$j++)
+        {
+            if($cart_n[$j]['id']==$item_id)
+            {
+                $qty++;
+            }
+        }
+
+        echo $qty.'-'.$item_id;
     }
 
     public function add_qty($id)
@@ -227,9 +305,10 @@ class CartController extends BaseController
         }
         $_make_meal=array();
 
-        $value1=$make_meal[$item_id];
 
-        if($make_meal!=null) {
+
+        if(isset($make_meal[$item_id])) {
+            $value1=$make_meal[$item_id];
            // foreach ($make_meal as $key1 => $value1) {
                 $_mk2=$value1['Title'];
 
@@ -257,6 +336,7 @@ class CartController extends BaseController
         unset($cart[$key_item]);
 
         $cart[$key_item]=[
+            'id'=>$item_id,
             'name' => $_name,
             'quantity' => $qty,
             'price' => $_amounts,

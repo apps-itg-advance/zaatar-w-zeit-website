@@ -25,6 +25,7 @@ Route::get('/cart/copy-item/{id?}', 'CartController@copy_item')->name('carts.cop
 Route::get('/cart/add-qty/{id?}', 'CartController@add_qty')->name('carts.add_qty');
 Route::get('/cart/edit/{id?}', 'CartController@edit')->name('carts.edit');
 Route::post('/cart/update/{id?}', 'CartController@update')->name('carts.update');
+Route::post('/cart/remove', 'CartController@remove')->name('carts.remove');
 
 Route::get('/cart/count', 'CartController@cart_count')->name('carts.count');
 Route::get('/cart/destroy', 'CartController@destroy')->name('carts.destroy');

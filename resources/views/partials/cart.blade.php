@@ -22,6 +22,10 @@
                 success:function(data){
                     _getCountCartItems();
                     LoadCart();
+                    var res = data.split("-");
+                    if($('#qty_'+res[1]).length > 0) {
+                        $('#qty_' + res[1]).val(res[0]);
+                    }
                     return false;
                     //OpenCart();
                 }
@@ -34,6 +38,8 @@
                 success:function(data){
                     _getCountCartItems();
                     LoadCart();
+
+
                     return false;
                     //OpenCart();
                 }
@@ -46,6 +52,10 @@
                 success:function(data){
                     _getCountCartItems();
                     LoadCart();
+                    var res = data.split("-");
+                    if($('#qty_'+res[1]).length > 0) {
+                        $('#qty_' + res[1]).val(res[0]);
+                    }
                     return false;
                 }
             });
@@ -58,6 +68,7 @@
                 success:function(data){
                     LoadCart();
                     _getCountCartItems();
+                    $(".qty_all").val(0);
                     //$(".col-cartitems").html(data);
                 }
             });

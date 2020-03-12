@@ -6,7 +6,7 @@
         <div class="title-div mb-4 pb-2 text-center">
             <h2 class="title text-8DBF43">{{$_cat_title}}</h2>
         </div>
-        <form id="Form" action="#">
+
         <div class="col-lg-12 float-none p-0 mx-auto">
             <div class="row-favourite mx-auto">
 
@@ -14,6 +14,7 @@
                     <input type="hidden" name="SQty" id="SQty">
                     <input type="hidden" name="ItemModify" id="ItemModify" value="0">
                     @foreach($query->data as $row)
+                    <form id="Form{{$row->ID}}" action="#" method="post">
                    {{csrf_field()}}
                 @php
                     $has_meal=is_object($row->MakeMeal)  ? 1 :0;
@@ -21,9 +22,13 @@
                 <div class="col-favourite">
                     <div class="favourite-box">
                         <div class="media">
+                            <input type="hidden" name="ItemId" value="{{$row->ID}}">
                             <input type="hidden" id="MakeMeal{{$row->ID}}" value="{{$has_meal}}">
-                            <input type="hidden" name="ItemsName[{{$row->ID}}]" value="{{$row->ItemName}}">
-                            <input type="hidden" name="ItemsPLU[{{$row->ID}}]" value="{{$row->PLU}}">
+                            <input type="hidden" name="ItemsName" value="{{$row->ItemName}}">
+                            <input type="hidden" name="ItemsPLU" value="{{$row->PLU}}">
+                            <input type="hidden" name="TotalAmounts" value="{{$row->Price}}">
+                            <input type="hidden" name="QuickOrder{{$row->ID}}" id="QuickOrder{{$row->ID}}" value="0">
+
                             <img src="{{$row->ThumbnailImg}}" class="mr-3 img-thum"  alt="...">
                             <div class="media-body">
                                 <h5 class="mt-0">
@@ -50,9 +55,9 @@
                                     <div class="input-group-prepend">
                                         <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="AddQty({{$row->ID}})"><img src="{{asset('assets/images/icon-plus.png')}}" /></button>
                                     </div>
-                                    <input type="text" name="qty[{{$row->ID}}]" id="qty_{{$row->ID}}" class="form-control" value="0">
+                                    <input type="text" name="qty[{{$row->ID}}]" id="qty_{{$row->ID}}" class="form-control qty_all" value="{{isset($item_qty[$row->PLU])? $item_qty[$row->PLU]:0}}">
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="SubQty({{$row->ID}})"><img src="{{asset('assets/images/icon-minus.png')}}" /></button>
+                                        <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="SubQty({{$row->ID}},{{$row->PLU}})"><img src="{{asset('assets/images/icon-minus.png')}}" /></button>
                                     </div>
                                 </div>
                             </div>
@@ -61,11 +66,12 @@
                 </div>
                 @include('menu._menu_details',array('row'=>$row))
                 @include('menu._make_meal',array('row'=>$row))
+                    </form>
                 @endforeach
 
             </div>
         </div>
-        </form>
+
     </div>
     @include('partials.cart')
 @endsection
@@ -99,6 +105,10 @@
                 AddToCart(id);
             }
             return false;
+        }
+        function SubmitCustomize(id) {
+            $("#QuickOrder"+id).val(1);
+            AddToCart(id);
         }
         function CalculateTotal(cat_id,max_qty,id,item_id) {
             var ItemId="qty_"+item_id;
@@ -185,17 +195,18 @@
             $("#"+ItemId).val(newQty);
             var newTotal=currentTotal;
            // $("#TotalAmount"+id).val(newTotal);
+            $("#QuickOrder").val('1');
             $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
-
              MakeMealModel(id);
         }
-        function SubQty(id) {
+        function SubQty(id,plu) {
         	//sp spinner
             var spinnerContainerElement = $("button[data-code='" + id + "']").closest('.item-plus-minus');
             spinner('show', spinnerContainerElement);
 
 	        var currentTotal=parseFloat($("#TotalAmount"+id).val());
             var ItemId="qty_"+id;
+
             var currentQty=parseInt($("#"+ItemId).val());
             if(currentQty >0)
             {
@@ -205,7 +216,19 @@
               //  $("#TotalAmount"+id).val(newTotal);
                 $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
             }
-
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'POST',
+                url:'{{route('carts.remove')}}',
+                data:{id:plu},
+                success:function(data){
+                    _getCountCartItems();
+                    LoadCart();
+                    spinner('hide', spinnerContainerElement);
+                }
+            });
 	        spinner('hide', spinnerContainerElement);
         }
         function AddToCart(id)
@@ -217,21 +240,22 @@
                 },
                 type:'POST',
                 url:'{{route('carts.store')}}',
-                data:$("#Form").serialize(),
+                data:$("#Form"+id).serialize(),
                 success:function(data){
                     _getCountCartItems();
                     LoadCart();
                     jQuery('.cartbig-modal').modal('hide');
 	                $("button[data-code='" + id + "']").prop('disabled',false);
 	                // loader('hide');
+                    $('#qty_'+id).val(data);
 	                spinner('hide', spinnerContainerElement);
                 }
             });
 
         }
         $('#Form').on('submit', function(event){
-            event.preventDefault();
-            AddToCart(0);
+           // event.preventDefault();
+         //   AddToCart(0);
 
         });
         function SetFavourite(item)

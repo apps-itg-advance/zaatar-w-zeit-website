@@ -19,7 +19,7 @@
                         @php
 
                                 $modifiers=$values['modifiers'];
-                                $_total+=$values['price']*$values['quantity'];
+                                $_total+=$values['price'];
                                 $md_array=array();
                                 for($i=0;$i<count($modifiers);$i++)
                                 {

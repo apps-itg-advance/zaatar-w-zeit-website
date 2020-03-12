@@ -50,7 +50,31 @@ class HomeController extends Controller
         }
 //	    dd($_cat_title, $array_name, $cat_title);
         $flag=true;
-        return view('menu',compact('cat_id','cat_title','query','flag','_cat_title'));
+        $cart=session()->get('cart');
+        $item_qty=array();
+        if(isset($cart))
+        {
+
+            for($i=0;$i<count($cart);$i++)
+            {
+                $qty=1;
+                $plu=$cart[$i]['plu'];
+                if(!isset($item_qty[$plu]))
+                {
+                    for($j=$i+1;$j<count($cart);$j++)
+                    {
+                        if($cart[$i]['plu']==$cart[$j]['plu'])
+                        {
+                            $qty++;
+                        }
+                    }
+                    $item_qty[$plu]=$qty;
+                }
+
+
+            }
+        }
+        return view('menu',compact('cat_id','cat_title','query','flag','_cat_title','item_qty'));
     }
     public  function favourites()
     {
