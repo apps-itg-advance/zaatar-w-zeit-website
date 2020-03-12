@@ -103,7 +103,7 @@
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label>Phone Number</label>
-                                        <input type="text" class="form-control"  name="phone{{$skey}}" value="{{$address->Phone}}" />
+                                        <input type="text" class="form-control" readonly="readonly"  name="phone{{$skey}}" value="{{$address->Phone}}" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
