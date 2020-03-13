@@ -106,4 +106,15 @@ class MenuLibrary
         $query=Helper::getApi($url);
         return $query;
     }
+    public static function GetOrdersHistoryWithFav()
+    {
+        $s_org=session()->get('_org');
+        $loyalty_id=session()->get('loyalty_id');
+        $token=$s_org->token;
+        $organization_id=$s_org->id;
+
+        $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+        $query=Helper::getApi($url);
+        return $query;
+    }
 }

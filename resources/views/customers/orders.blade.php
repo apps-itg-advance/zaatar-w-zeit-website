@@ -9,7 +9,10 @@
         <div class="col-xl-11 float-none mx-auto p-0">
 
             @include('customers._favourite_menu')
-            @foreach($query as $row)
+            @foreach($favouriteOrders as $row)
+                @if(!$row->Favorite)
+                    @continue
+                @endif
                 <div class="order-box p-3 fav-box-shadow">
                     <h4 class="title">
                         ORDER {{$row->OrderId}}

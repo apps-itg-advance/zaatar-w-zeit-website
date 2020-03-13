@@ -83,16 +83,12 @@ class CustomerController extends Controller
 
     public function orders()
     {
-//	    $flag=true;
-//	    $query=MenuLibrary::GetFavouriteItems();
-//	    return view('customers.order_history',compact('query','flag'));
-
         $loyalty_id=session()->get('loyalty_id');
-        $query=CustomerLibrary::GetOrdersHistory($loyalty_id);
+	    $favouriteOrders=MenuLibrary::GetOrdersHistoryWithFav()->data;
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';
-        return view('customers.orders',compact('query','class_css','flag','sub_active'));  //
+        return view('customers.orders',compact('favouriteOrders','class_css','flag','sub_active'));  //
     }
 
     public function orderHistory()
