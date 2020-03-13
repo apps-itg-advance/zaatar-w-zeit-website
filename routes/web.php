@@ -48,8 +48,8 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::post('/customer/address-save', 'CustomerController@address_save')->name('customer.address.save');
     Route::get('/customer/address-delete/{id?}', 'CustomerController@address_delete')->name('customer.address.delete');
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-    Route::get('/customer/favouriteOrders', 'CustomerController@orders')->name('customer.favourites.orders');
-    Route::get('/customer/favourites', 'CustomerController@favourites')->name('customer.favourites');
+    Route::get('/customer/favourite/orders', 'CustomerController@orders')->name('customer.favourite.orders');
+    Route::get('/customer/favourite/items', 'CustomerController@favourites')->name('customer.favourite.items');
     Route::get('/customer/order-history', 'CustomerController@orderHistory')->name('customer.order-history');
     Route::get('/customer/order-details', 'CustomerController@order_details')->name('order.details');
     Route::get('/checkout/address', 'CheckoutController@address')->name('checkout.address');
@@ -69,6 +69,8 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::post('/customer/set-favourite', 'CustomerController@set_favourite')->name('customer.set.favourite');
     Route::post('/customer/remove-favourite', 'CustomerController@remove_favourite')->name('customer.remove.favourite');
 //    Route::post('/customer/favouriteItem', 'CustomerController@favouriteItem')->name('customer.favourite.item');
+    Route::post('/customer/set-favourite-order', 'CustomerController@set_favourite_order')->name('customer.set.favourite-order');
+    Route::post('/customer/remove-favourite-order', 'CustomerController@remove_favourite_order')->name('customer.remove.favourite-order');
 
     Route::get('/checkout/wallet', 'CheckoutController@wallet')->name('checkout.wallet');
     Route::get('/checkout/gift', 'CheckoutController@gift')->name('checkout.gift');

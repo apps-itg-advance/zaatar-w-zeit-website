@@ -144,6 +144,20 @@ class CustomerController extends Controller
 		echo $query->message;
 	}
 
+
+	public function set_favourite_order(Request $request)
+	{
+		$orderId=$request->input('order_id');
+		$query=MenuLibrary::SetFavoriteOrder($orderId);
+		echo $query->message;
+	}
+	public function remove_favourite_order(Request $request)
+	{
+		$orderId=$request->input('order_id');
+		$query=MenuLibrary::RemoveFavoriteOrder($orderId);
+		echo $query->message;
+	}
+
 	/**
      * Store a newly created resource in storage.
      *

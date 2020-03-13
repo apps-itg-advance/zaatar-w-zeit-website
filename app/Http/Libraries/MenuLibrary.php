@@ -52,7 +52,6 @@ class MenuLibrary
     }
     public static function SetFavoriteItem($itemId)
     {
-
         $s_org=session()->get('_org');
 
         $post_array['token']=$s_org->token;
@@ -63,6 +62,36 @@ class MenuLibrary
         $post_array['item_data']=null;
 
         $url=env('BASE_URL').'items/SaveFavoriteItem';
+        $query=Helper::postApi($url,$post_array);
+        return $query;
+    }
+    public static function SetFavoriteOrder($orderId)
+    {
+        $s_org=session()->get('_org');
+
+        $post_array['token']=$s_org->token;
+        $post_array['organization_id']=$s_org->id;
+        $post_array['channel_id']=1;
+        $post_array['LoyaltyId']=session()->get('loyalty_id');
+        $post_array['OrderId']=$orderId;
+        $post_array['Status']=1;
+
+        $url=env('BASE_URL').'orders/SetFavorite';
+        $query=Helper::postApi($url,$post_array);
+        return $query;
+    }
+    public static function RemoveFavoriteOrder($orderId)
+    {
+        $s_org=session()->get('_org');
+
+        $post_array['token']=$s_org->token;
+        $post_array['organization_id']=$s_org->id;
+        $post_array['channel_id']=1;
+        $post_array['LoyaltyId']=session()->get('loyalty_id');
+        $post_array['OrderId']=$orderId;
+        $post_array['Status']=0;
+
+        $url=env('BASE_URL').'orders/SetFavorite';
         $query=Helper::postApi($url,$post_array);
         return $query;
     }
