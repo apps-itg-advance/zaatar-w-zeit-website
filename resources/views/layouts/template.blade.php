@@ -151,6 +151,23 @@
 		}
 	}
 
+	function loginAlert(){
+		Swal.fire({
+			title: 'Not Logged In!',
+			text: "You need to login first",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#8DBF43',
+			cancelButtonColor: '#aaa',
+			confirmButtonText: 'Login?',
+			cancelButtonText: 'Close'
+		}).then((result) => {
+            if (result.value) {
+	            window.location.replace("{{route('auth.login')}}");
+            }
+		})
+    }
+
 	function SetFavourite(itemId)
 	{
 		// console.log(item.ID);
@@ -172,7 +189,6 @@
 					title: 'Your favourite item was added successfully.',
 					showConfirmButton: false,
 					timer: 1200
-
 				});
 				$("#Favourite" + itemId).removeClass('href-disabled').addClass('active');
 			}

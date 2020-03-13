@@ -47,7 +47,11 @@
                                            $active_f='active';
                                        }
                                 @endphp
-                                <a onclick="SetFavourite({{$row->ID}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite mr-3 {{$active_f}}">Favourite</a>
+                                @if(session('is_login'))
+                                    <a onclick="SetFavourite({{$row->ID}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite mr-3 {{$active_f}}">Favourite</a>
+                                @else
+                                    <a onclick="loginAlert()" class="effect-underline link-favourite mr-3 cursor-pointer">Favourite</a>
+                                @endif
                                 <a onclick="OpenModel({{$row->ID}})" class="link-customize pointer effect-underline">Customize</a>
                             </div>
                             <div class="col-sm-5 text-center">
