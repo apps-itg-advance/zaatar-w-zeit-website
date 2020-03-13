@@ -47,7 +47,7 @@
                                            $active_f='active';
                                        }
                                 @endphp
-                                <a onclick="SetFavourite({{json_encode($row)}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite mr-3 {{$active_f}}">Favourite</a>
+                                <a onclick="SetFavourite({{$row->ID}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite mr-3 {{$active_f}}">Favourite</a>
                                 <a onclick="OpenModel({{$row->ID}})" class="link-customize pointer effect-underline">Customize</a>
                             </div>
                             <div class="col-sm-5 text-center">
@@ -258,38 +258,6 @@
          //   AddToCart(0);
 
         });
-        function SetFavourite(item)
-        {
-        	// console.log(item.ID);
-            if($("#Favourite" + item.ID).hasClass('href-disabled')){
-            	return null;
-            }
-	        $("#Favourite" + item.ID).addClass('href-disabled');
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type:'POST',
-                data:{item:item},
-                url:'{{route('customer.set.favourite')}}',
-                success:function(data){
-	                Swal.fire({
-		                // position: 'top-end',
-		                icon: 'success',
-		                title: 'Your favourite item was added successfully.',
-		                showConfirmButton: false,
-		                timer: 1200
-	                });
-
-	                $("#Favourite" + item.ID).removeClass('href-disabled');
-                }
-            });
-            //jQuery('#editprofileModal').modal();
-        }
-        // function SubmitForm(id)
-        // {
-        // }
-
     </script>
 @endsection
 @section('css')

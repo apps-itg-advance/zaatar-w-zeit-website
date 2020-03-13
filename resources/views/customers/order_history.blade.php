@@ -1,6 +1,11 @@
 @extends('layouts.template')
 @section('css')
     <link rel="stylesheet" href="{{asset('assets/css/owl.carousel.min.css')}}">
+    <style>
+        .favourite-link{
+            margin-right: 10%;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -8,7 +13,9 @@
 
         <div class="col-xl-11 float-none mx-auto p-0">
 
-            @include('customers._favourite_menu')
+            <br>
+            <h4 class="title-1">Order History</h4>
+
             @foreach($query as $row)
                 <div class="order-box p-3">
                     <h4 class="title">
@@ -27,16 +34,13 @@
                         </div>
                     </div>
                     <div class="action-div text-right">
+                        <a onclick="SetFavouriteOrder{{$row->OrderId}}" id="Favourite{{$row->OrderId}}" class="btn btn-orderrepeat favourite-link"><img src="{{asset('assets/images/icon-heart.png')}}" height="15" class="mr-1"/> Favourite</a>
                         <a class="btn btn-orderrepeat"><img src="{{asset('assets/images/icon-refresh.png')}}" height="15" class="mr-1"/> Repeat Order</a>
                     </div>
-                    <a href="#" class="link-close"><img src="{{asset('assets/svg/icon-close.svg')}}" width="24"></a>
                 </div>
             @endforeach
         </div>
 
     </div>
     @include('partials.cart')
-@endsection
-@section('javascript')
-
 @endsection

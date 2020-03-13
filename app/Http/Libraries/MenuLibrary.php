@@ -50,7 +50,7 @@ class MenuLibrary
 	    $query=Helper::postApi($url,$post_array);
 	    return $query;
     }
-    public static function SetFavoriteItem($array)
+    public static function SetFavoriteItem($itemId)
     {
 
         $s_org=session()->get('_org');
@@ -59,8 +59,8 @@ class MenuLibrary
         $post_array['organization_id']=$s_org->id;
         $post_array['channel_id']=1;
         $post_array['LoyaltyId']=session()->get('loyalty_id');
-        $post_array['item_id']=$array['ID'];
-        $post_array['item_data']=json_encode($array);
+        $post_array['item_id']=$itemId;
+        $post_array['item_data']=null;
 
         $url=env('BASE_URL').'items/SaveFavoriteItem';
         $query=Helper::postApi($url,$post_array);

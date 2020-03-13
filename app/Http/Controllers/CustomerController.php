@@ -83,12 +83,26 @@ class CustomerController extends Controller
 
     public function orders()
     {
+//	    $flag=true;
+//	    $query=MenuLibrary::GetFavouriteItems();
+//	    return view('customers.order_history',compact('query','flag'));
+
         $loyalty_id=session()->get('loyalty_id');
         $query=CustomerLibrary::GetOrdersHistory($loyalty_id);
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';
         return view('customers.orders',compact('query','class_css','flag','sub_active'));  //
+    }
+
+    public function orderHistory()
+    {
+        $loyalty_id=session()->get('loyalty_id');
+        $query=CustomerLibrary::GetOrdersHistory($loyalty_id);
+        $class_css='orders-wrapper';
+        $flag=true;
+        $sub_active='orders';
+        return view('customers.order_history',compact('query','class_css','flag','sub_active'));  //
     }
 
     public function order_details()
@@ -114,12 +128,12 @@ class CustomerController extends Controller
     }
     public function set_favourite(Request $request)
     {
-        $item=$request->input('item');
+        $itemId=$request->input('item_id');
         //echo $item;
         //$_array=json_decode($item);
         //dump($item);
        // echo $item['ID'];
-        $query=MenuLibrary::SetFavoriteItem($item);
+        $query=MenuLibrary::SetFavoriteItem($itemId);
         echo $query->message;
     }
 
@@ -377,4 +391,5 @@ class CustomerController extends Controller
     {
         //
     }
+
 }
