@@ -966,3 +966,12 @@ a.effect-underline:hover:after {
     margin-bottom: 30px;
     margin-top: 10px;
 }
+
+.btn-1-anim:hover{
+    background-color: #8DBF43 !important;
+    color: white !important;
+    transition: all 0.5s ease;
+}
+.btn-1-anim:hover a{
+    color: white !important;
+}

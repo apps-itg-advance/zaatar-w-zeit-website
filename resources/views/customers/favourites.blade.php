@@ -28,7 +28,7 @@
                                         <a onclick="OpenModel({{$row->ID}})" class="link-customize pointer effect-underline">Customize</a>
                                     </div>
                                     <div class="col-sm-5 text-center">
-                                        <div class="input-group mx-auto">
+                                        <div class="input-group mx-auto item-plus-minus">
                                             <div class="input-group-prepend">
                                                 <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="AddQty({{$row->ID}})"><img src="{{asset('assets/images/icon-plus.png')}}" /></button>
                                             </div>
@@ -144,26 +144,37 @@
 		}
 
 		function AddQty(id) {
-			// var hasM= $("#MakeMeal"+id).val();
-			// console.log(hasM);
-			// if(hasM==0){
-			//     loader('show');
-			//     $("button[data-code='" + id + "']").prop('disabled',true);
-			// }
 			var currentTotal=parseFloat($("#TotalAmount"+id).val());
 			var ItemId="qty_"+id;
 			var currentQty=parseInt($("#"+ItemId).val());
 			var newQty=currentQty+1;
 			$("#"+ItemId).val(newQty);
 			var newTotal=currentTotal;
-			$("#TotalAmount"+id).val(newTotal);
+			// $("#TotalAmount"+id).val(newTotal);
+			$("#QuickOrder").val('1');
 			$("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
-
 			MakeMealModel(id);
-
 		}
+        // function AddQty(id) {
+	    //     var hasM = $("#MakeMeal"+id).val();
+	    //     if(hasM==0){
+		//         // loader('show');
+		//         var spinnerContainerElement = $("button[data-code='" + id + "']").closest('.item-plus-minus');
+		//         spinner('show', spinnerContainerElement);
+		//         $("button[data-code='" + id + "']").prop('disabled',true);
+	    //     }
+	    //     var currentTotal=parseFloat($("#TotalAmount"+id).val());
+	    //     var ItemId="qty_"+id;
+	    //     var currentQty=parseInt($("#"+ItemId).val());
+	    //     var newQty=currentQty+1;
+	    //     $("#"+ItemId).val(newQty);
+	    //     var newTotal=currentTotal;
+	    //     // $("#TotalAmount"+id).val(newTotal);
+	    //     $("#QuickOrder").val('1');
+	    //     $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
+	    //     MakeMealModel(id);
+        // }
 		function MakeMealModel(id) {
-
 			var hasM= $("#MakeMeal"+id).val();
 			$("#SItemId").val(id);
 			var qty=$("#qty_"+id).val();
@@ -172,13 +183,13 @@
 				jQuery('#makeMeal-modal'+id).modal();
 			}
 			else{
-
 				AddToCart(id);
 			}
 			return false;
 		}
 		function AddToCart(id)
 		{
+			var spinnerContainerElement = $("button[data-code='" + id + "']").closest('.item-plus-minus');
 			$.ajax({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -191,11 +202,12 @@
 					LoadCart();
 					jQuery('.cartbig-modal').modal('hide');
 					$("button[data-code='" + id + "']").prop('disabled',false);
-					loader('hide');
+					$('#qty_'+id).val(data);
+					spinner('hide', spinnerContainerElement);
 				}
 			});
-
 		}
+
 		function SubQty(id) {
 			var currentTotal=parseFloat($("#TotalAmount"+id).val());
 			var ItemId="qty_"+id;
