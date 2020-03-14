@@ -333,9 +333,11 @@ button {
 .content-wrapper .favourite-box .link-customize { font-size: 15px;padding-left: 25px; background: url("../images/icon-pencil.png") no-repeat left center; color: #808080; float: right;}
 .content-wrapper .favourite-box .link-customize:hover {}
 .content-wrapper .favourite-box .link-customize.active { background-image: url("../images/icon-pencil-active.png"); color: #8DBF43;}
-.content-wrapper .favourite-box .link-favourite { padding-left: 25px; background: url("../images/icon-heart.png") no-repeat left center; color: #808080;}
+.content-wrapper .favourite-box .link-favourite { font-family: 'Futura-Medium-BT';padding-left: 25px; background: url("../images/icon-heart.png") no-repeat left center; color: #808080;}
 .content-wrapper .favourite-box .link-favourite:hover {}
 .content-wrapper .favourite-box .link-favourite.active { background-image: url("../svg/icon-heart-active.svg"); color: #8DBF43;}
+/*.link-favourite { padding-left: 25px; background: url("../images/icon-heart.png") no-repeat left center; color: #808080;}*/
+/*.link-favourite.active { background-image: url("../svg/icon-heart-active.svg"); color: #8DBF43;}*/
 .content-wrapper .favourite-box .input-group { /*width: 120px;*/ width: auto; float: right; position: relative; right: 15px;}
 .content-wrapper .favourite-box .input-group .form-control { max-width: 50px; border: none; color: #808080; text-align: center; font-size: 18px; padding-left: 0; padding-right: 0;}
 .content-wrapper .favourite-box .input-group .btn { padding: 6px 0;}
@@ -423,13 +425,24 @@ button {
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
+.fav-box-shadow{
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
 
+.font-size-14{
+    font-size: 14px;
+}
 
 .orders-wrapper .title-div .title { font-family: 'Futura-Book';}
-.orders-wrapper .order-box {}
+.orders-wrapper .order-box {
+    position: relative;
+    margin-bottom: 35px;
+}
 .orders-wrapper .order-box .order-info h5{ font-family: 'Futura-Medium-BT'; }
-.orders-wrapper .order-box .title { font-family: 'Futura-Bold'; font-size: 22px;}
-.orders-wrapper .order-box .title span { font-family: 'Futura-Light'; float: right; font-size: 18px;}
+.orders-wrapper .order-box .title { font-family: 'Futura-B'; font-size: 18px;}
+.orders-wrapper .order-box .title span { font-family: 'Futura-Medium-BT'; float: right; font-size: 16px;}
 .orders-wrapper .order-box .text-label { font-family: 'Futura-B'; font-size: 18px;}
 .orders-wrapper .order-box .btn {
     border-radius: 20px; padding: 2px 40px; font-family: 'Futura-Bold'; font-size: 20px;
@@ -437,8 +450,9 @@ button {
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
-.orders-wrapper .order-box .btn-orderrepeat { color: #808080; box-shadow: none; padding: 0; font-family: 'Futura-Light'; font-size: 16px;}
+.orders-wrapper .order-box .btn-orderrepeat { color: #808080; box-shadow: none; padding: 0;font-family: 'Futura-Medium-BT';font-size: 14px;}
 .orders-wrapper .order-box .link-close { position: absolute; top: -15px; right: -12px; background: #FFFFFF; display: block; border-radius: 30px;}
+.orders-wrapper .order-box .link-close img{ width: 20px; height: 20px; }
 .orders-wrapper .order-box hr { margin: 10px 0;}
 .orders-wrapper .order-box .total-block { font-family: 'Futura-B'; font-size: 20px;}
 .orders-wrapper .order-box .delivery-block { font-size: 20px;font-family: 'Futura-Bold'; }
@@ -615,7 +629,7 @@ button {
 .login-modal .modal-content .title { color: #8cbe43; font-size: 25px;}
 .login-modal .modal-content { background: none; border: none;}
 .login-modal .modal-content .form-group label { color: #8dbf43;}
-.login-modal .modal-content .form-group .form-control { background: rgba(255,255,255,0.20); border: none; color: #FFFFFF; border-radius: 10px; margin-right: 2px; margin-left: 2px;}
+.login-modal .modal-content .form-group .form-control { background: rgba(255,255,255,0.20); border: none; color: #FFFFFF; border-radius: 10px; margin-right: 2px; margin-left: 2px; }
 .login-modal .modal-content .btn-submit { border-radius: 10px; color: #000000; background: #8dbf43; font-family: 'Futura-Medium-BT'; font-size: 17px; padding-top: 5px; padding-bottom: 5px;}
 
 /*NEW CSS S*/
@@ -900,6 +914,9 @@ a.effect-underline:hover:after {
     margin: 20px auto;
 }
 /* Spinner Circle Rotation */
+.sp-over-container{
+    margin-bottom: 5px;
+}
 .sp-container{
     width: 86px;
     height: 41px;
@@ -935,4 +952,26 @@ a.effect-underline:hover:after {
 
 .modal-content .close:focus{
     outline: none;
+}
+
+.href-disabled{
+    cursor: no-drop;
+    color: gray;
+}
+
+.title-1{
+    font-family: 'Futura-B';
+    color: #4D4D4D;
+    font-size: 24px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.btn-1-anim:hover{
+    background-color: #8DBF43 !important;
+    color: white !important;
+    transition: all 0.5s ease;
+}
+.btn-1-anim:hover a{
+    color: white !important;
 }

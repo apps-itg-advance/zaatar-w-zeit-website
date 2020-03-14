@@ -47,7 +47,11 @@
                                            $active_f='active';
                                        }
                                 @endphp
-                                <a onclick="SetFavourite({{json_encode($row)}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite mr-3 {{$active_f}}">Favourite</a>
+                                @if(session('is_login'))
+                                    <a onclick="SetFavourite({{$row->ID}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite mr-3 {{$active_f}}">Favourite</a>
+                                @else
+                                    <a onclick="loginAlert()" class="effect-underline link-favourite mr-3 cursor-pointer">Favourite</a>
+                                @endif
                                 <a onclick="OpenModel({{$row->ID}})" class="link-customize pointer effect-underline">Customize</a>
                             </div>
                             <div class="col-sm-5 text-center">
@@ -180,15 +184,6 @@
             $("#TotalAmountQ"+item_id).val(nTotal);
             $("#DisplayTotalQ"+item_id).text(formatNumber(nTotal)+' {{$currency}}');
         }
-        function spinner(mode, el){
-	        if(mode=='show'){
-		        el.find('*').addClass('d-none');
-		        el.append('<div class="sp-container"><div class="sp sp-circle"></div></div>');
-	        }else{
-		        el.find('.sp-container').remove();
-		        el.find('*').removeClass('d-none');
-	        }
-        }
         function AddQty(id) {
 	        var hasM = $("#MakeMeal"+id).val();
 	        if(hasM==0){
@@ -267,29 +262,6 @@
          //   AddToCart(0);
 
         });
-        function SetFavourite(item)
-        {
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type:'POST',
-                data:{item:item},
-                url:'{{route('customer.set.favourite')}}',
-                success:function(data){
-                   // $("#displayData").html(data);
-                    //jQuery('#edit-address').modal();
-                    // LoadCart();
-                    // _getCountCartItems();
-                    //$(".col-cartitems").html(data);
-                }
-            });
-            //jQuery('#editprofileModal').modal();
-        }
-        // function SubmitForm(id)
-        // {
-        // }
-
     </script>
 @endsection
 @section('css')

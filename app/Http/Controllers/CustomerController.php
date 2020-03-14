@@ -88,11 +88,21 @@ class CustomerController extends Controller
     public function orders()
     {
         $loyalty_id=session()->get('loyalty_id');
+	    $favouriteOrders=MenuLibrary::GetOrdersHistoryWithFav()->data;
+        $class_css='orders-wrapper';
+        $flag=true;
+        $sub_active='orders';
+        return view('customers.orders',compact('favouriteOrders','class_css','flag','sub_active'));  //
+    }
+
+    public function orderHistory()
+    {
+        $loyalty_id=session()->get('loyalty_id');
         $query=CustomerLibrary::GetOrdersHistory($loyalty_id);
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';
-        return view('customers.orders',compact('query','class_css','flag','sub_active'));  //
+        return view('customers.order_history',compact('query','class_css','flag','sub_active'));  //
     }
 
     public function order_details()
@@ -118,16 +128,37 @@ class CustomerController extends Controller
     }
     public function set_favourite(Request $request)
     {
-        $item=$request->input('item');
+        $itemId=$request->input('item_id');
         //echo $item;
         //$_array=json_decode($item);
         //dump($item);
        // echo $item['ID'];
-        $query=MenuLibrary::SetFavoriteItem($item);
+        $query=MenuLibrary::SetFavoriteItem($itemId);
         echo $query->message;
     }
 
-    /**
+	public function remove_favourite(Request $request)
+	{
+		$itemId=$request->item_id;
+		$query=MenuLibrary::RemoveFavoriteItem($itemId);
+		echo $query->message;
+	}
+
+
+	public function set_favourite_order(Request $request)
+	{
+		$orderId=$request->input('order_id');
+		$query=MenuLibrary::SetFavoriteOrder($orderId);
+		echo $query->message;
+	}
+	public function remove_favourite_order(Request $request)
+	{
+		$orderId=$request->input('order_id');
+		$query=MenuLibrary::RemoveFavoriteOrder($orderId);
+		echo $query->message;
+	}
+
+	/**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -374,4 +405,5 @@ class CustomerController extends Controller
     {
         //
     }
+
 }

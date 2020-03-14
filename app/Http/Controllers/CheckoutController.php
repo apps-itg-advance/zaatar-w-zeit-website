@@ -48,7 +48,7 @@ class CheckoutController extends Controller
         $cities=SettingsLib::GetCities();
         //dump($addresses);
        //die;
-        $_active_css='address';
+	    $_active_css='';
         $class_css='checkout-wrapper';
         return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities'));  //
     }
@@ -126,8 +126,7 @@ class CheckoutController extends Controller
         }
        */
         $cart = Session::get('cart');
-
-        $_active_css='wallet';
+	    $_active_css='address';
         $class_css='checkout-wrapper';
         return view('checkouts.wallet',compact('cart','class_css','_active_css','vouchers','wallet_balance'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
@@ -135,8 +134,8 @@ class CheckoutController extends Controller
     public function gift()
     {
         $cart = Session::get('cart');
-        $_active_css='gift';
-        $class_css='checkout-wrapper';
+	    $_active_css='wallet';
+	    $class_css='checkout-wrapper';
         return view('checkouts.gift',compact('cart','class_css','_active_css'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
@@ -238,7 +237,7 @@ class CheckoutController extends Controller
     public function green()
     {
         $cart = Session::get('cart');
-        $_active_css='green';
+	    $_active_css='gift';
         $class_css='checkout-wrapper';
         return view('checkouts.green',compact('cart','class_css','_active_css'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
@@ -255,7 +254,7 @@ class CheckoutController extends Controller
     public function payment()
     {
         $cart = Session::get('cart');
-        $_active_css='payment';
+	    $_active_css='green';
         $class_css='checkout-wrapper';
         return view('checkouts.payment',compact('cart','class_css','_active_css'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
@@ -274,7 +273,7 @@ class CheckoutController extends Controller
     {
         //dump(session()->all());
         $cart = Session::get('cart');
-        $_active_css='special_instructions';
+	    $_active_css='payment';
         $class_css='checkout-wrapper';
         return view('checkouts.special_instructions',compact('cart','class_css','_active_css'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
@@ -321,6 +320,7 @@ class CheckoutController extends Controller
         $_org=session()->get('_org');
         $delivery_charge=$_org->delivery_charge;
         $currency=$_org->currency;
+//	    $_active_css='special_instructions';
       if($query->message=='success')
       {
           session()->forget('cart_sp_instructions');

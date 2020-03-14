@@ -124,6 +124,24 @@
 		});
 		return false;
 	}
+	function spinnerOver(mode, el){
+		if(mode=='show'){
+			el.find('*').addClass('d-none');
+			el.append('<div class="sp-over-container"><div class="sp sp-circle"></div></div>');
+		}else{
+			el.find('.sp-container').remove();
+			el.find('*').removeClass('d-none');
+		}
+	}
+	function spinner(mode, el){
+		if(mode=='show'){
+			el.find('*').addClass('d-none');
+			el.append('<div class="sp-container"><div class="sp sp-circle"></div></div>');
+		}else{
+			el.find('.sp-container').remove();
+			el.find('*').removeClass('d-none');
+		}
+	}
 	function spinnerButtons(mode, el){
 		if(mode=='show'){
 			el.prepend('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true">').addClass('disabled').prop('disabled',true);
@@ -132,6 +150,51 @@
 			el.removeClass('disabled').prop('disabled',false);
 		}
 	}
+
+	function loginAlert(){
+		Swal.fire({
+			title: 'Not Logged In!',
+			text: "You need to login first",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#8DBF43',
+			cancelButtonColor: '#aaa',
+			confirmButtonText: 'Login?',
+			cancelButtonText: 'Close'
+		}).then((result) => {
+            if (result.value) {
+	            window.location.replace("{{route('auth.login')}}");
+            }
+		})
+    }
+
+	function SetFavourite(itemId)
+	{
+		// console.log(item.ID);
+		if($("#Favourite" + itemId).hasClass('href-disabled') || $("#Favourite" + itemId).hasClass('active')){
+			return null;
+		}
+		$("#Favourite" + itemId).addClass('href-disabled');
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			type:'POST',
+			data:{item_id:itemId},
+			url:'{{route('customer.set.favourite')}}',
+			success:function(data){
+				Swal.fire({
+					// position: 'top-end',
+					icon: 'success',
+					title: 'Your favourite item was added successfully.',
+					showConfirmButton: false,
+					timer: 1200
+				});
+				$("#Favourite" + itemId).removeClass('href-disabled').addClass('active');
+			}
+		});
+	}
+
 </script>
 @yield('javascript')
 @yield('javascriptCart')
