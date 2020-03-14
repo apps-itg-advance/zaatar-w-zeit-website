@@ -4,7 +4,7 @@
 $discount=0;
 
 @endphp
-<form action="{{route('checkout.store')}}" method="post">
+<form id="PlaceOrder" action="#" method="post">
     @csrf
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -195,8 +195,30 @@ $discount=0;
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase confirm float-right futura-book btn-confirm">Confirm</button>
+                <a class="btn btn-8DBF43 mb-3 text-uppercase confirm float-right futura-book btn-confirm">Confirm</a>
             </div>
         </div>
     </div>
 </form>
+<script type="text/javascript">
+    $('body').on('click', '.confirm', function(){
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'POST',
+            url:'{{route('checkout.store')}}',
+            data:$("#PlaceOrder").serialize(),
+            success:function(data){
+                Swal.fire({
+                    // position: 'top-end',
+                    icon: 'success',
+                    title: 'Order Submitted successfully.',
+                    showConfirmButton: false,
+                    timer: 1200
+                });
+                location.replace('{{route('home.menu')}}');
+            }
+        });
+    });
+</script>
