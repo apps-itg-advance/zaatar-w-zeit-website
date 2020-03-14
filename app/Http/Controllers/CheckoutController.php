@@ -296,6 +296,7 @@ class CheckoutController extends Controller
         $_org=session()->get('_org');
         $delivery_charge=$_org->delivery_charge;
         $currency=$_org->currency;
+       // dump(session()->all());
        return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
     }
 
@@ -333,11 +334,10 @@ class CheckoutController extends Controller
           session()->forget('cart_vouchers');
           session()->forget('cart_wallet');
           session()->save();
+
       }
-
-        return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
-
-
+        return redirect(route('home.menu'));
+        //return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
     }
 
     /**

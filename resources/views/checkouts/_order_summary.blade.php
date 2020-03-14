@@ -75,20 +75,22 @@ $discount=0;
                             {
                                 if($cart_vouchers['ValueType']=='percentage')
                                 {
-                                    $discount=$_total*$cart_vouchers['Value']/100;
+                                    $discount=($_total-$cart_wallet)*$cart_vouchers['Value']/100;
                                 }
                                 elseif($cart_vouchers['ValueType']=='flat_rate')
                                 {
                                     $discount=$cart_vouchers['Value'];
                                 }
                     }
+                     $payment=$cart_payment->Name=='credit'? ($_total-$cart_wallet-$discount):0;
+
                     @endphp
                     <div class="row">
                         <div class="col-md-8 offset-2">
-                            <div class="delivery-block text-right mb-2">
+                            <hr/>
+                            <div class="total-block text-right">
                                 Delivery fee <span class="price d-inline-block ml-4">{{number_format($delivery_charge)}} {{$currency}}</span>
                             </div>
-                            <hr/>
                             <div class="total-block text-right">
                                 SubTotal <span class="price d-inline-block ml-4">{{number_format($_total)}} {{$currency}}</span>
                             </div>
@@ -96,7 +98,10 @@ $discount=0;
                             Discount <span class="price d-inline-block ml-4">{{number_format($discount)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
-                                Payment <span class="price d-inline-block ml-4">{{number_format($cart_wallet)}} {{$currency}}</span>
+                                Wallet <span class="price d-inline-block ml-4">{{number_format($cart_wallet)}} {{$currency}}</span>
+                            </div>
+                            <div class="total-block text-right">
+                                Payment <span class="price d-inline-block ml-4">{{number_format($payment)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
                                 Total <span class="price d-inline-block ml-4">{{number_format($_total-$cart_wallet-$discount)}} {{$currency}}</span>
@@ -108,7 +113,7 @@ $discount=0;
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                 Wallet
                             </div>
-                            <div class="col-6 text-808080 mb-3 futura-book">{{$cart_wallet}}
+                            <div class="col-6 text-808080 mb-3 futura-book">{{$cart_wallet >0 ? 'Yes':'No'}}
                                 @php
                                    /* if(isset($cart_vouchers['Id']) and $cart_vouchers['Id']!='')
                                     {
@@ -178,6 +183,14 @@ $discount=0;
                                         echo 'N/A';
                                     }
                                 @endphp
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
+                                Special Instructions
+                            </div>
+                            <div class="col-6 text-808080 mb-3 futura-book">
+                                {{isset($cart_sp_instructions->Title)?$cart_sp_instructions->Title:''}}
                             </div>
                         </div>
                     </div>
