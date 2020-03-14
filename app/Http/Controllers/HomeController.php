@@ -74,7 +74,7 @@ class HomeController extends Controller
 
             }
         }
-        return view('menu',compact('cat_id','cat_title','query','flag','_cat_title','item_qty'));
+        return view('menu.menu',compact('cat_id','cat_title','query','flag','_cat_title','item_qty'));
     }
     public  function favourites()
     {

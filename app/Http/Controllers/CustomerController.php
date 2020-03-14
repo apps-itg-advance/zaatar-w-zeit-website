@@ -124,7 +124,31 @@ class CustomerController extends Controller
         $class_css='favourites-wrapper';
         $flag=true;
         $query=MenuLibrary::GetFavouriteItems();
-        return view('customers.favourites',compact('query','class_css','flag'));  //
+        $cart=session()->get('cart');
+        $item_qty=array();
+        if(isset($cart))
+        {
+
+            for($i=0;$i<count($cart);$i++)
+            {
+                $qty=1;
+                $plu=$cart[$i]['plu'];
+                if(!isset($item_qty[$plu]))
+                {
+                    for($j=$i+1;$j<count($cart);$j++)
+                    {
+                        if($cart[$i]['plu']==$cart[$j]['plu'])
+                        {
+                            $qty++;
+                        }
+                    }
+                    $item_qty[$plu]=$qty;
+                }
+
+
+            }
+        }
+        return view('menu.favourites',compact('query','class_css','flag','item_qty'));  //
     }
     public function set_favourite(Request $request)
     {
