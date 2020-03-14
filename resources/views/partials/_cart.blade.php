@@ -14,7 +14,8 @@
             @if($cart!=null)
             @foreach($cart as $key=>$values)
                 <div class="cart-item mb-4">
-                    <h5 class="name text-4D4D4D"> {{$values['name']}}<span class="price d-inline-block ml-3">{{number_format($values['price'])}}</span></h5>
+
+                    <h5 class="name text-4D4D4D">{{$values['name']}} <span class="price d-inline-block ml-3" style="text-align: right !important; float: right !important; margin-right: 6rem !important;">{{number_format($values['price'])}}</span></h5>
                     <div class="info text-808080">
                         @php
 
