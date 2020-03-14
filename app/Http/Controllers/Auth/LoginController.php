@@ -45,7 +45,7 @@ class LoginController extends Controller
     {
         if(session()->has('is_login') and session()->get('is_login')==true)
         {
-            return redirect(route('customer.index'));
+          //  return redirect(route('customer.index'));
         }
         $query=array();
         $body_css='login-bg';
@@ -96,7 +96,6 @@ class LoginController extends Controller
 
 
         }
-
         echo json_encode($res);
     }
     public function resend_pin()

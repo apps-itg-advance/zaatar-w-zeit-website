@@ -25,7 +25,8 @@ class CustomerController extends Controller
         $cities=SettingsLib::GetCities();
         $loyalty_levels=SettingsLib::GetLoyaltyLevels();
         $query=session()->has('user'.$Skey) ? session()->get('user'.$Skey) : array();
-        $v=isset($query->vouchers)  ? $query->vouchers : array();
+        $loyalty_id=$query->details->LoyaltyId;
+     /*   $v=isset($query->vouchers)  ? $query->vouchers : array();
         $array_keys=array();
         $vouchers=array();
         for ($i=0;$i<count($v);$i++)
@@ -63,6 +64,7 @@ class CustomerController extends Controller
             }
 
         }
+     */
         $current_max=$query->details->LevelMaxCollection;
         $next_level=array();
         if(count($loyalty_levels)>0)
@@ -78,7 +80,9 @@ class CustomerController extends Controller
             }
         }
         $addresses=session()->has('addresses'.$Skey) ? session()->get('addresses'.$Skey) : array();
-        return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level','vouchers'));  //
+        $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
+        $wallet_balance=$query->details->WalletAmountBalance;
+        return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level','vouchers','wallet_balance'));  //
     }
 
     public function orders()

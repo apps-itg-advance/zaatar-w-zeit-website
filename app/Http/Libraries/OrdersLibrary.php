@@ -26,6 +26,7 @@ class OrdersLibrary{
 
         $cart_green=session()->get('cart_green');
         $cart_vouchers=session()->get('cart_vouchers');
+        $cart_wallet=session()->get('cart_wallet');
 
         $delivery_charge=$_org->delivery_charge;
         $currency=$_org->currency;
@@ -64,7 +65,7 @@ class OrdersLibrary{
                     'UnitPrice'=>$modifiers[$i]['price'],
                     'Quantity'=>$modifiers[$i]['quantity'],
                     'ItemName'=>$modifiers[$i]['name'],
-                    'ItemType'=>1
+                    'ItemType'=>2
                 );
                 $_total+=$modifiers[$i]['price']*$modifiers[$i]['quantity'];
 
@@ -157,11 +158,24 @@ class OrdersLibrary{
             $_v=array(
                 'Settlement'=>$discount,
                 'Currency'=>$currency,
-                'Category'=>'Vouchers',
-                'PaymentTypeId'=>255
+                'Category'=>'voucher',
+                'PaymentTypeId'=>255,
+                'ItemPlu'=>$cart_vouchers['ItemPlu'],
+                'ConfirmationCode'=>$cart_vouchers['Id']
             );
             array_push($array_payments,$_v);
         }
+        if($cart_wallet>0)
+          {
+        $_w=array(
+            'Settlement'=>$cart_wallet,
+            'Currency'=>$currency,
+            'Category'=>'wallet',
+            'PaymentTypeId'=>255,
+            'ConfirmationCode'=>0
+        );
+        array_push($array_payments,$_w);
+          }
         if(isset($cart_payment->PaymentId) and $cart_payment->PaymentId!=null)
         {
             $_payments=array(

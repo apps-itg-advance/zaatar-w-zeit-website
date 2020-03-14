@@ -60,8 +60,8 @@
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                 Wallet
                             </div>
-                            <div class="col-8 text-808080 mb-3 futura-book">
-                                @php
+                            <div class="col-8 text-808080 mb-3 futura-book">{{}}
+                                @php /*
                                     if(isset($cart_vouchers['Id']) and $cart_vouchers['Id']!='')
                                     {
                                         if($cart_vouchers['ValueType']=='percentage')
@@ -79,7 +79,7 @@
                                     }
                                     else{
                                         echo 'N/A';
-                                    }
+                                    } */
                                 @endphp
                             </div>
                         </div>

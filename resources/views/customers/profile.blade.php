@@ -69,6 +69,8 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-xl-10 col-lg-10 float-none p-0 mx-auto wallet-wrapper">
+                        @include('customers._vouchers',array('vouchers'=>$vouchers,'checkout'=>false))
+                         <?php /*
                         <div class="title-div mb-4">
                             <h2 class="title">Wallet</h2>
                         </div>
@@ -98,6 +100,7 @@
                             </div>
                             @endfor
                         </div>
+                         */ ?>
                     </div>
                 </div>
             </div>
@@ -106,35 +109,7 @@
         @include('customers._edit_profile')
     @endsection
     @section('javascript')
-        <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
-        <script type="text/javascript">
-            jQuery('.wallet-carousel').owlCarousel({
-                loop : false,
-                navText : ['', ''],
-                margin : 40,
-                dots : false,
-                nav : true,
-                responsive:{
-                    0:{
-                        items:1
-                    },
-                    575:{
-                        items:1
-                    },
-                    767:{
-                        items:2
-                    },
-                    991:{
-                        items:1
-                    },
-                    1200:{
-                        items:2
-                    },
-                    1500:{
-                        items:2
-                    }
-                }
-            });
+        <script>
 
             @php
                 if($type=='register')

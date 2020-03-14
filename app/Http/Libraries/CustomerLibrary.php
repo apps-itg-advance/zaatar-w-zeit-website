@@ -92,5 +92,18 @@ class CustomerLibrary
         $res=$query->data;
         return $res;
     }
+    public static function GetVouchers($array)
+    {
+        $s_org=session()->get('_org');
+
+        $array['token']=$s_org->token;
+        $array['organization_id']=$s_org->id;
+        $array['channel_id']=1;
+        $url=env('BASE_URL').'LoyaltiesApi/GetVouchers';
+        $query=Helper::postApi($url,$array);
+        $res=$query->data;
+        return $res;
+    }
+
 
 }

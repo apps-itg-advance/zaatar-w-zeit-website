@@ -8,6 +8,7 @@ use App\Extensions\MongoSessionHandler;
 use Illuminate\Support\Facades\Session;
 use App\Http\Libraries\SettingsLib;
 use App\Http\Libraries\OrdersLibrary;
+use App\Http\Libraries\CustomerLibrary;
 
 class CheckoutController extends Controller
 {
@@ -83,10 +84,12 @@ class CheckoutController extends Controller
     {
         $skey=session()->get('skey');
         $user=session()->get('user'.$skey);
-        $v=$user->vouchers;
-        $array_keys=array();
-        $vouchers=array();
-        for ($i=0;$i<count($v);$i++)
+        $loyalty_id=$user->details->LoyaltyId;
+        $wallet_balance=$user->details->WalletAmountBalance;
+        $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
+        session()->put('vouchers',$vouchers);
+       // dump($vouchers);
+       /* for ($i=0;$i<count($v);$i++)
         {
             $qty=1;
             $array_exp=array($v[$i]->ExpiryDate=>1);
@@ -116,16 +119,17 @@ class CheckoutController extends Controller
             if(!in_array($v[$i]->Id,$array_keys))
             {
                 $array_keys[]=$v[$i]->Id;
-                array_push($vouchers,array('Qty'=>$qty,'Value'=>$v[$i]->Value,'ValueType'=>$v[$i]->ValueType,'ExpiryDates'=>$array_exp,'Ids'=>$array_keys));
+                array_push($vouchers,array('Id'=>$v[$i]->Id,'Qty'=>$qty,'Value'=>$v[$i]->Value,'ValueType'=>$v[$i]->ValueType,'Category'=>$v[$i]->Category,'ExpiryDates'=>$array_exp,'Ids'=>$array_keys));
 
             }
 
         }
+       */
         $cart = Session::get('cart');
 
         $_active_css='wallet';
         $class_css='checkout-wrapper';
-        return view('checkouts.wallet',compact('cart','class_css','_active_css','vouchers'));  //
+        return view('checkouts.wallet',compact('cart','class_css','_active_css','vouchers','wallet_balance'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
     public function gift()
@@ -159,48 +163,75 @@ class CheckoutController extends Controller
     }
     public function loyalty_store(Request $request)
     {
-        $query=$request->input('query');
-        $_array=explode('-',$query);
-        $type=$_array[1];
-        $value=$_array[0];
-
-        $skey=session()->get('skey');
-        $user=session()->get('user'.$skey);
-        $v=$user->vouchers;
-        $voucher_id=0;
-        for ($i=0;$i<count($v);$i++)
+        $voucher_id=$request->input('vid');
+        $wallet_amount=$request->input('wallet_amount');
+        $vouchers=session()->get('vouchers');
+        $v=array();
+        $s_vouchers=array();
+        foreach ($vouchers as $voucher)
         {
-            $voucher_id=$v[$i]->Id;
-            if($i>1)
+            if($voucher->Id==$voucher_id)
             {
-                if($v[$i]->Value==$value and $v[$i]->ValueType==$type)
+                $v=$voucher;
+                break;
+            }
+        }
+        if(is_object($v) and count((array)$v)>0)
+        {
+            $_v_cards=$v->Vouchers;
+            if($v->VoucherType=='discount_check')
+            {
+                foreach ($_v_cards as $_v_card)
                 {
-                    for ($j=$i+1;$j<count($v);$j++)
+                    if($_v_card->ExpiryDate>date('Y-m-d'));
                     {
-                        if($v[$j]->Value==$value and $v[$j]->ValueType==$type) {
-                            if($v[$j]->ExpiryDate < $v[$i]->ExpiryDate)
+                        $s_vouchers= $_v_card;
+                        $s_vouchers->PLU=0;
+                        break;
+                    }
+                }
+            }
+            elseif($v->VoucherType=='free_item')
+            {
+                $cart=session()->get('cart');
+                if(count($cart)>0)
+                {
+                    foreach ($cart as $c)
+                    {
+                        foreach ($_v_cards as $vcard)
+                        {
+                            if(count($vcard->FreeItems)>0)
                             {
-                                $voucher_id=$v[$j]->Id;
+                                $free_items=$vcard->FreeItems;
+                                foreach ($free_items as $free_item)
+                                {
+                                 if($c['plu']==$free_item->PLU)
+                                 {
+                                     $s_vouchers=$vcard;
+                                     $s_vouchers->PLU=$c['plu'];
+                                 }
+                                }
                             }
                         }
                     }
-                    break;
-
                 }
             }
-
-
-
         }
-        if($voucher_id>0)
-        $array_voucher=array(
-            'Id'=>$voucher_id,
-            'Value'=>$value,
-            'ValueType'=>$type,
-        );
-        session()->forget('cart_vouchers');
-        session()->save();
-        session()->put('cart_vouchers',$array_voucher);
+        if(count((array)$s_vouchers)>0) {
+            $array_voucher = array(
+                'Id' => $s_vouchers->Id,
+                'Value' => $s_vouchers->Value,
+                'ValueType' => $s_vouchers->ValueType,
+                'Category' => $s_vouchers->Category,
+                'ItemPlu' => $s_vouchers->PLU,
+                'ExpiryDate' => $s_vouchers->ExpiryDate,
+            );
+            session()->forget('cart_vouchers');
+            session()->forget('cart_wallet');
+            session()->save();
+            session()->put('cart_wallet', $wallet_amount);
+            session()->put('cart_vouchers', $array_voucher);
+        }
         return 'true';
     }
 
@@ -241,6 +272,7 @@ class CheckoutController extends Controller
     }
     public function special_instructions()
     {
+        //dump(session()->all());
         $cart = Session::get('cart');
         $_active_css='special_instructions';
         $class_css='checkout-wrapper';
@@ -261,10 +293,11 @@ class CheckoutController extends Controller
         $cart_sp_instructions=session()->get('cart_sp_instructions');
         $cart_green=session()->get('cart_green');
         $cart_vouchers=session()->get('cart_vouchers');
+        $cart_wallet=session()->get('cart_wallet');
         $_org=session()->get('_org');
         $delivery_charge=$_org->delivery_charge;
         $currency=$_org->currency;
-       return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers'));
+       return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
     }
 
 
@@ -284,6 +317,7 @@ class CheckoutController extends Controller
         $cart_sp_instructions=session()->get('cart_sp_instructions');
         $cart_green=session()->get('cart_green');
         $cart_vouchers=session()->get('cart_vouchers');
+        $cart_wallet=session()->get('cart_wallet');
         $_org=session()->get('_org');
         $delivery_charge=$_org->delivery_charge;
         $currency=$_org->currency;
@@ -297,10 +331,11 @@ class CheckoutController extends Controller
           session()->forget('cart_sp_instructions');
           session()->forget('cart_green');
           session()->forget('cart_vouchers');
+          session()->forget('cart_wallet');
           session()->save();
       }
 
-        return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers'));
+        return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
 
 
     }

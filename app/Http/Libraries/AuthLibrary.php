@@ -50,6 +50,7 @@ class AuthLibrary
     {
         $Skey=session()->get('skey');
         $data=$res->data;
+
         $loyalty_id=$data->customer->details->LoyaltyId;
         $org_id=$data->customer->details->OrgId;
         session()->put('user'.$Skey,$data->customer);
@@ -58,7 +59,8 @@ class AuthLibrary
         session()->put('token',$data->token);
         session()->put('loyalty_id',$loyalty_id);
         session()->put('OrgId',$org_id);
-        SettingsLib::UserTokens($loyalty_id);
+
+      SettingsLib::UserTokens($loyalty_id);
 
 
     }

@@ -1,6 +1,7 @@
 @php
     $_address=array($cart_info->City,$cart_info->Line1,$cart_info->Line2,$cart_info->Apartment);
-    $_total=0;
+    $_total=$delivery_charge;
+$discount=0;
 
 @endphp
 <form action="{{route('checkout.store')}}" method="post">
@@ -34,25 +35,54 @@
                             </div>
                             <div class="col-sm-6">
                                 @foreach($cart as $key=>$values)
-                                    <div class="mb-3">
-                                        <h5 class="mb-0">{{$values['name']}} (x{{$values['quantity']}}) <span class="d-inline-block ml-3">{{number_format($values['price'])}}</span></h5>
-                                        <div class="text-808080">
-                                            @php
-                                                $modifiers=$values['modifiers'];
-                                                $_total+=$values['price']*$values['quantity'];
-                                                $md_array=array();
-                                                for($i=0;$i<count($modifiers);$i++)
-                                                {
-                                                    array_push($md_array,$modifiers[$i]['name']);
-                                                }
-                                            @endphp
-                                            {{implode(', ',$md_array )}}
+                                    @php
+                                        $price=$values['price'];
+                                        if($values['plu']==$cart_vouchers['ItemPlu'])
+                                            {
+                                                 if($cart_vouchers['ValueType']=='percentage')
+                                                    {
+                                                        $discount=$values['price']*$cart_vouchers['Value']/100;
+                                                    }
+                                                    elseif($cart_vouchers['ValueType']=='flat_rate')
+                                                    {
+                                                        $discount=$values['price'];
+                                                    }
+                                            }
+                                    @endphp
+                                    <div class="row">
+                                        <div class="col-md-8"><h5 class="mb-0"> {{$values['name']}}</h5>
+                                            <div class="text-808080">
+                                                @php
+                                                    $modifiers=$values['modifiers'];
+                                                    $_total+=$values['price']*$values['quantity'];
+                                                    $md_array=array();
+                                                    for($i=0;$i<count($modifiers);$i++)
+                                                    {
+                                                        array_push($md_array,$modifiers[$i]['name']);
+                                                    }
+                                                @endphp
+                                                {{implode(', ',$md_array )}}
+                                            </div>
                                         </div>
+                                        <div class="col-md-4"> <h5 class="mb-0" style="text-align: right !important;">{{number_format($price)}}</h5></div>
                                     </div>
-                                @endforeach
+                              @endforeach
                             </div>
                         </div>
                     </div>
+                    @php
+                        if(isset($cart_vouchers['Id']) and $cart_vouchers['Id']!=null and $cart_vouchers['ItemPlu']==0)
+                            {
+                                if($cart_vouchers['ValueType']=='percentage')
+                                {
+                                    $discount=$_total*$cart_vouchers['Value']/100;
+                                }
+                                elseif($cart_vouchers['ValueType']=='flat_rate')
+                                {
+                                    $discount=$cart_vouchers['Value'];
+                                }
+                    }
+                    @endphp
                     <div class="row">
                         <div class="col-md-8 offset-2">
                             <div class="delivery-block text-right mb-2">
@@ -60,7 +90,16 @@
                             </div>
                             <hr/>
                             <div class="total-block text-right">
-                                Total <span class="price d-inline-block ml-4">{{number_format($_total)}}</span>
+                                SubTotal <span class="price d-inline-block ml-4">{{number_format($_total)}} {{$currency}}</span>
+                            </div>
+                            <div class="total-block text-right">
+                            Discount <span class="price d-inline-block ml-4">{{number_format($discount)}} {{$currency}}</span>
+                            </div>
+                            <div class="total-block text-right">
+                                Payment <span class="price d-inline-block ml-4">{{number_format($cart_wallet)}} {{$currency}}</span>
+                            </div>
+                            <div class="total-block text-right">
+                                Total <span class="price d-inline-block ml-4">{{number_format($_total-$cart_wallet-$discount)}} {{$currency}}</span>
                             </div>
                         </div>
                     </div>
@@ -69,9 +108,9 @@
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                 Wallet
                             </div>
-                            <div class="col-6 text-808080 mb-3 futura-book">
+                            <div class="col-6 text-808080 mb-3 futura-book">{{$cart_wallet}}
                                 @php
-                                    if(isset($cart_vouchers['Id']) and $cart_vouchers['Id']!='')
+                                   /* if(isset($cart_vouchers['Id']) and $cart_vouchers['Id']!='')
                                     {
                                         if($cart_vouchers['ValueType']=='percentage')
                                         {
@@ -86,9 +125,7 @@
                                         }
                                        //  echo ' From : '.$cart_gift->GiftFrom.'<br> To : '.$cart_gift->GiftTo.'<br> Message : '.$cart_gift->GiftOpenItem;
                                     }
-                                    else{
-                                        echo 'N/A';
-                                    }
+*/
                                 @endphp
                             </div>
                         </div>

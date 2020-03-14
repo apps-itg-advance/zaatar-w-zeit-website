@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Http\Libraries\MenuLibrary;
 use App\Extensions\MongoSessionHandler;
 use Illuminate\Support\Facades\Session;
+use App\Http\Libraries\SettingsLib;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,11 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('*', function ($view) {
             $_org=session()->get('_org');
+            if(!isset($_org))
+            {
+                SettingsLib::CompanyChildren();
+                $_org=session()->get('_org');
+            }
             $this->currency=$_org->currency;
             $this->delivery_charge=$_org->delivery_charge;
             $view->with('currency',  $this->currency);
