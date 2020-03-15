@@ -41,11 +41,11 @@ class OrdersLibrary{
         {
             $_items=array(
                 'ItemPlu'=>$itm['plu'],
-                'GrossPrice'=>$itm['price'],
-                'OrderItemId'=>0,
+                'GrossPrice'=>$itm['origin_price'],
+                'OrderItemId'=>$itm['id'],
                 'OpenName'=>0,
                 'ParentPLU'=>0,
-                'UnitPrice'=>$itm['price'],
+                'UnitPrice'=>$itm['origin_price'],
                 'Quantity'=>1,
                 'ItemName'=>$itm['name'],
                 'ItemType'=>1
@@ -53,15 +53,16 @@ class OrdersLibrary{
             $_total+=$itm['price'];
             array_push($array_items,$_items);
             $modifiers=$itm['modifiers'];
+
             $md_array=array();
             for($i=0;$i<count($modifiers);$i++)
             {
                 $_mod=array(
                     'ItemPlu'=>$modifiers[$i]['plu'],
                     'GrossPrice'=>$modifiers[$i]['price'],
-                    'OrderItemId'=>0,
+                    'OrderItemId'=>$modifiers[$i]['id'],
                     'OpenName'=>0,
-                    'ParentPLU'=>0,
+                    'ParentPLU'=>$itm['plu'],
                     'UnitPrice'=>$modifiers[$i]['price'],
                     'Quantity'=>1,
                     'ItemName'=>$modifiers[$i]['name'],
@@ -69,7 +70,49 @@ class OrdersLibrary{
                 );
                 $_total+=$modifiers[$i]['price'];
 
-                array_push($md_array,$_mod);
+                array_push($array_items,$_mod);
+            }
+            if(isset($itm['meal']) and is_array($itm['meal']))
+            {
+                $meals=$itm['meal'];
+
+                    $_meal_h=array(
+                        'ItemPlu'=>isset($meals['plu'])? $meals['plu']:0,
+                        'GrossPrice'=>isset($meals['price'])? $meals['price']:0,
+                        'OrderItemId'=>$meals['id'],
+                        'OpenName'=>0,
+                        'ParentPLU'=>$itm['plu'],
+                        'UnitPrice'=>$meals['price'],
+                        'Quantity'=>1,
+                        'ItemName'=>$meals['name'],
+                        'ItemType'=>5,
+                    );
+                    $_total+=$meals['price'];
+
+
+                    array_push($array_items,$_meal_h);
+                if(isset($meals['items']) and is_array($meals['items'])) {
+                    $meal_items=$meals['items'];
+                    for ($k = 0; $k < count($meal_items); $k++) {
+                        $_meal_b = array(
+                            'ItemPlu' => isset($meal_items[$k]['plu']) ? $meal_items[$k]['plu'] : 0,
+                            'GrossPrice' => isset($meal_items[$k]['price']) ? $meal_items[$k]['price'] : 0,
+                            'OrderItemId' => $meal_items[$k]['id'],
+                            'OpenName' => 0,
+                            'ParentPLU' => $itm['plu'],
+                            'UnitPrice' => $meal_items[$k]['price'],
+                            'Quantity' => 1,
+                            'ItemName' => $meal_items[$k]['name'],
+                            'ItemType' => 5,
+                        );
+                        $_total += $meal_items[$k]['price'];
+
+
+                        array_push($array_items, $_meal_b);
+                    }
+                }
+
+
             }
 
         }
@@ -79,7 +122,7 @@ class OrdersLibrary{
                 'ItemPlu'=>$open_plu,
                 'GrossPrice'=>0,
                 'OrderItemId'=>0,
-                'OpenName'=>0,
+                'OpenName'=>1,
                 'ParentPLU'=>0,
                 'UnitPrice'=>0,
                 'Quantity'=>1,
@@ -94,7 +137,7 @@ class OrdersLibrary{
                     'ItemPlu'=>$open_plu,
                     'GrossPrice'=>0,
                     'OrderItemId'=>0,
-                    'OpenName'=>0,
+                    'OpenName'=>1,
                     'ParentPLU'=>0,
                     'UnitPrice'=>0,
                     'Quantity'=>1,
@@ -111,7 +154,7 @@ class OrdersLibrary{
                 'ItemPlu'=>$open_plu,
                 'GrossPrice'=>0,
                 'OrderItemId'=>0,
-                'OpenName'=>0,
+                'OpenName'=>1,
                 'ParentPLU'=>0,
                 'UnitPrice'=>0,
                 'Quantity'=>1,
@@ -122,7 +165,7 @@ class OrdersLibrary{
                 'ItemPlu'=>$open_plu,
                 'GrossPrice'=>0,
                 'OrderItemId'=>0,
-                'OpenName'=>0,
+                'OpenName'=>1,
                 'ParentPLU'=>0,
                 'UnitPrice'=>0,
                 'Quantity'=>1,
@@ -133,7 +176,7 @@ class OrdersLibrary{
                 'ItemPlu'=>$open_plu,
                 'GrossPrice'=>0,
                 'OrderItemId'=>0,
-                'OpenName'=>0,
+                'OpenName'=>1,
                 'ParentPLU'=>0,
                 'UnitPrice'=>0,
                 'Quantity'=>1,

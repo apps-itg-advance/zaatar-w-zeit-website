@@ -329,10 +329,10 @@ class CheckoutController extends Controller
           session()->forget('cart_info');
           session()->forget('cart_gift');
           session()->forget('cart_payment');
-          session()->forget('cart_sp_instructions');
           session()->forget('cart_green');
           session()->forget('cart_vouchers');
           session()->forget('cart_wallet');
+          session()->forget('items_customized');
           session()->save();
 
       }
