@@ -15,10 +15,19 @@
             <br>
             <h4 class="title-1">Order History</h4>
             @foreach($query as $row)
+                @php
+                   $discount=0;
+                   $wallet=0;
+                   $pay_online=0;
+                   $total=0;
+                   $method='';
+                   $specials=array();
+                    $adderss_array=array($row->Province,$row->City,$row->Line1,$row->Line2)
+                @endphp
                 <div class="order-box p-3 favourite-box">
                     <h4 class="title">
                         ORDER {{$row->OrderId}}
-                        <span>{{$row->DeliveryTime}}</span>
+                        <span>{{$row->OrderDate}}</span>
                     </h4>
                     <div class="order-info py-2 py-md-4 cursor-pointer" data-toggle="collapse" data-target=".order-history-{{$row->OrderId}}">
                         <div class="row align-items-center mb-3">
@@ -26,8 +35,6 @@
                                 Address
                             </div>
                             <div class="col-sm-8 text-808080 futura-medium font-size-14">
-                            @php( $adderss_array=array($row->Province,$row->City,$row->Line1,$row->Line2))
-                            <!--                                --><?php //dd($adderss_array); ?>
                                 {{implode(', ',$adderss_array)}}
                             </div>
                         </div>
@@ -37,49 +44,79 @@
                                     Order
                                 </div>
                                 <div class="col-sm-6">
-                                    @foreach($row->Items as $item)
-                                        <div class="row">
-                                            <div class="col-md-8"><h5 class="mb-0"> {{$item->ItemName}}</h5>
-                                                <div class="text-808080">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4"> <h5 class="mb-0" style="text-align: right !important;">{{number_format($item->UnitPrice)}}</h5></div>
-                                        </div>
-                                    @endforeach
+                                <?php
+                                    foreach($row->Items as $item){
+
+                                          $specials=array();
+                                           if($item->OpenItem=='0'){
+
+                                               echo '<div class="row">
+                                                   <div class="col-md-8">
+                                                       <h5 class="mb-0">'.$item->ItemName.'</h5>
+                                                       <div class="text-808080"></div>
+                                                   </div>
+                                                   <div class="col-md-4"> <h5 class="mb-0" style="text-align: right !important;">'.number_format($item->UnitPrice).'</h5></div>
+                                               </div>';
+                                               }
+                                           else{
+                                               array_push($specials,$item);
+                                           }
+                                    }
+                                    ?>
                                 </div>
                             </div>
+                            @php
+                                $payments=(isset($row->Payments) and is_array($row->Payments)) ? $row->Payments:array();
 
+                                   foreach ($payments as $payment)
+                                    {
+                                        if($payment->PaymentName=='voucher')
+                                        {
+                                        $discount=$payment->PaymentAmount;
+                                        }
+                                        elseif ($payment->PaymentName=='wallet')
+                                         {
+                                            $wallet=$payment->PaymentAmount;
+                                         }
+                                        elseif($payment->PaymentName=='credit')
+                                        {
+                                            $pay_online=$payment->PaymentAmount;
+                                            $total=$total+$payment->PaymentAmount;
+                                            $method=$payment->PaymentLabel;
+                                        }
+                                        else{
+                                            $total=$total+$payment->PaymentAmount;
+                                            $method=$payment->PaymentLabel;
+                                        }
+                                }
+                            @endphp
 
                             <div class="row mt-3">
                                 <div class="col-md-8 offset-2">
                                     <div class="total-block text-right">
                                         Delivery fee <span class="price d-inline-block ml-4" style="width: 30% !important;">
-                                            2000
-                                    {{--{{number_format($delivery_charge)}} {{$currency}}--}}
+                                            {{number_format($row->DeliveryCharge). ' '.$currency}}
                                 </span>
                                     </div>
                                     <div class="total-block text-right">
                                         SubTotal <span class="price d-inline-block ml-4" style="width: 30% !important;">
-                                            2000
-                                    {{--{{number_format($_total)}} {{$currency}}--}}
+                                            {{number_format($row->GrossAmount). ' '.$currency}}
                                 </span>
                                     </div>
+
                                     <div class="total-block text-right">
                                         Discount <span class="price d-inline-block ml-4" style="width: 30% !important;">
-                                            2000
-                                    {{--{{number_format($discount)}} {{$currency}}--}}
+                                            {{number_format($discount ?? 0). ' '.$currency}}
                                 </span>
                                     </div>
                                     <div class="total-block text-right">
                                         Wallet <span class="price d-inline-block ml-4" style="width: 30% !important;">
-                                            2000
-                                    {{--{{number_format($cart_wallet)}} {{$currency}}--}}
+                                            {{number_format($wallet ?? 0). ' '.$currency}}
                                 </span>
                                     </div>
                                     <div class="total-block text-right">
                                         Payment <span class="price d-inline-block ml-4" style="width: 30% !important;">
-                                            2000
-                                    {{--{{number_format($payment)}} {{$currency}}--}}
+                                            {{number_format($pay_online ?? 0 ). ' '.$currency}}
                                 </span>
                                     </div>
 
@@ -87,33 +124,46 @@
 
                                     <div class="total-block text-right futura-b">
                                         Total <span class="price d-inline-block ml-4" style="width: 30% !important;">
-                                            2000
-                                    {{--{{number_format($_total-$cart_wallet-$discount)}} {{$currency}}--}}
+                                             {{number_format($total ?? 0 ). ' '.$currency}}
                                         </span>
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
-
+                            @php
+                                $open_items=(isset($row->OpenItems) and is_array($row->OpenItems)) ? $row->OpenItems : array();
+                                $go_green='No';
+                                $gift='No';
+                                foreach ($open_items as $open_i)
+                                {
+                                    if(isset($open_i->Label))
+                                    {
+                                        if($open_i->Label=='Real Green')
+                                        {
+                                            $go_green=$open_i->Value;
+                                        }
+                                        elseif($open_i->Label=='Gift')
+                                        {
+                                            $gift=$open_i->Value;
+                                        }
+                                    }
+                                }
+                            @endphp
                             <div class="order-info">
                                 <div class="row align-items-center">
                                     <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                         Wallet
                                     </div>
                                     <div class="col-6 text-808080 mb-3 futura-book">
-                                        test
+                                        {{$wallet>0? 'Yes':'No'}}
                                     </div>
                                 </div>
+
                                 <div class="row align-items-center">
                                     <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                         Gift
                                     </div>
                                     <div class="col-6 text-808080 mb-3 futura-book">
-                                        test
+                                        {{$gift}}
                                     </div>
                                 </div>
                                 <div class="row align-items-center">
@@ -121,7 +171,7 @@
                                         Go Green
                                     </div>
                                     <div class="col-6 text-808080 mb-3 futura-book">
-                                        test
+                                        {{$go_green}}
                                     </div>
                                 </div>
                                 <div class="row align-items-center">
@@ -129,15 +179,16 @@
                                         Method
                                     </div>
                                     <div class="col-6 text-808080 mb-3 futura-book">
-                                        test
+                                        {{$method ?? ''}}
                                     </div>
                                 </div>
+
                                 <div class="row align-items-center">
                                     <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                         Special Instructions
                                     </div>
                                     <div class="col-6 text-808080 mb-3 futura-book">
-                                        test
+                                        {{isset($specials[0]->ItemName)?$specials[0]->ItemName:''}}
                                     </div>
                                 </div>
                             </div>

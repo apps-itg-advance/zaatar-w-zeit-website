@@ -57,6 +57,7 @@ class CartController extends BaseController
         $_name=$request->input('ItemsName');
         $_plu=$request->input('ItemsPLU');
         $_amounts=$request->input('TotalAmounts');
+        $origin_amount=$_amounts;
         //$_amounts=$items_amounts[$item_id];
         $modifiers=array();
         if($quick_order=='1')
@@ -101,6 +102,7 @@ class CartController extends BaseController
                     $_make_meal['id'] = $_mk2_array[0];
                     $_make_meal['price'] = str_replace(',','',$_mk2_array[1]);
                     $_make_meal['name'] = $_mk2_array[2];
+                    $_make_meal['plu'] = isset($_mk2_array[3]) ? $_mk2_array[3]:0;
                     $_itm = array();
                     if(isset($make_meal['Items']))
                     {
@@ -123,6 +125,7 @@ class CartController extends BaseController
             'name' => $_name,
             'quantity' => $qty,
             'price' => $_amounts,
+            'origin_price'=>$origin_amount,
             'plu' => $_plu,
             'item_modify' => $item_modify,
             'modifiers'=>$_modifiers,
@@ -399,12 +402,13 @@ class CartController extends BaseController
        // dump($cart);
       //  dump($cart[$key_item]);
         unset($cart[$key_item]);
-
+        $origin_amount=$_amounts;
         $cart[$key_item]=[
             'id'=>$item_id,
             'name' => $_name,
             'quantity' => $qty,
             'price' => $_amounts,
+            'origin_price'=>$origin_amount,
             'plu' => $_plu,
             'modifiers'=>$_modifiers,
             'meal'=>$_make_meal
