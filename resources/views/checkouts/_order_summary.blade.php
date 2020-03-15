@@ -37,6 +37,8 @@ $discount=0;
                                 @foreach($cart as $key=>$values)
                                     @php
                                         $price=$values['price'];
+                                        if(isset($cart_vouchers['ItemPlu']))
+                                        {
                                         if($values['plu']==$cart_vouchers['ItemPlu'])
                                             {
                                                  if($cart_vouchers['ValueType']=='percentage')
@@ -48,6 +50,7 @@ $discount=0;
                                                         $discount=$values['price'];
                                                     }
                                             }
+                                    }
                                     @endphp
                                     <div class="row">
                                         <div class="col-md-8"><h5 class="mb-0"> {{$values['name']}}</h5>
