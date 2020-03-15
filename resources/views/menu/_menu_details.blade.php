@@ -31,7 +31,7 @@
                             <h5 class="text-uppercase text-center mb-3">{{$category_name}}</h5>
                             @foreach($modifier_items as $m_item)
                                 <div class="custom-control custom-radio mb-1">
-                                    <input type="checkbox" onclick="CalculateTotal({{$category_id}},{{$max_qty}},{{$m_item->RowId}},{{$row->ID}})" id="Modifier{{$m_item->RowId}}"  name="modifiers{{$row->ID}}[{{$category_id}}][]" value="{{$m_item->ID.'-'.$m_item->PLU.'-'.str_replace(',','',$m_item->Price).'-'.$category_name.' '.$m_item->ModifierName}}" class="custom-control-input m-{{$category_id}}-{{$row->ID}}">
+                                    <input type="checkbox" onclick="CalculateTotal({{$category_id}},{{$max_qty}},{{$m_item->RowId}},{{$row->ID}})" id="Modifier{{$m_item->RowId}}"  name="modifiers{{$row->ID}}[{{$category_id}}][]" value="{{$m_item->ID.'-'.$m_item->PLU.'-'.str_replace(',','',$m_item->Price).'-'.$category_name.' '.$m_item->ModifierName}}" class="custom-control-input m-{{$category_id}}-{{$row->ID}} Item{{$row->ID}}">
                                     <label class="custom-control-label" for="Modifier{{$m_item->RowId}}">
                                         {{$m_item->ModifierName}}
                                         <span class="price">{{number_format($m_item->Price)}}</span>

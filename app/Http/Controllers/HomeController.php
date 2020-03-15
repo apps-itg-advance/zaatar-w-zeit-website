@@ -32,6 +32,7 @@ class HomeController extends Controller
     }
     public function menu($id = null,$name=null)
     {
+        $items_customized=session()->get('items_customized');
         $cat_id=($id==null) ? session()->get('first_category'):$id;
         $_cat_title=($name==null) ? session()->get('first_category_name'):str_replace('-',' ',$name);
         $query=MenuLibrary::GetMenuItems($cat_id);
@@ -74,7 +75,7 @@ class HomeController extends Controller
 
             }
         }
-        return view('menu.menu',compact('cat_id','cat_title','query','flag','_cat_title','item_qty'));
+        return view('menu.menu',compact('cat_id','cat_title','query','flag','_cat_title','item_qty','items_customized'));
     }
     public  function favourites()
     {

@@ -62,6 +62,7 @@ class CartController extends BaseController
             $modifiers=$request->input('modifiers'.$item_id);
         }
 
+
         $cart = session()->get('cart');
         $_modifiers=array();
         $_make_meal=array();
@@ -133,7 +134,18 @@ class CartController extends BaseController
                 $qty++;
             }
         }
-        echo $qty;
+        $custom=0;
+        if(count($modifiers)>0)
+        {
+            $items_customized[$_plu]=1;
+            session()->put('items_customized', $items_customized);
+        }
+        $customized=session()->get('items_customized');
+        if(isset($customized[$_plu]))
+        {
+            $custom=1;
+        }
+        echo $qty.'-'.$custom;
     }
 
     /**
@@ -142,10 +154,33 @@ class CartController extends BaseController
      * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
+    public function RemoveCustomized($plu)
+    {
+        $flag=false;
+        $items_customized = session()->get('items_customized');
+        $cart = session()->get('cart');
+        foreach ($cart as $crt)
+        {
+            if($crt['plu']==$plu)
+            {
+                $flag=true;
+                break;
+            }
+
+        }
+        if(!$flag)
+        {
+            unset($items_customized[$plu]);
+            session()->forget('items_customized');
+            session()->save();
+            session()->put('items_customized', $items_customized);
+        }
+    }
     public function remove(Request $request)
     {
         $id=$request->input('id');
         $cart = session()->get('cart');
+
         if(isset($cart))
         {
             for ($i=count($cart)-1;$i>=0;$i--)
@@ -153,6 +188,7 @@ class CartController extends BaseController
                 if($cart[$i]['plu']==$id)
                 {
                     unset($cart[$i]);
+
                     break;
                 }
             }
@@ -170,15 +206,24 @@ class CartController extends BaseController
                $qty++;
             }
         }
-        echo $qty;
+        $custom=0;
+        self::RemoveCustomized($id);
+        $customized=session()->get('items_customized');
+        if(isset($customized[$id]))
+        {
+            $custom=1;
+        }
+        echo $qty.'-'.$custom;
     }
     public function delete($id)
     {
         $cart = session()->get('cart');
         $item_id='';
+        $plu=0;
         if(isset($cart[$id]))
         {
             $item_id=$cart[$id]['id'];
+            $plu=$cart[$id]['plu'];
             unset($cart[$id]);
             session()->put('cart', array_values($cart));
         }
@@ -188,11 +233,18 @@ class CartController extends BaseController
         {
             if($cart_n[$j]['id']==$item_id)
             {
+
                 $qty++;
             }
         }
-
-        echo $qty.'-'.$item_id;
+        $custom=0;
+        self::RemoveCustomized($plu);
+        $customized=session()->get('items_customized');
+        if(isset($customized[$plu]))
+        {
+            $custom=1;
+        }
+        echo $qty.'-'.$item_id.'-'.$custom;
     }
     public function delete_meal($id)
     {
