@@ -136,7 +136,7 @@ class CartController extends BaseController
             }
         }
         $custom=0;
-        if(count($modifiers)>0)
+        if(isset($modifiers) and count($modifiers)>0)
         {
             $items_customized[$_plu]=1;
             session()->put('items_customized', $items_customized);
