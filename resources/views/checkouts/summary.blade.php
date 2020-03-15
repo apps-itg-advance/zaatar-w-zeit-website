@@ -60,6 +60,7 @@
 @section('javascript')
     <script>
         $(".confirm").click(function(){
+            spinnerButtons('show', $(this));
             window.location = '{{route('checkout.address')}}';
         });
         function _copyItem(id) {

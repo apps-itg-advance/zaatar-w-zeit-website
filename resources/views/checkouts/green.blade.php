@@ -40,7 +40,18 @@
 @section('javascript')
     <script>
         $(".confirm").click(function(){
-            var radioValue = $("input[name='go_green']:checked").val();
+	        spinnerButtons('show', $(this));
+	        var radioValue = $("input[name='go_green']:checked").val();
+	        if(!radioValue || radioValue==undefined){
+		        Swal.fire({
+			        title: 'Warning!',
+			        text: 'Some fields are required!',
+			        icon: 'warning',
+			        confirmButtonText: 'Close'
+		        });
+		        spinnerButtons('hide', $(this));
+		        return null;
+	        }
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
