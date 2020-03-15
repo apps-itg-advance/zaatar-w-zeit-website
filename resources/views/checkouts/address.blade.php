@@ -62,11 +62,12 @@
 @section('javascript')
     <script>
         $(".confirm").click(function(){
-            var radioValue = $("input[name='AddressId']:checked").val();
+	        spinnerButtons('show', $(this));
+
+	        var radioValue = $("input[name='AddressId']:checked").val();
             var address=$("#"+radioValue).val();
 
             if(radioValue){
-
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -78,10 +79,16 @@
                         window.location = '{{route('checkout.wallet')}}';
                     }
                 });
-
             }
             else{
-                alert('Please select an address');
+	            Swal.fire({
+		            title: 'Warning!',
+		            text: 'Please select an address!',
+		            icon: 'warning',
+		            confirmButtonText: 'Close'
+	            });
+	            spinnerButtons('hide', $(this));
+	            return null;
             }
 
         });

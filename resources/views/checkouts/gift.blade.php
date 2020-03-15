@@ -34,12 +34,12 @@
                     </div>
                     <div class="radios mt-4">
                         @foreach($query as $row)
-                        <div class="custom-control custom-radio mb-1">
-                            <input type="radio" id="customRadio{{$row->ID}}" name="gift_value" value="{{$row->Title}}" class="custom-control-input">
-                            <label class="custom-control-label futura-medium" for="customRadio{{$row->ID}}">
-                                {{$row->Title}}
-                            </label>
-                        </div>
+                            <div class="custom-control custom-radio mb-1">
+                                <input type="radio" id="customRadio{{$row->ID}}" name="gift_value" value="{{$row->Title}}" class="custom-control-input">
+                                <label class="custom-control-label futura-medium" for="customRadio{{$row->ID}}">
+                                    {{$row->Title}}
+                                </label>
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -53,45 +53,50 @@
 @endsection
 @section('javascript')
     <script>
-        $(".skip").click(function(){
+		$(".skip").click(function(){
+            spinnerButtons('show', $(this));
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				type: 'POST',
+				dataType:'json',
+				url: '{{route('checkout.gift.delete')}}',
+				success: function (data) {
+					window.location = '{{route('checkout.green')}}';
+				}
+			});
+		});
+		$(".confirm").click(function(){
+			spinnerButtons('show', $(this));
+			to=$("#gift_to{{$skey}}").val();
+			from=$("#gift_from{{$skey}}").val();
+			var radioValue = $("input[name='gift_value']:checked").val();
 
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'POST',
-                dataType:'json',
-                url: '{{route('checkout.gift.delete')}}',
-                success: function (data) {
-                    window.location = '{{route('checkout.green')}}';
-                }
-            });
-
-        });
-        $(".confirm").click(function(){
-            to=$("#gift_to{{$skey}}").val();
-            from=$("#gift_from{{$skey}}").val();
-
-            var radioValue = $("input[name='gift_value']:checked").val();
-
-            if(radioValue!='' && radioValue!=undefined &&  to!='' && from!='') {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'POST',
-                    dataType:'json',
-                    data: {gift_to: to, gift_from: from, gift_value: radioValue},
-                    url: '{{route('checkout.gift.store')}}',
-                    success: function (data) {
-                        window.location = '{{route('checkout.green')}}';
-                    }
-                });
-
-            }
-            else{
-                alert('Please fill the fields');
-            }
-        });
+			if(radioValue!='' && radioValue!=undefined &&  to!='' && from!='') {
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					type: 'POST',
+					dataType:'json',
+					data: {gift_to: to, gift_from: from, gift_value: radioValue},
+					url: '{{route('checkout.gift.store')}}',
+					success: function (data) {
+						window.location = '{{route('checkout.green')}}';
+					}
+				});
+			}
+			else{
+				Swal.fire({
+					title: 'Warning!',
+					text: 'some fields are required!',
+					icon: 'warning',
+					confirmButtonText: 'Close'
+				});
+				spinnerButtons('hide', $(this));
+				return null;
+			}
+		});
     </script>
 @endsection

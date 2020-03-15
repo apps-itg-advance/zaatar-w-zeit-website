@@ -136,6 +136,7 @@
         $("#WalletAmount").val();
     }
     $(".confirm").click(function(){
+	    spinnerButtons('show', $(this));
         var radioValue =  $("#voucher").val();
         var walletValue =   $("#WalletAmount").val();
         if(radioValue!='')
