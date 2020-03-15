@@ -41,16 +41,16 @@ class OrdersLibrary{
         {
             $_items=array(
                 'ItemPlu'=>$itm['plu'],
-                'GrossPrice'=>$itm['price']*$itm['quantity'],
+                'GrossPrice'=>$itm['price'],
                 'OrderItemId'=>0,
                 'OpenName'=>0,
                 'ParentPLU'=>0,
                 'UnitPrice'=>$itm['price'],
-                'Quantity'=>$itm['quantity'],
+                'Quantity'=>1,
                 'ItemName'=>$itm['name'],
                 'ItemType'=>1
             );
-            $_total+=$itm['price']*$itm['quantity'];
+            $_total+=$itm['price'];
             array_push($array_items,$_items);
             $modifiers=$itm['modifiers'];
             $md_array=array();
@@ -58,16 +58,16 @@ class OrdersLibrary{
             {
                 $_mod=array(
                     'ItemPlu'=>$modifiers[$i]['plu'],
-                    'GrossPrice'=>$modifiers[$i]['price']*$modifiers[$i]['quantity'],
+                    'GrossPrice'=>$modifiers[$i]['price'],
                     'OrderItemId'=>0,
                     'OpenName'=>0,
                     'ParentPLU'=>0,
                     'UnitPrice'=>$modifiers[$i]['price'],
-                    'Quantity'=>$modifiers[$i]['quantity'],
+                    'Quantity'=>1,
                     'ItemName'=>$modifiers[$i]['name'],
                     'ItemType'=>2
                 );
-                $_total+=$modifiers[$i]['price']*$modifiers[$i]['quantity'];
+                $_total+=$modifiers[$i]['price'];
 
                 array_push($md_array,$_mod);
             }
