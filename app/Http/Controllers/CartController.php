@@ -18,9 +18,14 @@ class CartController extends BaseController
      */
     public function index()
     {
-        $cart = Session::get('cart');
+        $cart = session()->get('cart');
+
         //$menu=MenuLibrary::GetMenuItems('');
-	    ksort($cart);
+        if(is_array($cart))
+        {
+            ksort($cart);
+        }
+
         $menu=array();
         return view('partials._cart',compact('cart','menu'));
     }
