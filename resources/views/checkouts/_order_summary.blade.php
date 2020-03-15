@@ -85,7 +85,7 @@ $discount=0;
                                     $discount=$cart_vouchers['Value'];
                                 }
                     }
-                     $payment=$cart_payment->Name=='credit'? ($_total-$cart_wallet-$discount):0;
+                     $payment=isset($cart_payment->Name) and $cart_payment->Name=='credit'? ($_total-$cart_wallet-$discount):0;
 
                     @endphp
                     <div class="row">

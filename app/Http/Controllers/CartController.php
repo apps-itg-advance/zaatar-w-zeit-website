@@ -18,9 +18,14 @@ class CartController extends BaseController
      */
     public function index()
     {
-        $cart = Session::get('cart');
+        $cart = session()->get('cart');
+
         //$menu=MenuLibrary::GetMenuItems('');
-	    ksort($cart);
+        if(is_array($cart))
+        {
+            ksort($cart);
+        }
+
         $menu=array();
         return view('partials._cart',compact('cart','menu'));
     }
@@ -136,7 +141,7 @@ class CartController extends BaseController
             }
         }
         $custom=0;
-        if(count($modifiers)>0)
+        if(isset($modifiers) and count($modifiers)>0)
         {
             $items_customized[$_plu]=1;
             session()->put('items_customized', $items_customized);
@@ -409,6 +414,7 @@ class CartController extends BaseController
         
       //  dump( $cart[$key_item]);
         //die;
+        session()->forget('items_customized');
         session()->forget('cart');
         session()->save();
         session()->put('cart', $cart);
