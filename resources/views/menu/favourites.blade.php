@@ -1,14 +1,12 @@
 @extends('layouts.template')
 @section('content')
     <div class="col-xl-7 col-lg-5 col-md-12 col-sm-12 col-favourite-items">
-        <form id="Form" action="#">
             <div class="col-lg-12 float-none p-0 mx-auto">
                 @include('customers._favourite_menu')
                 <div class="row row-favourite mx-auto">
 					@include('menu._menu_grid',array('display_favourite'=>true))
 				</div>
             </div>
-        </form>
     </div>
     @include('partials.cart')
 @endsection
