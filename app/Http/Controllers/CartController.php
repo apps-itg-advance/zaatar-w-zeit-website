@@ -52,8 +52,16 @@ class CartController extends BaseController
         $_plu=$request->input('ItemsPLU');
         $_amounts=$request->input('TotalAmounts');
         //$_amounts=$items_amounts[$item_id];
-        $modifiers=$request->input('modifiers'.$item_id);
-        $make_meals=$request->input('make_meal');
+        $modifiers=array();
+        if($quick_order=='1')
+        {
+            $make_meals=$request->input('make_meal');
+        }
+        else{
+            $make_meals=$request->input('make_meal_d');
+            $modifiers=$request->input('modifiers'.$item_id);
+        }
+
         $cart = session()->get('cart');
         $_modifiers=array();
         $_make_meal=array();

@@ -49,7 +49,7 @@
                     <div class="items-row items-meal-row row align-items-center mt-3">
                         <div class="col-lg-4 col-md-12 item-col">
                             <div class="custom-control custom-radio mb-1">
-                                <input type="checkbox"  value="{{$make_meal->ID.'-'.str_replace(',','',$make_meal->Price).'-'.$make_meal->Details}}"  onclick="CalculateMakeMealTotal({{$make_meal->ID}},{{$row->ID}})"  id="makeMealH{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]" class="custom-control-input">
+                                <input type="checkbox"  value="{{$make_meal->ID.'-'.str_replace(',','',$make_meal->Price).'-'.$make_meal->Details}}"  onclick="CalculateMakeMealTotal({{$make_meal->ID}},{{$row->ID}})"  id="makeMealH{{$make_meal->ID}}" name="make_meal_d[{{$row->ID}}][Title]" class="custom-control-input">
                                 <label class="custom-control-label text-uppercase futura-b" for="makeMealH{{$make_meal->ID}}">
                                     {{$make_meal->Title}}
                                     <span class="price">{{number_format($make_meal->Price)}}</span>
@@ -65,7 +65,7 @@
                             @endphp
                             @foreach($meal_items as $meal_item)
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="checkbox" value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal{{$meal_item->ID}}" name="make_meal[{{$row->ID}}][Items][{{$meal_item->ID}}]" class="custom-control-input Sub{{$make_meal->ID}}" disabled>
+                                    <input type="checkbox" value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal{{$meal_item->ID}}" name="make_meal_d[{{$row->ID}}][Items][{{$meal_item->ID}}]" class="custom-control-input Subd{{$make_meal->ID}}" disabled>
                                     <label class="custom-control-label" for="makeMeal{{$meal_item->ID}}">{{$meal_item->Name}}</label>
                                 </div>
                             @endforeach
@@ -77,7 +77,7 @@
                 <span class="title d-inline-block">Total</span>
                 <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{number_format($row->Price)}} {{$currency}}</span>
                 <input type="hidden" id="TotalAmount{{$row->ID}}" name="TotalAmount[{{$row->ID}}]" value="{{str_replace(',','',$row->Price)}}">
-                <a class="btn btn-8DBF43 text-uppercase" onclick="AddToCart({{$row->ID}})">Confirm</a>
+                <a class="btn btn-8DBF43 text-uppercase" onclick="AddToCart({{$row->ID}},0)">Confirm</a>
             </div>
         </div>
     </div>
