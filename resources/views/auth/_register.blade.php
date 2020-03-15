@@ -30,6 +30,7 @@
                         <div class="form-group">
                             <label>Gender</label>
                             <select name="gender{{$sKey}}" id="R_Gender" class="form-control">
+                                <option value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
@@ -37,12 +38,16 @@
                         <div class="form-group">
                             <label>DOB</label>
                             <div class="required" id="R_dob"></div>
-                            <div class="input-group date " data-provide="datepicker" data-date-format="yyyy-mm-dd" >
-                                <input type="text" class="form-control"  name="dob{{$sKey}}" id="R_dob{{$sKey}}"  required />
-                                <div class="input-group-addon" style="float: right">
-                                    <i class="fa fa-calendar fa-2x" style="color: #8dbf43" aria-hidden="true"></i>
+                            {{--<div class="input-group date " data-provide="datepicker" data-date-format="yyyy-mm-dd" >--}}
+                            <div class="input-group">
+                                {{--<div class="flatpickr">--}}
+                                    {{--<input class="flatpickr flatpickr-input active" type="text" placeholder="Select Date.."> <!-- input is mandatory -->--}}
+                                {{--</div>--}}
 
-                                </div>
+                                <input type="text" class="form-control flatpickr flatpickr-input active"  name="dob{{$sKey}}" id="R_dob{{$sKey}}"  required />
+                                {{--<div class="input-group-addon input-button" style="float: right">--}}
+                                    {{--<i class="fa fa-calendar fa-2x" data-toggle style="color: #8dbf43" aria-hidden="true"></i>--}}
+                                {{--</div>--}}
                             </div>
                         </div>
                         <div class="py-5">
@@ -55,3 +60,10 @@
         </div>
     </div>
 </form>
+
+
+<style>
+    .flatpickr-calendar{
+        font-family: 'Futura-Medium-BT' !important;
+    }
+</style>

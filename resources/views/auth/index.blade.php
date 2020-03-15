@@ -1,8 +1,9 @@
 @extends('layouts.template')
 @section('css')
 <link rel="stylesheet" href="{{asset('assets/phone-input/css/intlTelInput.css')}}">
-<link rel="stylesheet" href="{{asset('assets/datepicker/css/bootstrap-datepicker.css')}}">
+{{--<link rel="stylesheet" href="{{asset('assets/datepicker/css/bootstrap-datepicker.css')}}">--}}
 <link href="/assets/bootstrap-pincode-input-master/css/bootstrap-pincode-input.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <style type="text/css">
     .phone-css{
         padding-left: 95px !important;
@@ -66,8 +67,9 @@
 @section('javascript')
     <script src="{{asset('assets/js/jquery.matchHeight-min.js')}}"></script>
     <script src="{{asset('assets/phone-input/js/intlTelInput.js')}}"></script>
-    <script src="{{asset('assets/datepicker/js/bootstrap-datepicker.js')}}"></script>
+    {{--<script src="{{asset('assets/datepicker/js/bootstrap-datepicker.js')}}"></script>--}}
     <script src="{{asset('assets/bootstrap-pincode-input-master/js/bootstrap-pincode-input.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script type="text/javascript">
 
         $('body').on('click keydown','#country-listbox li', function(e){
@@ -86,9 +88,14 @@
         }
 
         jQuery(document).ready( function() {
-            $('.datepicker').datepicker({
-                format: 'YY-mm-dd',
-            });
+
+        	// flatpickr(".flatpickr");
+	        $(".flatpickr").flatpickr();
+
+
+	        // $('.datepicker').datepicker({
+            //     format: 'YY-mm-dd',
+            // });
             $('.phone-css').on('keypress', function(key) {
                 if(key.charCode < 48 || key.charCode > 57) return false;
             });
@@ -330,5 +337,6 @@ echo "jQuery('#login-modal').modal();";
                 jQuery('#login-modal').modal();
             });
         });
+
     </script>
 @endsection
