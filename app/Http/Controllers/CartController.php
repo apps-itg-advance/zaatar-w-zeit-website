@@ -340,14 +340,13 @@ class CartController extends BaseController
      */
     public function update(Request $request)
     {
-
         $item_id=$request->input('item_id');
         $key_item=$request->input('key');
         $qty=$request->input('qty');
         $_name=$request->input('item_name');
         $_plu=$request->input('plu');
         $_amounts=str_replace(',','',$request->input('TotalAmount'));
-       
+
         $modifiers=$request->input('modifiers');
         $make_meal=$request->input('make_meal');
       //  echo $key_item;
@@ -404,6 +403,9 @@ class CartController extends BaseController
             'modifiers'=>$_modifiers,
             'meal'=>$_make_meal
         ];
+
+        ksort($cart);
+        
       //  dump( $cart[$key_item]);
         //die;
         session()->forget('cart');
