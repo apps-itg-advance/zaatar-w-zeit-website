@@ -297,7 +297,12 @@ class CustomerController extends Controller
         }
         CustomerLibrary::UpdateSessionAddresses($loyalty_id);
 
-        return redirect(route('customer.index'));
+	    $skey = session('skey');
+	    $user = session("user{$skey}");
+	    $user->details->FirstName = $first_name;
+	    $user->details->LastName = $last_name;
+	    session(["user.$skey"=>$user]);
+	    return redirect(route('customer.index'));
     }
 
     /**
