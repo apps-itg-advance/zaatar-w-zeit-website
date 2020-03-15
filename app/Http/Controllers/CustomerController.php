@@ -150,7 +150,8 @@ class CustomerController extends Controller
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';
-        return view('customers.order_history',compact('query','class_css','flag','sub_active'));  //
+        return view('customers.order_history',compact('query','class_css','flag','sub_active'));
+//	        'cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','cart_vouchers','cart_wallet','delivery_charge','currency'));  //
     }
 
     public function order_details()

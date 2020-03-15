@@ -98,7 +98,7 @@ $discount=0;
                                 SubTotal <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($_total)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
-                            Discount <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($discount)}} {{$currency}}</span>
+                                Discount <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($discount)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
                                 Wallet <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($cart_wallet)}} {{$currency}}</span>
