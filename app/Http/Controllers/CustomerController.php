@@ -170,6 +170,7 @@ class CustomerController extends Controller
      */
     public function favourites()
     {
+        $items_customized=session()->get('items_customized');
         $class_css='favourites-wrapper';
         $flag=true;
         $query=MenuLibrary::GetFavouriteItems();
@@ -197,7 +198,7 @@ class CustomerController extends Controller
 
             }
         }
-        return view('menu.favourites',compact('query','class_css','flag','item_qty'));  //
+        return view('menu.favourites',compact('query','class_css','flag','item_qty','items_customized'));  //
     }
     public function set_favourite(Request $request)
     {

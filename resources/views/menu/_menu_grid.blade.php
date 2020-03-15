@@ -43,7 +43,16 @@
                                     <a onclick="loginAlert()" class="effect-underline link-favourite mr-3 cursor-pointer">Favourite</a>
                                 @endif
                             @endif
-                            <a onclick="OpenModel({{$row->ID}})" class="link-customize pointer effect-underline">Customize</a>
+                            @php
+                                $customize= 'Customize';
+                                $cust_css='';
+                                if(isset($items_customized[$row->PLU]) and $items_customized[$row->PLU]=='1')
+                                {
+                                    $customize='Customized';
+                                    $cust_css='active';
+                                }
+                            @endphp
+                            <a onclick="OpenModel({{$row->ID}})" id="CustomizedLink{{$row->ID}}"  class="link-customize pointer effect-underline {{$cust_css}}"><span id="Customize{{$row->ID}}">{{$customize}}</span></a>
                         </div>
                         <div class="col-sm-5 text-center">
                             <div class="input-group mx-auto item-plus-minus">
