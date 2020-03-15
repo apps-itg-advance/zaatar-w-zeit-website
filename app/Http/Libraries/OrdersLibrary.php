@@ -72,10 +72,10 @@ class OrdersLibrary{
 
                 array_push($array_items,$_mod);
             }
-            if(isset($itm['meal']) and is_array($itm['meal']))
+
+            if(isset($itm['meal']['id']) and is_array($itm['meal']))
             {
                 $meals=$itm['meal'];
-
                     $_meal_h=array(
                         'ItemPlu'=>isset($meals['plu'])? $meals['plu']:0,
                         'GrossPrice'=>isset($meals['price'])? $meals['price']:0,
