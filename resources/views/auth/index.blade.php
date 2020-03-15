@@ -267,6 +267,7 @@ echo "jQuery('#login-modal').modal();";
 	                        });
                             jQuery('#PinMsg').html(result.message);
                         }
+	                    $('#Pinbtn').addClass('d-none');
                     }
                 });
             });
