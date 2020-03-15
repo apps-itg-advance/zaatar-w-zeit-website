@@ -83,3 +83,9 @@
         }
     </script>
 @endsection
+
+@section('css')
+    <style>
+        .checkout-wrapper .item-summary .summary-items .summary-item .buttons {top: -4px !important;}
+    </style>
+@stop
