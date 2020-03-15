@@ -421,6 +421,7 @@ class CartController extends BaseController
      */
     public function destroy()
     {
+        session()->forget('items_customized');
         session()->forget('cart');
         session()->save();
     }
