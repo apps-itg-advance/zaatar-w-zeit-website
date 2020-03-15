@@ -1,7 +1,22 @@
 @extends('layouts.template')
+
 @section('css')
     <link rel="stylesheet" href="{{asset('assets/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/circle.css')}}">
+@endsection
+
+@section('javascript')
+    <script>
+        @php
+            if($type=='register')
+        {
+        echo "  jQuery('#editprofileModal').modal();";
+        }
+        @endphp
+		$("body").on('click', '#edit-profile', function(){
+			jQuery('#editprofileModal').modal();
+		});
+    </script>
 @endsection
 
 @section('content')
@@ -42,12 +57,12 @@
 
                         @endphp
 
-                    <div  class="col-md-3 d-flex align-items-end">
-                        <div style="font-size: 16px !important;">
-                            @php
-                                isset($next_level->NeededPoints) ? $next_level->NeededPoints.' Points left' : ''
-                            @endphp
-                        </div>
+                        <div  class="col-md-3 d-flex align-items-end">
+                            <div style="font-size: 16px !important;">
+                                @php
+                                    isset($next_level->NeededPoints) ? $next_level->NeededPoints.' Points left' : ''
+                                @endphp
+                            </div>
 
                         </div>
                         <div  class="col-md-6">
@@ -63,16 +78,16 @@
                         <div  class="col-md-3 d-flex align-items-end">
                             <div style="font-size: 16px !important;">
                                 @if($query->details->Threshold> $query->details->TierBalance)
-                              COLLECT {{$query->details->Threshold-$query->details->TierBalance}} points for a {{$query->details->TotalOp}} % discount
-                                 @endif
+                                    COLLECT {{$query->details->Threshold-$query->details->TierBalance}} points for a {{$query->details->TotalOp}} % discount
+                                @endif
                             </div>
                         </div>
-                        </div>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="col-xl-10 col-lg-10 float-none p-0 mx-auto wallet-wrapper">
-                        @include('customers._vouchers',array('vouchers'=>$vouchers,'checkout'=>false))
-                         <?php /*
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-xl-10 col-lg-10 float-none p-0 mx-auto wallet-wrapper">
+                    @include('customers._vouchers',array('vouchers'=>$vouchers,'checkout'=>false))
+					<?php /*
                         <div class="title-div mb-4">
                             <h2 class="title">Wallet</h2>
                         </div>
@@ -103,25 +118,10 @@
                             @endfor
                         </div>
                          */ ?>
-                    </div>
                 </div>
             </div>
         </div>
-        @include('partials.cart')
-        @include('customers._edit_profile')
-    @endsection
-    @section('javascript')
-        <script>
-
-            @php
-                if($type=='register')
-            {
-            echo "  jQuery('#editprofileModal').modal();";
-            }
-        @endphp
-        $("#edit-profile").click(function(){
-            jQuery('#editprofileModal').modal();
-        });
-
-    </script>
+    </div>
+    @include('partials.cart')
+    @include('customers._edit_profile')
 @endsection
