@@ -414,6 +414,7 @@ class CartController extends BaseController
         
       //  dump( $cart[$key_item]);
         //die;
+        session()->forget('items_customized');
         session()->forget('cart');
         session()->save();
         session()->put('cart', $cart);
