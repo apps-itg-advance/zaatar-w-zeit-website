@@ -49,6 +49,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::get('/customer/address-delete/{id?}', 'CustomerController@address_delete')->name('customer.address.delete');
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/customer/favourite/orders', 'CustomerController@orders')->name('customer.favourite.orders');
+    Route::post('/customer/order/repeat', 'CustomerController@order_repeat')->name('customer.order.repeat');
     Route::get('/customer/favourite/items', 'CustomerController@favourites')->name('customer.favourite.items');
     Route::get('/customer/order-history', 'CustomerController@orderHistory')->name('customer.order-history');
     Route::get('/customer/order-details', 'CustomerController@order_details')->name('order.details');

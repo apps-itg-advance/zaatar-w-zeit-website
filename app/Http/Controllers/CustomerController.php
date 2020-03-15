@@ -89,10 +89,58 @@ class CustomerController extends Controller
     {
         $loyalty_id=session()->get('loyalty_id');
 	    $favouriteOrders=MenuLibrary::GetOrdersHistoryWithFav()->data;
+	    session()->put('orders_fav',$favouriteOrders);
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';
         return view('customers.orders',compact('favouriteOrders','class_css','flag','sub_active'));  //
+    }
+    public function order_repeat(Request $request)
+    {
+        $order_id=$request->input('order_id');
+        $orders=session()->get('orders_fav');
+        foreach ($orders as $order)
+        {
+            if($order->OrderId==$order_id)
+            {
+                $query=$order;
+            }
+        }
+        $items=$query->Items;
+        dump($items);
+        $query=MenuLibrary::GetMenuItems('');
+        if(count((array)$items)>0)
+        {
+            foreach ($items as $item)
+            {
+                if($item->OpenItem==0 and $item->MenuType==1)
+                {
+                    foreach ($query->data as $value)
+                    {
+                        if($value->PLU==$item->PLU)
+                        {
+                            $cart[]= [
+                                'id' => $value->ID,
+                                'name' =>  $item->ItemName,
+                                'quantity' => 1,
+                                'price' => $value->Price,
+                                'plu' => $value->PLU,
+                                'item_modify' => 0,
+                                'modifiers'=>array(),
+                                'meal'=>array()
+                            ];
+                            session()->put('cart', $cart);
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+
+
+        //
     }
 
     public function orderHistory()
@@ -425,9 +473,5 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
-    {
-        //
-    }
 
 }

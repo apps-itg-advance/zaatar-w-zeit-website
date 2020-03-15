@@ -37,6 +37,8 @@ $discount=0;
                                 @foreach($cart as $key=>$values)
                                     @php
                                         $price=$values['price'];
+                                        if(isset($cart_vouchers['ItemPlu']))
+                                        {
                                         if($values['plu']==$cart_vouchers['ItemPlu'])
                                             {
                                                  if($cart_vouchers['ValueType']=='percentage')
@@ -48,6 +50,7 @@ $discount=0;
                                                         $discount=$values['price'];
                                                     }
                                             }
+                                    }
                                     @endphp
                                     <div class="row">
                                         <div class="col-md-8"><h5 class="mb-0"> {{$values['name']}}</h5>
@@ -89,22 +92,22 @@ $discount=0;
                         <div class="col-md-8 offset-2">
                             <hr/>
                             <div class="total-block text-right">
-                                Delivery fee <span class="price d-inline-block ml-4">{{number_format($delivery_charge)}} {{$currency}}</span>
+                                Delivery fee <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($delivery_charge)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
-                                SubTotal <span class="price d-inline-block ml-4">{{number_format($_total)}} {{$currency}}</span>
+                                SubTotal <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($_total)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
-                            Discount <span class="price d-inline-block ml-4">{{number_format($discount)}} {{$currency}}</span>
+                            Discount <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($discount)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
-                                Wallet <span class="price d-inline-block ml-4">{{number_format($cart_wallet)}} {{$currency}}</span>
+                                Wallet <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($cart_wallet)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
-                                Payment <span class="price d-inline-block ml-4">{{number_format($payment)}} {{$currency}}</span>
+                                Payment <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($payment)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
-                                Total <span class="price d-inline-block ml-4">{{number_format($_total-$cart_wallet-$discount)}} {{$currency}}</span>
+                                Total <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($_total-$cart_wallet-$discount)}} {{$currency}}</span>
                             </div>
                         </div>
                     </div>

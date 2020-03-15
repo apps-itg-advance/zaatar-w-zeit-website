@@ -7,7 +7,6 @@
     <div class="col-xl-7 col-lg-5 col-md-12 col-sm-12 col-order-items col-favourite-items">
 
         <div class="col-xl-11 float-none mx-auto p-0">
-
             @include('customers._favourite_menu')
             @foreach($favouriteOrders as $row)
                 @if(!$row->Favorite)
@@ -30,7 +29,7 @@
                         </div>
                     </div>
                     <div class="action-div text-right">
-                        <a class="btn btn-orderrepeat"><img src="{{asset('assets/images/icon-refresh.png')}}" height="15" class="mr-1"/> Repeat Order</a>
+                        <a class="btn btn-orderrepeat" onclick="RepeatOrder({{$row->OrderId}})"><img src="{{asset('assets/images/icon-refresh.png')}}" height="15" class="mr-1"/> Repeat Order</a>
                     </div>
                     <a href="#" onclick="RemoveFavouriteOrder({{$row->OrderId}})" id="Favourite{{$row->OrderId}}" class="link-close"><img src="{{asset('assets/svg/icon-close.svg')}}" width="24"></a>
                 </div>
@@ -64,5 +63,27 @@
 				}
 			});
 		}
+        function RepeatOrder(orderId)
+        {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'POST',
+                data:{order_id:orderId},
+                url:'{{route('customer.order.repeat')}}',
+                success:function(data){
+                    LoadCart();
+                    Swal.fire({
+                        // position: 'top-end',
+                        icon: 'success',
+                        title: 'Your favourite order was removed successfully.',
+                        showConfirmButton: false,
+                        timer: 1200
+                    });
+                   // $("#Favourite" + orderId).closest('.order-box').remove();
+                }
+            });
+        }
     </script>
 @endsection

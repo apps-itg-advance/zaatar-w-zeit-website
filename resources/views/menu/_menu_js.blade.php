@@ -23,13 +23,13 @@
             jQuery('#makeMeal-modal'+id).modal();
         }
         else{
-            AddToCart(id);
+            AddToCart(id,1);
         }
         return false;
     }
     function SubmitCustomize(id) {
-        $("#QuickOrder"+id).val(1);
-        AddToCart(id);
+
+        AddToCart(id,0);
     }
     function CalculateTotal(cat_id,max_qty,id,item_id) {
         var ItemId="qty_"+item_id;
@@ -70,13 +70,13 @@
         var res = mVal.split("-");
         if($("#"+CheckId).is(':checked'))
         {
-            $(".Sub"+id).removeAttr("disabled");
+            $(".Subd"+id).removeAttr("disabled");
 
             var nTotal=parseFloat($("#TotalAmount"+item_id).val())+parseFloat(res[1]);
         }
         else{
-            $(".Sub"+id).prop("checked", false);
-            $(".Sub"+id).attr("disabled", true);
+            $(".Subd"+id).prop("checked", false);
+            $(".Subd"+id).attr("disabled", true);
             var nTotal=parseFloat($("#TotalAmount"+item_id).val())-parseFloat(res[1]);
         }
         $("#TotalAmount"+item_id).val(nTotal);
@@ -152,9 +152,10 @@
         });
         spinner('hide', spinnerContainerElement);
     }
-    function AddToCart(id)
+    function AddToCart(id,quick)
     {
         var spinnerContainerElement = $("button[data-code='" + id + "']").closest('.item-plus-minus');
+        $("#QuickOrder"+id).val(quick);
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
