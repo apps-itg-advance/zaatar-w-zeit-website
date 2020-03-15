@@ -80,6 +80,10 @@
                     LoadCart();
                     _getCountCartItems();
                     $(".qty_all").val(0);
+                    if($('.link-customize').length > 0) {
+                        $('.link-customize').removeClass("active");
+                        $('.customize-label').html("Customize");
+                    }
                     //$(".col-cartitems").html(data);
                 }
             });

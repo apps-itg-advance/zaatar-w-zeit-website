@@ -52,7 +52,7 @@
                                     $cust_css='active';
                                 }
                             @endphp
-                            <a onclick="OpenModel({{$row->ID}})" id="CustomizedLink{{$row->ID}}"  class="link-customize pointer effect-underline {{$cust_css}}"><span id="Customize{{$row->ID}}">{{$customize}}</span></a>
+                            <a onclick="OpenModel({{$row->ID}})" id="CustomizedLink{{$row->ID}}"  class="link-customize pointer effect-underline {{$cust_css}}"><span class="customize-label" id="Customize{{$row->ID}}">{{$customize}}</span></a>
                         </div>
                         <div class="col-sm-5 text-center">
                             <div class="input-group mx-auto item-plus-minus">
