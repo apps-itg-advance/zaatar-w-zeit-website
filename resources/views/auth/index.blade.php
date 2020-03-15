@@ -40,9 +40,13 @@
         height: 100%;
     }
     .modal-body{
-        width: 20%;
+        width: 50%;
         margin: 0 auto;
-        margin-top: 6%;
+        margin-top: 8%;
+    }
+    .modal-body .form-container{
+        width: 40%;
+        margin: 0 auto;
     }
     .modal-close{
         position: absolute;
@@ -197,12 +201,17 @@ echo "jQuery('#login-modal').modal();";
                     success:function(result){
                         if(result.status=='success')
                         {
+                        	console.log('test');
                            // jQuery('#mobileNb{{$sKey}}').val(result.data['MobileNumber']);
                            // jQuery('#request_id{{$sKey}}').val(result.data['RequestId']);
 	                        spinnerButtons('hide', $(that));
                            $('#Pin{{$sKey}}').val(result.data['CountryCode']);
                             jQuery('#login-modal').modal('hide');
                             jQuery('#pin-modal').modal();
+	                        // $('.pincode-input-container input.first').focus();
+	                        $('#pin-modal').on('shown.bs.modal', function() {
+		                        $('.pincode-input-container input.first').focus();
+	                        })
                         }
                         else{
                             jQuery('#LoginMsg').html(data.message);
