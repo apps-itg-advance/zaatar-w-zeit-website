@@ -142,7 +142,6 @@
 
                 $flag='login';
             }
-echo "jQuery('#login-modal').modal();";
         /*     if($flag=='pin'){
                 echo "jQuery('#pin-modal').modal();";
             }
@@ -151,12 +150,17 @@ echo "jQuery('#login-modal').modal();";
             } */
             @endphp
 
-            function validateEmail(email) {
+            if(sessionStorage && sessionStorage.getItem("page")!=null){
+                jQuery('#'+sessionStorage.getItem("page")+'-modal').modal();
+            }else{
+	            jQuery('#login-modal').modal();
+            }
+
+	        function validateEmail(email) {
 	            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	            return re.test(email);
             }
 
-           // jQuery('#login-modal').modal();
             $('#Loginbtn, #Loginbtn1').on('click', function(event){
 	            spinnerButtons('show', $(this));
 	            var that = this;
@@ -208,7 +212,6 @@ echo "jQuery('#login-modal').modal();";
                     success:function(result){
                         if(result.status=='success')
                         {
-                        	console.log('test');
                            // jQuery('#mobileNb{{$sKey}}').val(result.data['MobileNumber']);
                            // jQuery('#request_id{{$sKey}}').val(result.data['RequestId']);
 	                        spinnerButtons('hide', $(that));
@@ -223,10 +226,12 @@ echo "jQuery('#login-modal').modal();";
                         else{
                             jQuery('#LoginMsg').html(data.message);
                         }
+	                    if(sessionStorage) {
+		                    sessionStorage.setItem("page", "pin");
+	                    }
                     }
                 });
             });
-
 
             $('#Pinbtn').on('click', function(event){
                 event.preventDefault();
@@ -253,6 +258,9 @@ echo "jQuery('#login-modal').modal();";
                                  $('#R_Email{{$sKey}}').val(result.data['Email']);
                                 jQuery('#pin-modal').modal('hide');
                                 jQuery('#register-modal').modal();
+	                            if(sessionStorage) {
+		                            sessionStorage.setItem("page", "register");
+	                            }
                             }
                             else{
                                 location.replace('{{route('customer.index')}}'+'/'+result.type);
@@ -271,6 +279,7 @@ echo "jQuery('#login-modal').modal();";
                     }
                 });
             });
+
             $('#Registerbtn').on('click', function(event){
                 var dob=$('#R_dob{{$sKey}}').val();
                 var firstn=$('#R_FirstName{{$sKey}}').val();
@@ -309,6 +318,7 @@ echo "jQuery('#login-modal').modal();";
                     }
                 });
             });
+
             $('#Resendbtn').on('click', function(event){
 	            spinnerButtons('show', $(this));
 	            var that = this;
@@ -332,10 +342,23 @@ echo "jQuery('#login-modal').modal();";
                     }
                 });
             });
+
             $('#Backbtn').on('click', function(event){
                 event.preventDefault();
                 jQuery('#pin-modal').modal('hide');
                 jQuery('#login-modal').modal();
+	            if(sessionStorage) {
+		            sessionStorage.setItem("page", "login");
+	            }
+            });
+
+            $('#BackToPinBtn').on('click', function(event){
+                event.preventDefault();
+                jQuery('#register-modal').modal('hide');
+                jQuery('#pin-modal').modal();
+	            if(sessionStorage) {
+		            sessionStorage.setItem("page", "pin");
+	            }
             });
         });
 
