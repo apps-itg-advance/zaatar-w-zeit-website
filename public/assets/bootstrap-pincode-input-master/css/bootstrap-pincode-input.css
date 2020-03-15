@@ -29,7 +29,7 @@
 .pincode-input-text, .form-control.pincode-input-text {
 	text-align:center;
 	flex-grow:1;
-	width: 50px;
+	width: 40px;
 }
 .pincode-input-error{
 	clear:both;

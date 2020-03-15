@@ -3,18 +3,19 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content float-none p-0 mx-auto">
                 <div class="modal-body">
-                    <div class="form-group">
-                        {{--<input type="text" class="form-control" id="Pin" name="pin{{$sKey}}" />--}}
-                        <label>PIN Code</label>
-                        <input name="pin{{$sKey}}" type="text" id="Pin" class="mb-2">
-                        <label id="PinMsg" class="text-danger"></label>
+                    <div class="form-container">
+                        <div class="form-group">
+                            {{--<input type="text" class="form-control" id="Pin" name="pin{{$sKey}}" />--}}
+                            <label>PIN Code</label>
+                            <input name="pin{{$sKey}}" type="text" id="Pin" class="mb-2">
+                            <label id="PinMsg" class="text-danger"></label>
+                        </div>
+                        <div class="py-5">
+                            <button type="button" id="Pinbtn" class="btn btn-submit btn-login btn-block text-uppercase">Confirmation</button>
+                            <button type="button" id="Backbtn" class="btn btn-submit btn-login btn-block text-uppercase">Back</button>
+                            <button type="button" id="Resendbtn" class="btn btn-submit btn-login btn-block text-uppercase">Resend Pin Code</button>
+                        </div>
                     </div>
-                    <div class="py-5">
-                        <button type="button" id="Pinbtn" class="btn btn-submit btn-login btn-block text-uppercase">Confirmation</button>
-                        <button type="button" id="Backbtn" class="btn btn-submit btn-login btn-block text-uppercase">Back</button>
-                        <button type="button" id="Resendbtn" class="btn btn-submit btn-login btn-block text-uppercase">Resend Pin Code</button>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -30,7 +31,7 @@
 				// $(errorElement).html("I'm sorry, but the code not correct");
 
 				// $("#pincode-callback").html("This is the 'complete' callback firing. Current value: " + value);
-                $('#Pinbtn').click();
+				$('#Pinbtn').click();
 				// check the code
 				// if(value!="123456"){
 				// 	$(errorElement).html("The code is not correct. Should be '1234'");
