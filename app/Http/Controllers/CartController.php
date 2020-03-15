@@ -20,6 +20,7 @@ class CartController extends BaseController
     {
         $cart = Session::get('cart');
         //$menu=MenuLibrary::GetMenuItems('');
+	    ksort($cart);
         $menu=array();
         return view('partials._cart',compact('cart','menu'));
     }
