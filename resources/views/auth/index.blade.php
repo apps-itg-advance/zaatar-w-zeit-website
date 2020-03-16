@@ -277,6 +277,7 @@
 	                            }
                             }
                             else{
+	                            sessionStorage.setItem("page", "login");
                                 location.replace('{{route('customer.index')}}'+'/'+result.type);
                             }
                         }
