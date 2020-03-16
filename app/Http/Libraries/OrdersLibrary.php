@@ -25,7 +25,6 @@ class OrdersLibrary{
         $cart_sp_instructions=session()->get('cart_sp_instructions');
 
         $cart_green=session()->get('cart_green');
-        $cart_green_id=session()->get('cart_green_id');
         $cart_vouchers=session()->get('cart_vouchers');
         $cart_wallet=session()->get('cart_wallet');
 
@@ -51,7 +50,7 @@ class OrdersLibrary{
                 'ItemName'=>$itm['name'],
                 'ItemType'=>1
             );
-            $_total+=$itm['price'];
+            $_total+=$itm['origin_price'];
             array_push($array_items,$_items);
             $modifiers=$itm['modifiers'];
 
@@ -192,7 +191,7 @@ class OrdersLibrary{
         {
             if($cart_vouchers['ValueType']=='percentage')
             {
-                $discount=$_total*$cart_vouchers['Value']/100;
+                $discount=($_total-$cart_wallet)*$cart_vouchers['Value']/100;
             }
             elseif($cart_vouchers['ValueType']=='flat_rate')
             {

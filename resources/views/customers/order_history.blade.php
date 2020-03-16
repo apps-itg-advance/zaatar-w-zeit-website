@@ -22,7 +22,7 @@
                    $total=0;
                    $method='';
                    $specials=array();
-                    $adderss_array=array($row->Province,$row->City,$row->Line1,$row->Line2)
+                    $adderss_array=array($row->City,$row->Line1,$row->Line2,$row->Apartment)
                 @endphp
                 <div class="order-box p-3 favourite-box">
                     <h4 class="title">
@@ -155,7 +155,13 @@
                                     {
                                         if($open_i->Label=='Real Green')
                                         {
-                                            $go_green=$open_i->Value;
+                                            //$go_green=$open_i->Value;
+                                            $info=isset($open_i->Info) ? $open_i->Info:array();
+                                            $go_green='';
+                                            foreach ($info as $i_info)
+                                            {
+                                                $go_green.=$i_info->ItemName.' ';
+                                            }
                                         }
                                         elseif($open_i->Label=='Gift')
                                         {
@@ -208,13 +214,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
-
-
                         </div>
                     </div>
 
