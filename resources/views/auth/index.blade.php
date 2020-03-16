@@ -325,7 +325,8 @@
                             // jQuery('#country_code{{$sKey}}').val(result.data['CountryCode']);
                            // jQuery('#login-modal').modal('hide');
                           //  jQuery('#pin-modal').modal();
-                            location.replace('{{route('customer.index')}}');
+	                        sessionStorage.setItem("page", "login");
+	                        location.replace('{{route('customer.index')}}');
                         }
                         else{
                             jQuery('#RegisterMsg').html(result.message);
