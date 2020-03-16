@@ -93,7 +93,7 @@ class CustomerController extends Controller
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';
-        return view('customers.orders',compact('favouriteOrders','class_css','flag','sub_active'));  //
+        return view('customers.orders_favourite',compact('favouriteOrders','class_css','flag','sub_active'));  //
     }
     public function order_repeat(Request $request)
     {
