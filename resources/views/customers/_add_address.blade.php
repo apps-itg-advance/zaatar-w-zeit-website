@@ -95,7 +95,7 @@
                         <div class="col-md-12" id="company-input-container">
                             <div class="form-group">
                                 <label>Company</label>
-                                <input type="text" class="form-control"  name="company{{$skey}}"  />
+                                <input type="text" class="form-control"  name="company{{$skey}}" required />
                             </div>
                         </div>
 
