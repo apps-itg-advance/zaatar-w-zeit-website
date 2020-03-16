@@ -97,6 +97,7 @@ class CustomerController extends Controller
     }
     public function order_repeat(Request $request)
     {
+        $cart = session()->get('cart');
         $order_id=$request->input('order_id');
         $orders=session()->get('orders_data');
         foreach ($orders as $order)
