@@ -460,7 +460,7 @@ button {
 .orders-wrapper .order-box .link-close { position: absolute; top: -15px; right: -12px; background: #FFFFFF; display: block; border-radius: 30px;}
 .orders-wrapper .order-box .link-close img{ width: 20px; height: 20px; }
 .orders-wrapper .order-box hr { margin: 10px 0;}
-.orders-wrapper .order-box .total-block { font-family: 'Futura-Medium-BT'; font-size: 18px;}
+.orders-wrapper .order-box .total-block { font-family: 'Futura-Book'; font-size: 18px;}
 .orders-wrapper .order-box .delivery-block { font-size: 20px;font-family: 'Futura-Bold'; }
 
 .orders-wrapper .more-div { font-family: 'Futura-Bold'; font-size: 22px;}
