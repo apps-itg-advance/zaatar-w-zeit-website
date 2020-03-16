@@ -449,7 +449,7 @@ button {
 .orders-wrapper .order-box .order-info h5{ font-family: 'Futura-Book'; font-size: 18px; }
 .orders-wrapper .order-box .title { font-family: 'Futura-B'; font-size: 18px;}
 .orders-wrapper .order-box .title span { font-family: 'Futura-Medium-BT'; float: right; font-size: 16px;}
-.orders-wrapper .order-box .text-label { font-family: 'Futura-B'; font-size: 18px;}
+.orders-wrapper .order-box .text-label { font-family: 'Futura-B'; font-size: 17px;}
 .orders-wrapper .order-box .btn {
     border-radius: 20px; padding: 2px 40px; font-family: 'Futura-Bold'; font-size: 20px;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
