@@ -84,7 +84,7 @@
                             elseif($payment->PaymentName=='credit')
                             {
                                 $pay_online=$payment->PaymentAmount;
-                                $total=$total+$payment->PaymentAmount;
+                               // $total=$total+$payment->PaymentAmount;
                                 $method=$payment->PaymentLabel;
                             }
                             else{
