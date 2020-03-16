@@ -39,16 +39,17 @@
         $(".confirm").click(function(){
 	        spinnerButtons('show', $(this));
             var radioValue = $("input[name='sp_i']:checked").val();
-	        if(!radioValue || radioValue==undefined){
-		        Swal.fire({
-			        title: 'Warning!',
-			        text: 'Some field are required!',
-			        icon: 'warning',
-			        confirmButtonText: 'Close'
-		        });
-		        spinnerButtons('hide', $(this));
-		        return null;
-	        }
+            var that = this;
+	        // if(!radioValue || radioValue==undefined){
+		    //     Swal.fire({
+			//         title: 'Warning!',
+			//         text: 'Some field are required!',
+			//         icon: 'warning',
+			//         confirmButtonText: 'Close'
+		    //     });
+		    //     spinnerButtons('hide', $(this));
+		    //     return null;
+	        // }
 	        $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -57,6 +58,7 @@
                 data: {query: radioValue},
                 url: '{{route('checkout.special.instructions.store')}}',
                 success: function (data) {
+	                spinnerButtons('hide', $(that));
                     $("#OrderSummaryDisplay").html(data);
                     jQuery('#OrderSummary').modal();
                 }

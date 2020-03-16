@@ -83,7 +83,7 @@
             else{
 	            Swal.fire({
 		            title: 'Warning!',
-		            text: 'Please select an address!',
+		            text: 'You must choose an option!',
 		            icon: 'warning',
 		            confirmButtonText: 'Close'
 	            });

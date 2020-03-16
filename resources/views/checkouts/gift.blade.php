@@ -90,7 +90,7 @@
 			else{
 				Swal.fire({
 					title: 'Warning!',
-					text: 'some fields are required!',
+					text: 'Some fields are required!',
 					icon: 'warning',
 					confirmButtonText: 'Close'
 				});
