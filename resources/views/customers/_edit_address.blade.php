@@ -149,16 +149,18 @@
 
 	    if($(".address_type:checked").data('code')=='45'){
 		    $('#company-input-container').removeClass('d-none');
+		    $('#company-input-container').find('input').prop('disabled',false);
 	    }else{
-		    $('#company-input-container').find('input').val('');
+		    $('#company-input-container').find('input').prop('disabled',true);
 		    $('#company-input-container').addClass('d-none');
 	    }
 
 	    $('body').on('click','.address_type', function(){
 		    if($(this).data('code')=='45'){
 			    $('#company-input-container').removeClass('d-none');
+			    $('#company-input-container').find('input').prop('disabled',false);
 		    }else{
-			    $('#company-input-container').find('input').val('');
+			    $('#company-input-container').find('input').prop('disabled',true);
 			    $('#company-input-container').addClass('d-none');
 		    }
 	    });
