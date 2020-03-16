@@ -44,7 +44,7 @@ class CheckoutController extends Controller
     {
         $skey = session()->get('skey');
         $cart = Session::get('cart');
-        $addresses = session()->get('addresses'.$skey);
+        $addresses = session()->get('addresses'.$skey) ?? [];
         $cities=SettingsLib::GetCities();
         //dump($addresses);
        //die;
