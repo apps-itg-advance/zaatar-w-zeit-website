@@ -89,7 +89,7 @@ class CustomerController extends Controller
     {
         $loyalty_id=session()->get('loyalty_id');
 	    $favouriteOrders=MenuLibrary::GetOrdersHistoryWithFav()->data;
-	    session()->put('orders_fav',$favouriteOrders);
+	    session()->put('orders_data',$favouriteOrders);
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';
@@ -98,37 +98,72 @@ class CustomerController extends Controller
     public function order_repeat(Request $request)
     {
         $order_id=$request->input('order_id');
-        $orders=session()->get('orders_fav');
+        $orders=session()->get('orders_data');
         foreach ($orders as $order)
         {
             if($order->OrderId==$order_id)
             {
-                $query=$order;
+                $sorder=$order;
             }
         }
-        $items=$query->Items;
-        dump($items);
+        $items=$sorder->Items;
         $query=MenuLibrary::GetMenuItems('');
         if(count((array)$items)>0)
         {
-            foreach ($items as $item)
+            for ($i=0;$i<count($items);$i++)
             {
-                if($item->OpenItem==0 and $item->MenuType==1)
+                if($items[$i]->OpenItem==0 and $items[$i]->MenuType==1)
                 {
+                    $_modifiers=array();
+                    $_make_meal=array();
+                    $_itm=array();
+                    $amount=0;
                     foreach ($query->data as $value)
                     {
-                        if($value->PLU==$item->PLU)
+                        if($value->PLU==$items[$i]->PLU)
                         {
+                            $amount=$value->Price;
+                            for ($j=$i+1;$j<count($items);$j++)
+                            {
+                                if($items[$j]->MenuType!='1')
+                                {
+                                    if($items[$j]->MenuType!='5' and $items[$j]->MenuType!='6')
+                                    {
+                                        array_push($_modifiers, ['id' => $items[$j]->ItemId, 'plu' => $items[$j]->PLU, 'name' => $items[$j]->ItemName, 'price' => $items[$j]->GrossPrice]);
+                                    }
+                                    elseif($items[$j]->MenuType=='5')
+                                    {
+                                        $_make_meal['id'] = $items[$j]->ItemId;
+                                        $_make_meal['price'] =  $items[$j]->GrossPrice;
+                                        $_make_meal['name'] = $items[$j]->ItemName;
+                                        $_make_meal['plu'] = $items[$j]->PLU;
+
+                                    }
+                                    elseif($items[$j]->MenuType=='6')
+                                    {
+                                        array_push($_itm, ['id' => $items[$j]->ItemId, 'plu' => $items[$j]->PLU, 'name' => $items[$j]->ItemName, 'details' => $items[$j]->ItemName, 'price' => 0]);
+
+                                    }
+                                    $amount+=$items[$j]->GrossPrice;
+                                }
+                                else{
+                                    break;
+                                }
+                                $_make_meal['items'] = $_itm;
+
+                            }
                             $cart[]= [
                                 'id' => $value->ID,
-                                'name' =>  $item->ItemName,
+                                'name' =>  $items[$i]->ItemName,
                                 'quantity' => 1,
-                                'price' => $value->Price,
+                                'price' => $amount,
+                                'origin_price'=>$value->Price,
                                 'plu' => $value->PLU,
                                 'item_modify' => 0,
-                                'modifiers'=>array(),
-                                'meal'=>array()
+                                'modifiers'=>$_modifiers,
+                                'meal'=>$_make_meal
                             ];
+
                             session()->put('cart', $cart);
                         }
                     }
@@ -147,6 +182,7 @@ class CustomerController extends Controller
     {
         $loyalty_id=session()->get('loyalty_id');
         $query=CustomerLibrary::GetOrdersHistory($loyalty_id);
+        session()->put('orders_data',$query);
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';

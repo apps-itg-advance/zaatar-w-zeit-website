@@ -103,7 +103,7 @@ class OrdersLibrary{
                             'UnitPrice' => $meal_items[$k]['price'],
                             'Quantity' => 1,
                             'ItemName' => $meal_items[$k]['name'],
-                            'ItemType' => 5,
+                            'ItemType' => 6,
                         );
                         $_total += $meal_items[$k]['price'];
 
