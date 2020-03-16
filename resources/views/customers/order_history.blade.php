@@ -27,7 +27,7 @@
                 <div class="order-box p-3 favourite-box">
                     <h4 class="title">
                         ORDER {{$row->OrderId}}
-                        <span>{{$row->OrderDate}}</span>
+                        <span>{{\Carbon\Carbon::parse($row->OrderDate)->format('d/m/Y - H:i')}}</span>
                     </h4>
                     <div class="order-info py-2 py-md-4 cursor-pointer" data-toggle="collapse" data-target=".order-history-{{$row->OrderId}}">
                         <div class="row align-items-center mb-3">
@@ -43,7 +43,7 @@
                                 <div class="col-sm-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                     Order
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 mt-1">
                                 <?php
                                      $item=isset($row->Items) ? $row->Items : array();
                                     $specials=array();
@@ -65,7 +65,7 @@
                                                            break;
                                                        }
                                                     }
-                                               echo '<div class="row">
+                                               echo '<div class="row mb-2">
                                                    <div class="col-md-8">
                                                        <h5 class="mb-0">'.$item[$i]->ItemName.'</h5>
                                                        <div class="text-808080">'.implode(', ',$array_modifiers).'</div>
