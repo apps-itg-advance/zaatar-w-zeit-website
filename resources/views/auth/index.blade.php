@@ -156,8 +156,22 @@
 	            jQuery('#login-modal').modal();
             }
 
+	        if($('input[type="tel"]').length>0){
+		        $('input[type="tel"]').focus();
+	        }
+
+	        $('#pin-modal').on('shown.bs.modal', function (e) {
+		        if($('input.pincode-input-text.first').length>0){
+			        $('input.pincode-input-text.first').focus();
+		        }
+	        });
+
+	        $('#register-modal').on('shown.bs.modal', function (e) {
+                $('#Register').find('input[type="text"]').filter(':first').focus();
+	        });
+
 	        function validateEmail(email) {
-	            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	            return re.test(email);
             }
 
@@ -193,7 +207,7 @@
                 if(!validated){
 	                Swal.fire({
 		                title: 'Warning!',
-		                text: 'Invalid Data: some fields are invalid!',
+		                text: 'Some fields are invalid!',
 		                icon: 'warning',
 		                confirmButtonText: 'Close'
 	                });
@@ -269,7 +283,7 @@
                         else{
 	                        Swal.fire({
 		                        title: 'Warning!',
-		                        text: 'Invalid Data: some fields are invalid!',
+		                        text: 'Pin Code is invalid!',
 		                        icon: 'warning',
 		                        confirmButtonText: 'Close'
 	                        });
