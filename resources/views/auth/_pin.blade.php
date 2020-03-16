@@ -11,7 +11,7 @@
                             <label id="PinMsg" class="text-danger"></label>
                         </div>
                         <div class="py-5">
-                            <button type="button" id="Pinbtn" class="btn btn-submit btn-login btn-block text-uppercase">Confirmation</button>
+                            <button type="button" id="Pinbtn" class="btn btn-submit btn-login btn-block text-uppercase d-none">Confirmation</button>
                             <button type="button" id="Backbtn" class="btn btn-submit btn-login btn-block text-uppercase">Back</button>
                             <button type="button" id="Resendbtn" class="btn btn-submit btn-login btn-block text-uppercase">Resend Pin Code</button>
                         </div>
@@ -26,19 +26,9 @@
 	$(document).ready(function() {
 		$('#Pin').pincodeInput({
 			hidedigits: false, inputs: 6, complete: function (value, e, errorElement) {
+				$('#Pinbtn').removeClass('d-none');
 				$('.pincode-input-container').find('input').prop('disabled',true);
-				// $("#pincode-callback").html("Complete callback from 6-digit test: Current value: " + value);
-				// $(errorElement).html("I'm sorry, but the code not correct");
-
-				// $("#pincode-callback").html("This is the 'complete' callback firing. Current value: " + value);
 				$('#Pinbtn').click();
-				// check the code
-				// if(value!="123456"){
-				// 	$(errorElement).html("The code is not correct. Should be '1234'");
-				// }else{
-				// 	alert('code is correct!');
-				// }
-
 			}
 		});
 	});

@@ -142,7 +142,6 @@
 
                 $flag='login';
             }
-echo "jQuery('#login-modal').modal();";
         /*     if($flag=='pin'){
                 echo "jQuery('#pin-modal').modal();";
             }
@@ -151,12 +150,31 @@ echo "jQuery('#login-modal').modal();";
             } */
             @endphp
 
-            function validateEmail(email) {
-	            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if(sessionStorage && sessionStorage.getItem("page")!=null){
+                jQuery('#'+sessionStorage.getItem("page")+'-modal').modal();
+            }else{
+	            jQuery('#login-modal').modal();
+            }
+
+	        if($('input[type="tel"]').length>0){
+		        $('input[type="tel"]').focus();
+	        }
+
+	        $('#pin-modal').on('shown.bs.modal', function (e) {
+		        if($('input.pincode-input-text.first').length>0){
+			        $('input.pincode-input-text.first').focus();
+		        }
+	        });
+
+	        $('#register-modal').on('shown.bs.modal', function (e) {
+                $('#Register').find('input[type="text"]').filter(':first').focus();
+	        });
+
+	        function validateEmail(email) {
+		        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	            return re.test(email);
             }
 
-           // jQuery('#login-modal').modal();
             $('#Loginbtn, #Loginbtn1').on('click', function(event){
 	            spinnerButtons('show', $(this));
 	            var that = this;
@@ -189,7 +207,7 @@ echo "jQuery('#login-modal').modal();";
                 if(!validated){
 	                Swal.fire({
 		                title: 'Warning!',
-		                text: 'Invalid Data: some fields are invalid!',
+		                text: 'Some fields are invalid!',
 		                icon: 'warning',
 		                confirmButtonText: 'Close'
 	                });
@@ -208,7 +226,6 @@ echo "jQuery('#login-modal').modal();";
                     success:function(result){
                         if(result.status=='success')
                         {
-                        	console.log('test');
                            // jQuery('#mobileNb{{$sKey}}').val(result.data['MobileNumber']);
                            // jQuery('#request_id{{$sKey}}').val(result.data['RequestId']);
 	                        spinnerButtons('hide', $(that));
@@ -223,10 +240,12 @@ echo "jQuery('#login-modal').modal();";
                         else{
                             jQuery('#LoginMsg').html(data.message);
                         }
+	                    if(sessionStorage) {
+		                    sessionStorage.setItem("page", "pin");
+	                    }
                     }
                 });
             });
-
 
             $('#Pinbtn').on('click', function(event){
                 event.preventDefault();
@@ -253,6 +272,9 @@ echo "jQuery('#login-modal').modal();";
                                  $('#R_Email{{$sKey}}').val(result.data['Email']);
                                 jQuery('#pin-modal').modal('hide');
                                 jQuery('#register-modal').modal();
+	                            if(sessionStorage) {
+		                            sessionStorage.setItem("page", "register");
+	                            }
                             }
                             else{
                                 location.replace('{{route('customer.index')}}'+'/'+result.type);
@@ -261,15 +283,17 @@ echo "jQuery('#login-modal').modal();";
                         else{
 	                        Swal.fire({
 		                        title: 'Warning!',
-		                        text: 'Invalid Data: some fields are invalid!',
+		                        text: 'Pin Code is invalid!',
 		                        icon: 'warning',
 		                        confirmButtonText: 'Close'
 	                        });
                             jQuery('#PinMsg').html(result.message);
                         }
+	                    $('#Pinbtn').addClass('d-none');
                     }
                 });
             });
+
             $('#Registerbtn').on('click', function(event){
                 var dob=$('#R_dob{{$sKey}}').val();
                 var firstn=$('#R_FirstName{{$sKey}}').val();
@@ -308,6 +332,7 @@ echo "jQuery('#login-modal').modal();";
                     }
                 });
             });
+
             $('#Resendbtn').on('click', function(event){
 	            spinnerButtons('show', $(this));
 	            var that = this;
@@ -331,10 +356,23 @@ echo "jQuery('#login-modal').modal();";
                     }
                 });
             });
+
             $('#Backbtn').on('click', function(event){
                 event.preventDefault();
                 jQuery('#pin-modal').modal('hide');
                 jQuery('#login-modal').modal();
+	            if(sessionStorage) {
+		            sessionStorage.setItem("page", "login");
+	            }
+            });
+
+            $('#BackToPinBtn').on('click', function(event){
+                event.preventDefault();
+                jQuery('#register-modal').modal('hide');
+                jQuery('#pin-modal').modal();
+	            if(sessionStorage) {
+		            sessionStorage.setItem("page", "pin");
+	            }
             });
         });
 

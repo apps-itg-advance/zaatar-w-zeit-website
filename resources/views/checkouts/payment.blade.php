@@ -39,7 +39,7 @@
 			if(!radioValue || radioValue==undefined){
 				Swal.fire({
 					title: 'Warning!',
-					text: 'payment type field is required!',
+					text: 'You must choose an option!',
 					icon: 'warning',
 					confirmButtonText: 'Close'
 				});

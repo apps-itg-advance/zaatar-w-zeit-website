@@ -52,6 +52,7 @@
                         </div>
                         <div class="py-5">
                             <button type="button" id="Registerbtn"  class="btn btn-submit btn-login btn-block text-uppercase">Register</button>
+                            <button type="button" id="BackToPinBtn" class="btn btn-submit btn-login btn-block text-uppercase">Back</button>
                         </div>
 
                     </div>
