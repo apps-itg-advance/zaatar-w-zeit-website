@@ -23,7 +23,6 @@
                             $selectedCity='';
 
                                 $main_address=array();
-
                                     $selectedCity=$address->CityId;
                                     $array_line2=explode('Bldg',$address->Line2);
                                     $array_apartment=explode('Ext:',$address->AptNumber);
@@ -37,6 +36,7 @@
                                         $floor=@$array_apartment[0];
                                         $ext=@$array_apartment[1];
                                     }
+                                    $company = $address->CompanyName;
 
                         @endphp
                         <div class="col-md-12">
@@ -45,8 +45,8 @@
                                 @foreach($addresses_types as $add_type)
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>{{$add_type->Title}}</label>
-                                        <input type="radio" {{(in_array($add_type->ID,$address_types) and $address->TypeID!=$add_type->ID)? 'disabled' :''}}  {{$address->TypeID==$add_type->ID? 'checked' :''}} name="address_type{{$skey}}" value="{{$add_type->ID}}" />
+                                        <label for="address_type{{$add_type->ID}}">{{$add_type->Title}}</label>
+                                        <input data-code="{{$add_type->ID}}" type="radio" class="address_type" id="address_type{{$add_type->ID}}" {{(in_array($add_type->ID,$address_types) and $address->TypeID!=$add_type->ID)? 'disabled' :''}}  {{$address->TypeID==$add_type->ID? 'checked' :''}} name="address_type{{$skey}}" value="{{$add_type->ID}}" />
                                     </div>
                                 </div>
                                 @endforeach
@@ -114,6 +114,14 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md-12" id="company-input-container">
+                            <div class="form-group">
+                                <label>Company</label>
+                                <input type="text" class="form-control"  name="company{{$skey}}" value="{{@$company}}" required />
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
                             <div class="form-group mb-0">
                                 <label>Pin Location</label>
@@ -138,6 +146,24 @@
 </form>
 <script>
     $(document).ready(function () {
+
+	    if($(".address_type:checked").data('code')=='45'){
+		    $('#company-input-container').removeClass('d-none');
+		    $('#company-input-container').find('input').prop('disabled',false);
+	    }else{
+		    $('#company-input-container').find('input').prop('disabled',true);
+		    $('#company-input-container').addClass('d-none');
+	    }
+
+	    $('body').on('click','.address_type', function(){
+		    if($(this).data('code')=='45'){
+			    $('#company-input-container').removeClass('d-none');
+			    $('#company-input-container').find('input').prop('disabled',false);
+		    }else{
+			    $('#company-input-container').find('input').prop('disabled',true);
+			    $('#company-input-container').addClass('d-none');
+		    }
+	    });
 
         $('#AddAddress').validate({ // initialize the plugin
             rules: {

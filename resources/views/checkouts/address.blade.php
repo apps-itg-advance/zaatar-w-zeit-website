@@ -12,10 +12,8 @@
     <div class="col-xl-6 col-lg-8 col-md-9 col-sm-12 item-summary float-none p-0 mx-auto">
         <div class="title-div mb-4">
             <h4 class="title">Address
-                @if(isset($addresses))
-                @if(!isset($addresses) or (isset($addresses) and count($addresses)<3))
-                <a href="javascript:void(0)" onclick="AddAddress()" class="d-inline-block ml-5"><img src="{{asset('assets/images/icon-checkout-plus.png')}}" /></a>
-                @endif
+                @if(count($addresses)<3)
+                    <a href="javascript:void(0)" onclick="AddAddress()" class="d-inline-block ml-5"><img src="{{asset('assets/images/icon-checkout-plus.png')}}" /></a>
                 @endif
             </h4>
         </div>

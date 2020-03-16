@@ -434,6 +434,7 @@ class CustomerController extends Controller
         $is_default=$request->input('is_default'.$Skey);
         $address_id=$request->input('address_id'.$Skey);
         $address_type=$request->input('address_type'.$Skey);
+	    $company=$request->input('company'.$Skey);
 
         $apartment=$floor.' Ext: '.$ext;
         $geo_array=explode('-',$geo);
@@ -454,7 +455,7 @@ class CustomerController extends Controller
             'YLocation'=>$y_location,
             'PersonalInfo'=>'',
             'AddressType'=>$address_type,
-            'Company'=>'',
+            'Company'=>$company,
             'IsDefault'=>$is_default==1 ? 1:0,
             'ExtraAddress'=>$more_details,
         );
@@ -482,6 +483,7 @@ class CustomerController extends Controller
         $more_details=$request->input('more_details'.$Skey);
         $is_default=$request->input('is_default'.$Skey);
         $address_type=$request->input('address_type'.$Skey);
+        $company=$request->input('company'.$Skey);
 
 
         $apartment=$floor.' Ext: '.$ext;
@@ -502,7 +504,7 @@ class CustomerController extends Controller
             'YLocation'=>$y_location,
             'PersonalInfo'=>'',
             'AddressType'=>$address_type,
-            'Company'=>'',
+            'Company'=>$company,
             'IsDefault'=>$is_default==1 ? 1:0,
             'ExtraAddress'=>$more_details,
         );
