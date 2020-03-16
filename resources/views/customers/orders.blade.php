@@ -254,27 +254,6 @@
 				}
 			});
 		}
-        function RepeatOrder(orderId)
-        {
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type:'POST',
-                data:{order_id:orderId},
-                url:'{{route('customer.order.repeat')}}',
-                success:function(data){
-                    LoadCart();
-                    Swal.fire({
-                        // position: 'top-end',
-                        icon: 'success',
-                        title: 'Your favourite order was removed successfully.',
-                        showConfirmButton: false,
-                        timer: 1200
-                    });
-                   // $("#Favourite" + orderId).closest('.order-box').remove();
-                }
-            });
-        }
+
     </script>
 @endsection

@@ -107,7 +107,7 @@ $discount=0;
                                 Payment <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($payment)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
-                                Total <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($_total-$cart_wallet-$discount)}} {{$currency}}</span>
+                                Total <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($_total-$cart_wallet-$discount-$payment)}} {{$currency}}</span>
                             </div>
                         </div>
                     </div>
