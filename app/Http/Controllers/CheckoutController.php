@@ -141,10 +141,13 @@ class CheckoutController extends Controller
     }
     public function gift_store(Request $request)
     {
+        $go=explode('-:',$request->input('gift_value'));
         $array=array(
+            'OpenItemId'=>isset($go[1])?$go[1]:0,
+            'OpenItemPlu'=>isset($go[2])?$go[2]:0,
             'GiftTo'=>$request->input('gift_to'),
             'GiftFrom'=>$request->input('gift_from'),
-            'GiftOpenItem'=>$request->input('gift_value')
+            'GiftOpenItem'=>isset($go[0])?$go[0]:''
         );
 
         session()->forget('cart_gift');
@@ -240,13 +243,21 @@ class CheckoutController extends Controller
 	    $_active_css='gift';
         $class_css='checkout-wrapper';
         return view('checkouts.green',compact('cart','class_css','_active_css'));  //
-        //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
     public function green_store(Request $request)
     {
+        $green_array=explode('-:',$request->input('query'));
+        $green_name=isset($green_array[0])?$green_array[0]:'';
+        $green_id=isset($green_array[1])?$green_array[1]:'';
+        $green_plu=isset($green_array[2])?$green_array[2]:'';
+        $_array=array(
+            'Id'=>$green_id,
+            'Title'=>$green_name,
+            'PLU'=>$green_plu,
+        );
         session()->forget('cart_green');
         session()->save();
-        session()->put('cart_green',$request->input('query'));
+        session()->put('cart_green',$_array);
         return 'true';
 
     }
@@ -280,6 +291,7 @@ class CheckoutController extends Controller
     }
     public function special_instructions_store(Request $request)
     {
+
         $query=$request->input('query');
         $_array=json_decode($query);
         session()->forget('cart_sp_instructions');
@@ -296,7 +308,6 @@ class CheckoutController extends Controller
         $_org=session()->get('_org');
         $delivery_charge=$_org->delivery_charge;
         $currency=$_org->currency;
-       // dump(session()->all());
        return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
     }
 
