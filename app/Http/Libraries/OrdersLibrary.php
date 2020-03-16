@@ -25,6 +25,7 @@ class OrdersLibrary{
         $cart_sp_instructions=session()->get('cart_sp_instructions');
 
         $cart_green=session()->get('cart_green');
+        $cart_green_id=session()->get('cart_green_id');
         $cart_vouchers=session()->get('cart_vouchers');
         $cart_wallet=session()->get('cart_wallet');
 
@@ -116,17 +117,17 @@ class OrdersLibrary{
             }
 
         }
-        if(isset($cart_green) and $cart_green!='')
+        if(isset($cart_green['Title']) and $cart_green['Title']!='')
         {
             $_green_array=array(
-                'ItemPlu'=>$open_plu,
+                'ItemPlu'=>$cart_green['PLU'],
                 'GrossPrice'=>0,
-                'OrderItemId'=>0,
+                'OrderItemId'=>$cart_green['Id'],
                 'OpenName'=>1,
                 'ParentPLU'=>0,
                 'UnitPrice'=>0,
                 'Quantity'=>1,
-                'ItemName'=>$cart_green,
+                'ItemName'=>$cart_green['Title'],
                 'ItemType'=>1
             );
             array_push($array_items,$_green_array);
@@ -151,31 +152,31 @@ class OrdersLibrary{
         if(isset($cart_gift->GiftOpenItem) and $cart_gift->GiftOpenItem!=null)
         {
             $_gift_array_1=array(
-                'ItemPlu'=>$open_plu,
+                'ItemPlu'=>$cart_gift->OpenItemPlu,
                 'GrossPrice'=>0,
-                'OrderItemId'=>0,
+                'OrderItemId'=>$cart_gift->OpenItemId,
                 'OpenName'=>1,
                 'ParentPLU'=>0,
                 'UnitPrice'=>0,
                 'Quantity'=>1,
-                'ItemName'=>$cart_gift->GiftFrom,
+                'ItemName'=>'GiftFrom'.$cart_gift->GiftFrom,
                 'ItemType'=>1
             );
             $_gift_array_2=array(
-                'ItemPlu'=>$open_plu,
+                'ItemPlu'=>$cart_gift->OpenItemPlu,
                 'GrossPrice'=>0,
-                'OrderItemId'=>0,
+                'OrderItemId'=>$cart_gift->OpenItemId,
                 'OpenName'=>1,
                 'ParentPLU'=>0,
                 'UnitPrice'=>0,
                 'Quantity'=>1,
-                'ItemName'=>$cart_gift->GiftTo,
+                'ItemName'=>'GiftTo'.$cart_gift->GiftTo,
                 'ItemType'=>1
             );
             $_gift_array_3=array(
-                'ItemPlu'=>$open_plu,
+                'ItemPlu'=>$cart_gift->OpenItemPlu,
                 'GrossPrice'=>0,
-                'OrderItemId'=>0,
+                'OrderItemId'=>$cart_gift->OpenItemId,
                 'OpenName'=>1,
                 'ParentPLU'=>0,
                 'UnitPrice'=>0,

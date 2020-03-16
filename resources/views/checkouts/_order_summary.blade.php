@@ -160,9 +160,9 @@ $discount=0;
                             </div>
                             <div class="col-6 text-808080 mb-3 futura-book">
                                 @php
-                                    if(isset($cart_green) and $cart_green!='')
+                                    if(isset($cart_green['Title']) and $cart_green['Title']!='')
                                     {
-                                        echo $cart_green;
+                                        echo $cart_green['Title'];
                                        //  echo ' From : '.$cart_gift->GiftFrom.'<br> To : '.$cart_gift->GiftTo.'<br> Message : '.$cart_gift->GiftOpenItem;
                                     }
                                     else{

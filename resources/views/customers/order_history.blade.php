@@ -45,21 +45,37 @@
                                 </div>
                                 <div class="col-sm-6 mt-1">
                                 <?php
-                                    foreach($row->Items as $item){
-
-                                          $specials=array();
-                                           if($item->OpenItem=='0'){
-
+                                     $item=isset($row->Items) ? $row->Items : array();
+                                    $specials=array();
+                                    for($i=0;$i<count($item);$i++){
+                                        $array_modifiers=array();
+                                        if($item[$i]->OpenItem=='0' and $item[$i]->MenuType=='1'){
+                                               $amount=$item[$i]->GrossPrice;
+                                                for($j=$i+1;$j<count($item);$j++)
+                                                    {
+                                                    if($item[$j]->MenuType!='1')
+                                                        {
+                                                            if($item[$j]->MenuType!='5' and $item[$j]->MenuType!='6')
+                                                            {
+                                                               array_push($array_modifiers,$item[$j]->ItemName);
+                                                            }
+                                                            $amount+=$item[$j]->GrossPrice;
+                                                        }
+                                                       else{
+                                                           break;
+                                                       }
+                                                    }
                                                echo '<div class="row mb-2">
                                                    <div class="col-md-8">
-                                                       <h5 class="mb-0">'.$item->ItemName.'</h5>
-                                                       <div class="text-808080"></div>
+                                                       <h5 class="mb-0">'.$item[$i]->ItemName.'</h5>
+                                                       <div class="text-808080">'.implode(', ',$array_modifiers).'</div>
                                                    </div>
-                                                   <div class="col-md-4"> <h5 class="mb-0" style="text-align: right !important;">'.number_format($item->UnitPrice).'</h5></div>
+                                                   <div class="col-md-4"> <h5 class="mb-0" style="text-align: right !important;">'.number_format($amount).'</h5></div>
                                                </div>';
+
                                                }
-                                           else{
-                                               array_push($specials,$item);
+                                           elseif($item[$i]->OpenItem=='1' and $item[$i]->PLU=='0'){
+                                               array_push($specials,$item[$i]->ItemName);
                                            }
                                     }
                                     ?>
@@ -188,7 +204,7 @@
                                         Special Instructions
                                     </div>
                                     <div class="col-6 text-808080 mb-3 futura-book">
-                                        {{isset($specials[0]->ItemName)?$specials[0]->ItemName:''}}
+                                        {{isset($specials)? implode(' , ',$specials):''}}
                                     </div>
                                 </div>
                             </div>
