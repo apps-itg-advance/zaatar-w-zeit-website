@@ -6,7 +6,7 @@
                     <div class="form-container">
                         <div class="form-group">
                             {{--<input type="text" class="form-control" id="Pin" name="pin{{$sKey}}" />--}}
-                            <label>PIN Code</label>
+                            <label>Enter the validation code sent by SMS</label>
                             <input name="pin{{$sKey}}" type="text" id="Pin" class="mb-2">
                             <label id="PinMsg" class="text-danger"></label>
                         </div>

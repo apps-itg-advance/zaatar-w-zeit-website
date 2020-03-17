@@ -634,7 +634,7 @@ button {
 
 .login-modal .modal-content .title { color: #8cbe43; font-size: 25px;}
 .login-modal .modal-content { background: none; border: none;}
-.login-modal .modal-content .form-group label { color: #8dbf43;}
+.login-modal .modal-content .form-group label { color: #8dbf43; font-size: 16px; }
 .login-modal .modal-content .form-group .form-control { background: rgba(255,255,255,0.20); border: none; color: white; border-radius: 10px; margin-right: 2px; margin-left: 2px; }
 .login-modal .modal-content .form-group select.form-control { color: white; }
 .login-modal .modal-content .form-group select.form-control option {color: black;}
