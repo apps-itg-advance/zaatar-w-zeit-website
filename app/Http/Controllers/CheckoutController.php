@@ -347,7 +347,8 @@ class CheckoutController extends Controller
           session()->save();
 
       }
-        return redirect(route('home.menu'));
+        //dump($query);
+        //return $query;
         //return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
     }
 
