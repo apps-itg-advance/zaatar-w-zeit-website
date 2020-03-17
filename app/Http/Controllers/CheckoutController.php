@@ -355,7 +355,14 @@ class CheckoutController extends Controller
           session()->save();
 
       }
-        dump($query);
+        $url='home';
+      if(isset($query->PaymentURL) and $query->PaymentURL!=null)
+      {
+          $url='payment';
+          session()->put('onlinePaymentUrl',$query->PaymentURL);
+      }
+
+      echo $url;
         //return $query;
         //return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
     }
@@ -366,9 +373,15 @@ class CheckoutController extends Controller
      * @param  \App\Checkout  $checkout
      * @return \Illuminate\Http\Response
      */
-    public function show(Checkout $checkout)
+    public function payment_online()
     {
-        //
+        $url=session()->get('onlinePaymentUrl');
+        return view('checkouts.payment_online',compact('url'));
+    }
+    public function payment_status($status)
+    {
+
+        return redirect(route('home.menu'));
     }
 
     /**

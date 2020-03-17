@@ -40,18 +40,7 @@
     <script>
         $(".confirm").click(function(){
 	        spinnerButtons('show', $(this));
-            var radioValue = $("input[name='sp_i[]']:checked").val();
             var that = this;
-	        // if(!radioValue || radioValue==undefined){
-		    //     Swal.fire({
-			//         title: 'Warning!',
-			//         text: 'Some field are required!',
-			//         icon: 'warning',
-			//         confirmButtonText: 'Close'
-		    //     });
-		    //     spinnerButtons('hide', $(this));
-		    //     return null;
-	        // }
 	        $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

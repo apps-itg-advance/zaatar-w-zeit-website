@@ -237,7 +237,7 @@ $discount=0;
             type:'POST',
             url:'{{route('checkout.store')}}',
             data:$("#PlaceOrder").serialize(),
-            success:function(data){
+            success:function(res){
                 Swal.fire({
                     // position: 'top-end',
                     icon: 'success',
@@ -245,8 +245,13 @@ $discount=0;
                     showConfirmButton: false,
                     timer: 1200
                 });
-               // alert(data);
-                location.replace('{{route('home.menu')}}');
+               if(res=='home')
+                {
+                    location.replace('{{route('home.menu')}}');
+                }
+                else{
+                    location.replace('{{route('checkout.online')}}');
+                }
             }
         });
     });
