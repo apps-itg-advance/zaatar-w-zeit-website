@@ -106,6 +106,7 @@ $discount=0;
                             <div class="total-block text-right">
                                 Payment <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($payment)}} {{$currency}}</span>
                             </div>
+                            <hr/>
                             <div class="total-block text-right">
                                 Total <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($_total-$cart_wallet-$discount-$payment)}} {{$currency}}</span>
                             </div>
@@ -220,6 +221,7 @@ $discount=0;
                     showConfirmButton: false,
                     timer: 1200
                 });
+               // alert(data);
                 location.replace('{{route('home.menu')}}');
             }
         });
