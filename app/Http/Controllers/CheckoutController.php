@@ -291,7 +291,6 @@ class CheckoutController extends Controller
     }
     public function special_instructions_store(Request $request)
     {
-
         $query=$request->input('query');
         $_array=json_decode($query);
         session()->forget('cart_sp_instructions');
