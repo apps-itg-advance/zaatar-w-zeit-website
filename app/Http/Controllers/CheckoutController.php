@@ -380,7 +380,8 @@ class CheckoutController extends Controller
     }
     public function payment_status($status)
     {
-
+        session()->forget('onlinePaymentUrl');
+        session()->save();
         return redirect(route('home.menu'));
     }
 
