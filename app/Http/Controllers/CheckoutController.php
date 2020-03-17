@@ -292,11 +292,19 @@ class CheckoutController extends Controller
     }
     public function special_instructions_store(Request $request)
     {
-        $query=$request->input('query');
-        $_array=json_decode($query);
+        $query=$request->input('sp_i');
+        $sp_array=array();
+        if(isset($query[0]))
+        {
+            foreach ($query as $row)
+            {
+                $sp=json_decode($row);
+                $sp_array[]=array('ID'=>$sp->ID,'Title'=>$sp->Title);
+            }
+        }
         session()->forget('cart_sp_instructions');
         session()->save();
-        session()->put('cart_sp_instructions',$_array);
+        session()->put('cart_sp_instructions',$sp_array);
         $cart=session()->get('cart');
         $cart_info=session()->get('cart_info');
         $cart_gift=session()->get('cart_gift');

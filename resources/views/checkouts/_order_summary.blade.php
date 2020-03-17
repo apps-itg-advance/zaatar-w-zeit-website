@@ -205,7 +205,20 @@ $discount=0;
                                 Special Instructions
                             </div>
                             <div class="col-6 text-808080 mb-3 futura-book">
-                                {{isset($cart_sp_instructions->Title)?$cart_sp_instructions->Title:''}}
+                                @php
+                                    $array_sp=array();
+                                        if(isset($cart_sp_instructions[0]['Title']) and $cart_sp_instructions[0]['Title']!='')
+                                        {
+                                            foreach ($cart_sp_instructions as $spi)
+                                            {
+                                              array_push($array_sp,$spi['Title']);
+                                            }
+                                        }
+                                        if(count($array_sp)>0)
+                                        {
+                                         echo implode(' , ',$array_sp);
+                                        }
+                                @endphp
                             </div>
                         </div>
                     </div>
