@@ -230,6 +230,8 @@ $discount=0;
 </form>
 <script type="text/javascript">
     $('body').on('click', '.confirm', function(){
+        spinnerButtons('show', $(this));
+        var that = this;
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
