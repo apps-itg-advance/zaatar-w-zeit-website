@@ -53,6 +53,13 @@
         var GCount=parseInt($('.'+GroupCss+':checked').length);
         if(max_qty >0 && GCount>max_qty)
         {
+            Swal.fire({
+                // position: 'top-end',
+                icon: 'error',
+                title: 'Max Options is '+max_qty,
+                showConfirmButton: false,
+                timer: 1200
+            });
             $("#"+CheckId).prop('checked', false);
             return false;
         }
