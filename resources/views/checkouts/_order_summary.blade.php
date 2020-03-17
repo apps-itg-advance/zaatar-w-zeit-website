@@ -65,7 +65,18 @@ $discount=0;
                                                     }
                                                 @endphp
                                                 {{implode(', ',$md_array )}}
+
                                             </div>
+                                            @if(isset($values['meal']))
+                                                @php
+                                                    $meal=$values['meal'];
+                                                @endphp
+                                                @if($meal!=null)
+                                                    <div class="speacial-meal">
+                                                        MEAL <span class="d-inline-block mx-3">{{$meal['name']}}</span><span class="d-inline-block">{{number_format($meal['price'])}}</span>
+                                                    </div>
+                                                @endif
+                                            @endif
                                         </div>
                                         <div class="col-md-4"> <h5 class="mb-0" style="text-align: right !important;">{{number_format($price)}}</h5></div>
                                     </div>
