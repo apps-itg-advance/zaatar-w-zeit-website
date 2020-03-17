@@ -71,7 +71,8 @@ class CheckoutController extends Controller
             'YLocation'=>$_data->YLocation,
             'AddressType'=>$_data->TypeID,
             'City'=>$_data->CityName,
-            'Province'=>$_data->ProvinceName
+            'Province'=>$_data->ProvinceName,
+            'Company'=>$_data->CompanyName
         );
 
         session()->forget('cart_info');
@@ -346,7 +347,7 @@ class CheckoutController extends Controller
           session()->save();
 
       }
-        //dump($query);
+        dump($query);
         //return $query;
         //return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
     }

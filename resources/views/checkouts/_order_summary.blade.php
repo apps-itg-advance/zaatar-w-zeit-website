@@ -1,5 +1,5 @@
 @php
-    $_address=array($cart_info->City,$cart_info->Line1,$cart_info->Line2,$cart_info->Apartment);
+    $_address=array($cart_info->City,$cart_info->Line1,$cart_info->Line2,$cart_info->Apartment,$cart_info->Company);
     $_total=$delivery_charge;
 $discount=0;
 

@@ -254,6 +254,7 @@ class OrdersLibrary{
         $post_array['XLocation']=$cart_info->XLocation;
         $post_array['YLocation']=$cart_info->YLocation;
         $post_array['AddressType']=$cart_info->AddressType;
+        $post_array['CompanyName']=$cart_info->Company;
         $post_array['Instructions']='';
         $post_array['PaymentType']='cash';
         $post_array['Status']='pending';

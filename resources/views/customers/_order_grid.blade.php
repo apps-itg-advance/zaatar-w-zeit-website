@@ -6,7 +6,7 @@
         $total=0;
         $method='';
         $specials=array();
-         $adderss_array=array($row->City,$row->Line1,$row->Line2,$row->Apartment)
+         $adderss_array=array($row->City,$row->Line1,$row->Line2,$row->Apartment,$row->CompanyName)
     @endphp
     @if($favourite and !$row->Favorite)
         @continue
