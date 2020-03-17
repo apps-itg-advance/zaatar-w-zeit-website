@@ -238,18 +238,26 @@ $discount=0;
             url:'{{route('checkout.store')}}',
             data:$("#PlaceOrder").serialize(),
             success:function(res){
-                Swal.fire({
-                    // position: 'top-end',
-                    icon: 'success',
-                    title: 'Order Submitted successfully.',
-                    showConfirmButton: false,
-                    timer: 1200
-                });
+
                if(res=='home')
                 {
+                    Swal.fire({
+                        // position: 'top-end',
+                        icon: 'success',
+                        title: 'Order Submitted successfully.',
+                        showConfirmButton: false,
+                        timer: 1200
+                    });
                     location.replace('{{route('home.menu')}}');
                 }
                 else{
+                   Swal.fire({
+                       // position: 'top-end',
+                       icon: 'success',
+                       title: 'Please wait ...',
+                       showConfirmButton: false,
+                       timer: 3200
+                   });
                     location.replace('{{route('checkout.online')}}');
                 }
             }
