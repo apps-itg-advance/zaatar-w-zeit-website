@@ -70,7 +70,11 @@ class CustomerLibrary
         $s_org=session()->get('_org');
         $url=env('BASE_URL').'addresses/get?token='.$s_org->token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
             $query=Helper::getApi($url);
-            $res=$query->data;
+            $res=array();
+            if(isset($query->data))
+            {
+                $res=$query->data;
+            }
             session()->put('addresses'.$Skey,$res);
         return $res;
     }
