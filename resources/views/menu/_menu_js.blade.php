@@ -55,7 +55,7 @@
         {
             Swal.fire({
                 // position: 'top-end',
-                icon: 'error',
+                icon: 'warning',
                 title: 'Max Options is '+max_qty,
                 showConfirmButton: false,
                 timer: 1200
