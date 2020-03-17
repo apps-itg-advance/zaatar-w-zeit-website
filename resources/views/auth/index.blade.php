@@ -90,7 +90,10 @@
         jQuery(document).ready( function() {
 
         	// flatpickr(".flatpickr");
-	        $(".flatpickr").flatpickr();
+	        // $(".flatpickr").flatpickr();
+	        $(".flatpickr-today").flatpickr({
+                maxDate: 'today'
+            });
 
 
 	        // $('.datepicker').datepicker({
@@ -296,18 +299,58 @@
             });
 
             $('#Registerbtn').on('click', function(event){
+            	spinnerButtons('show', $(this));
+	            var validated = true;
                 var dob=$('#R_dob{{$sKey}}').val();
                 var firstn=$('#R_FirstName{{$sKey}}').val();
                 var lastn=$('#R_FamilyName{{$sKey}}').val();
-                if(dob=='' || firstn=='' || lastn=='')
-                {
-                    jQuery('#R_dob').html('DOB is required');
-                    jQuery('#R_FirstName').html('Name is required');
-                    jQuery('#R_FamilyName').html('Family Name is required');
-                    return false;
-                }
+                var gender=$('#R_Gender{{$sKey}}').val();
+	            if(dob=='')
+	            {
+		            jQuery('#R_dob').html('DOB is required');
+		            validated = false;
+	            }
+	            else
+	            {
+		            jQuery('#R_dob').html(' ');
+	            }
+	            if( firstn==''){
+		            jQuery('#R_FirstName').html('Name is required');
+		            validated = false;
+	            }
+	            else
+	            {
+		            jQuery('#R_FirstName').html(' ');
+	            }
+	            if( lastn==''){
+		            jQuery('#R_FamilyName').html('Family Name is required');
+		            validated = false;
+	            }
+	            else
+	            {
+		            jQuery('#R_FamilyName').html(' ');
+	            }
+	            if( gender==''){
+		            jQuery('#R_Gender').html('Gender is required');
+		            validated = false;
+	            }
+	            else
+	            {
+		            jQuery('#R_Gender').html(' ');
+	            }
 
-                event.preventDefault();
+	            if(!validated){
+		            Swal.fire({
+			            title: 'Warning!',
+			            text: 'Some fields are required!',
+			            icon: 'warning',
+			            confirmButtonText: 'Close'
+		            });
+		            spinnerButtons('hide', $(this));
+		            return null;
+	            }
+
+	            event.preventDefault();
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -317,7 +360,7 @@
                     data:$("#Register").serialize(),
                     dataType:'json',
                     success:function(result){
-
+	                    spinnerButtons('hide', $(this));
                         if(result.message=='success')
                         {
                             // jQuery('#mobileNb{{$sKey}}').val(result.data['MobileNumber']);

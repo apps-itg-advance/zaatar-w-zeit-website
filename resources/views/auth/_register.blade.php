@@ -8,18 +8,18 @@
 
                     <div class="form-container">
 
-                        <div class="form-group">
-                            <label id="RegisterMsg" style="color: red !important;"></label>
+                        <div class="form-group m-0">
+                            <label id="RegisterMsg" style="color: rgb(217, 83, 79) !important;"></label>
                         </div>
                         <div class="form-group">
                             <label>Name</label>
-                            <div class="required" id="R_FirstName"></div>
                             <input type="text"  name="first_name{{$sKey}}" id="R_FirstName{{$sKey}}" class="form-control" required />
+                            <div class="required" id="R_FirstName"></div>
                         </div>
                         <div class="form-group">
                             <label>Family Name</label>
-                            <div class="required" id="R_FamilyName"></div>
                             <input type="text"  name="family_name{{$sKey}}" id="R_FamilyName{{$sKey}}" class="form-control"  required />
+                            <div class="required" id="R_FamilyName"></div>
                         </div>
 
                         <input type="hidden" name="country_code{{$sKey}}" id="R_CountryCode{{$sKey}}" />
@@ -29,28 +29,29 @@
 
                         <div class="form-group">
                             <label>Gender</label>
-                            <select name="gender{{$sKey}}" id="R_Gender" class="form-control">
+                            <select name="gender{{$sKey}}" id="R_Gender{{$sKey}}" class="form-control">
                                 <option value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
+                            <div class="required" id="R_Gender"></div>
                         </div>
                         <div class="form-group">
                             <label>DOB</label>
-                            <div class="required" id="R_dob"></div>
                             {{--<div class="input-group date " data-provide="datepicker" data-date-format="yyyy-mm-dd" >--}}
                             <div class="input-group">
                                 {{--<div class="flatpickr">--}}
                                     {{--<input class="flatpickr flatpickr-input active" type="text" placeholder="Select Date.."> <!-- input is mandatory -->--}}
                                 {{--</div>--}}
 
-                                <input type="text" class="form-control flatpickr flatpickr-input active"  name="dob{{$sKey}}" id="R_dob{{$sKey}}"  required />
+                                <input type="text" class="form-control flatpickr-today active"  name="dob{{$sKey}}" id="R_dob{{$sKey}}"  required />
                                 {{--<div class="input-group-addon input-button" style="float: right">--}}
                                     {{--<i class="fa fa-calendar fa-2x" data-toggle style="color: #8dbf43" aria-hidden="true"></i>--}}
                                 {{--</div>--}}
                             </div>
+                            <div class="required" id="R_dob"></div>
                         </div>
-                        <div class="py-5">
+                        <div class="mt-3">
                             <button type="button" id="Registerbtn"  class="btn btn-submit btn-login btn-block text-uppercase">Register</button>
                             <button type="button" id="BackToPinBtn" class="btn btn-submit btn-login btn-block text-uppercase">Back</button>
                         </div>
