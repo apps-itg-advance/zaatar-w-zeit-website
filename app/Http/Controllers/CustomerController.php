@@ -291,6 +291,8 @@ class CustomerController extends Controller
         $floor=$request->input('floor'.$Skey);
         $phone=$request->input('phone'.$Skey);
         $ext=$request->input('ext'.$Skey);
+        $xLocation=$request->input('x_location'.$Skey);
+        $yLocation=$request->input('y_location'.$Skey);
         $line2=$building_name.' Bldg '.$building_nbr;
 
         $apartment=$floor.' Ext: '.$ext;
@@ -317,8 +319,8 @@ class CustomerController extends Controller
             'PhoneCode'=>$loyalty_id,
             'Phone'=>$phone,
             'CityId'=>$city_id,
-            'XLocation'=>'',
-            'YLocation'=>'',
+            'XLocation'=>$xLocation,
+            'YLocation'=>$yLocation,
             'PersonalInfo'=>'',
             'Company'=>'',
             'IsDefault'=>$is_default==1 ? 1:0,
