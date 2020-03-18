@@ -22,7 +22,6 @@ class CustomerLibrary
 
         $url=env('BASE_URL').'addresses/edit';
         $query=Helper::postApi($url,$array);
-        dd($array, $query);
         return $query;
     }
     public static function AddAddress($array)
