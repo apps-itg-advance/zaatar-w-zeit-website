@@ -17,7 +17,7 @@
                 @foreach($query as $row)
                     @if($row->Promo=='0')
                         <div class="custom-control custom-radio mb-4">
-                            <input type="radio" id="payment{{$row->PaymentId}}" data-id="{{$row->PaymentId}}" name="payments" value="{{json_encode($row)}}" onclick="ShowCurrency({{$row->PaymentId}})" class="custom-control-input">
+                            <input type="radio" id="payment{{$row->PaymentId}}" data-name="{{$row->Name}}" data-id="{{$row->PaymentId}}" name="payments" value="{{json_encode($row)}}" onclick="ShowCurrency({{$row->PaymentId}})" class="custom-control-input">
                             <label class="custom-control-label text-uppercase" for="payment{{$row->PaymentId}}">
                                 {{$row->Label}}
                             </label>
@@ -66,6 +66,7 @@
 			spinnerButtons('show', $(this));
 			var radioValue = $("input[name='payments']:checked").val();
             var id = $("input[name='payments']:checked").data('id');
+            var pname = $("input[name='payments']:checked").data('name');
             var currency = $("input[name='payment_currency"+id+"']:checked").val();
 			if(!radioValue || radioValue==undefined){
 				Swal.fire({
@@ -77,7 +78,7 @@
 				spinnerButtons('hide', $(this));
 				return null;
 			}
-            if(!currency || currency==undefined){
+            if((!currency || currency==undefined) && pname=='credit'){
                 Swal.fire({
                     title: 'Warning!',
                     text: 'You must choose a currency!',
