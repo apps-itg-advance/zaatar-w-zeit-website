@@ -274,10 +274,13 @@ class CheckoutController extends Controller
     public function payment_store(Request $request)
     {
         $query=$request->input('query');
+        $currency=$request->input('currency');
         $_array=json_decode($query);
         session()->forget('cart_payment');
+        session()->forget('cart_payment_currency');
         session()->save();
         session()->put('cart_payment',$_array);
+        session()->put('cart_payment_currency',$currency);
         return 'true';
 
     }
@@ -348,10 +351,13 @@ class CheckoutController extends Controller
           session()->forget('cart_info');
           session()->forget('cart_gift');
           session()->forget('cart_payment');
+          session()->forget('cart_payment_currency');
+
           session()->forget('cart_green');
           session()->forget('cart_vouchers');
           session()->forget('cart_wallet');
           session()->forget('items_customized');
+
           session()->save();
 
       }
