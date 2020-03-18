@@ -61,6 +61,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::post('/checkout/payment-store', 'CheckoutController@payment_store')->name('checkout.payment.store');
     Route::post('/checkout/special-instructions-store', 'CheckoutController@special_instructions_store')->name('checkout.special.instructions.store');
     Route::post('/checkout/loyalty-store', 'CheckoutController@loyalty_store')->name('checkout.loyalty.store');
+    Route::get('/checkout/delete/{step?}', 'CheckoutController@delete')->name('checkout.delete');
 
     Route::post('/checkout/store', 'CheckoutController@store')->name('checkout.store');
     Route::get('/checkout/payment/online', 'CheckoutController@payment_online')->name('checkout.online');

@@ -20,6 +20,12 @@ class CheckoutController extends Controller
     public function __construct()
     {
         $this->query=SettingsLib::GetDeliveryScreenDataSteps();
+        $this->Steps=array();
+        foreach ($this->query->Steps as $row)
+        {
+            $this->Steps[$row->Step]=$row;
+        }
+
         $this->skey = session()->get('skey');
         view()->composer('*', function ($view) {
             $view->with('delivery_info',$this->query);
@@ -42,15 +48,15 @@ class CheckoutController extends Controller
      */
     public function address()
     {
+        $step=1;
+        $settings=$this->Steps[$step];
         $skey = session()->get('skey');
         $cart = Session::get('cart');
-        $addresses = session()->get('addresses'.$skey) ?? [];
+        $addresses =  $this->query->Addresses ?? [];
         $cities=SettingsLib::GetCities();
-        //dump($addresses);
-       //die;
 	    $_active_css='';
         $class_css='checkout-wrapper';
-        return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities'));  //
+        return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities','settings'));  //
     }
     public function address_store(Request $request)
     {
@@ -83,61 +89,28 @@ class CheckoutController extends Controller
     }
     public function wallet()
     {
+        $step=2;
+        $settings=$this->Steps[$step];
         $skey=session()->get('skey');
         $user=session()->get('user'.$skey);
         $loyalty_id=$user->details->LoyaltyId;
         $wallet_balance=$user->details->WalletAmountBalance;
         $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
         session()->put('vouchers',$vouchers);
-       // dump($vouchers);
-       /* for ($i=0;$i<count($v);$i++)
-        {
-            $qty=1;
-            $array_exp=array($v[$i]->ExpiryDate=>1);
-            $array_ids=array($v[$i]->Id);
-            if($i>1)
-            {
-                for ($j=$i+1;$j<count($v);$j++)
-                {
-                    if($v[$i]->Value==$v[$j]->Value and $v[$i]->ValueType==$v[$j]->ValueType)
-                    {
-                        $qty++;
-                        if(isset($array_exp[$v[$j]->ExpiryDate]))
-                        {
-                            $array_exp[$v[$j]->ExpiryDate]=$array_exp[$v[$j]->ExpiryDate]+1;
-                        }
-                        else{
-                            $array_exp[$v[$j]->ExpiryDate]=1;
-                        }
-                        $array_ids[]=$v[$j]->Id;
-                        $array_keys[]=$v[$j]->Id;
-                    }
-
-
-                }
-            }
-
-            if(!in_array($v[$i]->Id,$array_keys))
-            {
-                $array_keys[]=$v[$i]->Id;
-                array_push($vouchers,array('Id'=>$v[$i]->Id,'Qty'=>$qty,'Value'=>$v[$i]->Value,'ValueType'=>$v[$i]->ValueType,'Category'=>$v[$i]->Category,'ExpiryDates'=>$array_exp,'Ids'=>$array_keys));
-
-            }
-
-        }
-       */
         $cart = Session::get('cart');
 	    $_active_css='address';
         $class_css='checkout-wrapper';
-        return view('checkouts.wallet',compact('cart','class_css','_active_css','vouchers','wallet_balance'));  //
+        return view('checkouts.wallet',compact('cart','class_css','_active_css','vouchers','wallet_balance','settings'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
     public function gift()
     {
-        $cart = Session::get('cart');
+        $step=3;
+        $settings=$this->Steps[$step];
+        $cart = session()->get('cart');
 	    $_active_css='wallet';
 	    $class_css='checkout-wrapper';
-        return view('checkouts.gift',compact('cart','class_css','_active_css'));  //
+        return view('checkouts.gift',compact('cart','class_css','_active_css','settings'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
     public function gift_store(Request $request)
@@ -162,6 +135,41 @@ class CheckoutController extends Controller
         session()->forget('cart_gift');
         session()->save();
         return 'true';
+
+    }
+    public function delete($step)
+    {
+        switch ($step) {
+            case 'address':
+                session()->forget('cart_info');
+                $redirect=route('checkout.wallet');
+                break;
+            case 'wallet':
+                session()->forget('cart_wallet');
+                session()->forget('cart_vouchers');
+                $redirect=route('checkout.gift');
+                break;
+            case 'gift':
+                session()->forget('cart_gift');
+                $redirect=route('checkout.green');
+                break;
+            case 'green':
+                session()->forget('cart_green');
+                $redirect=route('checkout.payment');
+                break;
+            case 'payment':
+                session()->forget('cart_payment');
+                session()->forget('cart_payment_currency');
+                $redirect=route('checkout.special_instructions');
+                break;
+            case 'special_inst':
+                session()->forget('cart_sp_instructions');
+                $redirect=route('checkout.wallet');
+                break;
+
+        }
+        session()->save();
+        return $redirect;
 
     }
     public function loyalty_store(Request $request)
@@ -240,10 +248,12 @@ class CheckoutController extends Controller
 
     public function green()
     {
+        $step=4;
+        $settings=$this->Steps[$step];
         $cart = Session::get('cart');
 	    $_active_css='gift';
         $class_css='checkout-wrapper';
-        return view('checkouts.green',compact('cart','class_css','_active_css'));  //
+        return view('checkouts.green',compact('cart','class_css','_active_css','settings'));  //
     }
     public function green_store(Request $request)
     {
@@ -265,10 +275,12 @@ class CheckoutController extends Controller
 
     public function payment()
     {
+        $step=5;
+        $settings=$this->Steps[$step];
         $cart = Session::get('cart');
 	    $_active_css='green';
         $class_css='checkout-wrapper';
-        return view('checkouts.payment',compact('cart','class_css','_active_css'));  //
+        return view('checkouts.payment',compact('cart','class_css','_active_css','settings'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
     public function payment_store(Request $request)
@@ -286,11 +298,12 @@ class CheckoutController extends Controller
     }
     public function special_instructions()
     {
-        //dump(session()->all());
+        $step=6;
+        $settings=$this->Steps[$step];
         $cart = Session::get('cart');
 	    $_active_css='payment';
         $class_css='checkout-wrapper';
-        return view('checkouts.special_instructions',compact('cart','class_css','_active_css'));  //
+        return view('checkouts.special_instructions',compact('cart','class_css','_active_css','settings'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
     public function special_instructions_store(Request $request)

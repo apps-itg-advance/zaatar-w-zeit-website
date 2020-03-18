@@ -84,13 +84,17 @@
 @if($checkout)
     <input type="hidden" name="Voucher" id="voucher">
     <div class="action-buttons text-center pt-4">
-        <button type="button" class="btn btn-8DBF43 text-uppercase confirm">Confirm</button>
+        <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">Confirm</button>
+        @if(isset($settings->Required) and !$settings->Required)
+            <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('wallet')">Skip</button>
+        @endif
     </div>
 @endif
 
 @section('javascript')
 <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
 <script type="text/javascript">
+
     jQuery('.wallet-carousel').owlCarousel({
         loop : false,
         navText : ['', ''],
