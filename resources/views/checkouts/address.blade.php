@@ -1,7 +1,7 @@
 @extends('layouts.template')
 @section('content')
     @php
-
+        $addresses=(isset($addresses) and $addresses!=null)? $addresses:array();
     @endphp
     <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 float-none p-0 mx-auto">
 
@@ -38,7 +38,7 @@
                 </div>
                 <div class="buttons">
                     <a href="#" onclick="EditAddress({{json_encode($address)}})" class="d-inline-block mr-3"><img src="{{asset('assets/images/icon-checkout-edit.png')}}" /></a>
-                    <a href="{{route('customer.address.delete',['id'=>$address->ID])}}" class="d-inline-block"><img src="{{asset('assets/images/icon-checkout-close.png')}}" /></a>
+                    <a href="javascript:void(0)" onclick="DeleteAddress({{$address->ID}})" class="d-inline-block"><img src="{{asset('assets/images/icon-checkout-close.png')}}" /></a>
                 </div>
             </div>
 
@@ -90,6 +90,21 @@
             }
 
         });
+        function DeleteAddress(address_id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    window.location = '{{route('customer.address.delete')}}'+'/'+address_id;
+                }
+            })
+        }
         function EditAddress(address)
         {
             $.ajax({

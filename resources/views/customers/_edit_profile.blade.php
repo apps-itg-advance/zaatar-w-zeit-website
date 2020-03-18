@@ -56,7 +56,7 @@
                                     foreach ($addresses as $address)
                                     {
 
-                                        if($address->IsDefault=='1')
+                                        if($address->IsDefault=='1' or count($addresses)==1)
                                         {
                                          echo '<input type="hidden" name="address_id'.$Skey.'" value="'.$address->ID.'">';
                                             $main_address=$address;

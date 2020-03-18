@@ -131,9 +131,12 @@ class OrdersLibrary{
             );
             array_push($array_items,$_green_array);
         }
-        if(isset($cart_sp_instructions) and $cart_sp_instructions->ID!=null)
+
+        if(isset($cart_sp_instructions[0]['ID']) and $cart_sp_instructions[0]['ID']!=null)
         {
-             $_sp_array=array(
+            foreach ($cart_sp_instructions as $sp_ins)
+            {
+                $_sp_array=array(
                     'ItemPlu'=>$open_plu,
                     'GrossPrice'=>0,
                     'OrderItemId'=>0,
@@ -141,10 +144,12 @@ class OrdersLibrary{
                     'ParentPLU'=>0,
                     'UnitPrice'=>0,
                     'Quantity'=>1,
-                    'ItemName'=>$cart_sp_instructions->Title,
+                    'ItemName'=>$sp_ins['Title'],
                     'ItemType'=>1
                 );
                 array_push($array_items,$_sp_array);
+            }
+
 
 
         }
@@ -254,6 +259,7 @@ class OrdersLibrary{
         $post_array['XLocation']=$cart_info->XLocation;
         $post_array['YLocation']=$cart_info->YLocation;
         $post_array['AddressType']=$cart_info->AddressType;
+        $post_array['CompanyName']=$cart_info->Company;
         $post_array['Instructions']='';
         $post_array['PaymentType']='cash';
         $post_array['Status']='pending';

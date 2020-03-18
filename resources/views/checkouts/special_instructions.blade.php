@@ -11,13 +11,14 @@
     </div>
     @include('partials.checkout_bread')
         <div class="col-xl-6 col-lg-10 float-none p-0 mx-auto item-summary">
+            <form id="FormSp" method="post">
             <div class="title-div mb-5">
                 <h2 class="title ml-0">Special Instructions</h2>
             </div>
             <div class="radios-green mb-5">
                 @foreach($query as $row)
                 <div class="custom-control custom-radio mb-4">
-                    <input type="radio" id="instructions{{$row->ID}}" name="sp_i" value="{{json_encode($row)}}" class="custom-control-input">
+                    <input type="checkbox" id="instructions{{$row->ID}}" name="sp_i[]" value="{{json_encode($row)}}" class="custom-control-input">
                     <label class="custom-control-label text-uppercase" for="instructions{{$row->ID}}">
                         {{$row->Title}}
                     </label>
@@ -27,6 +28,7 @@
             <div class="action-buttons text-center">
                 <button type="button" class="btn btn-8DBF43 text-uppercase confirm">Checkout</button>
             </div>
+            </form>
         </div>
     </div>
     <div class="OrderSummary modal fade" id="OrderSummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -38,24 +40,13 @@
     <script>
         $(".confirm").click(function(){
 	        spinnerButtons('show', $(this));
-            var radioValue = $("input[name='sp_i']:checked").val();
             var that = this;
-	        // if(!radioValue || radioValue==undefined){
-		    //     Swal.fire({
-			//         title: 'Warning!',
-			//         text: 'Some field are required!',
-			//         icon: 'warning',
-			//         confirmButtonText: 'Close'
-		    //     });
-		    //     spinnerButtons('hide', $(this));
-		    //     return null;
-	        // }
 	        $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: 'POST',
-                data: {query: radioValue},
+                data: $("#FormSp").serialize(),
                 url: '{{route('checkout.special.instructions.store')}}',
                 success: function (data) {
 	                spinnerButtons('hide', $(that));

@@ -71,7 +71,8 @@ class CheckoutController extends Controller
             'YLocation'=>$_data->YLocation,
             'AddressType'=>$_data->TypeID,
             'City'=>$_data->CityName,
-            'Province'=>$_data->ProvinceName
+            'Province'=>$_data->ProvinceName,
+            'Company'=>$_data->CompanyName
         );
 
         session()->forget('cart_info');
@@ -291,11 +292,19 @@ class CheckoutController extends Controller
     }
     public function special_instructions_store(Request $request)
     {
-        $query=$request->input('query');
-        $_array=json_decode($query);
+        $query=$request->input('sp_i');
+        $sp_array=array();
+        if(isset($query[0]))
+        {
+            foreach ($query as $row)
+            {
+                $sp=json_decode($row);
+                $sp_array[]=array('ID'=>$sp->ID,'Title'=>$sp->Title);
+            }
+        }
         session()->forget('cart_sp_instructions');
         session()->save();
-        session()->put('cart_sp_instructions',$_array);
+        session()->put('cart_sp_instructions',$sp_array);
         $cart=session()->get('cart');
         $cart_info=session()->get('cart_info');
         $cart_gift=session()->get('cart_gift');
@@ -346,7 +355,14 @@ class CheckoutController extends Controller
           session()->save();
 
       }
-        //dump($query);
+        $url='home';
+      if(isset($query->PaymentURL) and $query->PaymentURL!=null)
+      {
+          $url='payment';
+          session()->put('onlinePaymentUrl',$query->PaymentURL);
+      }
+
+      echo $url;
         //return $query;
         //return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
     }
@@ -357,9 +373,16 @@ class CheckoutController extends Controller
      * @param  \App\Checkout  $checkout
      * @return \Illuminate\Http\Response
      */
-    public function show(Checkout $checkout)
+    public function payment_online()
     {
-        //
+        $url=session()->get('onlinePaymentUrl');
+        return view('checkouts.payment_online',compact('url'));
+    }
+    public function payment_status($status)
+    {
+        session()->forget('onlinePaymentUrl');
+        session()->save();
+        return redirect(route('home.menu'));
     }
 
     /**

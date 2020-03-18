@@ -1,5 +1,5 @@
 @php
-    $_address=array($cart_info->City,$cart_info->Line1,$cart_info->Line2,$cart_info->Apartment);
+    $_address=array($cart_info->City,$cart_info->Line1,$cart_info->Line2,$cart_info->Apartment,$cart_info->Company);
     $_total=$delivery_charge;
 $discount=0;
 
@@ -65,7 +65,18 @@ $discount=0;
                                                     }
                                                 @endphp
                                                 {{implode(', ',$md_array )}}
+
                                             </div>
+                                            @if(isset($values['meal']))
+                                                @php
+                                                    $meal=$values['meal'];
+                                                @endphp
+                                                @if($meal!=null)
+                                                    <div class="speacial-meal">
+                                                        MEAL <span class="d-inline-block mx-3">{{$meal['name']}}</span><span class="d-inline-block">{{number_format($meal['price'])}}</span>
+                                                    </div>
+                                                @endif
+                                            @endif
                                         </div>
                                         <div class="col-md-4"> <h5 class="mb-0" style="text-align: right !important;">{{number_format($price)}}</h5></div>
                                     </div>
@@ -194,7 +205,20 @@ $discount=0;
                                 Special Instructions
                             </div>
                             <div class="col-6 text-808080 mb-3 futura-book">
-                                {{isset($cart_sp_instructions->Title)?$cart_sp_instructions->Title:''}}
+                                @php
+                                    $array_sp=array();
+                                        if(isset($cart_sp_instructions[0]['Title']) and $cart_sp_instructions[0]['Title']!='')
+                                        {
+                                            foreach ($cart_sp_instructions as $spi)
+                                            {
+                                              array_push($array_sp,$spi['Title']);
+                                            }
+                                        }
+                                        if(count($array_sp)>0)
+                                        {
+                                         echo implode(' , ',$array_sp);
+                                        }
+                                @endphp
                             </div>
                         </div>
                     </div>
@@ -206,6 +230,8 @@ $discount=0;
 </form>
 <script type="text/javascript">
     $('body').on('click', '.confirm', function(){
+        spinnerButtons('show', $(this));
+        var that = this;
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -213,16 +239,29 @@ $discount=0;
             type:'POST',
             url:'{{route('checkout.store')}}',
             data:$("#PlaceOrder").serialize(),
-            success:function(data){
-                Swal.fire({
-                    // position: 'top-end',
-                    icon: 'success',
-                    title: 'Order Submitted successfully.',
-                    showConfirmButton: false,
-                    timer: 1200
-                });
-               // alert(data);
-                location.replace('{{route('home.menu')}}');
+            success:function(res){
+
+               if(res=='home')
+                {
+                    Swal.fire({
+                        // position: 'top-end',
+                        icon: 'success',
+                        title: 'Order Submitted successfully.',
+                        showConfirmButton: false,
+                        timer: 1200
+                    });
+                    location.replace('{{route('home.menu')}}');
+                }
+                else{
+                   Swal.fire({
+                       // position: 'top-end',
+                       icon: 'success',
+                       title: 'Please wait ...',
+                       showConfirmButton: false,
+                       timer: 3200
+                   });
+                    location.replace('{{route('checkout.online')}}');
+                }
             }
         });
     });

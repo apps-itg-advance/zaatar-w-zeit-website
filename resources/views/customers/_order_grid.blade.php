@@ -6,7 +6,7 @@
         $total=0;
         $method='';
         $specials=array();
-         $adderss_array=array($row->City,$row->Line1,$row->Line2,$row->Apartment)
+         $adderss_array=array($row->City,$row->Line1,$row->Line2,$row->Apartment,$row->CompanyName)
     @endphp
     @if($favourite and !$row->Favorite)
         @continue
@@ -35,6 +35,7 @@
                         $item=isset($row->Items) ? $row->Items : array();
                         $specials=array();
                         for($i=0;$i<count($item);$i++){
+                            $meal_display='';
                             $array_modifiers=array();
                             if($item[$i]->OpenItem=='0' and $item[$i]->MenuType=='1'){
                                 $amount=$item[$i]->GrossPrice;
@@ -46,6 +47,10 @@
                                         {
                                             array_push($array_modifiers,$item[$j]->ItemName);
                                         }
+                                        elseif($item[$j]->MenuType=='5')
+                                            {
+                                              $meal_display='<div class="speacial-meal">MEAL <span class="d-inline-block mx-3">'.$item[$j]->ItemName.'</span><span class="d-inline-block">'.number_format($item[$j]->GrossPrice).'</span></div>';
+                                            }
                                         $amount+=$item[$j]->GrossPrice;
                                     }
                                     else{
@@ -56,6 +61,7 @@
                                                    <div class="col-md-8">
                                                        <h5 class="mb-0">'.$item[$i]->ItemName.'</h5>
                                                        <div class="text-808080">'.implode(', ',$array_modifiers).'</div>
+                                                       '.$meal_display.'
                                                    </div>
                                                    <div class="col-md-4"> <h5 class="mb-0" style="text-align: right !important;">'.number_format($amount).'</h5></div>
                                                </div>';
