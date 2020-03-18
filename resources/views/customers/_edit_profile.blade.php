@@ -143,8 +143,8 @@
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <input type="text" id="pac-input" class="form-control" name="" placeholder="Enter a location" value="">
-                                        <input type="hidden" class="form-control" id="modal_latitude" name="y_location{{$Skey}}" value="{{$address->YLocation}}">
-                                        <input type="hidden" class="form-control" id="modal_longitude" name="x_location{{$Skey}}" value="{{$address->XLocation}}">
+                                        <input type="hidden" class="form-control" id="modal_latitude" name="y_location{{$Skey}}" value="{{$main_address->YLocation}}">
+                                        <input type="hidden" class="form-control" id="modal_longitude" name="x_location{{$Skey}}" value="{{$main_address->XLocation}}">
                                     </div>
                                 </div>
                             </div>
@@ -154,10 +154,10 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <input class="form-control" type="number" id="manual_latitude" placeholder="Latitude" value="{{$address->YLocation}}" >
+                                            <input class="form-control" type="number" id="manual_latitude" placeholder="Latitude" value="{{$main_address->YLocation}}" >
                                         </div>
                                         <div class="col-md-5">
-                                            <input class="form-control" type="number" id="manual_longitude" placeholder="Longitude" value="{{$address->XLocation}}">
+                                            <input class="form-control" type="number" id="manual_longitude" placeholder="Longitude" value="{{$main_address->XLocation}}">
                                         </div>
                                         <div class="col-md-2">
                                             <a class="btn btn-primary btn-sm btn-lat-log-map" href="javascript:setMarkerOnMap('modal_map','manual_latitude','manual_longitude')">Set Marker</a>
@@ -168,7 +168,7 @@
 
                             <div class="form-group">
                                 <label class="control-label col-md-3"></label>
-                                <div id="modal_map" class="col-xs-9" style="height:200px" data-latitudeid="modal_latitude" data-longitudeid="modal_longitude" data-latitude="{{$address->YLocation}}" data-longitude="{{$address->XLocation}}"></div>
+                                <div id="modal_map" class="col-xs-9" style="height:200px" data-latitudeid="modal_latitude" data-longitudeid="modal_longitude" data-latitude="{{$main_address->YLocation}}" data-longitude="{{$main_address->XLocation}}"></div>
                             </div>
 
 
