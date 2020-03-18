@@ -26,13 +26,14 @@
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-3">
-                                            <input type="radio" id="pay-usd-{{$row->PaymentId}}" name="payment_currency{{$row->PaymentId}}" value="USD" class="custom-control-input curr req{{$row->PaymentId}}">
-                                            <label class="custom-control-label text-uppercase" for="pay-usd-{{$row->PaymentId}}">USD</label>
-                                        </div>
-                                        <div class="col-md-3">
                                             <input type="radio" id="pay-lbp-{{$row->PaymentId}}" name="payment_currency{{$row->PaymentId}}" value="LBP" class="custom-control-input curr req{{$row->PaymentId}}">
                                             <label class="custom-control-label text-uppercase" for="pay-lbp-{{$row->PaymentId}}">LBP</label>
                                         </div>
+                                        <div class="col-md-3">
+                                            <input type="radio" id="pay-usd-{{$row->PaymentId}}" name="payment_currency{{$row->PaymentId}}" value="USD" class="custom-control-input curr req{{$row->PaymentId}}">
+                                            <label class="custom-control-label text-uppercase" for="pay-usd-{{$row->PaymentId}}">USD</label>
+                                        </div>
+
                                     </div>
                                 </div>
                                  @endif
