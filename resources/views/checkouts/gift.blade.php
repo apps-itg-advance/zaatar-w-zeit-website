@@ -46,27 +46,16 @@
             </div>
             <div class="action-buttons text-center mt-3 pt-4">
                 <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">Confirm</button>
-                <button type="button" class="btn btn-B3B3B3 text-uppercase skip">Skip</button>
+                @if(isset($settings->Required) and !$settings->Required)
+                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('gift')">Skip</button>
+                @endif
             </div>
         </div>
     </div>
 @endsection
 @section('javascript')
     <script>
-		$(".skip").click(function(){
-            spinnerButtons('show', $(this));
-			$.ajax({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				},
-				type: 'POST',
-				dataType:'json',
-				url: '{{route('checkout.gift.delete')}}',
-				success: function (data) {
-					window.location = '{{route('checkout.green')}}';
-				}
-			});
-		});
+
 		$(".confirm").click(function(){
 			spinnerButtons('show', $(this));
 			to=$("#gift_to{{$skey}}").val();

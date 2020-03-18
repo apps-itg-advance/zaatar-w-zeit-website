@@ -67,7 +67,7 @@
                                                </div>';
 
                             }
-                            elseif($item[$i]->OpenItem=='1' and $item[$i]->PLU=='0'){
+                            elseif($item[$i]->OpenItem=='1' and $item[$i]->ItemId=='0'){
                                 array_push($specials,$item[$i]->ItemName);
                             }
                         }

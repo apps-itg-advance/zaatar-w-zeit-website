@@ -89,6 +89,17 @@
 		//  jQuery(".cart-dropdown").css("overflow-y", 'scroll');
 
 	});
+
+    function SkipBtn(step) {
+        spinnerButtons('show', $('.skip'));
+        $.ajax({
+            type: 'get',
+            url: '{{route('checkout.delete')}}/'+step,
+            success: function (data) {
+               window.location = data;
+            }
+        });
+    }
 	function _getCountCartItems() {
 		$.ajax({
 			type:'GET',

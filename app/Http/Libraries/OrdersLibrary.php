@@ -22,6 +22,8 @@ class OrdersLibrary{
         $cart_info=session()->get('cart_info');
         $cart_gift=session()->get('cart_gift');
         $cart_payment=session()->get('cart_payment');
+        $_currency=session()->get('cart_payment_currency');
+
         $cart_sp_instructions=session()->get('cart_sp_instructions');
 
         $cart_green=session()->get('cart_green');
@@ -267,6 +269,8 @@ class OrdersLibrary{
         $post_array['paymentParts']=$array_payments;
         $post_array['Items']=$array_items;
         $post_array['ReferralSource']='web';
+        $post_array['OnlineCurrency']=$_currency;
+
 
         $url=env('BASE_URL').'orders/Save';
         $query=Helper::postApi($url,$post_array);

@@ -52,7 +52,10 @@
                 </div>
         </div>
         <div class="action-buttons text-center">
-            <button type="button" class="btn btn-8DBF43 text-uppercase confirm">Confirm</button>
+            <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">Confirm</button>
+            @if(isset($settings->Required) and !$settings->Required)
+                <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('address')">Skip</button>
+            @endif
         </div>
     </div>
     </div>
