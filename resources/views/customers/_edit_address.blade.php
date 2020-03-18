@@ -122,18 +122,60 @@
                             </div>
                         </div>
 
+                        {{--<div class="col-md-12">--}}
+                            {{--<div class="form-group mb-0">--}}
+                                {{--<label>Pin Location</label>--}}
+                                {{--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52992.273657867634!2d35.46926270113027!3d33.88921334637334!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151f17215880a78f%3A0x729182bae99836b4!2sBeirut%2C%20Lebanon!5e0!3m2!1sen!2sin!4v1578918907711!5m2!1sen!2sin" width="100%" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+
                         <div class="col-md-12">
                             <div class="form-group mb-0">
-                                <label>Pin Location</label>
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52992.273657867634!2d35.46926270113027!3d33.88921334637334!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151f17215880a78f%3A0x729182bae99836b4!2sBeirut%2C%20Lebanon!5e0!3m2!1sen!2sin!4v1578918907711!5m2!1sen!2sin" width="100%" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                                {{--<label>Pin Location</label>--}}
+
+                                {{--<div class="form-group row">--}}
+                                {{--<label class="form-control-label col-sm-12">Map</label>--}}
+                                {{--<div class="col-md-12">--}}
+                                {{--<div class="input-group">--}}
+                                <input style="display: none;" type="text" id="pac-input" class="form-control" name="" placeholder="Enter a location" value="">
+                                <input type="hidden" class="form-control" id="modal_latitude" name="y_location{{$skey}}" value="{{$address->YLocation}}">
+                                <input type="hidden" class="form-control" id="modal_longitude" name="x_location{{$skey}}" value="{{$address->XLocation}}">
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+
+                                <div class="form-group row">
+                                    <label class="form-control-label col-md-12">Latitude & Longitude</label>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <input class="form-control" type="text" id="manual_latitude" placeholder="Latitude" value="{{$address->YLocation}}" >
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input class="form-control" type="text" id="manual_longitude" placeholder="Longitude" value="{{$address->XLocation}}">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <a class="btn btn-primary btn-sm btn-lat-log-map" href="javascript:setMarkerOnMap('modal_map','manual_latitude','manual_longitude')">Set Marker</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3"></label>
+                                    <div id="modal_map" class="col-xs-9" style="height:200px" data-latitudeid="modal_latitude" data-longitudeid="modal_longitude" data-latitude="{{$address->YLocation}}" data-longitude="{{$address->XLocation}}"></div>
+                                </div>
+
                             </div>
                         </div>
+
                         <div class="col-md-12">
                             <div class="form-group mb-0">
                                 <label>More Details</label>
                                 <textarea class="form-control" name="more_details{{$skey}}">{{$address->ExtraAddress}}</textarea>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -196,6 +238,12 @@
                 return false; // for demo
             }
         });
+
+	    // $("#editprofileModal").on('shown.bs.modal',function(){
+		//     if($("#modal_map").length>0){
+			    loadModalMap.init();
+		    // }
+	    // });
 
     });
 </script>

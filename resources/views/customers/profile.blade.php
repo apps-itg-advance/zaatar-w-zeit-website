@@ -3,151 +3,112 @@
 @section('css')
     <link rel="stylesheet" href="{{asset('assets/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/circle.css')}}">
+	<style>
+		/* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+		#map {
+			height: 100%;
+		}
+		/* Optional: Makes the sample page fill the window. */
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		#description {
+			font-family: Roboto;
+			font-size: 15px;
+			font-weight: 300;
+		}
+
+		#infowindow-content .title {
+			font-weight: bold;
+		}
+
+		#infowindow-content {
+			display: none;
+		}
+
+		#map #infowindow-content {
+			display: inline;
+		}
+
+		.pac-card {
+			margin: 10px 10px 0 0;
+			border-radius: 2px 0 0 2px;
+			box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			outline: none;
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+			background-color: #fff;
+			font-family: Roboto;
+		}
+
+		#pac-container {
+			padding-bottom: 12px;
+			margin-right: 12px;
+		}
+
+		.pac-controls {
+			display: inline-block;
+			padding: 5px 11px;
+		}
+
+		.pac-controls label {
+			font-family: Roboto;
+			font-size: 13px;
+			font-weight: 300;
+		}
+
+		#pac-input {
+			background-color: #fff;
+			font-family: Roboto;
+			font-size: 15px;
+			font-weight: 300;
+			margin-left: 12px;
+			padding: 0 11px 0 13px;
+			text-overflow: ellipsis;
+			width: 400px;
+		}
+
+		#pac-input:focus {
+			border-color: #4d90fe;
+		}
+
+		#title {
+			color: #fff;
+			background-color: #4d90fe;
+			font-size: 25px;
+			font-weight: 500;
+			padding: 6px 12px;
+		}
+		#target {
+			width: 345px;
+		}
+	</style>
 @endsection
 
-
 @section('javascript')
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKj9Yaoy4JVcFoj455Kz9IFeuHHyxMwM4&libraries=places,drawing,geometry"></script>
-    <script>
-        @php
-            if($type=='register')
+	<script>
+		@php
+			if($type=='register')
         {
         echo "  jQuery('#editprofileModal').modal();";
         }
-        @endphp
+		@endphp
 		$("body").on('click', '#edit-profile', function(){
 			jQuery('#editprofileModal').modal();
 		});
-    </script>
 
-    <script>
-		var marker = null;
-		var modalMap = null;
 
 		$("#editprofileModal").on('shown.bs.modal',function(){
 			if($("#modal_map").length>0){
 				loadModalMap.init();
 			}
 		});
-
-		var loadModalMap = function () {
-
-			function initMap() {
-
-				var viewLat = $("#modal_map").data('latitude');
-				var viewLng = $("#modal_map").data('longitude');
-				if(viewLat == '') viewLat=33.890156884426496;
-				if(viewLng == '') viewLng=35.50199890136718;
-
-				console.log('lat: '+viewLat);
-				console.log('lon: '+viewLng);
-				modalMap = new google.maps.Map(document.getElementById('modal_map'), {
-					center: {lat: viewLat, lng: viewLng},
-					zoom: 12,
-					scrollwheel: true
-				});
-
-				var input = document.getElementById('pac-input');
-
-				var latID = $("#modal_map").data('latitudeid');
-				var lngID = $("#modal_map").data('longitudeid');
-
-				var autocomplete = new google.maps.places.Autocomplete(input);
-
-				// Set initial restrict to the greater list of countries.
-				autocomplete.setComponentRestrictions(
-					{'country': ['LB']}
-				);
-
-				marker = new google.maps.Marker({
-					position:{lat: viewLat, lng: viewLng},
-					map: modalMap,
-					draggable:true,
-					anchorPoint: new google.maps.Point(0, -29)
-				});
-
-				autocomplete.addListener('place_changed', function() {
-
-					// infowindow.close();
-
-					marker.setVisible(false);
-					var place = autocomplete.getPlace();
-
-					if (!place.geometry) {
-						// User entered the name of a Place that was not suggested and
-						// pressed the Enter key, or the Place Details request failed.
-						window.alert("No details available for input: '" + place.name + "'");
-						return;
-					}
-
-					// If the place has a geometry, then present it on a map.
-					if (place.geometry.viewport) {
-						modalMap.fitBounds(place.geometry.viewport);
-						$('#'+latID).val(place.geometry.location.lat());
-						$('#'+lngID).val(place.geometry.location.lng());
-					} else {
-						modalMap.setCenter(place.geometry.location);
-						modalMap.setZoom(7);
-					}
-					marker.setPosition(place.geometry.location);
-					marker.setVisible(true);
-
-					var address = '';
-					if (place.address_components) {
-						address = [
-							(place.address_components[0] && place.address_components[0].short_name || ''),
-							(place.address_components[1] && place.address_components[1].short_name || ''),
-							(place.address_components[2] && place.address_components[2].short_name || '')
-						].join(' ');
-					}
-					// infowindow.open(map, marker);
-				});
-				google.maps.event.addListener(marker, 'dragend', function (event) {
-					$('#'+latID).val(this.getPosition().lat());
-					$('#'+lngID).val(this.getPosition().lng());
-					$('#manual_latitude').val(this.getPosition().lat());
-					$('#manual_longitude').val(this.getPosition().lng());
-				});
-			}
-			return {
-				//main function to initiate the module
-				init: function() {
-					initMap();
-				}
-			};
-		}();
-
-		function setMarkerOnMap(mapID, latID, lngID){
-			var lat = parseFloat(document.getElementById(latID).value);
-			var lng = parseFloat(document.getElementById(lngID).value);
-			if(lat && lng){
-
-				var mapLatID = $('#'+mapID).data('latitudeid');
-				var mapLngID = $('#'+mapID).data('longitudeid');
-
-				$('#'+mapLatID).val(lat);
-				$('#'+mapLngID).val(lng);
-
-				var map = new google.maps.Map(document.getElementById(mapID), {
-					center: {lat: lat, lng: lng},
-					zoom: 12,
-					scrollwheel: false
-				});
-				marker = new google.maps.Marker({
-					position:{lat: lat, lng: lng},
-					map: map,
-					draggable:true,
-					anchorPoint: new google.maps.Point(0, -29)
-				});
-			}else{
-				alert('Please Enter valid latitude and longitude');
-			}
-
-			// localStorage.setItem('mylat', lat);
-			// localStorage.setItem('mylng', lng);
-		}
-    </script>
+	</script>
 @endsection
+
 
 @section('content')
     <div class="col-xl-7 col-lg-5 col-md-12 col-sm-12 col-favourite-items">
@@ -252,6 +213,8 @@
             </div>
         </div>
     </div>
+
     @include('partials.cart')
     @include('customers._edit_profile')
+
 @endsection
