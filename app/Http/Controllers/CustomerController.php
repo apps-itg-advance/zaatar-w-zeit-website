@@ -438,8 +438,6 @@ class CustomerController extends Controller
         $address_type=$request->input('address_type'.$Skey);
 	    $company=$request->input('company'.$Skey);
 
-//	    dd($x_location, $y_location);
-
 	    $apartment=$floor.' Ext: '.$ext;
         $geo_array=explode('-',$geo);
         $city_id=@$geo_array[0];
