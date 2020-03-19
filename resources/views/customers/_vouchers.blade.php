@@ -38,7 +38,7 @@
 
                 <p><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
                 <div class="buttons  text-center mt-3">
-                    <a href="javascript:void(0)" style="cursor: pointer" onclick="WalletAmount()" class="btn btn-redeem text-uppercase">Redeem</a>
+                    <a href="javascript:void(0)" style="cursor: pointer" class="btn btn-redeem text-uppercase redeem-wallet">Redeem</a>
                 </div>
             </div>
 
@@ -82,7 +82,7 @@
                 </div>
                 <p><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
                 <div class="buttons text-center mt-3">
-                    <a href="javascript:void(0)" style="cursor: pointer" onclick="SelectRedeem('{{$vouchers[$i]->Id}}')" class="btn btn-redeem text-uppercase">Redeem</a>
+                    <a href="javascript:void(0)" style="cursor: pointer" onclick="SelectRedeem('{{$vouchers[$i]->Id}}')" class="btn btn-redeem text-uppercase redeem-{{$vouchers[$i]->Id}}">Redeem</a>
                 </div>
             </div>
 
@@ -144,36 +144,81 @@
         }
         var new_value=balance-val_amount;
         $(".wallet-balance").html(formatNumber(new_value));
-        $("#wallet-b").addClass("border-green");
-        $("#wallet-b-1").addClass("border-white");
 
     });
+    $(".redeem-wallet").click(function() {
+        var x=$(".w-amount").val();
+        if(x>0)
+        {
+        if($(this).text()=='Redeemed')
+        {
+            $(this).text('Redeem');
+            $(".w-amount").val('');
+            $("#wallet-b").removeClass("border-green");
+            $("#wallet-b-1").removeClass("border-white");
+        }
+        else{
+            $(this).text('Redeemed');
+            $("#wallet-b").addClass("border-green");
+            $("#wallet-b-1").addClass("border-white");
+            $(".wallet-balance").html(formatNumber({{$wallet_balance}}));
+        }
+        }
+        else{
+            Swal.fire({
+                // position: 'top-end',
+                icon: 'warning',
+                title: 'You must select an amount',
+                showConfirmButton: 'close'
+            });
+        }
+    });
+
     function SelectRedeem(val)
     {
         var title_v=$('.title-'+val).data('title');
         var old_value=$("#voucher").val();
-        if(val!=old_value) {
-            if (old_value != '') {
-                var old_qty_all = $('.qty' + old_value).data('title');
-                var old_qty = $('.vqty' + old_value).data('title');
-                $('.qty' + old_value).html((old_qty_all));
-                $('.vqty' + old_value).html((old_qty));
-                $("#voucher-b"+old_value).removeClass("border-green");
-                $("#voucher-b1"+old_value).removeClass("border-white");
-            }
+        var tlt= $('.redeem-' + val).text();
+        if(tlt=='Redeem')
+        {
+            if(val!=old_value) {
+                if (old_value != '') {
+                    var old_qty_all = $('.qty' + old_value).data('title');
+                    var old_qty = $('.vqty' + old_value).data('title');
+                    $('.qty' + old_value).html((old_qty_all));
+                    $('.vqty' + old_value).html((old_qty));
+                    $("#voucher-b"+old_value).removeClass("border-green");
+                    $("#voucher-b1"+old_value).removeClass("border-white");
+                    $('.redeem-' + old_value).text('Redeem');
+                }
 
+                var qty_all = $('.qty' + val).data('title');
+                var qty = $('.vqty' + val).data('title');
+                $('.qty' + val).html((qty_all - 1));
+                $('.vqty' + val).html((qty - 1));
+                $("#voucher").val(val);
+                $("#voucher-b"+val).addClass("border-green");
+                $("#voucher-b1"+val).addClass("border-white");
+                $('.redeem-' + val).text('Redeemed');
+            }
+        }
+        else{
             var qty_all = $('.qty' + val).data('title');
             var qty = $('.vqty' + val).data('title');
-            $('.qty' + val).html((qty_all - 1));
-            $('.vqty' + val).html((qty - 1));
-            $("#voucher").val(val);
-            $("#voucher-b"+val).addClass("border-green");
-            $("#voucher-b1"+val).addClass("border-white");
+            $('.qty' + val).html((qty_all));
+            $('.vqty' + val).html((qty));
+            $("#voucher").val('');
+            $("#voucher-b"+val).removeClass("border-green");
+            $("#voucher-b1"+val).removeClass("border-white");
+            $('.redeem-' + val).text('Redeem');
         }
+
+
     }
-    function WalletAmount(val,vtype,vcategory)
+    function WalletAmount()
     {
-        $("#WalletAmount").val();
+        $("#wallet-b").addClass("border-green");
+        $("#wallet-b-1").addClass("border-white");
     }
     $(".confirm").click(function(){
 	    spinnerButtons('show', $(this));
