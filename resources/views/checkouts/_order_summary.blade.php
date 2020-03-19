@@ -263,7 +263,7 @@ $discount=0;
                        showConfirmButton: false,
                        timer: 3200
                    });
-                    location.replace('{{route('checkout.online')}}');
+                   location.replace('{{route('checkout.online')}}');
                 }
             }
         });

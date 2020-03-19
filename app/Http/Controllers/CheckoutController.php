@@ -392,6 +392,7 @@ class CheckoutController extends Controller
           session()->save();
 
       }
+    //  dump($query);
         $url='home';
       if(isset($query->PaymentURL) and $query->PaymentURL!=null)
       {

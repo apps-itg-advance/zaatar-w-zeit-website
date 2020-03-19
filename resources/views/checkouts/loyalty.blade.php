@@ -18,18 +18,18 @@
                     $rand = array_rand($array_colors, 1);
                 @endphp
                 @if($wallet_balance>0)
-                    <div class="item bg-8DBF43" data-mh="matchHeight">
-                        <div class="item-div text-white p-3">
+                    <div class="item active bg-8DBF43" data-mh="matchHeight">
+                        <div class="item-div active text-white p-3">
                             <div class="py-4 item-quantity text-right">
                                 <div class="float-right"></div>
                             </div>
-                            <div class="item-discount text-uppercase">
-                                YOU HAVE {{number_format($wallet_balance).' '.$currency}}
+                            <div class="item-discount text-uppercase" >
+                                YOU HAVE <span class="wallet-balance">{{number_format($wallet_balance)}}</span> {{$currency}}
                             </div>
                             <div class="items-vouchers">
                                 <div class="row">
                                     <div class="col-md-12">How much would you like to use?</div>
-                                    <div class="col-md-9"><input name="wallet_amount" id="WalletAmount" class="form-control"></div>
+                                    <div class="col-md-9"><input name="wallet_amount" id="WalletAmount" class="form-control w-amount"></div>
                                     <div class="col-md-3" style="font-size: 20px !important;"> {{$currency}}</div>
                                 </div>
                             </div>
@@ -50,9 +50,9 @@
                     <div class="item {{$array_colors[$rand]}}" data-mh="matchHeight">
                         <div class="item-div text-white p-3">
                             <div class="py-4 item-quantity text-right">
-                                <div class="float-right">{{count($vouchers[$i]->Vouchers)}} quantity</div>
+                                <div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> quantity</div>
                             </div>
-                            <div class="item-discount text-uppercase">
+                            <div class="item-discount text-uppercase title-{{$vouchers[$i]->Id}}" data-title="{{$vouchers[$i]->Title}}">
                                 {{$vouchers[$i]->Title}}
                             </div>
                             @php
@@ -71,14 +71,15 @@
                                 }
                             @endphp
                             <div class="items-vouchers">
-
+                                @php $css='vqty'.$vouchers[$i]->Id; @endphp
                                 @foreach($array_exp as $key=>$value)
-                                    <div class="voucher">{{$value}} vouchers expire {{$key}}</div>
+                                    <div class="voucher"><span class="{{$css}}" data-title="{{$value}}">{{$value}}</span>  vouchers expire {{$key}}</div>
+                                    @php $css='' @endphp
                                 @endforeach
 
                             </div>
                             <p><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
-                            <div class="buttons mt-3">
+                            <div class="buttons text-center mt-3">
                                 <a href="javascript:void(0)" style="cursor: pointer" onclick="SelectRedeem('{{$vouchers[$i]->Id}}')" class="btn btn-redeem text-uppercase">Redeem</a>
                             </div>
                         </div>
@@ -88,8 +89,12 @@
                 @endfor
 
             </div>
+            <input type="hidden" name="Voucher" id="voucher">
             <div class="action-buttons text-center pt-4">
-                <button type="button" class="btn btn-8DBF43 text-uppercase">Cofirm</button>
+                <button type="button" class="btn btn-8DBF43 mr-sm-4 text-uppercase">Cofirm</button>
+                @if(isset($settings->Required) and !$settings->Required)
+                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('wallet')">Skip</button>
+                @endif
             </div>
         </div>
     </div>
@@ -100,10 +105,9 @@
     <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
 
     <script type="text/javascript">
-
         jQuery('.wallet-carousel').owlCarousel({
             loop : true,
-            center : true,
+            center:true,
             navText : ['', ''],
             margin : 20,
             dots : false,
@@ -129,18 +133,53 @@
                 }
             }
         });
-        $("#WalletAmount").keyup(function() {
-            var use=$("#WalletAmount").val();
+        $(".w-amount").keyup(function() {
+            var val_amount=$(this).val();
             var balance={{$wallet_balance}};
-            if(use>balance)
+
+            if(val_amount>balance)
             {
-                $("#WalletAmount").val(balance)
+                val_amount=balance;
+                $(".w-amount").val(balance);
+
             }
+            var new_value=balance-val_amount;
+            $(".wallet-balance").html(formatNumber(new_value));
 
         });
         function SelectRedeem(val)
         {
-            $("#voucher").val(val);
+            var title_v=$('.title-'+val).data('title');
+            var old_value=$("#voucher").val();
+            if(val!=old_value) {
+                if (old_value != '') {
+                    var old_qty_all = $('.qty' + old_value).data('title');
+                    var old_qty = $('.vqty' + old_value).data('title');
+                    $('.qty' + old_value).html((old_qty_all));
+                    $('.vqty' + old_value).html((old_qty));
+
+                }
+
+                var qty_all = $('.qty' + val).data('title');
+                var qty = $('.vqty' + val).data('title');
+                $('.qty' + val).html((qty_all - 1));
+                $('.vqty' + val).html((qty - 1));
+                $("#voucher").val(val);
+                Swal.fire({
+                    // position: 'top-end',
+                    icon: 'success',
+                    title: title_v + ' voucher was selected',
+                    showConfirmButton: 'Close',
+                });
+            }
+            else{
+                Swal.fire({
+                    // position: 'top-end',
+                    icon: 'warning',
+                    title: 'Voucher previously selected',
+                    showConfirmButton: 'Close',
+                });
+            }
         }
         function WalletAmount(val,vtype,vcategory)
         {
