@@ -98,11 +98,18 @@
 			Swal.fire({
 				// position: 'top-end',
 				icon: 'warning',
-				title: 'Please allow location service from your browser.',
+				title: 'Please allow geolocation service from your browser.',
 				showConfirmButton: false,
 				timer: 1200
 			});
 		}else{
+			Swal.fire({
+				// position: 'top-end',
+				icon: 'warning',
+				title: 'Your browser dons\'t support geolocation.',
+				showConfirmButton: false,
+				timer: 1200
+			});
 			infoWindow.setPosition(pos);
 			infoWindow.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.');
 			infoWindow.open(map);
