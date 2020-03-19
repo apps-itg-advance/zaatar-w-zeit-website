@@ -138,16 +138,16 @@
                         <div class="form-group mb-0">
                             {{--<label>Pin Location</label>--}}
 
-                            <div class="form-group row">
-                                <label class="form-control-label col-sm-12">Map</label>
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <input type="text" id="pac-input" class="form-control" name="" placeholder="Enter a location" value="">
+                            {{--<div class="form-group row">--}}
+                                {{--<label class="form-control-label col-sm-12">Map</label>--}}
+                                {{--<div class="col-md-12">--}}
+                                    {{--<div class="input-group">--}}
+                                        <input style="display: none;" type="text" id="pac-input" class="form-control" name="" placeholder="Enter a location" value="">
                                         <input type="hidden" class="form-control" id="modal_latitude" name="y_location{{$Skey}}" value="{{$main_address->YLocation}}">
                                         <input type="hidden" class="form-control" id="modal_longitude" name="x_location{{$Skey}}" value="{{$main_address->XLocation}}">
-                                    </div>
-                                </div>
-                            </div>
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
 
                             <div class="form-group row">
                                 <label class="form-control-label col-md-12">Latitude & Longitude</label>
@@ -188,37 +188,59 @@
 <script>
     $(document).ready(function () {
 
-        $('#ProfileForm').validate({ // initialize the plugin
-            rules: {
-                first_name{{$Skey}}: {
-                    required: true
-                },
-                last_name{{$Skey}}: {
-                    required: true,
-                    maxlength: 30
-                },
-                geo{{$Skey}}: {
-                    required: true
-                },
-                line1{{$Skey}}: {
-                    required: true,
-                    maxlength: 30
-                },
-                building_name{{$Skey}}: {
-                    maxlength: 30
-                },
-                building_nbr{{$Skey}}: {
-                    maxlength: 30
-                },
-                floor{{$Skey}}: {
-                    maxlength: 30
-                }
-            },
-            submitHandler: function (form) {
-                form.submit();// for demo
-                return false; // for demo
-            }
-        });
+	    $("#ProfileForm").submit(function(e) {
+		    e.preventDefault();
+	    }).validate({
+		    rules: {
+			    first_name{{$Skey}}: {
+				    required: true
+			    },
+			    last_name{{$Skey}}: {
+				    required: true,
+				    maxlength: 30
+			    },
+			    geo{{$Skey}}: {
+				    required: true
+			    },
+			    line1{{$Skey}}: {
+				    required: true,
+				    maxlength: 30
+			    },
+			    building_name{{$Skey}}: {
+				    maxlength: 30
+			    },
+			    building_nbr{{$Skey}}: {
+				    maxlength: 30
+			    },
+			    floor{{$Skey}}: {
+				    maxlength: 30
+			    }
+		    },
+		    submitHandler: function (form) {
+			    form.submit();// for demo
+			    return false; // for demo
+		    }
+	    });
 
     });
+
+    // function initService() {
+	//     var displaySuggestions = function(predictions, status) {
+	// 	    if (status != google.maps.places.PlacesServiceStatus.OK) {
+	// 		    alert(status);
+	// 		    return;
+	// 	    }
+    //
+	// 	    predictions.forEach(function(prediction) {
+	// 		    var li = document.createElement('li');
+	// 		    li.appendChild(document.createTextNode(prediction.description));
+	// 		    document.getElementById('results').appendChild(li);
+	// 	    });
+	//     };
+	//     var value = $('#pac-input').val();
+	//     // var value = document.getElementById('pac-input').value;
+	//     var service = new google.maps.places.AutocompleteService();
+	//     service.getQueryPredictions({ input: value }, displaySuggestions);
+    // }
+
 </script>

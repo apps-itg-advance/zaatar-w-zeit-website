@@ -209,5 +209,6 @@
 </script>
 @yield('javascript')
 @yield('javascriptCart')
+@include('partials.map')
 </body>
 </html>
