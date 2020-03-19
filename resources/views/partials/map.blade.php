@@ -135,6 +135,13 @@
 				draggable:true,
 				anchorPoint: new google.maps.Point(0, -29)
 			});
+
+			google.maps.event.addListener(marker, 'dragend', function (event) {
+				$('#modal_latitude').val(this.getPosition().lat());
+				$('#modal_longitude').val(this.getPosition().lng());
+				$('#manual_latitude').val(this.getPosition().lat());
+				$('#manual_longitude').val(this.getPosition().lng());
+			});
 		}else{
 			alert('Please Enter valid latitude and longitude');
 		}
