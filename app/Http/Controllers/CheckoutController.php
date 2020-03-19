@@ -103,6 +103,24 @@ class CheckoutController extends Controller
         return view('checkouts.wallet',compact('cart','class_css','_active_css','vouchers','wallet_balance','settings'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
+    public function loyalty()
+    {
+        $step=2;
+        $settings=$this->Steps[$step];
+        $skey=session()->get('skey');
+        $user=session()->get('user'.$skey);
+        $loyalty_id=$user->details->LoyaltyId;
+        $wallet_balance=$user->details->WalletAmountBalance;
+        $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
+        session()->put('vouchers',$vouchers);
+        $cart = Session::get('cart');
+        $_active_css='address';
+        $class_css='checkout-wrapper';
+        $checkout=true;
+        return view('checkouts.loyalty',compact('cart','class_css','_active_css','vouchers','wallet_balance','settings','checkout'));  //
+        //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
+    }
+
     public function gift()
     {
         $step=3;

@@ -65,6 +65,8 @@ Route::group(['middleware' => ['checkLogin']], function () {
 
     Route::post('/checkout/store', 'CheckoutController@store')->name('checkout.store');
     Route::get('/checkout/payment/online', 'CheckoutController@payment_online')->name('checkout.online');
+
+    Route::get('/checkout/loyalty', 'CheckoutController@loyalty')->name('checkout.loyalty');
     Route::get('/checkout/payment/status/{status?}', 'CheckoutController@payment_status')->name('checkout.payment.status');
 
     Route::post('/customer/set-favourite', 'CustomerController@set_favourite')->name('customer.set.favourite');
