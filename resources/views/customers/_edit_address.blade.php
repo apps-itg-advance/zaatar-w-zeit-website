@@ -64,7 +64,7 @@
                                 <select class="form-control" name="geo{{$skey}}">
                                     @if (count($cities)>0)
                                         @foreach($cities as $city)
-                                            <option value="{{ $city->CityId.'-'.$city->ProvinceId }}" {{ $selectedCity == $city->CityId ? 'selected="selected"' : '' }}>{{ $city->CityName.' - '.$city->ProvinceName }}</option>
+                                            <option value="{{ $city->CityId.'-'.$city->ProvinceId }}" {{ $selectedCity == $city->CityId ? 'selected="selected"' : '' }}>{{ $city->CityName}}</option>
                                         @endforeach
                                     @endif
                                 </select>
