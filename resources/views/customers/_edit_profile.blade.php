@@ -138,17 +138,17 @@
                         <div class="form-group mb-0">
 
                             <div class="form-group row d-none">
-                                <input type="hidden" class="form-control" id="modal_latitude" name="y_location{{$Skey}}" value="{{$main_address->YLocation}}">
-                                <input type="hidden" class="form-control" id="modal_longitude" name="x_location{{$Skey}}" value="{{$main_address->XLocation}}">
+                                <input type="hidden" class="form-control" id="modal_latitude" name="y_location{{$Skey}}" value="{{isset($main_address->YLocation)?$main_address->YLocation:''}}">
+                                <input type="hidden" class="form-control" id="modal_longitude" name="x_location{{$Skey}}" value="{{isset($main_address->XLocation)?$main_address->XLocation:''}}">
 
                                 <label class="form-control-label col-md-12">Latitude & Longitude</label>
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <input class="form-control" type="number" id="manual_latitude" placeholder="Latitude" value="{{$main_address->YLocation}}" >
+                                            <input class="form-control" type="number" id="manual_latitude" placeholder="Latitude" value="{{isset($main_address->YLocation)?$main_address->YLocation:''}}" >
                                         </div>
                                         <div class="col-md-5">
-                                            <input class="form-control" type="number" id="manual_longitude" placeholder="Longitude" value="{{$main_address->XLocation}}">
+                                            <input class="form-control" type="number" id="manual_longitude" placeholder="Longitude" value="{{isset($main_address->XLocation)?$main_address->XLocation:''}}">
                                         </div>
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@
 
                             <div class="form-group">
                                 <label class="control-label col-md-3"></label>
-                                <div id="modal_map" class="col-xs-9" style="height:200px" data-latitudeid="modal_latitude" data-longitudeid="modal_longitude" data-latitude="{{$main_address->YLocation}}" data-longitude="{{$main_address->XLocation}}"></div>
+                                <div id="modal_map" class="col-xs-9" style="height:200px" data-latitudeid="modal_latitude" data-longitudeid="modal_longitude" data-latitude="{{isset($main_address->YLocation)?$main_address->YLocation:''}}" data-longitude="{{isset($main_address->XLocation)?$main_address->XLocation:''}}"></div>
                             </div>
 
 
