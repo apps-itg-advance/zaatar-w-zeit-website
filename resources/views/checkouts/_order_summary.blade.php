@@ -224,11 +224,14 @@ $discount=0;
                     </div>
                 </div>
                 <a class="btn btn-8DBF43 mb-3 text-uppercase confirm float-right futura-book btn-confirm">Confirm</a>
+                <button type="button" style="margin-right: 10px" class="btn btn-B3B3B3 mb-3 text-uppercase float-right futura-book btn-confirm cancel" data-dismiss="modal">Cancel</button>
+
             </div>
         </div>
     </div>
 </form>
 <script type="text/javascript">
+
     $('body').on('click', '.confirm', function(){
         spinnerButtons('show', $(this));
         var that = this;

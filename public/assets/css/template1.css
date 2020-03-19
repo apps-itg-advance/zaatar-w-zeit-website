@@ -536,8 +536,8 @@ button {
 .checkout-wrapper .item-summary .col-form-label { color: #808080; font-family: 'Futura-Medium-BT'; font-size: 22px;}
 .checkout-wrapper .item-summary .summary-items .summary-item { position: relative;}
 .checkout-wrapper .item-summary .summary-items .summary-item h4 { font-size: 18px;    font-family: 'Futura-Medium-BT';}
-.checkout-wrapper .item-summary .delivery-block { font-family: 'Futura-Medium-BT';font-size: 18px;}
-.checkout-wrapper .item-summary .total-block { font-family: 'Futura-B';font-size: 20px;}
+.checkout-wrapper .item-summary .delivery-block { font-family: 'Futura-Medium-BT';font-size: 18px;margin-bottom: 10px;}
+.checkout-wrapper .item-summary .total-block { font-family: 'Futura-B';font-size: 20px;margin-top: 10px;}
 .checkout-wrapper .item-summary .summary-items .summary-item h4 span { font-size: 18px;margin-right: 7rem;float: right;}
 .checkout-wrapper .item-summary .summary-items .summary-item .custom-control-label { font-size: 23px; font-family: 'Futura-Bold'; padding-left: 10px;}
 .checkout-wrapper .item-summary .summary-items .summary-item .custom-control-label span { font-size: 16px; font-family: 'Futura-Medium-BT';color: #808080;}
