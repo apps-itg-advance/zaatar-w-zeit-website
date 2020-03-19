@@ -222,11 +222,7 @@
             }
         });
 
-	    // $("#editprofileModal").on('shown.bs.modal',function(){
-		//     if($("#modal_map").length>0){
-			    loadModalMap.init();
-		    // }
-	    // });
+        loadModalMap.init();
 
     });
 </script>
