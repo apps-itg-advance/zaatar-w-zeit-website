@@ -31,9 +31,7 @@
             </form>
         </div>
     </div>
-    <div class="OrderSummary modal fade" id="OrderSummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div id="OrderSummaryDisplay"></div>
-    </div>
+
 
 @endsection
 @section('javascript')
@@ -49,9 +47,7 @@
                 data: $("#FormSp").serialize(),
                 url: '{{route('checkout.special.instructions.store')}}',
                 success: function (data) {
-	                spinnerButtons('hide', $(that));
-                    $("#OrderSummaryDisplay").html(data);
-                    jQuery('#OrderSummary').modal();
+                    window.location = '{{route('checkout.payment')}}';
                 }
             });
 

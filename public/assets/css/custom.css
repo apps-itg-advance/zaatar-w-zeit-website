@@ -11,3 +11,35 @@
     color: #F00 !important;
     font-size: 14px !important;
 }
+.credit-card-master{
+    background: url('../images/Master_card.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.credit-card-visa{
+    background: url('../images/Visa_card.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.card-code{
+    margin-top: 135px;
+    font-size: 35px !important;
+    font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace !important;
+    padding-left: 50px;
+}
+.card-date{
+    float: right;
+    margin-right: 30px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 18px;
+}
+.border-green{
+    border: 3px solid #8DBF43;
+}
+.border-white{
+    border: 5px solid white;
+
+}

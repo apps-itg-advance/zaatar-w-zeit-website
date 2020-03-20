@@ -296,7 +296,7 @@ class CheckoutController extends Controller
         $step=5;
         $settings=$this->Steps[$step];
         $cart = Session::get('cart');
-	    $_active_css='green';
+	    $_active_css='special_instructions';
         $class_css='checkout-wrapper';
         return view('checkouts.payment',compact('cart','class_css','_active_css','settings'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
@@ -311,7 +311,81 @@ class CheckoutController extends Controller
         session()->save();
         session()->put('cart_payment',$_array);
         session()->put('cart_payment_currency',$currency);
-        return 'true';
+        $cart=session()->get('cart');
+        $cart_info=session()->get('cart_info');
+        $cart_gift=session()->get('cart_gift');
+        $cart_payment=session()->get('cart_payment');
+        $cart_sp_instructions=session()->get('cart_sp_instructions');
+        $cart_green=session()->get('cart_green');
+        $cart_vouchers=session()->get('cart_vouchers');
+        $cart_wallet=session()->get('cart_wallet');
+        $_org=session()->get('_org');
+        $delivery_charge=$_org->delivery_charge;
+        $currency=$_org->currency;
+        if($_array->Name!='credit')
+        {
+            return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
+
+        }
+        else{
+            echo 'credit';
+        }
+
+
+
+    }
+    public function payment_cards()
+    {
+        $step=6;
+        $settings=$this->Steps[$step];
+        $cart = Session::get('cart');
+        $_active_css='payment';
+        $class_css='checkout-wrapper';
+        $cards=$this->query->GatewayToken;
+        return view('checkouts.payment_cards',compact('cart','class_css','_active_css','settings','cards'));  //
+    }
+
+    public function payment_card_save(Request $request)
+    {
+        $card=$request->input('card');
+        $flag=false;
+        if($card!='')
+        {
+            $cards=$this->query->GatewayToken;
+            foreach ($cards as $crd)
+            {
+                if($crd->Token==$card)
+                {
+                    $flag=true;
+                    break;
+                }
+            }
+            if($flag)
+            {
+                session()->forget('cart_payment_token');
+                session()->save();
+                session()->put('cart_payment_token',$card);
+            }
+        }
+        if($card!='' and $flag=false)
+        {
+            echo 'error';
+        }
+        else{
+            $cart=session()->get('cart');
+            $cart_info=session()->get('cart_info');
+            $cart_gift=session()->get('cart_gift');
+            $cart_payment=session()->get('cart_payment');
+            $cart_sp_instructions=session()->get('cart_sp_instructions');
+            $cart_green=session()->get('cart_green');
+            $cart_vouchers=session()->get('cart_vouchers');
+            $cart_wallet=session()->get('cart_wallet');
+            $_org=session()->get('_org');
+            $delivery_charge=$_org->delivery_charge;
+            $currency=$_org->currency;
+            return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
+
+        }
 
     }
     public function special_instructions()
@@ -319,7 +393,7 @@ class CheckoutController extends Controller
         $step=6;
         $settings=$this->Steps[$step];
         $cart = Session::get('cart');
-	    $_active_css='payment';
+	    $_active_css='green';
         $class_css='checkout-wrapper';
         return view('checkouts.special_instructions',compact('cart','class_css','_active_css','settings'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
@@ -339,19 +413,8 @@ class CheckoutController extends Controller
         session()->forget('cart_sp_instructions');
         session()->save();
         session()->put('cart_sp_instructions',$sp_array);
-        $cart=session()->get('cart');
-        $cart_info=session()->get('cart_info');
-        $cart_gift=session()->get('cart_gift');
-        $cart_payment=session()->get('cart_payment');
-        $cart_sp_instructions=session()->get('cart_sp_instructions');
-        $cart_green=session()->get('cart_green');
-        $cart_vouchers=session()->get('cart_vouchers');
-        $cart_wallet=session()->get('cart_wallet');
-        $_org=session()->get('_org');
-        $delivery_charge=$_org->delivery_charge;
-        $currency=$_org->currency;
-       return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
-    }
+        return 'true';
+       }
 
 
     /**
@@ -383,6 +446,7 @@ class CheckoutController extends Controller
           session()->forget('cart_gift');
           session()->forget('cart_payment');
           session()->forget('cart_payment_currency');
+          session()->forget('cart_payment_token');
 
           session()->forget('cart_green');
           session()->forget('cart_vouchers');
@@ -392,7 +456,6 @@ class CheckoutController extends Controller
           session()->save();
 
       }
-    //  dump($query);
         $url='home';
       if(isset($query->PaymentURL) and $query->PaymentURL!=null)
       {
@@ -400,7 +463,7 @@ class CheckoutController extends Controller
           session()->put('onlinePaymentUrl',$query->PaymentURL);
       }
 
-      echo $url;
+      echo json_encode(array('url'=>$url,'status'=>$query->PaymentStatus));
         //return $query;
         //return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
     }

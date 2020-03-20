@@ -240,20 +240,33 @@ $discount=0;
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type:'POST',
+            dataType:'json',
             url:'{{route('checkout.store')}}',
             data:$("#PlaceOrder").serialize(),
             success:function(res){
 
-               if(res=='home')
+               if(res.url=='home')
                 {
+                    if(res.status=='success')
+                    {
+                        msg_title='Order Submitted successfully.';
+                        msg_icon='success';
+                    }
+                    else{
+                        msg_title='Payment Failure';
+                        msg_icon='error';
+                    }
                     Swal.fire({
                         // position: 'top-end',
-                        icon: 'success',
-                        title: 'Order Submitted successfully.',
-                        showConfirmButton: false,
-                        timer: 1200
+                        icon: msg_icon,
+                        title: msg_title,
+                        showConfirmButton: true
+                    }).then((result) => {
+                        if (result.value) {
+                            location.replace('{{route('home.menu')}}');
+                        }
                     });
-                    location.replace('{{route('home.menu')}}');
+
                 }
                 else{
                    Swal.fire({

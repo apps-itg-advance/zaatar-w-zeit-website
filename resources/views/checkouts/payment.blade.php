@@ -51,6 +51,9 @@
             </div>
         </div>
     </div>
+    <div class="OrderSummary modal fade" id="OrderSummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div id="OrderSummaryDisplay"></div>
+    </div>
 @endsection
 @section('javascript')
     <script>
@@ -68,6 +71,7 @@
         }
 		$(".confirm").click(function(){
 			spinnerButtons('show', $(this));
+            var that = this;
 			var radioValue = $("input[name='payments']:checked").val();
             var id = $("input[name='payments']:checked").data('id');
             var pname = $("input[name='payments']:checked").data('name');
@@ -97,11 +101,19 @@
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				},
 				type: 'POST',
-				dataType:'json',
 				data: {query: radioValue,currency :currency},
 				url: '{{route('checkout.payment.store')}}',
 				success: function (data) {
-					window.location = '{{route('checkout.special_instructions')}}';
+                    if(pname=='credit')
+                    {
+                        window.location = '{{route('checkout.payment.cards')}}';
+                    }
+                    else{
+                        spinnerButtons('hide', $(that));
+                        $("#OrderSummaryDisplay").html(data);
+                        jQuery('#OrderSummary').modal();
+                    }
+
 				}
 			});
 		});

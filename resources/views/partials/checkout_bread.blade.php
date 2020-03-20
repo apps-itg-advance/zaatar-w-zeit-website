@@ -30,24 +30,24 @@
 
             $_css_green_active='active';
            break;
+        case 'special_instructions':
+            $_css_address_active='active';
+            $_css_wallet_active='active';
+            $_css_gift_active='active';
+            $_css_green_active='active';
+          //  $_css_payment_active='active';
+
+            $_css_special_ins_active='active';
+       break;
          case 'payment':
             $_css_address_active='active';
             $_css_wallet_active='active';
             $_css_gift_active='active';
             $_css_green_active='active';
-
-            $_css_payment_active='active';
-           break;
-         case 'special_instructions':
-            $_css_address_active='active';
-            $_css_wallet_active='active';
-            $_css_gift_active='active';
-            $_css_green_active='active';
-            $_css_payment_active='active';
-
             $_css_special_ins_active='active';
-           break;
 
+            $_css_payment_active='active';
+           break;
         }
 }
 else{
@@ -66,7 +66,7 @@ else{
         <li class="{{$_css_wallet_active}}"><a href="{{$_css_wallet_active=='active'?route('checkout.wallet'):'#'}}">Wallet</a></li>
         <li class="{{$_css_gift_active}}"><a href="{{$_css_gift_active=='active'?route('checkout.gift'):'#'}}">Gift</a></li>
         <li class="{{$_css_green_active}}"><a href="{{$_css_green_active=='active'?route('checkout.green'):'#'}}">The Real Green</a></li>
-        <li class="{{$_css_payment_active}}"><a href="{{$_css_payment_active=='active'?route('checkout.payment'):'#'}}">Payment</a></li>
         <li class="{{$_css_special_ins_active}}"><a href="{{$_css_special_ins_active=='active'?route('checkout.special_instructions'):'#'}}">Special Instructions</a></li>
+        <li class="{{$_css_payment_active}}"><a href="{{$_css_payment_active=='active'?route('checkout.payment'):'#'}}">Payment</a></li>
     </ul>
 </div>

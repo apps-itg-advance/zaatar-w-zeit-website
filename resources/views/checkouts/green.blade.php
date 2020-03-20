@@ -64,7 +64,8 @@
                 data: {query: radioValue},
                 url: '{{route('checkout.green.store')}}',
                 success: function (data) {
-                    window.location = '{{route('checkout.payment')}}';
+                    window.location = '{{route('checkout.special_instructions')}}';
+
                 }
             });
 

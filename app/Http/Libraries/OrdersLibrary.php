@@ -23,6 +23,7 @@ class OrdersLibrary{
         $cart_gift=session()->get('cart_gift');
         $cart_payment=session()->get('cart_payment');
         $_currency=session()->get('cart_payment_currency');
+        $cart_payment_token=session()->get('cart_payment_token');
 
         $cart_sp_instructions=session()->get('cart_sp_instructions');
 
@@ -228,13 +229,22 @@ class OrdersLibrary{
           }
         if(isset($cart_payment->PaymentId) and $cart_payment->PaymentId!=null)
         {
+
             $_payments=array(
                 'Settlement'=>$_total-$discount,
                 'Currency'=>$currency,
                 'Category'=>$cart_payment->Name,
                 'PaymentTypeId'=>$cart_payment->POSCode
             );
+            if(isset($cart_payment_token) and $cart_payment_token!='' and $cart_payment->Name=='credit')
+            {
+                $_payments['CardToken']=$cart_payment_token;
+            }
             array_push($array_payments,$_payments);
+        }
+        if(isset($cart_payment_token) and $cart_payment_token!='')
+        {
+
         }
 
         $post_array['token']=$s_org->token;
