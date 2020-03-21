@@ -463,7 +463,7 @@ class CheckoutController extends Controller
           session()->put('onlinePaymentUrl',$query->PaymentURL);
       }
 
-      echo json_encode(array('url'=>$url,'status'=>$query->PaymentStatus));
+      echo json_encode(array('url'=>$url,'status'=>$query->PaymentStatus,'message'=>$query->PaymentMessage));
         //return $query;
         //return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
     }

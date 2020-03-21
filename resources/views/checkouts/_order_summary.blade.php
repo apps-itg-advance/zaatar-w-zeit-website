@@ -253,7 +253,7 @@ $discount=0;
                         msg_icon='success';
                     }
                     else{
-                        msg_title='Payment Failure';
+                        msg_title=res.message;
                         msg_icon='error';
                     }
                     Swal.fire({
