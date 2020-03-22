@@ -47,6 +47,8 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::post('/customer/address-add', 'CustomerController@address_add')->name('customer.address.add');
     Route::post('/customer/address-save', 'CustomerController@address_save')->name('customer.address.save');
     Route::get('/customer/address-delete/{id?}', 'CustomerController@address_delete')->name('customer.address.delete');
+    Route::get('/customer/credit-card-delete/{id?}', 'CustomerController@credit_cards_delete')->name('credit.cards.delete');
+
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/customer/favourite/orders', 'CustomerController@orders')->name('customer.favourite.orders');
     Route::post('/customer/order/repeat', 'CustomerController@order_repeat')->name('customer.order.repeat');

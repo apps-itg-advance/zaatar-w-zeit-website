@@ -52,6 +52,20 @@ class CustomerLibrary
         self::UpdateSessionAddresses($loyalty_id);
         return $query;
     }
+    public static function DeleteCreditCards($id,$loyalty_id)
+    {
+        $s_org=session()->get('_org');
+
+        $array['token']=$s_org->token;
+        $array['organization_id']=$s_org->id;
+        $array['channel_id']=1;
+        $array['CardId']=$id;
+        $array['LoyaltyId']=$loyalty_id;
+
+        $url=env('BASE_URL').'customers/DeleteCreditCard';
+        $query=Helper::postApi($url,$array);
+        return $query;
+    }
     public static function UpdateCustomers($array)
     {
         $s_org=session()->get('_org');

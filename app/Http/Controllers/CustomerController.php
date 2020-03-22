@@ -408,6 +408,14 @@ class CustomerController extends Controller
         $res=CustomerLibrary::DeleteAddress($id,$loyalty_id);
         return back();
     }
+    public function credit_cards_delete($id)
+    {
+        $skey = session()->get('skey');
+        $query=session()->has('user'.$skey) ? session()->get('user'.$skey) : array();
+        $loyalty_id=$query->details->LoyaltyId;
+        $res=CustomerLibrary::DeleteCreditCards($id,$loyalty_id);
+        return back();
+    }
 
     /**
      * Update the specified resource in storage.

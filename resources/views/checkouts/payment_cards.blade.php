@@ -31,6 +31,8 @@
                     @endphp
                 <div class="item credit-card-{{$css}}" data-mh="matchHeight" id="out-{{$card->Token}}">
                     <div class="item-div text-white p-3" id="in-{{$card->Token}}">
+                        <a href="javascript:void(0)" onclick="DeleteCards({{$card->Id}})" class="d-inline-block"><img src="{{asset('assets/images/icon-checkout-close.png')}}" /></a>
+
                         <div class="card-code">{{$card->Card}}</div>
                         <div class="clearfix"></div>
                         <div class="card-date">Valid Thru<br>{{$month.' / '.$year}}</div>
@@ -168,5 +170,20 @@
             SubmitData('',that);
 
         });
+        function DeleteCards(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    window.location = '{{route('credit.cards.delete')}}'+'/'+id;
+                }
+            })
+        }
     </script>
 @endsection
