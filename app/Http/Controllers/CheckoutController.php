@@ -440,20 +440,24 @@ class CheckoutController extends Controller
 //	    $_active_css='special_instructions';
       if($query->message=='success')
       {
-          session()->forget('cart_sp_instructions');
-          session()->forget('cart');
-          session()->forget('cart_info');
-          session()->forget('cart_gift');
-          session()->forget('cart_payment');
-          session()->forget('cart_payment_currency');
-          session()->forget('cart_payment_token');
+          if($query->Flag)
+          {
+              session()->forget('cart_sp_instructions');
+              session()->forget('cart');
+              session()->forget('cart_info');
+              session()->forget('cart_gift');
+              session()->forget('cart_payment');
+              session()->forget('cart_payment_currency');
+              session()->forget('cart_payment_token');
 
-          session()->forget('cart_green');
-          session()->forget('cart_vouchers');
-          session()->forget('cart_wallet');
-          session()->forget('items_customized');
+              session()->forget('cart_green');
+              session()->forget('cart_vouchers');
+              session()->forget('cart_wallet');
+              session()->forget('items_customized');
 
-          session()->save();
+              session()->save();
+          }
+
 
       }
         $url='home';
@@ -482,6 +486,18 @@ class CheckoutController extends Controller
     public function payment_status($status)
     {
         session()->forget('onlinePaymentUrl');
+        session()->forget('cart_sp_instructions');
+        session()->forget('cart');
+        session()->forget('cart_info');
+        session()->forget('cart_gift');
+        session()->forget('cart_payment');
+        session()->forget('cart_payment_currency');
+        session()->forget('cart_payment_token');
+
+        session()->forget('cart_green');
+        session()->forget('cart_vouchers');
+        session()->forget('cart_wallet');
+        session()->forget('items_customized');
         session()->save();
         return redirect(route('home.menu'));
     }

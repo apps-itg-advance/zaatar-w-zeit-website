@@ -227,9 +227,13 @@ class OrdersLibrary{
         );
         array_push($array_payments,$_w);
           }
+        $x=true;
         if(isset($cart_payment->PaymentId) and $cart_payment->PaymentId!=null)
         {
-
+            if($cart_payment->Name=='credit')
+            {
+                $x=false;
+            }
             $_payments=array(
                 'Settlement'=>$_total-$discount,
                 'Currency'=>$currency,
@@ -284,6 +288,7 @@ class OrdersLibrary{
 
         $url=env('BASE_URL').'orders/Save';
         $query=Helper::postApi($url,$post_array);
+        $query->Flag=$x;
         return $query;
     }
 
