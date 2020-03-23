@@ -21,18 +21,20 @@
             @if(isset($addresses))
             @foreach($addresses as $address)
                 @php
-                    $checked='';
-                    if($address->IsDefault==1)
-                    {
-                        $checked='checked="checked"';
-                    }
+                        $eta='';
+                        $checked='';
+                        if($address->IsDefault==1)
+                        {
+                            $checked='checked="checked"';
+                            $eta=$address->DeliveryEta.' Min';
+                        }
                 @endphp
             <div class="summary-item mb-5 mb-sm-4">
                 <div class="custom-control custom-radio mb-1">
-                    <input type="radio" {{$checked}} id="customRadio{{$address->ID}}" name="AddressId" value="{{$address->ID}}" data-open="{{$address->OpenHours}}" data-close="{{$address->CloseHours}}" class="custom-control-input">
+                    <input type="radio" {{$checked}} id="customRadio{{$address->ID}}" name="AddressId" value="{{$address->ID}}" data-open="{{$address->OpenHours}}" data-close="{{$address->CloseHours}}" data-eta="{{$address->DeliveryEta}}" onclick="ShowETA({{$address->ID}})" class="custom-control-input">
                     <input type="hidden" id="{{$address->ID}}" name="{{$address->ID}}" value="{{json_encode($address)}}">
                     <label class="custom-control-label" for="customRadio{{$address->ID}}">
-                        <p class="text-uppercase m-0">{{$address->Name}}</p>
+                        <p class="text-uppercase m-0">{{$address->Name}} <span class="delivery-eta" id="eta-{{$address->ID}}">{{$eta}}</span></p>
                         <span class="d-block">{{$address->CityName}} , {{$address->ProvinceName}} <br>{{$address->Line1}}<br>{{$address->Line2}}</span>
                     </label>
                 </div>
@@ -119,29 +121,10 @@
             }
 
         });
-        function ValidateTime(open_time,close_time){
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type:'get',
-                url:'{{route('checkout.datetime')}}',
-                success:function(data){
-                   if(data <open_time || data > close_time)
-                   {
-                       Swal.fire({
-                           title: 'Warning!',
-                           text: 'Sorry, the outlet is already closed',
-                           icon: 'warning',
-                           confirmButtonText: 'Close'
-                       });
-                       spinnerButtons('hide', $(this));
-                       return null;
-                   }
-
-                }
-            });
-            return true;
+        function ShowETA(id){
+            var x=$("#customRadio"+id).data('eta');
+            $('.delivery-eta').html('');
+            $('#eta-'+id).html(x+' Min');
         }
         function DeleteAddress(address_id) {
             Swal.fire({
