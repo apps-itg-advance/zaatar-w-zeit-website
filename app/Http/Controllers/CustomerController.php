@@ -26,6 +26,9 @@ class CustomerController extends Controller
         $loyalty_levels=SettingsLib::GetLoyaltyLevels();
         $query=session()->has('user'.$Skey) ? session()->get('user'.$Skey) : array();
         $loyalty_id=$query->details->LoyaltyId;
+        $data_all=SettingsLib::GetDeliveryScreenDataSteps();
+        $addresses_types=$data_all->AddressTypes;
+
      /*   $v=isset($query->vouchers)  ? $query->vouchers : array();
         $array_keys=array();
         $vouchers=array();
@@ -80,9 +83,17 @@ class CustomerController extends Controller
             }
         }
         $addresses=session()->has('addresses'.$Skey) ? session()->get('addresses'.$Skey) : array();
+        $address_types=array();
+        if(count($addresses)>0)
+        {
+            foreach ($addresses as $addr)
+            {
+                array_push($address_types,$addr->TypeID);
+            }
+        }
         $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
         $wallet_balance=$query->details->WalletAmountBalance;
-        return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level','vouchers','wallet_balance'));  //
+        return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level','vouchers','wallet_balance','addresses_types','address_types'));  //
     }
 
     public function orders()
@@ -284,6 +295,8 @@ class CustomerController extends Controller
         $last_name=$request->input('last_name'.$Skey);
         $mobile=$request->input('mobile'.$Skey);
         $email=$request->input('email'.$Skey);
+        $address_name=$request->input('name'.$Skey);
+        $address_type=$request->input('address_type'.$Skey);
         $geo=$request->input('geo'.$Skey);
         $line1=$request->input('line1'.$Skey);
         $building_name=$request->input('building_name'.$Skey);
@@ -308,11 +321,11 @@ class CustomerController extends Controller
             'LastName'=>$last_name
         );
         $query=CustomerLibrary::UpdateCustomers($array_customer);
-      //  var_dump($query);
+
         $array_address=array(
             'LoyaltyId'=>$loyalty_id,
-            'AddressType'=>1,
-            'Name'=>'Main Address',
+            'AddressType'=>$address_type,
+            'Name'=>$address_name,
             'AptNumber'=>$apartment,
             'Line1'=>$line1,
             'Line2'=>$line2,

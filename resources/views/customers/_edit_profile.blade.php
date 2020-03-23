@@ -78,6 +78,25 @@
                                     }
                                 }
                     @endphp
+                    <div class="col-md-12">
+                        <label>Address Type</label>
+                        <div class="row">
+                            @foreach($addresses_types as $add_type)
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="address_type{{$add_type->ID}}">{{$add_type->Title}}</label>
+                                        <input data-code="{{$add_type->ID}}" type="radio" class="address_type" id="address_type{{$add_type->ID}}" {{(in_array($add_type->ID,$address_types) and $main_address->TypeID!=$add_type->ID)? 'disabled' :''}}  {{$main_address->TypeID==$add_type->ID? 'checked' :''}} name="address_type{{$Skey}}" value="{{$add_type->ID}}" required />
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Address Name</label>
+                            <input type="text" class="form-control" name="name{{$Skey}}" value="{{@$main_address->Name}}" />
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>City</label>
@@ -193,9 +212,16 @@
 				    required: true,
 				    maxlength: 30
 			    },
-			    geo{{$Skey}}: {
-				    required: true
-			    },
+                address_type{{$Skey}}: {
+                    required: true
+                },
+                name{{$Skey}}: {
+                    required: true,
+                    maxlength: 30
+                },
+                geo{{$Skey}}: {
+                    required: true
+                },
 			    line1{{$Skey}}: {
 				    required: true,
 				    maxlength: 30
@@ -208,7 +234,8 @@
 			    },
 			    floor{{$Skey}}: {
 				    maxlength: 30
-			    }
+			    },
+
 		    },
 		    submitHandler: function (form) {
 			    form.submit();// for demo
