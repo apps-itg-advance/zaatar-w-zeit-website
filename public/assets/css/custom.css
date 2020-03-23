@@ -42,9 +42,14 @@
 }
 .border-white{
     border: 5px solid white;
-
 }
 .delivery-eta{
     color:#8DBF43 !important;
     margin-left: 20px;
+    text-transform:capitalize;
+}
+.delivery-txt{
+    color: #808080 !important;
+    text-transform:capitalize;
+
 }

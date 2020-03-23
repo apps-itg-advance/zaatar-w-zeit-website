@@ -19,22 +19,29 @@
         </div>
         <div class="summary-items">
             @if(isset($addresses))
+                @php
+                    $eta='';
+                    $checked='';
+                @endphp
             @foreach($addresses as $address)
                 @php
-                        $eta='';
-                        $checked='';
-                        if($address->IsDefault==1)
+
+                        if($address->IsDefault=='1' and $eta=='')
                         {
                             $checked='checked="checked"';
-                            $eta=$address->DeliveryEta.' Min';
+                            $eta='<span class="delivery-txt">Delivery around </span>'.$address->DeliveryEta.' Min';
                         }
-                @endphp
+                        else{
+                            $eta='';
+                            $checked='';
+                        }
+                        @endphp
             <div class="summary-item mb-5 mb-sm-4">
                 <div class="custom-control custom-radio mb-1">
                     <input type="radio" {{$checked}} id="customRadio{{$address->ID}}" name="AddressId" value="{{$address->ID}}" data-open="{{$address->OpenHours}}" data-close="{{$address->CloseHours}}" data-eta="{{$address->DeliveryEta}}" onclick="ShowETA({{$address->ID}})" class="custom-control-input">
                     <input type="hidden" id="{{$address->ID}}" name="{{$address->ID}}" value="{{json_encode($address)}}">
                     <label class="custom-control-label" for="customRadio{{$address->ID}}">
-                        <p class="text-uppercase m-0">{{$address->Name}} <span class="delivery-eta" id="eta-{{$address->ID}}">{{$eta}}</span></p>
+                        <p class="text-uppercase m-0">{{$address->Name}} <span class="delivery-eta" id="eta-{{$address->ID}}">{!! $eta ?? '' !!}</span></p>
                         <span class="d-block">{{$address->CityName}} , {{$address->ProvinceName}} <br>{{$address->Line1}}<br>{{$address->Line2}}</span>
                     </label>
                 </div>
@@ -124,7 +131,7 @@
         function ShowETA(id){
             var x=$("#customRadio"+id).data('eta');
             $('.delivery-eta').html('');
-            $('#eta-'+id).html(x+' Min');
+            $('#eta-'+id).html('<span class="delivery-txt">Delivery around </span>'+x+' Min');
         }
         function DeleteAddress(address_id) {
             Swal.fire({
