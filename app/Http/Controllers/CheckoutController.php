@@ -349,6 +349,8 @@ class CheckoutController extends Controller
     {
         $card=$request->input('card');
         $flag=false;
+        session()->forget('cart_payment_token');
+        session()->save();
         if($card!='')
         {
             $cards=$this->query->GatewayToken;
@@ -362,8 +364,7 @@ class CheckoutController extends Controller
             }
             if($flag)
             {
-                session()->forget('cart_payment_token');
-                session()->save();
+
                 session()->put('cart_payment_token',$card);
             }
         }
