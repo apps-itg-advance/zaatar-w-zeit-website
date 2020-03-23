@@ -38,9 +38,9 @@
                             @endphp
                             @if(!$display_favourite)
                                 @if(session('is_login'))
-                                    <a onclick="SetFavourite({{$row->ID}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite mr-3 {{$active_f}}">Favourite</a>
+                                    <a onclick="SetFavourite({{$row->ID}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite mr-3 {{$active_f}}"><span>Favourite</span></a>
                                 @else
-                                    <a onclick="loginAlert()" class="effect-underline link-favourite mr-3 cursor-pointer">Favourite</a>
+                                    <a onclick="loginAlert()" class="effect-underline link-favourite mr-3 cursor-pointer"><span>Favourite</span></a>
                                 @endif
                             @endif
                             @php
