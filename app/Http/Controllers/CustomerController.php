@@ -28,6 +28,7 @@ class CustomerController extends Controller
         $loyalty_id=$query->details->LoyaltyId;
         $data_all=SettingsLib::GetDeliveryScreenDataSteps();
         $addresses_types=$data_all->AddressTypes;
+        dump($addresses_types);
 
      /*   $v=isset($query->vouchers)  ? $query->vouchers : array();
         $array_keys=array();
