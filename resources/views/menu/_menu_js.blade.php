@@ -56,7 +56,7 @@
             Swal.fire({
                 // position: 'top-end',
                 icon: 'warning',
-                title: 'Max Options is '+max_qty,
+                title: 'You can\'t select more than '+max_qty+' option',
                 showConfirmButton: false,
                 timer: 1200
             });
