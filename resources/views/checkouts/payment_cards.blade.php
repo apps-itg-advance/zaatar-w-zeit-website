@@ -100,7 +100,9 @@
         });
         function SelectCard(card)
         {
+
             var old=$('#TokenCard').val();
+
             if(old==card)
             {
                 $('#TokenCard').val('');
@@ -108,9 +110,14 @@
                 $("#in-"+old).removeClass("border-white");
             }
             else{
+                //alert(card);
                 $('#TokenCard').val(card);
-                $("#out-"+old).removeClass("border-green");
-                $("#in-"+old).removeClass("border-white");
+                if(old!='')
+                {
+                    $("#out-"+old).removeClass("border-green");
+                    $("#in-"+old).removeClass("border-white");
+                }
+
                 $("#out-"+card).addClass("border-green");
                 $("#in-"+card).addClass("border-white");
             }

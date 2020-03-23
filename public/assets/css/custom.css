@@ -26,18 +26,7 @@
     margin-top: 100px;
     font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace !important;
     padding-left: 50px;
-}
-@media screen and (min-width: 601px) {
-    .card-code {
-        font-size: 25px;
-    }
-}
-
-/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
-@media screen and (max-width: 600px) {
-    .card-code {
-        font-size: 25px;
-    }
+    font-size: 25px;
 }
 .card-date{
     float: right;
