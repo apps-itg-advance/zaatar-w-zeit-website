@@ -29,8 +29,8 @@
                     $month=substr($card->Expiry,0,2);
                     $year=substr($card->Expiry,2,2);
                     @endphp
-                <div class="item credit-card-{{$css}}" data-mh="matchHeight" id="out-{{$card->Token}}">
-                    <div class="item-div text-white p-3" id="in-{{$card->Token}}">
+                <div class="item credit-card-{{$css}} out-{{$card->Token}}" data-mh="matchHeight" id="out-{{$card->Token}}">
+                    <div class="item-div text-white p-3 in-{{$card->Token}}" id="in-{{$card->Token}}">
                         <a href="javascript:void(0)" onclick="DeleteCards({{$card->Id}})" class="d-inline-block"><img src="{{asset('assets/images/icon-checkout-close.png')}}" /></a>
 
                         <div class="card-code">{{$card->Card}}</div>
@@ -106,20 +106,20 @@
             if(old==card)
             {
                 $('#TokenCard').val('');
-                $("#out-"+old).removeClass("border-green");
-                $("#in-"+old).removeClass("border-white");
+                $(".out-"+old).removeClass("border-green");
+                $(".in-"+old).removeClass("border-white");
             }
             else{
                 //alert(card);
                 $('#TokenCard').val(card);
                 if(old!='')
                 {
-                    $("#out-"+old).removeClass("border-green");
-                    $("#in-"+old).removeClass("border-white");
+                    $(".out-"+old).removeClass("border-green");
+                    $(".in-"+old).removeClass("border-white");
                 }
 
-                $("#out-"+card).addClass("border-green");
-                $("#in-"+card).addClass("border-white");
+                $(".out-"+card).addClass("border-green");
+                $(".in-"+card).addClass("border-white");
             }
 
         }
