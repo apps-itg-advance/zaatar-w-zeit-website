@@ -85,6 +85,8 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::get('/checkout/green', 'CheckoutController@green')->name('checkout.green');
     Route::get('/checkout/payment', 'CheckoutController@payment')->name('checkout.payment');
     Route::get('/checkout/special-instructions', 'CheckoutController@special_instructions')->name('checkout.special_instructions');
+    Route::get('/checkout/get-datetime', 'CheckoutController@GetDateTime')->name('checkout.datetime');
+
 });
 
 

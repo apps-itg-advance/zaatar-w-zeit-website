@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Libraries\SettingsLib;
 use App\Http\Libraries\OrdersLibrary;
 use App\Http\Libraries\CustomerLibrary;
+use Illuminate\Support\Carbon;
 
 class CheckoutController extends Controller
 {
@@ -46,6 +47,17 @@ class CheckoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function GetDateTime()
+    {
+        $time='error';
+        $org=session()->get('_org');
+        if(isset($org->timezone))
+        {
+            $current_date=Carbon::now($org->timezone);
+            $time= $current_date->format('H:i:s');
+        }
+        echo $time;
+    }
     public function address()
     {
         $step=1;
@@ -56,6 +68,7 @@ class CheckoutController extends Controller
         $cities=SettingsLib::GetCities();
 	    $_active_css='';
         $class_css='checkout-wrapper';
+
         return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities','settings'));  //
     }
     public function address_store(Request $request)

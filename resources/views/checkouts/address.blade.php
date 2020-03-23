@@ -29,7 +29,7 @@
                 @endphp
             <div class="summary-item mb-5 mb-sm-4">
                 <div class="custom-control custom-radio mb-1">
-                    <input type="radio" {{$checked}} id="customRadio{{$address->ID}}" name="AddressId" value="{{$address->ID}}" class="custom-control-input">
+                    <input type="radio" {{$checked}} id="customRadio{{$address->ID}}" name="AddressId" value="{{$address->ID}}" data-open="{{$address->OpenHours}}" data-close="{{$address->CloseHours}}" class="custom-control-input">
                     <input type="hidden" id="{{$address->ID}}" name="{{$address->ID}}" value="{{json_encode($address)}}">
                     <label class="custom-control-label" for="customRadio{{$address->ID}}">
                         <p class="text-uppercase m-0">{{$address->Name}}</p>
@@ -64,22 +64,48 @@
     <script>
         $(".confirm").click(function(){
 	        spinnerButtons('show', $(this));
-
+            var that=$(this);
 	        var radioValue = $("input[name='AddressId']:checked").val();
             var address=$("#"+radioValue).val();
 
             if(radioValue){
+                var open_time=$("#customRadio"+radioValue).data('open');
+                var close_time=$("#customRadio"+radioValue).data('close');
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    type:'POST',
-                    data:{data:address},
-                    url:'{{route('checkout.address.store')}}',
-                    success:function(data){
-                        window.location = '{{route('checkout.wallet')}}';
+                    type:'get',
+                    url:'{{route('checkout.datetime')}}',
+                    success:function(current_date){
+                        if(current_date <open_time || current_date > close_time)
+                        {
+                            Swal.fire({
+                                title: 'Warning!',
+                                text: 'Sorry, the outlet is already closed',
+                                icon: 'warning',
+                                confirmButtonText: 'Close'
+                            });
+                            spinnerButtons('hide', that);
+                            return false;
+                        }
+                        else{
+                            $.ajax({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                type:'POST',
+                                data:{data:address},
+                                url:'{{route('checkout.address.store')}}',
+                                success:function(data){
+                                    window.location = '{{route('checkout.wallet')}}';
+                                }
+                            });
+                        }
                     }
                 });
+
+
             }
             else{
 	            Swal.fire({
@@ -93,6 +119,30 @@
             }
 
         });
+        function ValidateTime(open_time,close_time){
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'get',
+                url:'{{route('checkout.datetime')}}',
+                success:function(data){
+                   if(data <open_time || data > close_time)
+                   {
+                       Swal.fire({
+                           title: 'Warning!',
+                           text: 'Sorry, the outlet is already closed',
+                           icon: 'warning',
+                           confirmButtonText: 'Close'
+                       });
+                       spinnerButtons('hide', $(this));
+                       return null;
+                   }
+
+                }
+            });
+            return true;
+        }
         function DeleteAddress(address_id) {
             Swal.fire({
                 title: 'Are you sure?',
