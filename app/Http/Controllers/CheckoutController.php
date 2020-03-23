@@ -441,7 +441,7 @@ class CheckoutController extends Controller
 //	    $_active_css='special_instructions';
       if($query->message=='success')
       {
-          if($query->Flag)
+          if($query->Flag or $query->PaymentStatus=='success')
           {
               session()->forget('cart_sp_instructions');
               session()->forget('cart');
