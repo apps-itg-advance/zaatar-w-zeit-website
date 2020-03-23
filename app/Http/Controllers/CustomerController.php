@@ -29,6 +29,7 @@ class CustomerController extends Controller
         $data_all=SettingsLib::GetDeliveryScreenDataSteps();
         $addresses_types=$data_all->AddressTypes;
         dump($addresses_types);
+        die;
 
      /*   $v=isset($query->vouchers)  ? $query->vouchers : array();
         $array_keys=array();
