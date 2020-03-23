@@ -251,12 +251,12 @@ $discount=0;
                     {
                         msg_title='Order Submitted successfully.';
                         msg_icon='success';
-                        url='{{route('home.menu')}}';
+                        xurl='{{route('home.menu')}}';
                     }
                     else{
                         msg_title=res.message;
                         msg_icon='error';
-                        url='{{route('checkout.payment')}}';
+                        xurl='{{route('checkout.payment')}}';
                     }
                     Swal.fire({
                         // position: 'top-end',
@@ -265,7 +265,7 @@ $discount=0;
                         showConfirmButton: true
                     }).then((result) => {
                         if (result.value) {
-                            location.replace(url);
+                            location.replace(xurl);
                         }
                     });
 
