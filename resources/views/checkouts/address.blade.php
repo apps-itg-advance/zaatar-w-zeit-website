@@ -34,7 +34,7 @@
                     <input type="radio" {{$checked}} id="customRadio{{$address->ID}}" name="AddressId" value="{{$address->ID}}" data-open="{{$address->OpenHours}}" data-close="{{$address->CloseHours}}" data-eta="{{$address->DeliveryEta}}" onclick="ShowETA({{$address->ID}})" class="custom-control-input">
                     <input type="hidden" id="{{$address->ID}}" name="{{$address->ID}}" value="{{json_encode($address)}}">
                     <label class="custom-control-label" for="customRadio{{$address->ID}}">
-                        <p class="text-uppercase m-0">{{$address->Name}}<span class="delivery-eta" id="eta-{{$address->ID}}"><span style="text-transform: none; margin-left: 10px;">Delivery around</span> {{$eta}}</span></p>
+                        <p class="text-uppercase m-0">{{$address->Name}}<span class="delivery-eta" id="eta-{{$address->ID}}">{{$eta}}</span></p>
                         <span class="d-block">{{$address->CityName}} , {{$address->ProvinceName}} <br>{{$address->Line1}}<br>{{$address->Line2}}</span>
                     </label>
                 </div>
