@@ -37,7 +37,7 @@
                         <div class="clearfix"></div>
                         <div class="card-date">Valid Thru<br>{{$month.' / '.$year}}</div>
                         <div class="buttons text-center mt-3">
-                            <a href="javascript:void(0)" onclick="SelectCard({{$card->Token}})" class="btn btn-redeem active text-uppercase">Pay with this card</a>
+                            <a href="javascript:void(0)" onclick="SelectCard('{{$card->Token}}')" class="btn btn-redeem active text-uppercase">Pay with this card</a>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,31 @@
         if(contentHeight < finalheight) {
             jQuery(".content-container").css("min-height", windowHeight+50);
         }
+        function SelectCard(card)
+        {
 
+            var old=$('#TokenCard').val();
+
+            if(old==card)
+            {
+                $('#TokenCard').val('');
+                $(".out-"+old).removeClass("border-green");
+                $(".in-"+old).removeClass("border-white");
+            }
+            else{
+                //alert(card);
+                $('#TokenCard').val(card);
+                if(old!='')
+                {
+                    $(".out-"+old).removeClass("border-green");
+                    $(".in-"+old).removeClass("border-white");
+                }
+
+                $(".out-"+card).addClass("border-green");
+                $(".in-"+card).addClass("border-white");
+            }
+
+        }
         /*jQuery(".cart-dropdown").css("height", windowHeight - headerHeight - 10);
         jQuery(".cart-dropdown").css("overflow-y", 'scroll');*/
 
@@ -98,31 +122,7 @@
                 }
             }
         });
-        function SelectCard(card)
-        {
 
-            var old=$('#TokenCard').val();
-
-            if(old==card)
-            {
-                $('#TokenCard').val('');
-                $(".out-"+old).removeClass("border-green");
-                $(".in-"+old).removeClass("border-white");
-            }
-            else{
-                //alert(card);
-                $('#TokenCard').val(card);
-                if(old!='')
-                {
-                    $(".out-"+old).removeClass("border-green");
-                    $(".in-"+old).removeClass("border-white");
-                }
-
-                $(".out-"+card).addClass("border-green");
-                $(".in-"+card).addClass("border-white");
-            }
-
-        }
         function SubmitData(card,that)
         {
             $.ajax({
