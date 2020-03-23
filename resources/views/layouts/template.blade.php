@@ -206,6 +206,23 @@
 		});
 	}
 
+    function ValidateAddressType(id) {
+        if($('#address_type'+id).is(':enabled')) {
+            // Do enabled radio button code here
+           // alert('enabled');
+        }
+        else {
+            // Do
+            Swal.fire({
+                // position: 'top-end',
+                icon: 'warning',
+                title: 'Already Used.',
+                showConfirmButton: 'close'
+            });
+            return false;
+        }
+    }
+
 </script>
 @yield('javascript')
 @yield('javascriptCart')

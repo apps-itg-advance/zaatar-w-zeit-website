@@ -22,7 +22,7 @@
                                 @foreach($addresses_types as $add_type)
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label for="address_type{{$add_type->ID}}">{{$add_type->Title}}</label>
+                                            <label for="address_type{{$add_type->ID}}" onclick="ValidateAddressType({{$add_type->ID}})">{{$add_type->Title}}</label>
                                             <input data-code="{{$add_type->ID}}" type="radio" class="address_type" id="address_type{{$add_type->ID}}" {{in_array($add_type->ID,$address_types)? 'disabled' :''}} name="address_type{{$skey}}" value="{{$add_type->ID}}" />
                                         </div>
                                     </div>
@@ -206,4 +206,5 @@
 	    loadModalMap.init();
 
     });
+
 </script>

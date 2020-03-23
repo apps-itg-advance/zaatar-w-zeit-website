@@ -84,7 +84,7 @@
                             @foreach($addresses_types as $add_type)
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="address_type{{$add_type->ID}}">{{$add_type->Title}}</label>
+                                        <label for="address_type{{$add_type->ID}}" onclick="ValidateAddressType({{$add_type->ID}})">{{$add_type->Title}}</label>
                                         <input data-code="{{$add_type->ID}}" type="radio" class="address_type" id="address_type{{$add_type->ID}}" {{(in_array($add_type->ID,$address_types) and (isset($main_address->TypeID) and $main_address->TypeID!=$add_type->ID))? 'disabled' :''}}  {{(isset($main_address->TypeID) and $main_address->TypeID==$add_type->ID )? 'checked' :''}} name="address_type{{$Skey}}" value="{{$add_type->ID}}" required />
                                     </div>
                                 </div>
