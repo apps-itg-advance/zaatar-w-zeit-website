@@ -20,15 +20,15 @@
                 <div class="col-sm-6 pl-4">
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">To</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 col-form-label">To</label>
+                        <div class="col-sm-9">
                             <input type="text" class="form-control" id="gift_to{{$skey}}" name="gift_to{{$skey}}">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">From</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 col-form-label">From</label>
+                        <div class="col-sm-9">
                             <input type="text" class="form-control" id="gift_from{{$skey}}" name="gift_from{{$skey}}">
                         </div>
                     </div>
