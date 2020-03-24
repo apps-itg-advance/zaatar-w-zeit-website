@@ -307,6 +307,8 @@ class CustomerController extends Controller
         $ext=$request->input('ext'.$Skey);
         $xLocation=$request->input('x_location'.$Skey);
         $yLocation=$request->input('y_location'.$Skey);
+        $Company=$request->input('company'.$Skey);
+
         $line2=$building_name.' Bldg '.$building_nbr;
 
         $apartment=$floor.' Ext: '.$ext;
@@ -336,7 +338,7 @@ class CustomerController extends Controller
             'XLocation'=>$xLocation,
             'YLocation'=>$yLocation,
             'PersonalInfo'=>'',
-            'Company'=>'',
+            'Company'=>$Company,
             'IsDefault'=>$is_default==1 ? 1:0,
         );
         if ($request->has('address_id'.$Skey))

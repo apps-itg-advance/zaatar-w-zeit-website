@@ -153,6 +153,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-12" id="company-input-container">
+                        <div class="form-group">
+                            <label>Company</label>
+                            <input type="text" class="form-control"  name="company{{$Skey}}" value="{{@$company}}" required />
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="form-group mb-0">
 
@@ -200,8 +206,26 @@
 </div>
 <script>
     $(document).ready(function () {
+        if($(".address_type:checked").data('code')=='45'){
+            $('#company-input-container').removeClass('d-none');
+            $('#company-input-container').find('input').prop('disabled',false);
+        }else{
+            $('#company-input-container').find('input').prop('disabled',true);
+            $('#company-input-container').addClass('d-none');
+        }
 
-	    $("#ProfileForm").submit(function(e) {
+        $('body').on('click','.address_type', function(){
+            if($(this).data('code')=='45'){
+                $('#company-input-container').removeClass('d-none');
+                $('#company-input-container').find('input').prop('disabled',false);
+            }else{
+                $('#company-input-container').find('input').prop('disabled',true);
+                $('#company-input-container').addClass('d-none');
+            }
+        });
+
+
+        $("#ProfileForm").submit(function(e) {
 		    e.preventDefault();
 	    }).validate({
 		    rules: {
