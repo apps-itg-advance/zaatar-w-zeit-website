@@ -9,7 +9,7 @@
                 @endphp
 
                 <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 logo-col pt-3 pb-md-3">
-                    <a href="#" class="d-inline-block logo-a mr-md-5 mr-3"><img src="{{asset('assets/svg/logo.svg')}}" class="logo img-fluid logo-2" /></a>
+                    <a href="{{route('home.menu')}}" class="d-inline-block logo-a mr-md-5 mr-3"><img src="{{asset('assets/svg/logo.svg')}}" class="logo img-fluid logo-2" /></a>
                     <div class="dropdown d-inline-block">
                         <button class="btn lebanon-a btn-link dropdown-toggle p-0 m-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="{{$s_org->country_flag}}" class="flag img-fluid logo-image" />
