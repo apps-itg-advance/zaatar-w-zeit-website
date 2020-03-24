@@ -385,6 +385,8 @@ class CustomerController extends Controller
         $cities=SettingsLib::GetCities();
         $skey = session()->get('skey');
         $customer=session()->has('user'.$skey) ? session()->get('user'.$skey) : array();
+
+       $mobile=$customer->details->LoyaltyCardCode;
         $addresses=session()->has('addresses'.$skey) ? session()->get('addresses'.$skey) : array();
         $address_types=array();
         if(count($addresses)>0)
@@ -395,7 +397,7 @@ class CustomerController extends Controller
             }
         }
         $query=$customer->details;
-        return view('customers._edit_address',compact('query','addresses_types','address','address_types','skey','cities'));
+        return view('customers._edit_address',compact('query','addresses_types','address','address_types','skey','cities','mobile'));
     }
     public function address_add()
     {
