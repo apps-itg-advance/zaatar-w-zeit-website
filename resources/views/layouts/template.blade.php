@@ -216,7 +216,7 @@
             Swal.fire({
                 // position: 'top-end',
                 icon: 'warning',
-                title: 'Already Used.',
+                title: 'This address type is already in use.',
                 showConfirmButton: 'close'
             });
             return false;
