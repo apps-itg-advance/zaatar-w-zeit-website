@@ -156,7 +156,7 @@
                     <div class="col-md-12" id="company-input-container">
                         <div class="form-group">
                             <label>Company</label>
-                            <input type="text" class="form-control"  name="company{{$Skey}}" value="{{@$company}}" required />
+                            <input type="text" class="form-control"  name="company{{$Skey}}" value="{{@$main_address->CompanyName}}" required />
                         </div>
                     </div>
                     <div class="col-md-12">
