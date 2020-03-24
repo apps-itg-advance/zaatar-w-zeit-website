@@ -31,6 +31,9 @@ class OrdersLibrary{
         $cart_vouchers=session()->get('cart_vouchers');
         $cart_wallet=session()->get('cart_wallet');
 
+        $order_schedule=session()->get('order_schedule');
+        $schedule_date=session()->get('schedule_date');
+
         $delivery_charge=$_org->delivery_charge;
         $currency=$_org->currency;
 
@@ -284,7 +287,10 @@ class OrdersLibrary{
         $post_array['Items']=$array_items;
         $post_array['ReferralSource']='web';
         $post_array['OnlineCurrency']=$_currency;
-
+        if($order_schedule=='schedule')
+        {
+            $post_array['ScheduleOrder']=$schedule_date;
+        }
 
         $url=env('BASE_URL').'orders/Save';
         $query=Helper::postApi($url,$post_array);

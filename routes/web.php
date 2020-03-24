@@ -64,8 +64,11 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::post('/checkout/special-instructions-store', 'CheckoutController@special_instructions_store')->name('checkout.special.instructions.store');
     Route::post('/checkout/loyalty-store', 'CheckoutController@loyalty_store')->name('checkout.loyalty.store');
     Route::get('/checkout/delete/{step?}', 'CheckoutController@delete')->name('checkout.delete');
+    Route::post('/checkout/schedule/save', 'CheckoutController@schedule_save')->name('checkout.schedule.save');
 
     Route::post('/checkout/store', 'CheckoutController@store')->name('checkout.store');
+
+
     Route::get('/checkout/payment/online', 'CheckoutController@payment_online')->name('checkout.online');
 
     Route::get('/checkout/payment/cards', 'CheckoutController@payment_cards')->name('checkout.payment.cards');
@@ -79,6 +82,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
 //    Route::post('/customer/favouriteItem', 'CustomerController@favouriteItem')->name('customer.favourite.item');
     Route::post('/customer/set-favourite-order', 'CustomerController@set_favourite_order')->name('customer.set.favourite-order');
     Route::post('/customer/remove-favourite-order', 'CustomerController@remove_favourite_order')->name('customer.remove.favourite-order');
+
 
     Route::get('/checkout/wallet', 'CheckoutController@wallet')->name('checkout.wallet');
     Route::get('/checkout/gift', 'CheckoutController@gift')->name('checkout.gift');

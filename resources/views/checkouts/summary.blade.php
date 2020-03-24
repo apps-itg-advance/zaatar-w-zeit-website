@@ -43,9 +43,11 @@
                 @endforeach
             </div>
             <br>
-            <div class="delivery-block text-right">
-                Delivery fee <span class="price d-inline-block ml-4">{{number_format($delivery_fees).' '.$currency}}</span>
-            </div>
+
+                <div class="delivery-block text-right">
+                    Delivery fee <span class="price d-inline-block ml-4">{{number_format($delivery_fees).' '.$currency}}</span>
+                </div>
+
             <hr class="m-0" />
             <div class="total-block text-right mb-5">
                 Total <span class="price d-inline-block ml-4" id="TotalV">{{number_format(($_total+$delivery_fees)).' '.$currency}}</span>
@@ -61,8 +63,24 @@
     <script>
         $(".confirm").click(function(){
             spinnerButtons('show', $(this));
+
+
+           /*    $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type:'POST',
+                    data:{order_schedule:order_schedulev,schedule_date:schedule_datev},
+                    url:'{{route('checkout.schedule.save')}}',
+                    success:function(data){
+                       window.location = '{{route('checkout.address')}}';
+                    }
+                }); */
+
+
             window.location = '{{route('checkout.address')}}';
         });
+
         function _copyItem(id) {
             $.ajax({
                 type:'GET',
@@ -83,10 +101,15 @@
             });
         }
     </script>
+
 @endsection
 
 @section('css')
+    <link href="{{asset('assets/datetime/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" media="screen">
     <style>
         .checkout-wrapper .item-summary .summary-items .summary-item .buttons {top: -4px !important;}
+        .hidden-input{
+            display: none;
+        }
     </style>
 @stop

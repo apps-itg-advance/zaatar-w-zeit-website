@@ -39,7 +39,24 @@ class CheckoutController extends Controller
         $cart = Session::get('cart');
         $class_css='checkout-wrapper';
         $_active_css='';
-        return view('checkouts.summary',compact('cart','class_css','_active_css'));  //
+        $org=session()->get('_org');
+        $timezone=(isset($org->timezone) and $org->timezone!='')? $org->timezone: 'Asia/Beirut';
+        $current_date=Carbon::now($timezone);
+
+
+        return view('checkouts.summary',compact('cart','class_css','_active_css','current_date'));  //
+    }
+    public function schedule_save(Request $request)
+    {
+        $order_schedule=$request->input('order_schedule');
+        $schedule_date=$request->input('schedule_date');
+
+        session()->forget('order_schedule');
+        session()->forget('schedule_date');
+        session()->save();
+        session()->put('order_schedule',$order_schedule);
+        session()->put('schedule_date',$schedule_date);
+        return 'true';
     }
 
     /**
@@ -68,13 +85,27 @@ class CheckoutController extends Controller
         $cities=SettingsLib::GetCities();
 	    $_active_css='';
         $class_css='checkout-wrapper';
-
-        return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities','settings'));  //
+        $order_schedule=session()->get('order_schedule');
+        $schedule_date=session()->get('schedule_date');
+        $org=session()->get('_org');
+        $timezone=(isset($org->timezone) and $org->timezone!='')? $org->timezone: 'Asia/Beirut';
+        $current_date=Carbon::now($timezone);
+        return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities','settings','order_schedule','schedule_date','current_date'));  //
     }
     public function address_store(Request $request)
     {
         $skey = session()->get('skey');
         $query=session()->has('user'.$skey) ? session()->get('user'.$skey):array();
+
+        $order_schedule=$request->input('order_schedule');
+        $schedule_date=$request->input('schedule_date');
+
+        session()->forget('order_schedule');
+        session()->forget('schedule_date');
+        session()->save();
+        session()->put('order_schedule',$order_schedule);
+        session()->put('schedule_date',$schedule_date);
+
         $details=$query->details;
         $address=$request->input('data');
         $_data=json_decode($address);
@@ -452,8 +483,11 @@ class CheckoutController extends Controller
         $delivery_charge=$_org->delivery_charge;
         $currency=$_org->currency;
 //	    $_active_css='special_instructions';
+        $msg=$query->PaymentMessage;
+        $status=$query->PaymentStatus;
       if($query->message=='success')
       {
+
           if($query->Flag or $query->PaymentStatus=='success')
           {
               session()->forget('cart_sp_instructions');
@@ -470,6 +504,8 @@ class CheckoutController extends Controller
               session()->forget('items_customized');
 
               session()->save();
+              $status='success';
+              $msg='Order Inserted';
           }
 
 
@@ -481,7 +517,7 @@ class CheckoutController extends Controller
           session()->put('onlinePaymentUrl',$query->PaymentURL);
       }
 
-      echo json_encode(array('url'=>$url,'status'=>$query->PaymentStatus,'message'=>$query->PaymentMessage));
+      echo json_encode(array('url'=>$url,'status'=>$status,'message'=>$msg));
         //return $query;
         //return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
     }
