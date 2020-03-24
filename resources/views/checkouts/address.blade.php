@@ -58,8 +58,8 @@
                 <div class="col-sm-12"></div>
                 <div class="col-sm-2">
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="order_new" required name="order_schedule"  onclick="ShowCalender()" value="new" class="custom-control-input">
-                        <label class="custom-control-label" for="order_new">New</label>
+                        <input type="radio" id="order_now" required name="order_schedule"  onclick="ShowCalender()" value="now" class="custom-control-input">
+                        <label class="custom-control-label" for="order_now">Now</label>
                     </div>
                 </div>
                 <div class="col-sm-5">
@@ -115,7 +115,7 @@
                 {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'You must select an order type (new or scheduled).',
+                        title: 'You must select an order type (now or scheduled).',
                         showConfirmButton: 'close'
                     });
                     spinnerButtons('hide', that);
