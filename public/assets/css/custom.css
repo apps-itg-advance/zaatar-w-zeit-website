@@ -122,3 +122,46 @@
     pointer-events: none;
     display: block;
 }
+
+
+.post{
+    width: 97%;
+    min-height: 200px;
+    padding: 5px;
+    border: 1px solid gray;
+    margin-bottom: 15px;
+}
+
+.post h1{
+    letter-spacing: 1px;
+    font-weight: normal;
+    font-family: sans-serif;
+}
+
+
+.post p{
+    letter-spacing: 1px;
+    text-overflow: ellipsis;
+    line-height: 25px;
+}
+
+/* Load more */
+.load-more{
+    width: 99%;
+    background: #ffffff;
+    text-align: center;
+    color:  #8DBF43;
+    padding: 10px 0px;
+}
+
+.load-more:hover{
+    cursor: pointer;
+}
+
+/* more link */
+.more{
+    color: #8DBF43;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-size: 16px;
+}

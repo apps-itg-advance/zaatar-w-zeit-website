@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->limit_order=3;
+        view()->composer('*', function ($view) {
+            $view->with('limit',$this->limit_order);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -101,13 +108,15 @@ class CustomerController extends Controller
     public function orders()
     {
         $loyalty_id=session()->get('loyalty_id');
-	    $favouriteOrders=MenuLibrary::GetOrdersHistoryWithFav()->data;
+        $res=CustomerLibrary::GetOrdersHistory($loyalty_id,0,$this->limit_order,true);
+	    $favouriteOrders=$res['rows'];
+        $row_total=$res['total'];
 	    session()->put('orders_data',$favouriteOrders);
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';
         $page_title='Favourites Orders';
-        return view('customers.orders_favourite',compact('favouriteOrders','class_css','flag','sub_active','page_title'));  //
+        return view('customers.orders_favourite',compact('favouriteOrders','class_css','flag','sub_active','page_title','row_total'));  //
     }
     public function order_repeat(Request $request)
     {
@@ -192,17 +201,30 @@ class CustomerController extends Controller
 
         //
     }
+    public function GetOrderRows(Request $request)
+    {
+        //'query'=>$query,'favourite'=>false
 
+        $row=$request->get('row');
+        $favourite=$request->get('fav')=='0'? false : true;
+        $loyalty_id=session()->get('loyalty_id');
+        $res=CustomerLibrary::GetOrdersHistory($loyalty_id,$row,$this->limit_order,$favourite);
+        $query=$res['rows'];
+        return view('customers._order_grid_row',compact('query','favourite'));
+    }
     public function orderHistory()
     {
         $loyalty_id=session()->get('loyalty_id');
-        $query=CustomerLibrary::GetOrdersHistory($loyalty_id);
+
+        $res=CustomerLibrary::GetOrdersHistory($loyalty_id,0,$this->limit_order,false);
+        $row_total=$res['total'];
+        $query=$res['rows'];
         session()->put('orders_data',$query);
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';
         $page_title='Order History';
-        return view('customers.order_history',compact('query','class_css','flag','sub_active','page_title'));
+        return view('customers.order_history',compact('query','class_css','flag','sub_active','page_title','row_total'));
 //	        'cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','cart_vouchers','cart_wallet','delivery_charge','currency'));  //
     }
 

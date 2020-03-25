@@ -55,6 +55,8 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::post('/customer/order/repeat', 'CustomerController@order_repeat')->name('customer.order.repeat');
     Route::get('/customer/favourite/items', 'CustomerController@favourites')->name('customer.favourite.items');
     Route::get('/customer/order-history', 'CustomerController@orderHistory')->name('customer.order-history');
+    Route::get('/customer/order/more', 'CustomerController@GetOrderRows')->name('customer.order.more');
+
     Route::get('/customer/order-details', 'CustomerController@order_details')->name('order.details');
     Route::get('/checkout/address', 'CheckoutController@address')->name('checkout.address');
     Route::post('/checkout/address-store', 'CheckoutController@address_store')->name('checkout.address.store');
