@@ -19,8 +19,15 @@
             </div>
             <div class="radios-green">
                 @foreach($query as $row)
+                    @php
+                        $check='';
+                        if(isset($cart_green['Id']) and $cart_green['Id']==$row->ID)
+                        {
+                            $check='checked="checked"';
+                        }
+                    @endphp
                 <div class="custom-control custom-radio mb-4">
-                    <input type="radio" id="go_green{{$row->ID}}" name="go_green" value="{{$row->Title.'-:'.$row->ID.'-:'.$row->PLU}}" class="custom-control-input">
+                    <input type="radio" id="go_green{{$row->ID}}" {{$check}} name="go_green" value="{{$row->Title.'-:'.$row->ID.'-:'.$row->PLU}}" class="custom-control-input">
                     <label class="custom-control-label text-uppercase" for="go_green{{$row->ID}}">
                        {{$row->Title}}
                     </label>

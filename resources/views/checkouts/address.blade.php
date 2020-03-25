@@ -2,6 +2,9 @@
 @section('content')
     @php
         $addresses=(isset($addresses) and $addresses!=null)? $addresses:array();
+        $check_new=(isset($order_schedule) and $order_schedule=='now') ? 'checked="checked"' : '';
+        $check_schedule=(isset($order_schedule) and $order_schedule=='schedule') ? 'checked="checked"' : '';
+        $select_id=isset($selected_address->AddressId) ? $selected_address->AddressId:'';
     @endphp
     <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 float-none p-0 mx-auto">
 
@@ -25,20 +28,20 @@
                 @endphp
             @foreach($addresses as $address)
                 @php
-
-                     /*   if($address->IsDefault=='1' and $eta=='')
+                        if($address->ID==$select_id)
                         {
-                            //$checked='checked="checked"';
+                            $checked='checked="checked"';
                             $eta='<span class="delivery-txt">Delivery around </span>'.$address->DeliveryEta.' Min';
                         }
-                        else{
-                            $eta='';
-                            $checked='';
-                        } */
+                    else{
+                        $eta='';
+                        $checked='';
+                    }
+
                         @endphp
             <div class="summary-item mb-5 mb-sm-4">
                 <div class="custom-control custom-radio mb-1">
-                    <input type="radio" onclick="InitCalander({{$address->ID}})" {{$checked}} id="customRadio{{$address->ID}}" name="AddressId" value="{{$address->ID}}" data-open="{{$address->OpenHours}}" data-close="{{$address->CloseHours}}" data-eta="{{$address->DeliveryEta}}" onclick="ShowETA({{$address->ID}})" class="custom-control-input">
+                    <input type="radio" {{$checked}} id="customRadio{{$address->ID}}" name="AddressId" value="{{$address->ID}}" data-open="{{$address->OpenHours}}" data-close="{{$address->CloseHours}}" data-eta="{{$address->DeliveryEta}}" onclick="ShowETA({{$address->ID}})" class="custom-control-input">
                     <input type="hidden" id="{{$address->ID}}" name="{{$address->ID}}" value="{{json_encode($address)}}">
                     <label class="custom-control-label" for="customRadio{{$address->ID}}">
                         <p class="text-uppercase m-0">{{$address->Name}}<span class="delivery-eta" id="eta-{{$address->ID}}">{!! $eta !!}</span></p>
@@ -57,20 +60,20 @@
             <div class="row">
                 <div class="col-sm-12"></div>
                 <div class="col-sm-2">
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="order_now" required name="order_schedule"  onclick="ShowCalender()" value="now" class="custom-control-input">
-                        <label class="custom-control-label" for="order_now">Now</label>
+                    <div class="custom-control custom-radio mb-1">
+                        <input type="radio" id="order_now" {{$check_new}} required name="order_schedule"  onclick="ShowCalender()" value="now" class="custom-control-input">
+                        <label class="custom-control-label" for="order_now"><p class="text-uppercase m-0">Now</p></label>
                     </div>
                 </div>
                 <div class="col-sm-5">
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="order_schedule" required name="order_schedule" onclick="ShowCalender()" value="schedule" class="custom-control-input">
-                        <label class="custom-control-label" for="order_schedule">Scheduled</label>
+                    <div class="custom-control custom-radio mb-1">
+                        <input type="radio" id="order_schedule" {{$check_schedule}} required name="order_schedule" onclick="ShowCalender()" value="schedule" class="custom-control-input">
+                        <label class="custom-control-label" for="order_schedule"><p class="text-uppercase m-0">Scheduled</p></label>
                     </div>
                     <div class="clearfix"></div>
                     <div class="control-group hidden-input">
                         <div class="controls input-append date form_datetime" data-date="<?=date('Y-m-d h:i:s')?>" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                            <input size="16" type="text" value="" readonly class="form-control" name="schedule_date">
+                            <input size="16" type="text" value="{{$schedule_date}}" readonly class="form-control" name="schedule_date">
                             <span class="add-on"><i class="icon-th"></i></span><br>
                         </div>
                     </div>
@@ -98,6 +101,12 @@
     <script type="text/javascript" src="{{asset('assets/datetime/js/bootstrap-datetimepicker.js')}}" charset="UTF-8"></script>
 
     <script>
+        $(document).ready(function() {
+            @if($select_id!='')
+            InitCalander({{$select_id}});
+            ShowCalender();
+            @endif
+        });
         $(".confirm").click(function(){
 	        spinnerButtons('show', $(this));
             var that=$(this);
@@ -189,6 +198,7 @@
             var x=$("#customRadio"+id).data('eta');
             $('.delivery-eta').html('');
             $('#eta-'+id).html('<span class="delivery-txt">Delivery around </span>'+x+' Min');
+            InitCalander(id);
         }
         function DeleteAddress(address_id) {
             Swal.fire({

@@ -221,6 +221,14 @@ $discount=0;
                                 @endphp
                             </div>
                         </div>
+                        @if($order_schedule=='schedule')
+                        <div class="row align-items-center">
+                            <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
+                                Scheduled
+                            </div>
+                            <div class="col-6 text-808080 mb-3 futura-book">{{$schedule_date}}</div>
+                        </div>
+                      @endif
                     </div>
                 </div>
                 <a class="btn btn-8DBF43 mb-3 text-uppercase confirm float-right futura-book btn-confirm">Confirm</a>

@@ -17,8 +17,24 @@
             </div>
             <div class="radios-green mb-5">
                 @foreach($query as $row)
+                    @php
+                        $check='';
+                        if(isset($cart_sp_instructions) and count((array)$cart_sp_instructions)>0)
+                        {
+                        foreach($cart_sp_instructions as $csp)
+                        {
+                         if(isset($csp['ID']) and $csp['ID']==$row->ID)
+                            {
+                                $check='checked="checked"';
+                                break;
+                            }
+                        }
+
+                        }
+
+                    @endphp
                 <div class="custom-control custom-radio mb-4">
-                    <input type="checkbox" id="instructions{{$row->ID}}" name="sp_i[]" value="{{json_encode($row)}}" class="custom-control-input">
+                    <input type="checkbox" id="instructions{{$row->ID}}" {{$check}} name="sp_i[]" value="{{json_encode($row)}}" class="custom-control-input">
                     <label class="custom-control-label text-uppercase" for="instructions{{$row->ID}}">
                         {{$row->Title}}
                     </label>

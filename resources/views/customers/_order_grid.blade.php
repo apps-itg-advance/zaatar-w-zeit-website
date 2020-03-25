@@ -206,6 +206,16 @@
                             {{isset($specials)? implode(' , ',$specials):''}}
                         </div>
                     </div>
+                    @if($row->ScheduleTime!='0000-00-00 00:00:00')
+                    <div class="row align-items-center">
+                        <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
+                            Scheduled
+                        </div>
+                        <div class="col-6 text-808080 mb-3 futura-book">
+                            {{$row->ScheduleTime}}
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

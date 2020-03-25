@@ -2,6 +2,7 @@
 @section('content')
     @php
         $query=$delivery_info->Gift;
+
     @endphp
     <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 float-none p-0 mx-auto">
 
@@ -22,20 +23,28 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">To</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="gift_to{{$skey}}" name="gift_to{{$skey}}">
+                            <input type="text" class="form-control" value="{{isset($cart_gift->GiftTo)? $cart_gift->GiftTo:''}}" id="gift_to{{$skey}}" name="gift_to{{$skey}}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">From</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="gift_from{{$skey}}" name="gift_from{{$skey}}">
+                            <input type="text" class="form-control" value="{{isset($cart_gift->GiftFrom)? $cart_gift->GiftFrom:''}}" id="gift_from{{$skey}}" name="gift_from{{$skey}}">
                         </div>
                     </div>
                     <div class="radios mt-4">
                         @foreach($query as $row)
+                            @php
+                                $check='';
+                                if(isset($cart_gift->OpenItemId) and $cart_gift->OpenItemId==$row->ID)
+                                {
+                                    $check='checked="checked"';
+                                }
+                            @endphp
+
                             <div class="custom-control custom-radio mb-1">
-                                <input type="radio" id="customRadio{{$row->ID}}" name="gift_value" value="{{$row->Title.'-:'.$row->ID.'-:'.$row->PLU}}" class="custom-control-input">
+                                <input type="radio" {{$check}} id="customRadio{{$row->ID}}" name="gift_value" value="{{$row->Title.'-:'.$row->ID.'-:'.$row->PLU}}" class="custom-control-input">
                                 <label class="custom-control-label futura-medium" for="customRadio{{$row->ID}}">
                                     {{$row->Title}}
                                 </label>

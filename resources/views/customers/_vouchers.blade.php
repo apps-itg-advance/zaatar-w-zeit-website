@@ -13,6 +13,8 @@
 @php
     $array_colors=array('bg-AFD27C','bg-9DBFC1','bg-808080','bg-8DBF43');
     $rand = array_rand($array_colors, 1);
+    $cart_wallet=isset($cart_wallet) ? $cart_wallet :'';
+    $cart_voucher_id=isset($cart_vouchers['VParentId']) ? $cart_vouchers['VParentId'] :'';
 @endphp
 <div id="wallet-carousel" class="owl-carousel wallet-carousel">
     @php
@@ -31,7 +33,7 @@
                 <div class="items-vouchers">
                     <div class="row">
                         <div class="col-md-12">How much would you like to use?</div>
-                        <div class="col-md-9"><input name="wallet_amount" id="WalletAmount" class="form-control w-amount"></div>
+                        <div class="col-md-9"><input name="wallet_amount" value="{{$cart_wallet}}" id="WalletAmount" class="form-control w-amount"></div>
                         <div class="col-md-3" style="font-size: 20px !important;"> {{$currency}}</div>
                     </div>
                 </div>
@@ -104,7 +106,14 @@
 @section('javascript')
 <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
 <script type="text/javascript">
-
+    $(document).ready(function() {
+        @if($cart_wallet!='')
+        $(".redeem-wallet").click();
+        @endif
+        @if($cart_voucher_id!='')
+        SelectRedeem({{$cart_voucher_id}});
+        @endif
+    });
     jQuery('.wallet-carousel').owlCarousel({
         loop : false,
         navText : ['', ''],
@@ -224,7 +233,7 @@
 	    spinnerButtons('show', $(this));
         var radioValue =  $("#voucher").val();
         var walletValue =   $("#WalletAmount").val();
-        if(radioValue!='')
+        if(radioValue!='' || walletValue!='')
         {
             $.ajax({
                 headers: {
@@ -235,11 +244,12 @@
                 data: {vid: radioValue,wallet_amount:walletValue},
                 url: '{{route('checkout.loyalty.store')}}',
                 success: function (data) {
-                    window.location = '{{route('checkout.gift')}}';
+                   window.location = '{{route('checkout.gift')}}';
                 }
             });
         }
         else{
+          //
             window.location = '{{route('checkout.gift')}}';
         }
 

@@ -90,7 +90,8 @@ class CheckoutController extends Controller
         $org=session()->get('_org');
         $timezone=(isset($org->timezone) and $org->timezone!='')? $org->timezone: 'Asia/Beirut';
         $current_date=Carbon::now($timezone);
-        return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities','settings','order_schedule','schedule_date','current_date'));  //
+        $selected_address=session()->get('cart_info');
+        return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities','settings','order_schedule','schedule_date','current_date','selected_address'));  //
     }
     public function address_store(Request $request)
     {
@@ -131,22 +132,7 @@ class CheckoutController extends Controller
         return 'true';
 
     }
-    public function wallet()
-    {
-        $step=2;
-        $settings=$this->Steps[$step];
-        $skey=session()->get('skey');
-        $user=session()->get('user'.$skey);
-        $loyalty_id=$user->details->LoyaltyId;
-        $wallet_balance=$user->details->WalletAmountBalance;
-        $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
-        session()->put('vouchers',$vouchers);
-        $cart = Session::get('cart');
-	    $_active_css='address';
-        $class_css='checkout-wrapper';
-        return view('checkouts.wallet',compact('cart','class_css','_active_css','vouchers','wallet_balance','settings'));  //
-        //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
-    }
+
     public function loyalty()
     {
         $step=2;
@@ -172,7 +158,8 @@ class CheckoutController extends Controller
         $cart = session()->get('cart');
 	    $_active_css='wallet';
 	    $class_css='checkout-wrapper';
-        return view('checkouts.gift',compact('cart','class_css','_active_css','settings'));  //
+	    $cart_gift=session()->get('cart_gift');
+        return view('checkouts.gift',compact('cart','class_css','_active_css','settings','cart_gift'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
     public function gift_store(Request $request)
@@ -233,6 +220,25 @@ class CheckoutController extends Controller
         session()->save();
         return $redirect;
 
+    }
+    public function wallet()
+    {
+        $step=2;
+        $settings=$this->Steps[$step];
+        $skey=session()->get('skey');
+        $user=session()->get('user'.$skey);
+        $loyalty_id=$user->details->LoyaltyId;
+        $wallet_balance=$user->details->WalletAmountBalance;
+        $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
+        session()->put('vouchers',$vouchers);
+        $cart = Session::get('cart');
+        $_active_css='address';
+        $class_css='checkout-wrapper';
+        $cart_wallet=session()->get('cart_wallet');
+        //die;
+        $cart_vouchers=session()->get('cart_vouchers');
+        return view('checkouts.wallet',compact('cart','class_css','_active_css','vouchers','wallet_balance','settings','cart_wallet','cart_vouchers'));  //
+        //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
     public function loyalty_store(Request $request)
     {
@@ -298,12 +304,17 @@ class CheckoutController extends Controller
                 'Category' => $s_vouchers->Category,
                 'ItemPlu' => $s_vouchers->PLU,
                 'ExpiryDate' => $s_vouchers->ExpiryDate,
+                'VParentId'=>$voucher_id
             );
             session()->forget('cart_vouchers');
+            session()->save();
+            session()->put('cart_vouchers', $array_voucher);
+        }
+        if($wallet_amount!='')
+        {
             session()->forget('cart_wallet');
             session()->save();
             session()->put('cart_wallet', $wallet_amount);
-            session()->put('cart_vouchers', $array_voucher);
         }
         return 'true';
     }
@@ -315,7 +326,8 @@ class CheckoutController extends Controller
         $cart = Session::get('cart');
 	    $_active_css='gift';
         $class_css='checkout-wrapper';
-        return view('checkouts.green',compact('cart','class_css','_active_css','settings'));  //
+        $cart_green=session()->get('cart_green');
+        return view('checkouts.green',compact('cart','class_css','_active_css','settings','cart_green'));  //
     }
     public function green_store(Request $request)
     {
@@ -342,7 +354,9 @@ class CheckoutController extends Controller
         $cart = Session::get('cart');
 	    $_active_css='special_instructions';
         $class_css='checkout-wrapper';
-        return view('checkouts.payment',compact('cart','class_css','_active_css','settings'));  //
+        $cart_payment=session()->get('cart_payment');
+        $cart_payment_currency=session()->get('cart_payment_currency');
+        return view('checkouts.payment',compact('cart','class_css','_active_css','settings','cart_payment','cart_payment_currency'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
     public function payment_store(Request $request)
@@ -363,12 +377,14 @@ class CheckoutController extends Controller
         $cart_green=session()->get('cart_green');
         $cart_vouchers=session()->get('cart_vouchers');
         $cart_wallet=session()->get('cart_wallet');
+        $order_schedule=session()->get('order_schedule');
+        $schedule_date=session()->get('schedule_date');
         $_org=session()->get('_org');
         $delivery_charge=$_org->delivery_charge;
         $currency=$_org->currency;
         if($_array->Name!='credit')
         {
-            return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
+            return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet','order_schedule','schedule_date'));
 
         }
         else{
@@ -386,6 +402,7 @@ class CheckoutController extends Controller
         $_active_css='payment';
         $class_css='checkout-wrapper';
         $cards=$this->query->GatewayToken;
+
         return view('checkouts.payment_cards',compact('cart','class_css','_active_css','settings','cards'));  //
     }
 
@@ -440,7 +457,8 @@ class CheckoutController extends Controller
         $cart = Session::get('cart');
 	    $_active_css='green';
         $class_css='checkout-wrapper';
-        return view('checkouts.special_instructions',compact('cart','class_css','_active_css','settings'));  //
+        $cart_sp_instructions=session()->get('cart_sp_instructions');
+        return view('checkouts.special_instructions',compact('cart','class_css','_active_css','settings','cart_sp_instructions'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
     public function special_instructions_store(Request $request)
