@@ -1,3 +1,15 @@
+@php
+    $icons=(isset($query->icons) and count((array)$query->icons)>0) ? $query->icons:array() ;
+    $array_icon=array();
+    foreach ($icons as $icon)
+    {
+        if(isset($icon->IconName))
+        {
+            $array_icon[$icon->IconName]=array('URL'=>$icon->IconUrl,'Label'=>$icon->IconLabel);
+        }
+
+    }
+@endphp
 <div class="row-favourite mx-auto">
     <input type="hidden" name="SItemId" id="SItemId">
     <input type="hidden" name="SQty" id="SQty">
@@ -23,6 +35,18 @@
                             <h5 class="mt-0">
                                 <a href="#">{{$row->ItemName}}</a>
                                 <span class="price">{{number_format($row->Price)}} {{$currency}}</span>
+                                <ul class="icon">
+                                <?php
+                                    foreach ($array_icon as $key=>$val)
+                                        {
+                                            if(isset($row->$key) and $row->$key=="1")
+                                            {
+                                                echo '<li><img src="'.$val['URL'].'" /> '.$val['Label'].'</li>';
+                                            }
+                                        }
+
+                                ?>
+                                </ul>
                             </h5>
                             <div class="content">{{$row->Details}}</div>
                         </div>
