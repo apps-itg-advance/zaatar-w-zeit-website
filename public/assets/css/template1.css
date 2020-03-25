@@ -345,7 +345,7 @@ button {
 /*.link-favourite { padding-left: 25px; background: url("../images/icon-heart.png") no-repeat left center; color: #808080;}*/
 /*.link-favourite.active { background-image: url("../svg/icon-heart-active.svg"); color: #8DBF43;}*/
 .content-wrapper .favourite-box .input-group { /*width: 120px;*/ width: auto; float: right; position: relative; right: 15px;}
-.content-wrapper .favourite-box .input-group .form-control { max-width: 50px; border: none; color: #808080; text-align: center; font-size: 18px; padding-left: 0; padding-right: 0;}
+.content-wrapper .favourite-box .input-group .form-control { max-width: 85px; border: none; color: #808080; text-align: center; font-size: 18px; padding-left: 0; padding-right: 0;}
 .content-wrapper .favourite-box .input-group .btn { padding: 6px 0;}
 .content-wrapper .favourite-box .media .img-thum {
     width: 175px;
