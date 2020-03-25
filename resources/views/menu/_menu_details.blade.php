@@ -32,11 +32,13 @@
                             @foreach($modifier_items as $m_item)
                                 <div class="custom-control custom-radio mb-1">
                                     <input type="checkbox" onclick="CalculateTotal({{$category_id}},{{$max_qty}},{{$m_item->RowId}},{{$row->ID}})" id="Modifier{{$m_item->RowId}}"  name="modifiers{{$row->ID}}[{{$category_id}}][]" value="{{$m_item->ID.'-'.$m_item->PLU.'-'.str_replace(',','',$m_item->Price).'-'.$category_name.' '.$m_item->ModifierName}}" class="custom-control-input m-{{$category_id}}-{{$row->ID}} Item{{$row->ID}}">
-                                    <label  class="custom-control-label" for="Modifier{{$m_item->RowId}}">
+                                    <label  class="custom-control-label" for="Modifier{{$m_item->RowId}}" style="vertical-align: bottom;">
                                         <div style="float: left; max-width: 75%; overflow: hidden;">{{$m_item->ModifierName}}</div>
-                                        <span class="price">{{$m_item->Price>0 ?  number_format($m_item->Price):''}}</span>
+                                        <span class="price" style="vertical-align: bottom; display: inline-block; height: 100%">{{$m_item->Price>0 ?  number_format($m_item->Price):''}}</span>
                                     </label>
                                 </div>
+                                <div class="clearfix"></div>
+
                             @endforeach
                         </div>
                     @endforeach
