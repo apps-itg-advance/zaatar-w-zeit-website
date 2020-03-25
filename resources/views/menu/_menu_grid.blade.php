@@ -49,7 +49,7 @@
                                 ?>
                                 </ul>
                             </h5>
-                            <div class="content">{{$row->Details}}</div>
+                            <div class="content">{{htmlspecialchars_decode($row->Details)}}</div>
                         </div>
                     </div>
                     <div class="mediabox row align-items-center">
