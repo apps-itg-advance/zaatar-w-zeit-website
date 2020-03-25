@@ -221,7 +221,7 @@ $discount=0;
                                 @endphp
                             </div>
                         </div>
-                        @if($order_schedule=='schedule')
+                        @if(isset($order_schedule) and $order_schedule=='schedule')
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                 Scheduled
