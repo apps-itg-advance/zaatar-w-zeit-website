@@ -81,15 +81,15 @@
                         </div>
                         <div class="col-sm-5 text-center">
                             <div class="input-group mx-auto item-plus-minus">
-                                @if($row->QuickOrder==1)
-                                <div class="input-group-prepend">
-                                    <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="AddQty({{$row->ID}})"><img src="{{asset('assets/images/icon-plus.png')}}" /></button>
-                                </div>
-                                @endif
-                                <input type="text" name="qty[{{$row->ID}}]" id="qty_{{$row->ID}}" class="form-control qty_all" value="{{isset($item_qty[$row->PLU])? $item_qty[$row->PLU]:0}}" style="background: none !important" readonly="readonly">
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="SubQty({{$row->ID}},{{$row->PLU}})"><img src="{{asset('assets/images/icon-minus.png')}}" /></button>
                                 </div>
+                                <input type="text" name="qty[{{$row->ID}}]" id="qty_{{$row->ID}}" class="form-control qty_all" value="{{isset($item_qty[$row->PLU])? $item_qty[$row->PLU]:0}}" style="background: none !important" readonly="readonly">
+                                @if($row->QuickOrder==1)
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="AddQty({{$row->ID}})"><img src="{{asset('assets/images/icon-plus.png')}}" /></button>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
