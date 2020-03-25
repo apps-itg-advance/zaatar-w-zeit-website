@@ -227,6 +227,7 @@
                     data:$("#LogIn").serialize(),
                     dataType:'json',
                     success:function(result){
+
                         if(result.status=='success')
                         {
                            // jQuery('#mobileNb{{$sKey}}').val(result.data['MobileNumber']);
@@ -241,7 +242,15 @@
 	                        })
                         }
                         else{
-                            jQuery('#LoginMsg').html(data.message);
+                            Swal.fire({
+                                title: 'Warning!',
+                                text: result.message,
+                                icon: 'warning',
+                                confirmButtonText: 'Close'
+                            });
+                            spinnerButtons('hide',  $(that));
+                            return false;
+                           // jQuery('#LoginMsg').html(result.message);
                         }
 	                    if(sessionStorage) {
 		                    sessionStorage.setItem("page", "pin");
