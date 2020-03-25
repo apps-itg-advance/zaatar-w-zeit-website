@@ -28,7 +28,8 @@ class HomeController extends Controller
         else{
             $cat_title=str_replace(' ','-',$_cat_title);
         }
-        return view('home',compact('cat_id','cat_title','query'));
+        $page_title='Home';
+        return view('home',compact('cat_id','cat_title','query','page_title'));
     }
     public function menu($id = null,$name=null)
     {
@@ -75,7 +76,8 @@ class HomeController extends Controller
 
             }
         }
-        return view('menu.menu',compact('cat_id','cat_title','query','flag','_cat_title','item_qty','items_customized'));
+        $page_title='Home';
+        return view('menu.menu',compact('cat_id','cat_title','query','flag','_cat_title','item_qty','items_customized','page_title'));
     }
     public  function favourites()
     {

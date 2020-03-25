@@ -51,7 +51,8 @@ class LoginController extends Controller
         $body_css='login-bg';
         $sKey= session()->get('skey');
         $flag='testnav';
-        return view('auth.index',compact('query','body_css','sKey','flag'));
+        $page_title='Login';
+        return view('auth.index',compact('query','body_css','sKey','flag','page_title'));
     }
     public function signin(Request $request)
     {

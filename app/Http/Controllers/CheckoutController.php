@@ -31,6 +31,7 @@ class CheckoutController extends Controller
         view()->composer('*', function ($view) {
             $view->with('delivery_info',$this->query);
             $view->with('skey',$this->skey);
+            $view->with('page_title','Checkout');
         });
     }
 

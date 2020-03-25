@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/template1.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
     <link rel="shortcut icon" href="/assets/images/favicon.png" />
-    <title>Zaatar W Zeit - ZWZ Web ordering-redesign-Menu</title>
+    <title>Zaatar W Zeit - {{isset($page_title) ? $page_title : ''}}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Fonts -->

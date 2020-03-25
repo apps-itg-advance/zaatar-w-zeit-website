@@ -94,7 +94,8 @@ class CustomerController extends Controller
         }
         $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
         $wallet_balance=$query->details->WalletAmountBalance;
-        return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level','vouchers','wallet_balance','addresses_types','address_types'));  //
+        $page_title='Profile';
+        return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level','vouchers','wallet_balance','addresses_types','address_types','page_title'));  //
     }
 
     public function orders()
@@ -105,7 +106,8 @@ class CustomerController extends Controller
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';
-        return view('customers.orders_favourite',compact('favouriteOrders','class_css','flag','sub_active'));  //
+        $page_title='Favourites Orders';
+        return view('customers.orders_favourite',compact('favouriteOrders','class_css','flag','sub_active','page_title'));  //
     }
     public function order_repeat(Request $request)
     {
@@ -199,7 +201,8 @@ class CustomerController extends Controller
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';
-        return view('customers.order_history',compact('query','class_css','flag','sub_active'));
+        $page_title='Order History';
+        return view('customers.order_history',compact('query','class_css','flag','sub_active','page_title'));
 //	        'cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','cart_vouchers','cart_wallet','delivery_charge','currency'));  //
     }
 
@@ -247,7 +250,8 @@ class CustomerController extends Controller
 
             }
         }
-        return view('menu.favourites',compact('query','class_css','flag','item_qty','items_customized'));  //
+        $page_title='Favourites Items';
+        return view('menu.favourites',compact('query','class_css','flag','item_qty','items_customized','page_title'));  //
     }
     public function set_favourite(Request $request)
     {
