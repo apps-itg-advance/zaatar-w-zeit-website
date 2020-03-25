@@ -47,6 +47,8 @@ class CheckoutController extends Controller
 
         return view('checkouts.summary',compact('cart','class_css','_active_css','current_date'));  //
     }
+
+
     public function schedule_save(Request $request)
     {
         $order_schedule=$request->input('order_schedule');
@@ -446,7 +448,9 @@ class CheckoutController extends Controller
             $_org=session()->get('_org');
             $delivery_charge=$_org->delivery_charge;
             $currency=$_org->currency;
-            return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
+            $order_schedule=session()->get('order_schedule');
+            $schedule_date=session()->get('schedule_date');
+            return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet','order_schedule','schedule_date'));
 
         }
 

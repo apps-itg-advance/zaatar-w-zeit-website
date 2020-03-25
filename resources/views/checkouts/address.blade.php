@@ -57,6 +57,7 @@
             @endforeach
             @endif
             <div class="sch">
+                <hr />
             <div class="row">
                 <div class="col-sm-12"></div>
                 <div class="col-sm-2">
@@ -70,14 +71,26 @@
                         <input type="radio" id="order_schedule" {{$check_schedule}} required name="order_schedule" onclick="ShowCalender()" value="schedule" class="custom-control-input">
                         <label class="custom-control-label" for="order_schedule"><p class="text-uppercase m-0">Scheduled</p></label>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="control-group hidden-input">
-                        <div class="controls input-append date form_datetime" data-date="<?=date('Y-m-d h:i:s')?>" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                            <input size="16" type="text" value="{{$schedule_date}}" readonly class="form-control" name="schedule_date">
-                            <span class="add-on"><i class="icon-th"></i></span><br>
+                </div>
+                <div class="clearfix" style="height: 50px"></div>
+                <div class="col-md-9 hidden-input" >
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="label-l">
+                            <select class="select-l" name="schedule_day"  id="schedule-day">
+                                <option value="today"  >Today</option>
+                                <option value="tomorrow">Tomorrow</option>
+                            </select>
+                            </label>
+                        </div>
+                        <div class="col-sm-1"><p>@</p></div>
+                        <div class="col-sm-4" id="display-time">
+
                         </div>
                     </div>
                 </div>
+                <div class="clearfix" style="height: 70px"></div>
+
             </div>
             </div>
                 <div class="edit-address modal fade" id="edit-address" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -98,8 +111,6 @@
     </div>
 @endsection
 @section('javascript')
-    <script type="text/javascript" src="{{asset('assets/datetime/js/bootstrap-datetimepicker.js')}}" charset="UTF-8"></script>
-
     <script>
         $(document).ready(function() {
             @if($select_id!='')
@@ -112,8 +123,8 @@
             var that=$(this);
 	        var radioValue = $("input[name='AddressId']:checked").val();
             var order_schedulev=$("input[name='order_schedule']:checked").val();
-            var schedule_datev = $('input[name="schedule_date"]').val();
-
+           // var schedule_datev = $('input[name="schedule_date"]').val();
+            var schedule_datev = $('select[name="schedule_date"]').find('option:selected').val();
             var address=$("#"+radioValue).val();
 
             if(radioValue){
@@ -190,7 +201,12 @@
         });
         function ShowCalender() {
             if($('#order_schedule').is(":checked"))
+            {
+                var AddressId = $("input[name='AddressId']:checked").val();
                 $(".hidden-input").show();
+                InitCalander(AddressId);
+            }
+
             else
                 $(".hidden-input").hide();
         }
@@ -253,35 +269,26 @@
             //jQuery('#editprofileModal').modal();
         }
         function InitCalander(id) {
+
             $('.sch').show();
             var open_time=$("#customRadio"+id).data('open');
             var _open=open_time.split(':');
             var close_time=$("#customRadio"+id).data('close');
+            var date_selected=$("#schedule-day").val();
+
             var _close=close_time.split(':');
-            var array_hours=[];
-            for(var i=0;i<24;i++)
-            {
-                if(i<parseInt(_open[0]) || i>parseInt(_close[0]))
-                {
-                    array_hours.push(i);
-                    console.log(i);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'get',
+                data:{open_time:open_time,close_time:close_time,date_selected:date_selected},
+                url:'{{route('checkout.calender')}}',
+                success:function(data){
+                    $("#display-time").html(data);
                 }
-
-            }
-            $('.form_datetime').datetimepicker({
-                //language:  'fr',
-                startDate:'<?=$current_date?>',
-                format: 'yyyy-mm-dd hh:ii',
-                weekStart: 1,
-                todayBtn:  1,
-                autoclose: 1,
-                todayHighlight: 1,
-                startView: 2,
-                forceParse: 0,
-                showMeridian: 1,
-                hoursDisabled: array_hours
-
             });
+
         }
     </script>
 

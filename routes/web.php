@@ -38,6 +38,7 @@ Route::post('/register', 'Auth\LoginController@register')->name('auth.register')
 Route::get('/switch-org/{id?}', 'Controller@switch_organization')->name('switch.organization');
 
 
+
 Route::group(['middleware' => ['checkLogin']], function () {
     Route::get('/customer/profile/{id?}', 'CustomerController@index')->name('customer.index');
     Route::post('/customer/edit', 'CustomerController@edit')->name('customer.edit');
@@ -76,6 +77,9 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::get('/checkout/payment/status/{status?}', 'CheckoutController@payment_status')->name('checkout.payment.status');
 
     Route::get('/checkout/payment/status/{status?}', 'CheckoutController@payment_status')->name('checkout.payment.status');
+
+    Route::get('/settings/calender', 'SettingsController@calender')->name('checkout.calender');
+
 
     Route::post('/customer/set-favourite', 'CustomerController@set_favourite')->name('customer.set.favourite');
     Route::post('/customer/remove-favourite', 'CustomerController@remove_favourite')->name('customer.remove.favourite');

@@ -75,3 +75,50 @@
     height: 15px;
 
 }
+
+.select-l {
+    width: 140px;
+    height: 35px;
+    padding: 4px;
+    border-radius:4px;
+    box-shadow: 2px 2px 8px #999;
+    background: #eee;
+    border: none;
+    outline: none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    color: #808080;
+}
+.label-l {
+    position: relative;
+    color: #808080;
+}
+.label-l:after {
+    content:'<>';
+    font: 11px "Consolas", monospace;
+    color: #666;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    right: 8px;
+    top:2px;
+    padding: 0 0 2px;
+    border-bottom: 1px solid #ddd;
+    position: absolute;
+    pointer-events: none;
+}
+.label-l:before {
+    content: '';
+    right: 6px;
+    top:0px;
+    width: 20px;
+    height: 20px;
+    background: #eee;
+    position: absolute;
+    pointer-events: none;
+    display: block;
+}
