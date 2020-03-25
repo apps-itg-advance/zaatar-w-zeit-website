@@ -198,7 +198,6 @@ class CustomerController extends Controller
         }
 
 
-
         //
     }
     public function GetOrderRows(Request $request)
@@ -210,6 +209,12 @@ class CustomerController extends Controller
         $loyalty_id=session()->get('loyalty_id');
         $res=CustomerLibrary::GetOrdersHistory($loyalty_id,$row,$this->limit_order,$favourite);
         $query=$res['rows'];
+        $orders=session()->get('orders_data');
+        session()->forget('orders_data');
+        session()->save();
+        $obj_merged = (object) array_merge((array) $orders, (array) $query);
+        session()->put('orders_data',$obj_merged);
+
         return view('customers._order_grid_row',compact('query','favourite'));
     }
     public function orderHistory()
