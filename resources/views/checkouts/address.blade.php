@@ -77,7 +77,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <label class="label-l">
-                            <select class="select-l" name="schedule_day"  id="schedule-day">
+                            <select class="select-l" name="schedule_day"  onchange="RefreshCalander()" id="schedule-day">
                                 <option value="today"  >Today</option>
                                 <option value="tomorrow">Tomorrow</option>
                             </select>
