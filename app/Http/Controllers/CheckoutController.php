@@ -525,6 +525,8 @@ class CheckoutController extends Controller
               session()->forget('cart_vouchers');
               session()->forget('cart_wallet');
               session()->forget('items_customized');
+              session()->forget('order_schedule');
+              session()->forget('schedule_date');
 
               session()->save();
               $status='success';
@@ -571,6 +573,8 @@ class CheckoutController extends Controller
         session()->forget('cart_vouchers');
         session()->forget('cart_wallet');
         session()->forget('items_customized');
+        session()->forget('order_schedule');
+        session()->forget('schedule_date');
         session()->save();
         return redirect(route('home.menu'));
     }

@@ -2,8 +2,9 @@
 @section('content')
     @php
         $addresses=(isset($addresses) and $addresses!=null)? $addresses:array();
-        $check_new=(isset($order_schedule) and $order_schedule=='now') ? 'checked="checked"' : '';
+
         $check_schedule=(isset($order_schedule) and $order_schedule=='schedule') ? 'checked="checked"' : '';
+        $check_new=((isset($order_schedule) and $order_schedule=='now') or $check_schedule=='') ? 'checked="checked"' : '';
         $select_id=isset($selected_address->AddressId) ? $selected_address->AddressId:'';
     @endphp
     <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 float-none p-0 mx-auto">
@@ -280,14 +281,14 @@
             var _open=open_time.split(':');
             var close_time=$("#customRadio"+id).data('close');
             var date_selected=$("#schedule-day").val();
-
+            var x=$("#customRadio"+id).data('eta');
             var _close=close_time.split(':');
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type:'get',
-                data:{open_time:open_time,close_time:close_time,date_selected:date_selected},
+                data:{open_time:open_time,close_time:close_time,date_selected:date_selected,eta:x},
                 url:'{{route('checkout.calender')}}',
                 success:function(data){
                     $("#display-time").html(data);

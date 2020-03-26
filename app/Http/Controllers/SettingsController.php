@@ -16,6 +16,7 @@ class SettingsController extends Controller
         $open_time = $request->get('open_time');
         $close_time = $request->get('close_time');
         $date_selected = $request->get('date_selected');
+        $eta = $request->get('eta');
         $time='';
         $org=session()->get('_org');
         if(isset($org->timezone))
@@ -23,6 +24,6 @@ class SettingsController extends Controller
             $current_date=Carbon::now($org->timezone);
             $time= $current_date->format('H:i:s');
         }
-        return view('checkouts._time_calender',compact('open_time','close_time','time','date_selected','current_date'));  //
+        return view('checkouts._time_calender',compact('open_time','close_time','time','date_selected','current_date','eta'));  //
     }
 }

@@ -3,15 +3,16 @@
      $now = strtotime($time);
      $open_time=strtotime($open_time);
      $close_time=strtotime($close_time);
+     $eta=$eta*60;
        if($date_selected=='today')
        {
             $date=$current_date->format('Y-m-d');
           for( $i=strtotime('00:00:00'); $i<=$close_time; $i+=900) {
-          if($i>$now and $now >= $open_time)
+          if($i>$now+$eta and $now >= $open_time)
           {
           $output .= "<option value='".$date." ".date("H:i",$i)."' >".date("H:i",$i)."</option>";
           }
-          elseif($i>$open_time and $now < $open_time){
+          elseif($i>$open_time+$eta and $now < $open_time){
           $output .= "<option value='".$date." ".date("H:i",$i)."' >".date("H:i",$i)."</option>";
           }
 
@@ -20,7 +21,7 @@
         elseif($date_selected=='tomorrow')
         {
             $date = date('Y-m-d',strtotime($current_date->format('Y-m-d')."+1 days"));
-          for( $i=strtotime('00:00:00'); $i<=$close_time; $i+=900) {
+          for( $i=strtotime('00:00:00')+$eta; $i<=$close_time; $i+=900) {
           if($i>=$open_time)
           {
              $output .= "<option value='".$date." ".date("H:i",$i)."' >".date("H:i",$i)."</option>";
