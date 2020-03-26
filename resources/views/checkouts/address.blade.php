@@ -6,6 +6,8 @@
         $check_schedule=(isset($order_schedule) and $order_schedule=='schedule') ? 'checked="checked"' : '';
         $check_new=((isset($order_schedule) and $order_schedule=='now') or $check_schedule=='') ? 'checked="checked"' : '';
         $select_id=isset($selected_address->AddressId) ? $selected_address->AddressId:'';
+
+
     @endphp
     <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 float-none p-0 mx-auto">
 
@@ -79,8 +81,8 @@
                         <div class="col-sm-4">
                             <label class="label-l">
                             <select class="select-l" name="schedule_day"  onchange="RefreshCalander()" id="schedule-day">
-                                <option value="today"  >Today</option>
-                                <option value="tomorrow">Tomorrow</option>
+                                <option value="today" {{(isset($schedule_day) and $schedule_day=='today') ?'selected':''}}  >Today</option>
+                                <option value="tomorrow" {{(isset($schedule_day) and $schedule_day=='tomorrow') ? 'selected':''}} >Tomorrow</option>
                             </select>
                             </label>
                         </div>

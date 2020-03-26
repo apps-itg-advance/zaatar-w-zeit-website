@@ -90,11 +90,13 @@ class CheckoutController extends Controller
         $class_css='checkout-wrapper';
         $order_schedule=session()->get('order_schedule');
         $schedule_date=session()->get('schedule_date');
+        $schedule_day=session()->get('schedule_day');
+
         $org=session()->get('_org');
         $timezone=(isset($org->timezone) and $org->timezone!='')? $org->timezone: 'Asia/Beirut';
         $current_date=Carbon::now($timezone);
         $selected_address=session()->get('cart_info');
-        return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities','settings','order_schedule','schedule_date','current_date','selected_address'));  //
+        return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities','settings','order_schedule','schedule_date','current_date','selected_address','schedule_day'));  //
     }
     public function address_store(Request $request)
     {
@@ -103,12 +105,16 @@ class CheckoutController extends Controller
 
         $order_schedule=$request->input('order_schedule');
         $schedule_date=$request->input('schedule_date');
+        $schedule_day=$request->input('schedule_day');
+
 
         session()->forget('order_schedule');
         session()->forget('schedule_date');
         session()->save();
         session()->put('order_schedule',$order_schedule);
         session()->put('schedule_date',$schedule_date);
+        session()->put('schedule_day',$schedule_day);
+
 
         $details=$query->details;
         $address=$request->input('data');
