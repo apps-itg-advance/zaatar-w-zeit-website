@@ -110,6 +110,7 @@ class CheckoutController extends Controller
 
         session()->forget('order_schedule');
         session()->forget('schedule_date');
+        session()->forget('schedule_day');
         session()->save();
         session()->put('order_schedule',$order_schedule);
         session()->put('schedule_date',$schedule_date);
@@ -533,6 +534,7 @@ class CheckoutController extends Controller
               session()->forget('items_customized');
               session()->forget('order_schedule');
               session()->forget('schedule_date');
+              session()->forget('schedule_day');
 
               session()->save();
               $status='success';
@@ -581,6 +583,7 @@ class CheckoutController extends Controller
         session()->forget('items_customized');
         session()->forget('order_schedule');
         session()->forget('schedule_date');
+        session()->forget('schedule_day');
         session()->save();
         return redirect(route('home.menu'));
     }

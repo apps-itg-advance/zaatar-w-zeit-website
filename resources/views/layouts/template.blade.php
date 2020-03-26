@@ -57,7 +57,7 @@
                 @endif
                 @yield('content')
             </div>
-            <div class="cartbig-modal modal fade" id="edit-cart-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="cartbig-modal modal" id="edit-cart-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div id="edit-cart"></div>
             </div>
         </div>
@@ -234,6 +234,9 @@
             });
             return false;
         }
+    }
+    function CloseModel() {
+        $('#edit-cart-modal').modal("hide");
     }
 
 </script>
