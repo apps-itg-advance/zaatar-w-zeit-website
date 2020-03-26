@@ -38,10 +38,13 @@ class MenuLibrary
         $query=Helper::getApi($url);
         foreach ($query->data as $item)
         {
-            usort($item->Modifiers, function($a, $b)
+            if(isset($item->Modifiers->details->MOrder))
             {
-                return strcmp($a->details->MOrder, $b->details->MOrder);
-            });
+                usort($item->Modifiers, function($a, $b)
+                {
+                    return strcmp($a->details->MOrder, $b->details->MOrder);
+                });
+            }
         }
         //usort($modifiers, 'CompareOrder');
         return $query;

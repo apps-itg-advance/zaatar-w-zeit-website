@@ -37,6 +37,14 @@ class HomeController extends Controller
         $cat_id=($id==null) ? session()->get('first_category'):$id;
         $_cat_title=($name==null) ? session()->get('first_category_name'):str_replace('-',' ',$name);
         $query=MenuLibrary::GetMenuItems($cat_id);
+
+        $menu_items=session()->get('menu_data');
+        session()->forget('menu_data');
+        session()->save();
+        $obj_merged = (object) array_merge((array) $menu_items, (array) $query);
+        session()->put('menu_data',$obj_merged);
+
+
         $array_name=json_decode($_cat_title,true);
         if(is_array($array_name) and isset($array_name['en']))
         {

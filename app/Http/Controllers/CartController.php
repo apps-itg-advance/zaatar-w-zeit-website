@@ -325,7 +325,8 @@ class CartController extends BaseController
         $cart = session()->get('cart');
         $item=$cart[$key];
         $plu=$item['plu'];
-        $query=MenuLibrary::GetMenuItems('');
+        $query=session()->get('menu_data');
+        //$query=MenuLibrary::GetMenuItems('');
         $menu=$query->data;
         $row=array();
         foreach ($menu as $m)
