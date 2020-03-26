@@ -7,7 +7,6 @@
         $check_new=((isset($order_schedule) and $order_schedule=='now') or $check_schedule=='') ? 'checked="checked"' : '';
         $select_id=isset($selected_address->AddressId) ? $selected_address->AddressId:'';
 
-
     @endphp
     <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 float-none p-0 mx-auto">
 
@@ -126,7 +125,7 @@
             var that=$(this);
 	        var radioValue = $("input[name='AddressId']:checked").val();
             var order_schedulev=$("input[name='order_schedule']:checked").val();
-           // var schedule_datev = $('input[name="schedule_date"]').val();
+           var schedule_day =  $('select[name="schedule_day"]').find('option:selected').val();
             var schedule_datev = $('select[name="schedule_date"]').find('option:selected').val();
             var address=$("#"+radioValue).val();
 
@@ -178,7 +177,7 @@
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                 },
                                 type:'POST',
-                                data:{data:address,order_schedule:order_schedulev,schedule_date:schedule_datev},
+                                data:{data:address,order_schedule:order_schedulev,schedule_date:schedule_datev,schedule_day:schedule_day},
                                 url:'{{route('checkout.address.store')}}',
                                 success:function(data){
                                     window.location = '{{route('checkout.wallet')}}';
