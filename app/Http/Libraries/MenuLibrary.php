@@ -8,6 +8,7 @@
 
 namespace App\Http\Libraries;
 use App\Http\Helpers\Helper;
+use phpDocumentor\Reflection\Types\Self_;
 
 class MenuLibrary
 {
@@ -19,6 +20,7 @@ class MenuLibrary
     }
     public static function GetMenuItems($cat_id)
     {
+
         $extra='';
         $s_org=session()->get('_org');
         if(session()->has('is_login'))
@@ -34,7 +36,19 @@ class MenuLibrary
 
         $url=env('BASE_URL').'menu/GetMenuItems?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&category_id='.$cat_id.$extra;
         $query=Helper::getApi($url);
+        foreach ($query->data as $item)
+        {
+            usort($item->Modifiers, function($a, $b)
+            {
+                return strcmp($a->details->MOrder, $b->details->MOrder);
+            });
+        }
+        //usort($modifiers, 'CompareOrder');
         return $query;
+    }
+public static function CompareOrder($a, $b)
+    {
+        return strnatcmp($a->details->MOrder, $b->details->MOrder);
     }
     public static function RemoveFavoriteItem($itemId){
 	    $s_org=session()->get('_org');

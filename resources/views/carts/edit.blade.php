@@ -17,7 +17,7 @@
                     <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                 </div>
                 <div class="col-lg-6 text-col py-4">
-                    <h5>{{$row->ItemName}}<span>{{$row->Price}}</span></h5>
+                    <h5>{{$row->ItemName}}<span>{{number_format($row->Price)}}</span></h5>
                     <div class="info">{{$row->Details}}</div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                                 <input type="checkbox" {{ $checked }} onclick="CalculateTotal({{$category_id}},{{$max_qty}},{{$m_item->RowId}},{{$row->ID}})" id="ModifierE{{$m_item->RowId}}"  name="modifiers[{{$category_id}}][]" value="{{$m_item->ID.'-'.$m_item->PLU.'-'.$m_item->Price.'-'.$category_name.' '.$m_item->ModifierName}}" class="custom-control-input m-{{$category_id}}-{{$row->ID}}">
                                 <label class="custom-control-label" for="ModifierE{{$m_item->RowId}}">
                                     {{$m_item->ModifierName}}
-                                    <span class="price">{{$m_item->Price}}</span>
+                                    <span class="price">{{$m_item->Price>0 ?  number_format($m_item->Price):''}}</span>
                                 </label>
                             </div>
                         @endforeach
@@ -139,6 +139,13 @@
         var GCount=parseInt($('.'+GroupCss+':checked').length);
         if(max_qty >0 && GCount>max_qty)
         {
+            Swal.fire({
+                // position: 'top-end',
+                icon: 'warning',
+                title: 'You can\'t select more than '+max_qty+' option',
+                showConfirmButton: false,
+                timer: 1200
+            });
             $("#"+CheckId).prop('checked', false);
             return false;
         }

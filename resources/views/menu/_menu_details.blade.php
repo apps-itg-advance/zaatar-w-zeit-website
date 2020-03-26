@@ -16,6 +16,8 @@
                 </div>
                 @php
                     $modifiers=$row->Modifiers;
+
+
                 @endphp
 
                 <div class="items-row row mt-4">
