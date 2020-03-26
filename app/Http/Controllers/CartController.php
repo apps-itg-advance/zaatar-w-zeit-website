@@ -326,6 +326,7 @@ class CartController extends BaseController
         $item=$cart[$key];
         $plu=$item['plu'];
         $query=session()->get('menu_data');
+       // dump($query);
         //$query=MenuLibrary::GetMenuItems('');
         $menu=$query->data;
         $row=array();
@@ -337,7 +338,21 @@ class CartController extends BaseController
                 break;
             }
         }
-        return view('carts.edit',compact('item','row','key'));
+       //
+        // dump($row);
+
+        $modifier=(isset($row->Modifiers) and $row->Modifiers!=null)? $row->Modifiers:array();
+        $meal=(isset($row->MakeMeal) and $row->MakeMeal!=null)? $row->MakeMeal:array();
+
+
+        if(count((array)$meal)>0 or count((array)$modifier)>0)
+        {
+            return view('carts.edit',compact('item','row','key'));
+        }
+        else{
+            return 'error';
+        }
+
 
     }
 

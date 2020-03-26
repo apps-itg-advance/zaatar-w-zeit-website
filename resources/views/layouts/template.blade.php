@@ -128,8 +128,21 @@
 			type:'GET',
 			url:'{{route('carts.edit')}}'+'/'+key,
 			success:function(data){
-				$("#edit-cart").html(data);
-				jQuery('#edit-cart-modal').modal();
+			    if(data!='error')
+                {
+                    $("#edit-cart").html(data);
+                    jQuery('#edit-cart-modal').modal();
+                }
+			    else{
+                    Swal.fire({
+                        // position: 'top-end',
+                        icon: 'warning',
+                        title: 'No Customization Available For This Item.',
+                        showConfirmButton: false,
+                        timer: 1200
+                    });
+                }
+
 				//OpenCart();
 			}
 		});
