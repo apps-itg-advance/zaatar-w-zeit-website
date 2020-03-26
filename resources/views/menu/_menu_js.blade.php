@@ -18,12 +18,14 @@
         var hasM= $("#MakeMeal"+id).val();
         $("#SItemId").val(id);
         var qty=$("#qty_"+id).val();
+        newQty=qty+1;
         $("#SQty").val(qty);
         if(hasM >0){
             jQuery('#makeMeal-modal'+id).modal();
         }
         else{
             AddToCart(id,1);
+            //$("#"+id).val(newQty);
         }
         return false;
     }
@@ -130,7 +132,7 @@
         var ItemId="qty_"+id;
         var currentQty=parseInt($("#"+ItemId).val());
         var newQty=currentQty+1;
-        $("#"+ItemId).val(newQty);
+       // $("#"+ItemId).val(newQty);
         var newTotal=currentTotal;
         // $("#TotalAmount"+id).val(newTotal);
         $("#QuickOrder").val('1');
@@ -207,6 +209,9 @@
                     $('#CustomizedLink'+id).removeClass("active");
                     $('#Customize'+id).html("Customize");
                 }
+                var currentQty=parseInt($("#"+id).val());
+                var newQty=currentQty+1;
+                $("#"+id).val(newQty);
                 spinner('hide', spinnerContainerElement);
             }
         });
