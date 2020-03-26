@@ -268,6 +268,11 @@
             });
             //jQuery('#editprofileModal').modal();
         }
+        function RefreshCalander() {
+
+            var AddressId = $("input[name='AddressId']:checked").val();
+            InitCalander(AddressId);
+        }
         function InitCalander(id) {
 
             $('.sch').show();
