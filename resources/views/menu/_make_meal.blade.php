@@ -32,7 +32,7 @@
                                 @php
                                     $meal_items=$make_meal->Items;
                                 @endphp
-                                @if(is_object($meal_items) and count($meal_items)>0)
+                                @if(is_array($meal_items) and count($meal_items)>0)
                                 @foreach($meal_items as $meal_item)
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input type="checkbox" value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMealQ{{$meal_item->ID}}" name="make_meal[{{$row->ID}}][Items][{{$meal_item->ID}}]" class="custom-control-input Sub{{$make_meal->ID}}" disabled>

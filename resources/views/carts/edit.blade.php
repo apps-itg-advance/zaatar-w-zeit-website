@@ -92,7 +92,7 @@
                         {{$make_meal->Details}}
                     </div>
                     <div class="col-lg-5 col-md-12">
-                        @if(is_object($meal_items) and count($meal_items)>0)
+                        @if(is_array($meal_items) and count($meal_items)>0)
                         @foreach($meal_items as $meal_item)
                             @php
                                 $b_checked='';
