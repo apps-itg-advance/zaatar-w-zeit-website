@@ -19,7 +19,7 @@
                 <h2 class="title">Credit Cards</h2>
             </div>
 
-            
+
             <div class="variable-width mb-3">
                 @foreach($cards as $card)
                     @php
