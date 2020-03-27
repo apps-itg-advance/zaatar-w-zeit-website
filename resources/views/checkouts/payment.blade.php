@@ -36,7 +36,7 @@
                             <label class="custom-control-label text-uppercase" for="payment{{$row->PaymentId}}">
                                 {{$row->Label}}
                             </label>
-                                @if($row->Name=='credit')
+                            @if($row->Name=='credit')
                                 <div class="hide-info" id="currency-{{$row->PaymentId}}">
                                     <div class="row">
                                         <div class="col-md-1"></div>
@@ -51,7 +51,7 @@
 
                                     </div>
                                 </div>
-                                 @endif
+                            @endif
 
                         </div>
 
@@ -72,36 +72,36 @@
 @endsection
 @section('javascript')
     <script>
-        $(document).ready(function() {
-            $('.hide-info').hide();
+		$(document).ready(function() {
+			$('.hide-info').hide();
             @if($p_id!='')
-            ShowCurrency({{$p_id}});
+			ShowCurrency({{$p_id}});
             @endif
-        });
-        function ShowCurrency(id)
-        {
-            $('.hide-info').hide();
+		});
+		function ShowCurrency(id)
+		{
+			$('.hide-info').hide();
             @if($cart_payment_currency=='USD')
-            $("#pay-usd-"+id).prop("checked", true);
+			$("#pay-usd-"+id).prop("checked", true);
             @endif
             @if($cart_payment_currency=='LBP')
-            $("#pay-lbp-"+id).prop("checked", true);
+			$("#pay-lbp-"+id).prop("checked", true);
             @endif
             @if($cart_payment_currency=='')
-            $(".curr").prop("checked", false);
+			$(".curr").prop("checked", false);
             @endif
-            $(".curr").prop("required", false);
-            $(".req"+id).prop('required',true);
-            $('#currency-'+id).show();
+			$(".curr").prop("required", false);
+			$(".req"+id).prop('required',true);
+			$('#currency-'+id).show();
 
-        }
+		}
 		$(".confirm").click(function(){
 			spinnerButtons('show', $(this));
-            var that = this;
+			var that = this;
 			var radioValue = $("input[name='payments']:checked").val();
-            var id = $("input[name='payments']:checked").data('id');
-            var pname = $("input[name='payments']:checked").data('name');
-            var currency = $("input[name='payment_currency"+id+"']:checked").val();
+			var id = $("input[name='payments']:checked").data('id');
+			var pname = $("input[name='payments']:checked").data('name');
+			var currency = $("input[name='payment_currency"+id+"']:checked").val();
 			if(!radioValue || radioValue==undefined){
 				Swal.fire({
 					title: 'Warning!',
@@ -112,16 +112,16 @@
 				spinnerButtons('hide', $(this));
 				return null;
 			}
-            if((!currency || currency==undefined) && pname=='credit'){
-                Swal.fire({
-                    title: 'Warning!',
-                    text: 'You must choose a currency!',
-                    icon: 'warning',
-                    confirmButtonText: 'Close'
-                });
-                spinnerButtons('hide', $(this));
-                return null;
-            }
+			if((!currency || currency==undefined) && pname=='credit'){
+				Swal.fire({
+					title: 'Warning!',
+					text: 'You must choose a currency!',
+					icon: 'warning',
+					confirmButtonText: 'Close'
+				});
+				spinnerButtons('hide', $(this));
+				return null;
+			}
 			$.ajax({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -130,15 +130,15 @@
 				data: {query: radioValue,currency :currency},
 				url: '{{route('checkout.payment.store')}}',
 				success: function (data) {
-                    if(pname=='credit')
-                    {
-                        window.location = '{{route('checkout.payment.cards')}}';
-                    }
-                    else{
-                        spinnerButtons('hide', $(that));
-                        $("#OrderSummaryDisplay").html(data);
-                        jQuery('#OrderSummary').modal();
-                    }
+					if(pname=='credit')
+					{
+						window.location = '{{route('checkout.payment.cards')}}';
+					}
+					else{
+						spinnerButtons('hide', $(that));
+						$("#OrderSummaryDisplay").html(data);
+						jQuery('#OrderSummary').modal();
+					}
 
 				}
 			});

@@ -473,7 +473,7 @@ button {
 .profile-wrapper .protocol-div .title { font-size: 30px;}
 
 .wallet-wrapper .title { font-family: 'Futura-Bold';}
-.wallet-wrapper .item { position: relative;}
+.wallet-wrapper .item { position: relative;width: 420px;}
 .wallet-wrapper .item-div { min-height: 150px;}
 .wallet2-carousel .item-div { min-height: 150px;}
 .wallet-wrapper .item-div .item-quantity { font-family: 'Futura-Bold';}
@@ -485,6 +485,43 @@ button {
 .wallet-wrapper .item-div .logo-img { height: 20px;}
 .wallet-wrapper .wallet-carousel .owl-stage { display: flex;}
 .wallet-wrapper .wallet-carousel .owl-item .item { width: auto; height: 100%; border-radius: 15px;}
+
+
+.variable-width .item { position: relative;}
+.variable-width .item-div { min-height: 150px;}
+.variable-width .item-div { min-height: 150px;}
+/*.variable-width button { position: absolute; top: 0; left: -60px; height: 100%; background: url("../images/icon-arrow-left.png") no-repeat center left; background-size: 35px; width: 50px; outline: none;}*/
+/*.variable-width button.owl-next { left: auto; right: -60px; background-image: url("../images/icon-arrow-right.png"); background-position:  center right;}*/
+.variable-width .buttons .btn {
+	border-radius: 20px; padding: 4px 30px; font-family: 'Futura-Medium-BT'; font-size: 17px;
+	border-color: #FFFFFF; color: #FFFFFF;
+}
+.variable-width .buttons .btn.active {background: #FFFFFF; border-color: #FFFFFF; color: #8DBF43;}
+.slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus{
+	color: transparent;
+	outline: none;
+	/*background: url(../images/icon-arrow-left.png) no-repeat center left;*/
+	/*background-image: url("../images/icon-arrow-right.png"); background-position:  center right;*/
+	background: inherit;
+}
+.variable-width .slick-prev{
+	position: absolute;
+	left: -50px;
+	top: 50%;
+}
+.variable-width .slick-next{
+	position: absolute;
+	right: -50px;
+	left: auto;
+	transform: rotateZ(180deg);
+	/*background-image: url("../images/icon-arrow-right.png"); background-position:  center right;*/
+}
+.slick-prev:before, .slick-next:before{
+	display: none;
+}
+
+
+
 .wallet-wrapper .owl-nav { }
 .wallet-wrapper .wallet-carousel .owl-nav button { position: absolute; top: 0; left: -60px; height: 100%; background: url("../images/icon-arrow-left.png") no-repeat center left; background-size: 35px; width: 50px; outline: none;}
 .wallet-wrapper .wallet-carousel .owl-nav button.owl-next { left: auto; right: -60px; background-image: url("../images/icon-arrow-right.png"); background-position:  center right;}
