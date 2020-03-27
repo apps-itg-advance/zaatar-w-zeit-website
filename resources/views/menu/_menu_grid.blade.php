@@ -22,7 +22,7 @@
             @endphp
             <div class="col-favourite">
                 <div class="favourite-box">
-                    <div class="media">
+                    <div class="media" style="height: 200px;">
                         <input type="hidden" name="ItemId" value="{{$row->ID}}">
                         <input type="hidden" id="MakeMeal{{$row->ID}}" value="{{$has_meal}}">
                         <input type="hidden" name="ItemsName" value="{{$row->ItemName}}">
@@ -49,7 +49,7 @@
                                 ?>
                                 </ul>
                             </h5>
-                            <div class="content">{{htmlspecialchars_decode($row->Details)}}</div>
+                            <div class="content">{{substr(htmlspecialchars_decode($row->Details),0,250)}}</div>
                         </div>
                     </div>
                     <div class="mediabox row align-items-center">
