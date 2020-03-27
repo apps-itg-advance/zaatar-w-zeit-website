@@ -1,10 +1,6 @@
 @extends('layouts.template')
 @section('css')
     <link rel="stylesheet" href="{{asset('assets/css/owl.carousel.min.css')}}">
-    <!-- Add the slick-theme.css if you want default styling -->
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <!-- Add the slick-theme.css if you want default styling -->
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 @endsection
 @section('content')
 
@@ -18,9 +14,7 @@
             <div class="title-div">
                 <h2 class="title">Credit Cards</h2>
             </div>
-
-
-            <div class="variable-width mb-3">
+            <div id="wallet-carousel" class="owl-carousel wallet-carousel wallet2-carousel mb-3">
                 @foreach($cards as $card)
                     @php
                         $css='';
@@ -35,22 +29,20 @@
                     $month=substr($card->Expiry,0,2);
                     $year=substr($card->Expiry,2,2);
                     @endphp
-                    <div class="item credit-card-{{$css}} out-{{$card->Token}}" data-mh="matchHeight" id="out-{{$card->Token}}">
-                        <div class="item-div text-white p-3 in-{{$card->Token}}" id="in-{{$card->Token}}">
-                            <a href="javascript:void(0)" onclick="DeleteCards({{$card->Id}})" class="d-inline-block"><img src="{{asset('assets/images/icon-checkout-close.png')}}" /></a>
+                <div class="item credit-card-{{$css}} out-{{$card->Token}}" data-mh="matchHeight" id="out-{{$card->Token}}">
+                    <div class="item-div text-white p-3 in-{{$card->Token}}" id="in-{{$card->Token}}">
+                        <a href="javascript:void(0)" onclick="DeleteCards({{$card->Id}})" class="d-inline-block"><img src="{{asset('assets/images/icon-checkout-close.png')}}" /></a>
 
-                            <div class="card-code">{{$card->Card}}</div>
-                            <div class="clearfix"></div>
-                            <div class="card-date">Valid Thru<br>{{$month.' / '.$year}}</div>
-                            <div class="buttons text-center mt-3">
-                                <a href="javascript:void(0)" onclick="SelectCard('{{$card->Token}}')" class="btn btn-redeem active text-uppercase">Pay with this card</a>
-                            </div>
+                        <div class="card-code">{{$card->Card}}</div>
+                        <div class="clearfix"></div>
+                        <div class="card-date">Valid Thru<br>{{$month.' / '.$year}}</div>
+                        <div class="buttons text-center mt-3">
+                            <a href="javascript:void(0)" onclick="SelectCard('{{$card->Token}}')" class="btn btn-redeem active text-uppercase">Pay with this card</a>
                         </div>
                     </div>
+                </div>
                 @endforeach
             </div>
-
-
             <div class="action-buttons text-center pt-4">
                 <input type="hidden" name="token_card" id="TokenCard">
                 <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">Confirm</button>
@@ -65,36 +57,8 @@
 @endsection
 @section('javascript')
     <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
     <script type="text/javascript">
-
-	    $('.variable-width').slick({
-		    autoplay: false,
-		    dots: false,
-		    infinite: true,
-		    speed: 300,
-		    slidesToShow: 1,
-		    centerMode: false,
-		    variableWidth: true,
-		    responsive: [
-			    {
-				    breakpoint: 768,
-				    settings: {
-					    arrows: false,
-					    centerMode: true,
-					    centerPadding: '40px',
-					    slidesToShow: 3
-				    }
-			    },
-		    ]
-	    });
-
-
-
-
-
-
 
         var windowHeight = jQuery(window).height();
         var headerHeight = jQuery('.header-wrapper').height();

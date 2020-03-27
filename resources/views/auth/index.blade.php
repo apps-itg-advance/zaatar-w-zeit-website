@@ -72,7 +72,22 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script type="text/javascript">
 
+	    //validate mobile if lebanon (+961) maximum digits are 8 numbers
+	    $('.phone-css').on('keyup', function(e) {
+		    validateMobileMaxIfLebanon();
+	    });
+
+	    function validateMobileMaxIfLebanon(){
+		    if($('.iti__selected-dial-code').text()==='+961'){
+			    if($('.phone-css').val().length>=8){
+				    $('.phone-css').val($('.phone-css').val().substring(0, 8));
+			    }
+		    }
+	    }
+
         $('body').on('click keydown','#country-listbox li', function(e){
+	        validateMobileMaxIfLebanon();
+	        
             if ( e.which == 13 || e.which == 1 ) {
                 var code = $(this).find('.iti__dial-code').text();
 
