@@ -46,7 +46,7 @@
                             <span class="title d-inline-block">Total</span>
                             <span class="amount d-inline-block mx-5"  id="DisplayTotalQ{{$row->ID}}">{{number_format($row->Price)}} {{$currency}}</span>
                             <input type="hidden" id="TotalAmountQ{{$row->ID}}" name="TotalAmountQ[{{$row->ID}}]" value="{{str_replace(',','',$row->Price)}}">
-                            <a onclick="AddToCart({{$row->ID}},1)" class="btn btn-8DBF43 text-uppercase">Confirm</a>
+                            <a onclick="AddToCart({{$row->ID}},1)" class="btn btn-8DBF43 text-uppercase btn-a">Confirm</a>
                         </div>
                     </div>
                 </div>
