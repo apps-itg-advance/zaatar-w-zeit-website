@@ -244,9 +244,11 @@
         @endif
     </div>
 @endforeach
+@if(count($query)>0)
 <h1 class="load-more">Load More</h1>
 <input type="hidden" id="row" value="0">
 <input type="hidden" id="all" value="{{$row_total}}">
+@endif
 @section('javascript')
     <script>
         function RepeatOrder(orderId)
