@@ -13,12 +13,12 @@
                         </div>
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text"  name="first_name{{$sKey}}" id="R_FirstName{{$sKey}}" class="form-control" required />
+                            <input type="text"  name="first_name{{$sKey}}" maxlength="70" id="R_FirstName{{$sKey}}" class="form-control" required />
                             <div class="required" id="R_FirstName"></div>
                         </div>
                         <div class="form-group">
                             <label>Family Name</label>
-                            <input type="text"  name="family_name{{$sKey}}" id="R_FamilyName{{$sKey}}" class="form-control"  required />
+                            <input type="text"  name="family_name{{$sKey}}" maxlength="70" id="R_FamilyName{{$sKey}}" class="form-control"  required />
                             <div class="required" id="R_FamilyName"></div>
                         </div>
 
