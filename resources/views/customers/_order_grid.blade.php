@@ -1,3 +1,5 @@
+@php $fav=$favourite ? 1: 0;
+@endphp
 @foreach($query as $row)
     @php
         $discount=0;
@@ -7,7 +9,7 @@
         $method='';
         $specials=array();
         $adderss_array=array($row->City,$row->Line1,$row->Line2,$row->Apartment,$row->CompanyName);
-        $fav=$favourite ? 1: 0;
+
 
     @endphp
     @if($favourite and !$row->Favorite)

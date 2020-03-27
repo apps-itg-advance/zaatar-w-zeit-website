@@ -17,6 +17,7 @@
                 <h5 class="name text-4D4D4D"><span style="float: left; width: 45%;">{{htmlspecialchars_decode($values['name'])}}</span>
                     <span class="price d-inline-block ml-3" style=" width: 18%;text-align: right !important; float: right !important; margin-right: 6rem !important;">{{number_format($values['price'])}}</span></h5>
                 <div class="info text-808080">
+                    <div class="clearfix"></div>
                     @php
 
                         $modifiers=$values['modifiers'];
