@@ -15,7 +15,7 @@
                 @endphp
                 @foreach($cart as $key=>$values)
                 <div class="summary-item mb-4">
-                    <h4>{{$values['name']}} <span class="d-inline-block ml-3">{{number_format($values['price'])}}</span></h4>
+                    <h4>{{htmlspecialchars_decode($values['name'])}} <span class="d-inline-block ml-3">{{number_format($values['price'])}}</span></h4>
                     <div class="info text-808080">
                         @php
 
