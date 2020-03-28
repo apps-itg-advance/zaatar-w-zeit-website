@@ -244,7 +244,7 @@
         @endif
     </div>
 @endforeach
-@if(count($query)>3)
+@if($row_total>3)
 <h1 class="load-more">Load More</h1>
 <input type="hidden" id="row" value="0">
 <input type="hidden" id="all" value="{{$row_total}}">
@@ -349,7 +349,6 @@
                                 $(".data-row:last").after(response).show().fadeIn("slow");
 
                                 var rowno = row + 3;
-
                                 // checking row value is greater than allcount or not
                                 if(rowno > allcount){
 
@@ -365,6 +364,7 @@
                         }
                     });
                 }else{
+                    alert('test');
                     $('.load-more').text("Loading...");
 
                     // Setting little delay while removing contents
