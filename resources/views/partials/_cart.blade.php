@@ -39,7 +39,7 @@
                     @php
                         $meal=$values['meal'];
                     @endphp
-                    @if($meal!=null)
+                    @if($meal!=null and isset($meal['name']))
                         <div class="clearfix"></div>
                         <div class="speacial-meal bg-8DBF43">
                             MEAL <span class="d-inline-block mx-3">{{$meal['name']}}</span><span class="d-inline-block">{{number_format($meal['price'])}}</span>
