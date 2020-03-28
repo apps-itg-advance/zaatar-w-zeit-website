@@ -353,8 +353,8 @@
                                 if(rowno > allcount){
 
                                     // Change the text and background
-                                    $('.load-more').text("Hide");
-                                    $('.load-more').css("background","darkorchid");
+                                    $('.load-more').hide();
+                                   // $('.load-more').css("background","darkorchid");
                                 }else{
                                     $(".load-more").text("Load more");
                                 }
@@ -377,7 +377,7 @@
 
                         // Change the text and background
                         $('.load-more').text("Load more");
-                        $('.load-more').css("background","#15a9ce");
+                       // $('.load-more').css("background","#15a9ce");
 
                     }, 2000);
 
