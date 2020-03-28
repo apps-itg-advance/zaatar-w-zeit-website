@@ -21,13 +21,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" id="FirstName" name="first_name{{$Skey}}" value="{{@$details->FirstName}}" />
+                            <input type="text" class="form-control" maxlength="30" id="FirstName" name="first_name{{$Skey}}" value="{{@$details->FirstName}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Family Name</label>
-                            <input type="text" class="form-control" id="LastName" name="last_name{{$Skey}}" value="{{@$details->LastName}}" />
+                            <input type="text" class="form-control" maxlength="30" id="LastName" name="last_name{{$Skey}}" value="{{@$details->LastName}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
