@@ -262,6 +262,7 @@
         url:'{{route('customer.order.repeat')}}',
         success:function(data){
         LoadCart();
+         _getCountCartItems();
       /*  Swal.fire({
         // position: 'top-end',
         icon: 'success',
