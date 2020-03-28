@@ -123,6 +123,7 @@ class CustomerController extends Controller
         $cart = session()->get('cart');
         $order_id=$request->input('order_id');
         $orders=session()->get('orders_data');
+        $arr_itm=array();
         foreach ($orders as $order)
         {
             if($order->OrderId==$order_id)
@@ -131,7 +132,16 @@ class CustomerController extends Controller
             }
         }
         $items=$sorder->Items;
-        $query=MenuLibrary::GetMenuItems('');
+        if(count((array)$items)>0)
+        {
+            foreach ($items as $itm)
+            {
+                if($itm->OpenItem==0 and $itm->MenuType==1) {
+                    array_push($arr_itm,$itm->PLU);
+                    }
+            }
+        }
+        $query=MenuLibrary::GetMenuItemsByPlus(implode(',',$arr_itm));
         if(count((array)$items)>0)
         {
             for ($i=0;$i<count($items);$i++)

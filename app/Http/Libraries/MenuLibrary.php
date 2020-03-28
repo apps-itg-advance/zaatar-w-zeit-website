@@ -49,6 +49,46 @@ class MenuLibrary
         //usort($modifiers, 'CompareOrder');
         return $query;
     }
+    public static function GetMenuItemByPlu($plu)
+    {
+
+        $extra='';
+        $s_org=session()->get('_org');
+        if(session()->has('is_login'))
+        {
+            $loyalty_id=session()->get('loyalty_id');
+            $extra='&LoyaltyId='.$loyalty_id;
+        }
+
+
+        $token=$s_org->token;
+        $organization_id=$s_org->id;
+
+
+        $url=env('BASE_URL').'menu/GetMenuItemByPlu?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&Plu='.$plu.$extra;
+        $query=Helper::getApi($url);
+        return $query;
+    }
+    public static function GetMenuItemsByPlus($plu)
+    {
+
+        $extra='';
+        $s_org=session()->get('_org');
+        if(session()->has('is_login'))
+        {
+            $loyalty_id=session()->get('loyalty_id');
+            $extra='&LoyaltyId='.$loyalty_id;
+        }
+
+
+        $token=$s_org->token;
+        $organization_id=$s_org->id;
+
+
+        $url=env('BASE_URL').'menu/GetMenuItemsByPlu?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&Plu='.$plu.$extra;
+        $query=Helper::getApi($url);
+        return $query;
+    }
 public static function CompareOrder($a, $b)
     {
         return strnatcmp($a->details->MOrder, $b->details->MOrder);
