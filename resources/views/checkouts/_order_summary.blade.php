@@ -67,7 +67,7 @@ $discount=0;
                                                 {{implode(', ',$md_array )}}
 
                                             </div>
-                                            @if(isset($values['meal']))
+                                            @if(isset($values['meal']['name']))
                                                 @php
                                                     $meal=$values['meal'];
                                                 @endphp
