@@ -6,21 +6,20 @@
 
 	var loadModalMap = function () {
 
-		function initMap() {
-
-			var viewLat = $("#modal_map").data('latitude');
-			var viewLng = $("#modal_map").data('longitude');
+		function initMap(id) {
+			var viewLat = $("#modal_map"+id).data('latitude');
+			var viewLng = $("#modal_map"+id).data('longitude');
 			if(viewLat == '') viewLat=33.890156884426496;
 			if(viewLng == '') viewLng=35.50199890136718;
 
-			modalMap = new google.maps.Map(document.getElementById('modal_map'), {
+			modalMap = new google.maps.Map(document.getElementById('modal_map'+id), {
 				center: {lat: viewLat, lng: viewLng},
 				zoom: 12,
 				scrollwheel: true
 			});
 
-			var latID = $("#modal_map").data('latitudeid');
-			var lngID = $("#modal_map").data('longitudeid');
+			var latID = $("#modal_map"+id).data('latitudeid');
+			var lngID = $("#modal_map"+id).data('longitudeid');
 
 			marker = new google.maps.Marker({
 				position:{lat: viewLat, lng: viewLng},
@@ -32,19 +31,19 @@
 			google.maps.event.addListener(marker, 'dragend', function (event) {
 				$('#'+latID).val(this.getPosition().lat());
 				$('#'+lngID).val(this.getPosition().lng());
-				$('#manual_latitude').val(this.getPosition().lat());
-				$('#manual_longitude').val(this.getPosition().lng());
+				$('#manual_latitude'+id).val(this.getPosition().lat());
+				$('#manual_longitude'+id).val(this.getPosition().lng());
 			});
 		}
 		return {
 			//main function to initiate the module
-			init: function() {
-				initMap();
+			init: function(id) {
+				initMap(id);
 			}
 		};
 	}();
 
-	function currentLocation() {
+	function currentLocation(id) {
 		// Try HTML5 geolocation.
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function (position) {
@@ -58,10 +57,10 @@
 				var lat = position.coords.latitude;
 				var lng = position.coords.longitude;
 
-				$('#modal_latitude').val(lat);
-				$('#modal_longitude').val(lng);
+				$('#modal_latitude'+id).val(lat);
+				$('#modal_longitude'+id).val(lng);
 
-				var map = new google.maps.Map(document.getElementById('modal_map'), {
+				var map = new google.maps.Map(document.getElementById('modal_map'+id), {
 					center: {lat: lat, lng: lng},
 					zoom: 12,
 					scrollwheel: false
@@ -74,10 +73,10 @@
 				});
 
 				google.maps.event.addListener(marker, 'dragend', function (event) {
-					$('#modal_latitude').val(this.getPosition().lat());
-					$('#modal_longitude').val(this.getPosition().lng());
-					$('#manual_latitude').val(this.getPosition().lat());
-					$('#manual_longitude').val(this.getPosition().lng());
+					$('#modal_latitude'+id).val(this.getPosition().lat());
+					$('#modal_longitude'+id).val(this.getPosition().lng());
+					$('#manual_latitude'+id).val(this.getPosition().lat());
+					$('#manual_longitude'+id).val(this.getPosition().lng());
 				});
 
 				infoWindow.setPosition(pos);

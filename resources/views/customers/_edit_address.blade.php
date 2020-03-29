@@ -132,23 +132,23 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-5">
-                                        <input class="form-control" type="text" id="manual_latitude" placeholder="Latitude" value="{{$address->YLocation}}" >
+                                        <input class="form-control" type="text" id="manual_latitude{{$address->ID}}" placeholder="Latitude" value="{{$address->YLocation}}" >
                                     </div>
                                     <div class="col-md-5">
-                                        <input class="form-control" type="text" id="manual_longitude" placeholder="Longitude" value="{{$address->XLocation}}">
+                                        <input class="form-control" type="text" id="manual_longitude{{$address->ID}}" placeholder="Longitude" value="{{$address->XLocation}}">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-12 text-right">
-                            <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation()">My Location</button>
+                            <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation({{$address->ID}})">My Location</button>
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label col-md-3"></label>
-                                <div id="modal_map" class="col-xs-9" style="height:200px" data-latitudeid="modal_latitude" data-longitudeid="modal_longitude" data-latitude="{{$address->YLocation}}" data-longitude="{{$address->XLocation}}"></div>
+                                <div id="modal_map{{$address->ID}}" class="col-xs-9" style="height:200px" data-latitudeid="modal_latitude{{$address->ID}}" data-longitudeid="modal_longitude{{$address->ID}}" data-latitude="{{$address->YLocation}}" data-longitude="{{$address->XLocation}}"></div>
                             </div>
                         </div>
 <?php /*
@@ -222,7 +222,7 @@
             }
         });
 
-        loadModalMap.init();
+        loadModalMap.init({{$address->ID}});
 
     });
 </script>
