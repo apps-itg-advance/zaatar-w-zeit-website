@@ -16,7 +16,7 @@
                     <div class="col-lg-6 text-col pt-4">
                         <h4 class="futura-b">MAKE IT A MEAL ! </h4>
                         <div class="info">
-                            {{$row->ItemName}}  {{$row->Price}}
+                            {{htmlspecialchars_decode($row->ItemName)}}  {{$row->Price}}
                         </div>
                         <div class="items-row items-meal-row row align-items-center mt-4">
                             <div class="col-12 item-col">

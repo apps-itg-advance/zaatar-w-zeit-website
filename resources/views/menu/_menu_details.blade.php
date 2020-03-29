@@ -10,7 +10,7 @@
                         <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                     </div>
                     <div class="col-lg-6 text-col py-4">
-                        <h5>{{$row->ItemName}}<span>{{number_format($row->Price)}}</span></h5>
+                        <h5>{{htmlspecialchars_decode($row->ItemName)}}<span>{{number_format($row->Price)}}</span></h5>
                         <div class="info">{{substr(htmlspecialchars_decode($row->Details),0,250)}}</div>
                     </div>
                 </div>
