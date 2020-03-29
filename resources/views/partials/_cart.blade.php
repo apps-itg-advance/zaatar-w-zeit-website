@@ -2,7 +2,7 @@
     $Skey=session()->get('skey');
         $user=session()->get('user'.$Skey);
         $full_name=@$user->details->FirstName.' '.@$user->details->LastName;
-        if(strlen($full_name)>0){
+        if(strlen($full_name)>40){
             $full_name=substr($full_name,0,40).'...';
         }
 @endphp
