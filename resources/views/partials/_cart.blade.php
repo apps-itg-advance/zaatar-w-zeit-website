@@ -1,11 +1,14 @@
 @php
     $Skey=session()->get('skey');
         $user=session()->get('user'.$Skey);
-
+        $full_name=@$user->details->FirstName.' '.@$user->details->LastName;
+        if(strlen($full_name)>0){
+            $full_name=substr($full_name).'...';
+        }
 @endphp
 
 <h4 class="title text-center">Order Summary</h4>
-<h5 class="user">{{@$user->details->FirstName.' '.@$user->details->LastName}}</h5>
+<h5 class="user">{{$full_name}}</h5>
 <div class="cart-items my-3">
     @php
         $_total=0;
