@@ -14,16 +14,16 @@
                         <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                     </div>
                     <div class="col-lg-6 text-col pt-4">
-                        <h4 class="futura-b">MAKE IT A MEAL ! </h4>
-                        <div class="info">
-                            {{htmlspecialchars_decode($row->ItemName)}}  {{$row->Price}}
+                        <h4 class="futura-b title1">MAKE IT A MEAL ! </h4>
+                        <div class="info title2">
+                            {{htmlspecialchars_decode($row->ItemName)}}  {{number_format($row->Price)}}
                         </div>
                         <div class="items-row items-meal-row row align-items-center mt-4">
                             <div class="col-12 item-col">
                                 <div class="custom-control custom-radio mb-3">
                                     <input type="checkbox"  value="{{$make_meal->ID.'-'.str_replace(',','',$make_meal->Price).'-'.$make_meal->Details.'-'.$make_meal->PLU}}"  onclick="CalculateMakeMealTotalQ({{$make_meal->ID}},{{$row->ID}})"  id="makeMealL{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]"  class="custom-control-input">
 
-                                    <label class="custom-control-label text-uppercase" for="makeMealL{{$make_meal->ID}}">
+                                    <label class="custom-control-label text-uppercase  title3" for="makeMealL{{$make_meal->ID}}">
                                         {{$make_meal->Details}}
                                     </label>
                                 </div>

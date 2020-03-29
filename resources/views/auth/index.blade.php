@@ -83,6 +83,20 @@
 				    $('.phone-css').val($('.phone-css').val().substring(0, 8));
 			    }
 		    }
+		    else if($('.iti__selected-dial-code').text()==='+971')
+            {
+                /*
+                var mnumber= $('.phone-css').val();
+                x=mnumber.substring(0, mnumber.length);
+                if(jQuery.inArray("test", myarray) !== -1)
+                if(x)
+                if($('.phone-css').val().length==9)
+                {
+
+                }
+                */
+
+            }
 	    }
 
         $('body').on('click keydown','#country-listbox li', function(e){
