@@ -108,7 +108,7 @@
 
                             @endphp
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="checkbox" {{$b_checked}} value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal_{{$meal_item->ID}}" name="make_meal[{{$row->ID}}][Items][{{$meal_item->ID}}]" class="custom-control-input mealItem">
+                                <input type="radio" {{$b_checked}} value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal_{{$meal_item->ID}}" name="make_meal[{{$row->ID}}][Items][{{$make_meal->ID}}]" class="custom-control-input mealItem">
                                 <label class="custom-control-label" for="makeMeal_{{$meal_item->ID}}">{{$meal_item->Name}}</label>
                             </div>
                         @endforeach
