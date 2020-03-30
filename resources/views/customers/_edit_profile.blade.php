@@ -267,6 +267,7 @@
 			    return false; // for demo
 		    }
 	    });
+        loadModalMap.init('');
 
     });
 
