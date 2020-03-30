@@ -245,12 +245,14 @@
         }
         function EditAddress(address)
         {
+            var AddressId = $("input[name='AddressId']:checked").val();
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type:'POST',
-                data:address,
+                data:{data:address,checked_id:AddressId},
                 url:'{{route('customer.address.edit')}}',
                 success:function(data){
                     $("#displayData").html(data);

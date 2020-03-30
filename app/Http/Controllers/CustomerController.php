@@ -422,7 +422,8 @@ class CustomerController extends Controller
     {
         $data_all=SettingsLib::GetDeliveryScreenDataSteps();
         $addresses_types=$data_all->AddressTypes;
-        $address=(object)$request->input();
+        $address=(object)$request->input('data');
+        $selected_id=$request->input('checked_id');
         $cities=SettingsLib::GetCities();
         $skey = session()->get('skey');
         $customer=session()->has('user'.$skey) ? session()->get('user'.$skey) : array();
@@ -438,7 +439,7 @@ class CustomerController extends Controller
             }
         }
         $query=$customer->details;
-        return view('customers._edit_address',compact('query','addresses_types','address','address_types','skey','cities','mobile'));
+        return view('customers._edit_address',compact('query','addresses_types','address','address_types','skey','cities','mobile','selected_id'));
     }
     public function address_add()
     {
@@ -504,6 +505,7 @@ class CustomerController extends Controller
         $address_id=$request->input('address_id'.$Skey);
         $address_type=$request->input('address_type'.$Skey);
 	    $company=$request->input('company'.$Skey);
+        $selected_id=$request->input('selected_id'.$Skey);
 
 	    $apartment=$floor.' Ext: '.$ext;
         $geo_array=explode('-',$geo);
@@ -530,7 +532,7 @@ class CustomerController extends Controller
         );
         $address=CustomerLibrary::UpdateAddress($array);
         CustomerLibrary::UpdateSessionAddresses($loyalty_id);
-        session()->put('s_address',$address_id);
+        session()->put('s_address',$selected_id);
         return back();
     }
 

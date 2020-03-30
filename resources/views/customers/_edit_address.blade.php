@@ -19,6 +19,7 @@
                         <input type="hidden" name="address_id{{$skey}}" value="{{$address->ID}}">
                         <input type="hidden" name="LoyaltyId" value="{{@$query->LoyaltyId}}">
                         <input type="hidden" name="is_default{{$skey}}" value="1">
+                        <input type="hidden" name="selected_id{{$skey}}" value="{{@$selected_id}}">
                         @php
                             $selectedCity='';
 
