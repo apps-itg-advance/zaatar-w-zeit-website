@@ -181,7 +181,7 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 text-right">
-                                    <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation()">My Location</button>
+                                    <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation('')">My Location</button>
                                 </div>
                             </div>
 
