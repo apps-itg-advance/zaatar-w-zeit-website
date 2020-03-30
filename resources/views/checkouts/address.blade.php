@@ -5,7 +5,17 @@
 
         $check_schedule=(isset($order_schedule) and $order_schedule=='schedule') ? 'checked="checked"' : '';
         $check_new=((isset($order_schedule) and $order_schedule=='now') or $check_schedule=='') ? 'checked="checked"' : '';
-        $select_id=isset($selected_address->AddressId) ? $selected_address->AddressId:$selected_address_id;
+        if($selected_address_id!=null and $selected_address_id!='')
+        {
+        $select_id=$selected_address_id;
+        }
+        elseif(isset($selected_address->AddressId)){
+         $select_id=$selected_address->AddressId;
+
+        }
+    else{
+    $select_id='';
+    }
 
     @endphp
     <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 float-none p-0 mx-auto">
