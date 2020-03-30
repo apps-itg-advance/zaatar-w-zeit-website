@@ -530,6 +530,7 @@ class CustomerController extends Controller
         );
         $address=CustomerLibrary::UpdateAddress($array);
         CustomerLibrary::UpdateSessionAddresses($loyalty_id);
+        session()->put('s_address',$address_id);
         return back();
     }
 
