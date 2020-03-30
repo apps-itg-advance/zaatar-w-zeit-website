@@ -267,7 +267,7 @@
 			    return false; // for demo
 		    }
 	    });
-        loadModalMap.init('');
+      //  loadModalMap.init('');
 
     });
 
