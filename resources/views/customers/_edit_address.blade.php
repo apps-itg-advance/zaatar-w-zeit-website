@@ -47,7 +47,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="address_type{{$add_type->ID}}" onclick="ValidateAddressType({{$add_type->ID}})">{{$add_type->Title}}</label>
-                                        <input data-code="{{$add_type->ID}}" type="radio" class="address_type" id="address_type{{$add_type->ID}}" {{(in_array($add_type->ID,$address_types) and $address->TypeID!=$add_type->ID)? 'disabled' :''}}  {{$address->TypeID==$add_type->ID? 'checked' :''}} name="address_type{{$skey}}" value="{{$add_type->ID}}" required />
+                                        <input data-code="{{$add_type->ID}}" type="radio" class="address_type{{$address->TypeID}}" id="address_type{{$add_type->ID}}" {{(in_array($add_type->ID,$address_types) and $address->TypeID!=$add_type->ID)? 'disabled' :''}}  {{$address->TypeID==$add_type->ID? 'checked' :''}} name="address_type{{$skey}}" value="{{$add_type->ID}}" required />
                                     </div>
                                 </div>
                                 @endforeach
@@ -173,7 +173,7 @@
 <script>
     $(document).ready(function () {
 
-	    if($(".address_type:checked").data('code')=='45'){
+	    if($(".address_type{{$address->TypeID}}:checked").data('code')=='45'){
 		    $('#company-input-container').removeClass('d-none');
 		    $('#company-input-container').find('input').prop('disabled',false);
 	    }else{
@@ -181,7 +181,7 @@
 		    $('#company-input-container').addClass('d-none');
 	    }
 
-	    $('body').on('click','.address_type', function(){
+	    $('body').on('click','.address_type{{$address->TypeID}}', function(){
 		    if($(this).data('code')=='45'){
 			    $('#company-input-container').removeClass('d-none');
 			    $('#company-input-container').find('input').prop('disabled',false);
