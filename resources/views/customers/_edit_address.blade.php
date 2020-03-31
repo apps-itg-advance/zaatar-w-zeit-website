@@ -116,7 +116,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12" id="company-input-container">
+                        <div class="col-md-12" id="company-input-container{{$address->TypeID}}">
                             <div class="form-group">
                                 <label>Company</label>
                                 <input type="text" class="form-control"  name="company{{$skey}}" value="{{@$company}}" required />
@@ -174,20 +174,20 @@
     $(document).ready(function () {
 
 	    if($(".address_type{{$address->TypeID}}:checked").data('code')=='45'){
-		    $('#company-input-container').removeClass('d-none');
-		    $('#company-input-container').find('input').prop('disabled',false);
+		    $('#company-input-container{{$address->TypeID}}').removeClass('d-none');
+		    $('#company-input-container{{$address->TypeID}}').find('input').prop('disabled',false);
 	    }else{
-		    $('#company-input-container').find('input').prop('disabled',true);
-		    $('#company-input-container').addClass('d-none');
+		    $('#company-input-container{{$address->TypeID}}').find('input').prop('disabled',true);
+		    $('#company-input-container{{$address->TypeID}}').addClass('d-none');
 	    }
 
 	    $('body').on('click','.address_type{{$address->TypeID}}', function(){
 		    if($(this).data('code')=='45'){
-			    $('#company-input-container').removeClass('d-none');
-			    $('#company-input-container').find('input').prop('disabled',false);
+			    $('#company-input-container{{$address->TypeID}}').removeClass('d-none');
+			    $('#company-input-container{{$address->TypeID}}').find('input').prop('disabled',false);
 		    }else{
-			    $('#company-input-container').find('input').prop('disabled',true);
-			    $('#company-input-container').addClass('d-none');
+			    $('#company-input-container{{$address->TypeID}}').find('input').prop('disabled',true);
+			    $('#company-input-container{{$address->TypeID}}').addClass('d-none');
 		    }
 	    });
 
