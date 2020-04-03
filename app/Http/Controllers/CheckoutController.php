@@ -22,9 +22,11 @@ class CheckoutController extends Controller
     {
         $this->query=SettingsLib::GetDeliveryScreenDataSteps();
         $this->Steps=array();
+        $i=1;
         foreach ($this->query->Steps as $row)
         {
-            $this->Steps[$row->Step]=$row;
+            $this->Steps[$i]=$row;
+            $i++;
         }
 
         $this->skey = session()->get('skey');
