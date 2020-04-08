@@ -53,6 +53,7 @@ class AuthLibrary
 
         $loyalty_id=$data->customer->details->LoyaltyId;
         $org_id=$data->customer->details->OrgId;
+        $data->customer->vouchers=array();
         session()->put('user'.$Skey,$data->customer);
         session()->put('addresses'.$Skey,$data->addresses);
         session()->put('is_login',true);
