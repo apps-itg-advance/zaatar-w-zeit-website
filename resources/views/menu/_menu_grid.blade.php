@@ -30,7 +30,7 @@
                         <input type="hidden" name="TotalAmounts" value="{{$row->Price}}">
                         <input type="hidden" name="QuickOrder{{$row->ID}}" id="QuickOrder{{$row->ID}}" value="0">
 
-                        <img src="{{asset($row->LocalThumbnailImg)}}" class="mr-3 img-thum"  alt="...">
+                        <img src="{{$row->ThumbnailImg}}" class="mr-3 img-thum"  alt="...">
                         <div class="media-body">
                             <h5 class="mt-0">
                                 <a href="#" style="max-width: 60% !important; float: left !important;">{{htmlspecialchars_decode($row->ItemName)}}</a>
