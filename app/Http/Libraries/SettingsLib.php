@@ -41,7 +41,11 @@ class SettingsLib
 
         if(count($res)>1)
         {
-
+            if(env('S_ORG')>0)
+            {
+                self::SetUserOrganization(env('S_ORG')) ;
+            }
+            else{
                 foreach ($res as $re)
                 {
                     if($re->parent_id!=0)
@@ -50,6 +54,9 @@ class SettingsLib
                         break;
                     }
                 }
+            }
+
+
             }
 
 
@@ -73,13 +80,21 @@ class SettingsLib
         else{
             $res=session()->get('organizations');
         }
-        foreach ($res as $re)
+        if(env('S_ORG')>0)
         {
-            if($re->parent_id!=0)
+            self::SetOrganization(env('S_ORG')) ;
+        }
+        else
+        {
+            foreach ($res as $re)
             {
-                self::SetOrganization($re->id);
-                break;
+                if($re->parent_id!=0)
+                {
+                    self::SetOrganization($re->id);
+                    break;
+                }
             }
+
         }
 
         /*
@@ -120,8 +135,10 @@ class SettingsLib
         $res_user=session()->get('user_tokens');
         $_org=array();
 
+
         if(!empty($res_user))
         {
+
             foreach($res_user as $re_u)
             {
                 if($re_u->id==$organization_id)
@@ -197,7 +214,13 @@ class SettingsLib
         $loyalty_id=session()->get('loyalty_id');
         $url=env('BASE_URL').'settings/GetDeliveryScreenDataSteps?token='.$_org->token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
         $query=Helper::getApi($url);
-        $res=$query->data;
+        if(isset($query->data))
+        {
+            $res=$query->data;
+        }
+        else{
+            $res=array();
+        }
         return $res;
     }
     public static function GetLoyaltyLevels()
@@ -206,7 +229,14 @@ class SettingsLib
         $loyalty_id=session()->get('loyalty_id');
         $url=env('BASE_URL').'LoyaltiesApi/GetLoyaltyLevel?token='.$_org->token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
         $query=Helper::getApi($url);
-        $res=$query->data;
+        if(isset($query->data))
+        {
+            $res=$query->data;
+        }
+        else{
+            $res=array();
+        }
+
         return $res;
     }
 
