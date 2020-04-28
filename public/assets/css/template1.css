@@ -562,6 +562,14 @@ button {
      right: -22px;
      z-index: 9;
  }
+
+.checkout-navblock .checkout-nav li.current a{
+    background: rgb(230,230,230);
+}
+.checkout-navblock .checkout-nav li.current:after {
+    border-left: 22px solid rgb(230,230,230);
+}
+
 .checkout-navblock .checkout-nav li a { font-size: 16px;display: block; padding: 10px 5px 10px 35px; background: #999999; color: #4D4D4D; font-family: 'Futura-B'; text-transform: uppercase; min-width: 130px; text-align: center;cursor: default;}
 
 .checkout-navblock .checkout-nav li.active a { background: #8DBF43; color: #FFFFFF;cursor: pointer;}
