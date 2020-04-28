@@ -62,11 +62,11 @@ else{
 @endphp
 <div class="checkout-navblock mb-5">
     <ul class="checkout-nav">
-        <li class="{{$_css_address_active}}"><a href="{{$_css_address_active=='active'?route('checkout.address'):'#'}}">Address</a></li>
-        <li class="{{$_css_wallet_active}}"><a href="{{$_css_wallet_active=='active'?route('checkout.wallet'):'#'}}">Wallet</a></li>
-        <li class="{{$_css_gift_active}}"><a href="{{$_css_gift_active=='active'?route('checkout.gift'):'#'}}">Gift</a></li>
-        <li class="{{$_css_green_active}}"><a href="{{$_css_green_active=='active'?route('checkout.green'):'#'}}">The Real Green</a></li>
-        <li class="{{$_css_special_ins_active}}"><a href="{{$_css_special_ins_active=='active'?route('checkout.special_instructions'):'#'}}">Special Instructions</a></li>
-        <li class="{{$_css_payment_active}}"><a href="{{$_css_payment_active=='active'?route('checkout.payment'):'#'}}">Payment</a></li>
+        <li class="{{$_css_address_active}} {{request()->segment(2)=='address'?'current':''}}"><a href="{{$_css_address_active=='active'?route('checkout.address'):'#'}}">Address</a></li>
+        <li class="{{$_css_wallet_active}} {{request()->segment(2)=='wallet'?'current':''}}"><a href="{{$_css_wallet_active=='active'?route('checkout.wallet'):'#'}}">Wallet</a></li>
+        <li class="{{$_css_gift_active}} {{request()->segment(2)=='gift'?'current':''}}"><a href="{{$_css_gift_active=='active'?route('checkout.gift'):'#'}}">Gift</a></li>
+        <li class="{{$_css_green_active}} {{request()->segment(2)=='green'?'current':''}}"><a href="{{$_css_green_active=='active'?route('checkout.green'):'#'}}">The Real Green</a></li>
+        <li class="{{$_css_special_ins_active}} {{request()->segment(2)=='special-instructions'?'current':''}}"><a href="{{$_css_special_ins_active=='active'?route('checkout.special_instructions'):'#'}}">Special Instructions</a></li>
+        <li class="{{$_css_payment_active}} {{request()->segment(2)=='payment'?'current':''}}"><a href="{{$_css_payment_active=='active'?route('checkout.payment'):'#'}}">Payment</a></li>
     </ul>
 </div>
