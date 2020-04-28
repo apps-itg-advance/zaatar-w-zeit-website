@@ -244,13 +244,22 @@ class SettingsLib
         }
         return $res;
     }
-    public static function GetDeliveryScreenDataSteps()
+    public static function GetDeliveryScreenDataSteps($flag=true)
     {
-        $_org=self::GetSelectedCompany();
-        $loyalty_id=session()->get('loyalty_id');
-        $url=env('BASE_URL').'settings/GetDeliveryScreenDataSteps?token='.$_org->token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
-        $query=Helper::getApi($url);
-        $res=$query->data;
+        if(!$flag and session()->has('delivery_screens'))
+        {
+            $res=session()->get('delivery_screens');
+        }
+        else{
+            $_org=self::GetSelectedCompany();
+            $loyalty_id=session()->get('loyalty_id');
+            $url=env('BASE_URL').'settings/GetDeliveryScreenDataSteps?token='.$_org->token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+            $query=Helper::getApi($url);
+            $res=$query->data;
+            session()->forget('delivery_screens');
+            session()->put('delivery_screens',$res);
+        }
+
         return $res;
     }
     public static function GetLoyaltyLevels()

@@ -63,7 +63,7 @@
     </div>
     <div class="action-buttons text-center mt-5 mb-3">
         <button class="btn btn-B3B3B3 text-uppercase" onclick="_destroyCart()" id="DestroyBtn">Clear All</button>
-        <a href="{{route('checkout.summary')}}" class="btn btn-8DBF43 text-uppercase" >Checkout</a>
+        <a href="{{route('checkout.address')}}" class="btn btn-8DBF43 text-uppercase" >Checkout</a>
     </div>
 @endif
 

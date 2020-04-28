@@ -20,7 +20,8 @@ class CheckoutController extends Controller
      */
     public function __construct()
     {
-        $this->query=SettingsLib::GetDeliveryScreenDataSteps();
+
+        $this->query=SettingsLib::GetDeliveryScreenDataSteps(false);
         $this->Steps=array();
         $i=1;
         foreach ($this->query->Steps as $row)
@@ -39,6 +40,7 @@ class CheckoutController extends Controller
 
     public function index()
     {
+        /*
         $cart = Session::get('cart');
         $class_css='checkout-wrapper';
         $_active_css='';
@@ -48,6 +50,8 @@ class CheckoutController extends Controller
 
 
         return view('checkouts.summary',compact('cart','class_css','_active_css','current_date'));  //
+        */
+        return redirect(route('checkout.address'));
     }
 
 
@@ -82,6 +86,7 @@ class CheckoutController extends Controller
     }
     public function address()
     {
+        $this->query=SettingsLib::GetDeliveryScreenDataSteps(true);
         $step=1;
         $settings=$this->Steps[$step];
         $skey = session()->get('skey');

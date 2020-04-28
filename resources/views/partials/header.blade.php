@@ -106,7 +106,7 @@
                 </div>
                 <div class="col-xl-3 col-lg-2 col-md-1 cart-col text-right d-none d-md-block">
                     <div class="dropdown">
-                        <a href="{{route('home.menu')}}" class="cart-link d-block">
+                        <a href="{{route('checkout.address')}}" class="cart-link d-block">
                             <div id="CartItems"></div>
                         </a>
                     </div>
