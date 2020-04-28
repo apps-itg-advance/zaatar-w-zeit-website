@@ -87,7 +87,7 @@
 
         $('body').on('click keydown','#country-listbox li', function(e){
 	        validateMobileMaxIfLebanon();
-	        
+
             if ( e.which == 13 || e.which == 1 ) {
                 var code = $(this).find('.iti__dial-code').text();
 
