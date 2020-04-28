@@ -109,8 +109,6 @@ class SettingsLib
             }
 
         }
-        dump($res);
-        die;
         /*
         dump($query);
 
