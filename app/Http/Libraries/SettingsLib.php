@@ -10,6 +10,7 @@ namespace App\Http\Libraries;
 use App\Http\Helpers\Helper;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Carbon;
 
 
 class SettingsLib
@@ -59,6 +60,7 @@ class SettingsLib
   //  public static function
     public static function CompanyChildren()
     {
+        $expiresAt = Carbon::now()->addMinutes(15);
         $key='settings';
         if (Cache::has($key) and Cache::get($key)!=null) {
             $res = Cache::get($key);
@@ -76,8 +78,8 @@ class SettingsLib
             $client_geo=$query->client_geo;
 
            // echo 'from API';
-            Cache::put($key, $res, 150000);
-            Cache::put('geo_location', $client_geo, 150000);
+            Cache::put($key, $res, $expiresAt);
+            Cache::put('geo_location', $client_geo, $expiresAt);
         }
         if (!session()->has('organizations')) {
 
