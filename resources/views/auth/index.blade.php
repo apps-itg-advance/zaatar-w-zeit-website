@@ -236,9 +236,9 @@
 	    }
 
         $('body').on('click keydown','#country-listbox li', function(e){
+	        validateMobileMaxIfLebanon();
             var mobile=$('.phone-css').val();
             ValidateIntMobile($('.iti__selected-dial-code').text(),mobile);
-
             if ( e.which == 13 || e.which == 1 ) {
                 var code = $(this).find('.iti__dial-code').text();
 
