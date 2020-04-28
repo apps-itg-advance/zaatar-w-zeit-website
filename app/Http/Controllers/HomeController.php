@@ -33,9 +33,11 @@ class HomeController extends Controller
     }
     public function menu($id = null,$name=null)
     {
+       // echo request()->ip();
         $items_customized=session()->get('items_customized');
-        $cat_id=($id==null) ? session()->get('first_category'):$id;
-        $_cat_title=($name==null) ? session()->get('first_category_name'):str_replace('-',' ',$name);
+        $_org=session()->get('_org');
+        $cat_id=($id==null) ? session()->get('first_category_'.$_org->id):$id;
+        $_cat_title=($name==null) ? session()->get('first_category_name_'.$_org->id):str_replace('-',' ',$name);
         $query=MenuLibrary::GetMenuItems($cat_id);
 
         $menu_items=session()->get('menu_data');

@@ -32,13 +32,17 @@ class AppServiceProvider extends ServiceProvider
             $_org=session()->get('_org');
             if(!isset($_org))
             {
-                SettingsLib::CompanyChildren();
-                $_org=session()->get('_org');
+               // SettingsLib::CompanyChildren();
+               // $_org=session()->get('_org');
             }
             $this->currency=$_org->currency;
             $this->delivery_charge=$_org->delivery_charge;
+            $this->country_code=$_org->country_code;
+            $this->country=$_org->country;
             $view->with('currency',  $this->currency);
             $view->with('delivery_fees',$this->delivery_charge);
+            $view->with('country_code',$this->country_code);
+            $view->with('country',$this->country);
         });
         //
     }

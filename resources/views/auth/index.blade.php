@@ -261,7 +261,6 @@
                 maxDate: 'today'
             });
 
-
 	        // $('.datepicker').datepicker({
             //     format: 'YY-mm-dd',
             // });
@@ -283,8 +282,8 @@
                 //   });
                 // },
                 hiddenInput: "full_number",
-                // initialCountry: "auto",
-                // localizedCountries: { 'de': 'Deutschland' },
+                 initialCountry: "<?=@strtolower($country_code)?>",
+                // localizedCountries: { '<?=@strtolower($country_code)?>': '<?=@$country?>' },
                 // nationalMode: false,
                 // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
                 // placeholderNumberType: "MOBILE",

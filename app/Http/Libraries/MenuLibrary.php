@@ -19,28 +19,33 @@ class MenuLibrary
         $query=Helper::getApi($url);
         return $query;
     }
-    static function DownloadImg($url,$organization_id,$flag)
+    static function DownloadImg($img_url,$organization_id,$flag)
     {
-        $array_name=explode('/',$url);
+        $array_name=explode('/',$img_url);
         $l=count($array_name);
         $img_name=$array_name[$l-1];
         $folder='/uploads/'.$organization_id.'/menu/';
         $path=$folder.$img_name;
-        if(!$flag){
-            $content = file_get_contents($url);
-            Storage::put($path, $content);
-           /* if (!file_exists($folder)) {
-                mkdir($folder, 0755, true);
-            } */
-            Storage::put($path, $content);
-           // file_put_contents($path, $content);
+        $img_array=explode('.',$img_name);
+
+        if(count($img_array)>1) {
+            if ($img_url != '') {
+                if (!$flag) {
+                    $content = @file_get_contents($img_url);
+                    if($content!='')
+                    {
+                        Storage::put($path, $content);
+                    }
+
+                }
+            }
         }
+
 
         return 'storage/'.$path;
     }
     public static function GetMenuItems($cat_id)
     {
-
         $extra='';
         $s_org=session()->get('_org');
         if(session()->has('is_login'))
@@ -53,7 +58,7 @@ class MenuLibrary
         $token=$s_org->token;
         $organization_id=$s_org->id;
 
-
+        $url_img='';
         $url=env('BASE_URL').'menu/GetMenuItems?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&category_id='.$cat_id.$extra;
         $query=Helper::getApi($url);
         foreach ($query->data as $item)
@@ -63,7 +68,7 @@ class MenuLibrary
             $key=$organization_id.'-'.$id;
             if(isset($item->ThumbnailImg))
             {
-                $url=$item->ThumbnailImg;
+                $url_img=$item->ThumbnailImg;
 
                 if(cache()->has($key) and cache()->get($key)!='')
                 {
@@ -71,7 +76,7 @@ class MenuLibrary
 
                 }
             }
-            $path=self::DownloadImg($url,$organization_id,$flag);
+            $path=self::DownloadImg($url_img,$organization_id,$flag);
             if(!$flag)
             {
                 cache()->add($key,1,now()->addMinutes(15));

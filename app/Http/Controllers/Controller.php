@@ -13,32 +13,34 @@ use App\Extensions\MongoSessionHandler;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cache;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     public function __construct()
     {
-
-
-        $organizations=SettingsLib::CompanyChildren();
-        $this->_org=session()->get('_org');
-
-            if (!session::has('navigations')) {
+        session()->flush();
+        cache()->clear();
+        SettingsLib::CompanyChildren();
+            $this->_org=session()->get('_org');
+      //  if(isset())
+            if (!session::has('navigations_'.$this->_org->id)) {
                 $navigation=MenuLibrary::GetCategories($this->_org->id,$this->_org->token);
 
                 if(isset($navigation->data))
                 {
-                    session::put('navigations',$navigation->data);
-                    session::put('first_category',$navigation->data[0]->ID);
-                    session::put('first_category_name',$navigation->data[0]->Label);
+                    session()->put('navigations_'.$this->_org->id,$navigation->data);
+                    session()->put('first_category_'.$this->_org->id,$navigation->data[0]->ID);
+                    session()->put('first_category_name_'.$this->_org->id,$navigation->data[0]->Label);
                 }
 
             }
 
 
-        if (session::has('cart')) {
-            $cart = Session::get('cart');
+        if (session()->has('cart')) {
+            $cart = Session()->get('cart');
             $_ctotal=count($cart);
         }
         else{
@@ -47,9 +49,9 @@ class Controller extends BaseController
         }
         session::put('total_cart_items',$_ctotal);
 
-        if (!session::has('skey')) {
+        if (!session()->has('skey')) {
             $skey = Carbon::now()->timestamp;
-            session::put('skey',$skey);
+            session()->put('skey',$skey);
         }
 
 
@@ -83,11 +85,12 @@ class Controller extends BaseController
     }
     public function switch_organization($id)
     {
+
+       // session()->forget('cart');
         session()->forget('cart');
-
+        session()->save();
         SettingsLib::SetOrganization($id);
-
-        return redirect(url()->previous());
+        return redirect(route('home'));
     }
 
 
