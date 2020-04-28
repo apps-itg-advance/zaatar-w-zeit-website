@@ -325,22 +325,8 @@ class CartController extends BaseController
         $cart = session()->get('cart');
         $item=$cart[$key];
         $plu=$item['plu'];
-        $query=session()->get('menu_data');
-       // dump($query);
-        //$query=MenuLibrary::GetMenuItems('');
-        $menu=$query->data;
-        $row=array();
-        foreach ($menu as $m)
-        {
-            if($m->PLU==$plu)
-            {
-                $row=$m;
-                break;
-            }
-        }
-       //
-        // dump($row);
-
+        $query=MenuLibrary::GetMenuItemByPlu($plu);
+        $row=$query->data;
         $modifier=(isset($row->Modifiers) and $row->Modifiers!=null)? $row->Modifiers:array();
         $meal=(isset($row->MakeMeal) and $row->MakeMeal!=null)? $row->MakeMeal:array();
 

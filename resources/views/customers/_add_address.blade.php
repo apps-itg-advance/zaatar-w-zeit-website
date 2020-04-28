@@ -117,7 +117,7 @@
                         </div>
 
                         <div class="col-md-12 text-right">
-                            <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation()">My Location</button>
+                            <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation('')">My Location</button>
                         </div>
 
                         <div class="col-md-12">
@@ -126,13 +126,14 @@
                                 <div id="modal_map" class="col-xs-9" style="height:200px" data-latitudeid="modal_latitude" data-longitudeid="modal_longitude" data-latitude="" data-longitude=""></div>
                             </div>
                         </div>
-
+                        <?php /*
                         <div class="col-md-12">
                             <div class="form-group mb-0">
                                 <label>More Details</label>
                                 <textarea class="form-control" name="more_details{{$skey}}"></textarea>
                             </div>
                         </div>
+ */?>
                     </div>
 
                 </div>
@@ -203,7 +204,7 @@
             }
         });
 
-	    loadModalMap.init();
+	    loadModalMap.init('');
 
     });
 

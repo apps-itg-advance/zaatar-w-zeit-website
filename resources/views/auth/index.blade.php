@@ -74,20 +74,171 @@
 
 	    //validate mobile if lebanon (+961) maximum digits are 8 numbers
 	    $('.phone-css').on('keyup', function(e) {
-		    validateMobileMaxIfLebanon();
+            var mobile=$('.phone-css').val();
+            ValidateIntMobile($('.iti__selected-dial-code').text(),mobile);
 	    });
+        function ValidateIntMobile(code,mobile)
+        {
+            var css_mobile='.phone-css';
+            if(code==='+961')
+            {
+                var mobile_code1=mobile.charAt(0);
+                if(mobile_code1!='3' && mobile_code1!='7' && mobile_code1!='8')
+                {
+                    $(css_mobile).val('');
+                    return false;
+                }
+                else{
+                    var mobile_code=mobile.charAt(1);
+                    if(mobile.charAt(0)==='7')
+                    {
+                        if(mobile_code!='0' && mobile_code!='1' && mobile_code!='6' && mobile_code!='8')
+                        {
+                            $(css_mobile).val(mobile.charAt(0));
+                            return false;
+                        }
+                    }
+                    else if(mobile.charAt(0)==='8')
+                    {
+                        if(mobile_code!='1')
+                        {
+                            $(css_mobile).val(mobile.charAt(0));
+                            return false;
+                        }
+                    }
 
+                }
+                if(mobile.charAt(0)==='3')
+                {
+                    if(mobile.length>7)
+                    {
+                        $(css_mobile).val($(css_mobile).val().substring(0, 7));
+                        return true;
+                    }
+                    else if(mobile.length<7)
+                    {
+                        return false;
+                    }
+                    else{
+                        return true;
+                    }
+                }
+                else{
+                    if(mobile.length>8)
+                    {
+                        $(css_mobile).val($(css_mobile).val().substring(0, 8));
+                        return true;
+                    }
+                    else if(mobile.length<8)
+                    {
+                        return false;
+                    }
+                    else{
+                        return true;
+                    }
+                }
+
+            }
+            else if(code==='+971')
+            {
+                if(mobile.charAt(0)!=5)
+                {
+                    $(css_mobile).val('');
+                    return false;
+                }
+                else{
+                    var mobile_code=mobile.charAt(1);
+                    if(mobile_code!='0' && mobile_code!='2' && mobile_code!='4' && mobile_code!='5' && mobile_code!='6' && mobile_code!='8' )
+                    {
+                        $(css_mobile).val(mobile.charAt(0));
+                        return false;
+                    }
+                }
+                if(mobile.length>9)
+                {
+                    $(css_mobile).val($(css_mobile).val().substring(0, 9));
+                    return true;
+                }
+                else if(mobile.length<9)
+                {
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+            else if(code==='+966')
+            {
+                if(mobile.charAt(0)!=5)
+                {
+                    $(css_mobile).val('');
+                    return false;
+                }
+                else{
+                    var mobile_code=mobile.charAt(1);
+                    if(mobile_code!='0' && mobile_code!='1' && mobile_code!='3' && mobile_code!='4' && mobile_code!='5' && mobile_code!='6' && mobile_code!='7' && mobile_code!='8' && mobile_code!='9' )
+                    {
+                        $(css_mobile).val(mobile.charAt(0));
+                        return false;
+                    }
+                }
+                if(mobile.length>9)
+                {
+                    $(css_mobile).val($(css_mobile).val().substring(0, 9));
+                    return true;
+                }
+                else if(mobile.length<9)
+                {
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+        }
 	    function validateMobileMaxIfLebanon(){
+            var mobile=$('.phone-css').val();
+            ValidateIntMobile($('.iti__selected-dial-code').text(),mobile);
+            /*
 		    if($('.iti__selected-dial-code').text()==='+961'){
 			    if($('.phone-css').val().length>=8){
 				    $('.phone-css').val($('.phone-css').val().substring(0, 8));
 			    }
 		    }
+		    else if($('.iti__selected-dial-code').text()==='+971')
+            {
+                var mobile=$('.phone-css').val();
+                ValidateIntMobile($('.iti__selected-dial-code').text(),mobile);
+               /* var code=mobile.substring(0,2);
+                alert(code.length);
+                if(code!='50' && code!='52' && code!='54' && code!='55' && code!='56' && code!='58' )
+                {
+
+                    alert('error')
+                }
+                else{
+                    alert('correct')
+                }
+                alert(mobile.charAt(0));
+                */
+                /*
+                var mnumber= $('.phone-css').val();
+                x=mnumber.substring(0, mnumber.length);
+                if(jQuery.inArray("test", myarray) !== -1)
+                if(x)
+                if($('.phone-css').val().length==9)
+                {
+
+                }
+                */
+
+           // }
 	    }
 
         $('body').on('click keydown','#country-listbox li', function(e){
 	        validateMobileMaxIfLebanon();
-
+            var mobile=$('.phone-css').val();
+            ValidateIntMobile($('.iti__selected-dial-code').text(),mobile);
             if ( e.which == 13 || e.which == 1 ) {
                 var code = $(this).find('.iti__dial-code').text();
 
@@ -137,7 +288,7 @@
                 // nationalMode: false,
                 // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
                 // placeholderNumberType: "MOBILE",
-                preferredCountries: ['lb', 'sa'],
+                preferredCountries: ['lb', 'sa','ae'],
                 separateDialCode: true,
                 utilsScript: "{{asset('assets/phone-input/js/utils.js')}}",
             });
@@ -221,7 +372,8 @@
                 {
 	                jQuery('#R_Email').html(' ');
                 }
-
+                var mobile=$('.phone-css').val();
+                validated=ValidateIntMobile($('.iti__selected-dial-code').text(),mobile);
                 if(!validated){
 	                Swal.fire({
 		                title: 'Warning!',

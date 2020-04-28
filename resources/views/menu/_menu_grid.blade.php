@@ -22,7 +22,7 @@
             @endphp
             <div class="col-favourite">
                 <div class="favourite-box">
-                    <div class="media">
+                    <div class="media" style="height: 200px;">
                         <input type="hidden" name="ItemId" value="{{$row->ID}}">
                         <input type="hidden" id="MakeMeal{{$row->ID}}" value="{{$has_meal}}">
                         <input type="hidden" name="ItemsName" value="{{$row->ItemName}}">
@@ -30,11 +30,11 @@
                         <input type="hidden" name="TotalAmounts" value="{{$row->Price}}">
                         <input type="hidden" name="QuickOrder{{$row->ID}}" id="QuickOrder{{$row->ID}}" value="0">
 
-                        <img src="{{$row->ThumbnailImg}}" class="mr-3 img-thum"  alt="...">
+                        <img src="{{asset($row->LocalThumbnailImg)}}" class="mr-3 img-thum"  alt="...">
                         <div class="media-body">
                             <h5 class="mt-0">
-                                <a href="#">{{htmlspecialchars_decode($row->ItemName)}}</a>
-                                <span class="price">{{number_format($row->Price)}} {{$currency}}</span>
+                                <a href="#" style="max-width: 60% !important; float: left !important;">{{htmlspecialchars_decode($row->ItemName)}}</a>
+                                <span class="price" style="max-width: 38% !important; float:right !important; vertical-align: text-top">{{number_format($row->Price)}} {{$currency}}</span>
                                 <div class="clearfix"></div>
                                 <ul class="icon">
                                 <?php
@@ -49,7 +49,7 @@
                                 ?>
                                 </ul>
                             </h5>
-                            <div class="content">{{htmlspecialchars_decode($row->Details)}}</div>
+                            <div class="content">{{substr(htmlspecialchars_decode($row->Details),0,250)}}</div>
                         </div>
                     </div>
                     <div class="mediabox row align-items-center">

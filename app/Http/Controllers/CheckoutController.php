@@ -22,9 +22,11 @@ class CheckoutController extends Controller
     {
         $this->query=SettingsLib::GetDeliveryScreenDataSteps();
         $this->Steps=array();
+        $i=1;
         foreach ($this->query->Steps as $row)
         {
-            $this->Steps[$row->Step]=$row;
+            $this->Steps[$i]=$row;
+            $i++;
         }
 
         $this->skey = session()->get('skey');
@@ -96,7 +98,10 @@ class CheckoutController extends Controller
         $timezone=(isset($org->timezone) and $org->timezone!='')? $org->timezone: 'Asia/Beirut';
         $current_date=Carbon::now($timezone);
         $selected_address=session()->get('cart_info');
-        return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities','settings','order_schedule','schedule_date','current_date','selected_address','schedule_day'));  //
+        $selected_address_id=session()->get('s_address');
+        session()->forget('s_address');
+        session()->save();
+        return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities','settings','order_schedule','schedule_date','current_date','selected_address','schedule_day','selected_address_id'));  //
     }
     public function address_store(Request $request)
     {

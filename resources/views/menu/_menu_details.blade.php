@@ -7,11 +7,11 @@
                 </button>
                 <div class="row">
                     <div class="col-lg-6 image-col">
-                        <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
+                        <img src="{{asset($row->LocalThumbnailImg)}}" class="img-fluid d-block mx-auto" />
                     </div>
                     <div class="col-lg-6 text-col py-4">
-                        <h5>{{$row->ItemName}}<span>{{number_format($row->Price)}}</span></h5>
-                        <div class="info">{{$row->Details}}</div>
+                        <h5>{{htmlspecialchars_decode($row->ItemName)}}<span>{{number_format($row->Price)}}</span></h5>
+                        <div class="info">{{substr(htmlspecialchars_decode($row->Details),0,250)}}</div>
                     </div>
                 </div>
                 @php
@@ -83,7 +83,7 @@
                 <span class="title d-inline-block">Total</span>
                 <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{number_format($row->Price)}} {{$currency}}</span>
                 <input type="hidden" id="TotalAmount{{$row->ID}}" name="TotalAmount[{{$row->ID}}]" value="{{str_replace(',','',$row->Price)}}">
-                <a class="btn btn-8DBF43 text-uppercase" onclick="AddToCart({{$row->ID}},0)">Confirm</a>
+                <a class="btn btn-8DBF43 text-uppercase btn-a" onclick="AddToCart({{$row->ID}},0)">Confirm</a>
             </div>
         </div>
     </div>

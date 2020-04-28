@@ -8,7 +8,8 @@
 
 namespace App\Http\Libraries;
 use App\Http\Helpers\Helper;
-use phpDocumentor\Reflection\Types\Self_;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class MenuLibrary
 {
@@ -17,6 +18,25 @@ class MenuLibrary
         $url=env('BASE_URL').'menu/GetCategories?token='.$token.'&organization_id='.$organization_id.'&channel_id=1';
         $query=Helper::getApi($url);
         return $query;
+    }
+    static function DownloadImg($url,$organization_id,$flag)
+    {
+        $array_name=explode('/',$url);
+        $l=count($array_name);
+        $img_name=$array_name[$l-1];
+        $folder='/uploads/'.$organization_id.'/menu/';
+        $path=$folder.$img_name;
+        if(!$flag){
+            $content = file_get_contents($url);
+            Storage::put($path, $content);
+           /* if (!file_exists($folder)) {
+                mkdir($folder, 0755, true);
+            } */
+            Storage::put($path, $content);
+           // file_put_contents($path, $content);
+        }
+
+        return 'storage/'.$path;
     }
     public static function GetMenuItems($cat_id)
     {
@@ -38,6 +58,26 @@ class MenuLibrary
         $query=Helper::getApi($url);
         foreach ($query->data as $item)
         {
+            $id=$item->ID;
+            $flag=false;
+            $key=$organization_id.'-'.$id;
+            if(isset($item->ThumbnailImg))
+            {
+                $url=$item->ThumbnailImg;
+
+                if(cache()->has($key) and cache()->get($key)!='')
+                {
+                  $flag=true;
+
+                }
+            }
+            $path=self::DownloadImg($url,$organization_id,$flag);
+            if(!$flag)
+            {
+                cache()->add($key,1,now()->addMinutes(15));
+            }
+
+            $item->LocalThumbnailImg=$path;
             if(isset($item->Modifiers->details->MOrder))
             {
                 usort($item->Modifiers, function($a, $b)
@@ -47,6 +87,46 @@ class MenuLibrary
             }
         }
         //usort($modifiers, 'CompareOrder');
+        return $query;
+    }
+    public static function GetMenuItemByPlu($plu)
+    {
+
+        $extra='';
+        $s_org=session()->get('_org');
+        if(session()->has('is_login'))
+        {
+            $loyalty_id=session()->get('loyalty_id');
+            $extra='&LoyaltyId='.$loyalty_id;
+        }
+
+
+        $token=$s_org->token;
+        $organization_id=$s_org->id;
+
+
+        $url=env('BASE_URL').'menu/GetMenuItemByPlu?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&Plu='.$plu.$extra;
+        $query=Helper::getApi($url);
+        return $query;
+    }
+    public static function GetMenuItemsByPlus($plu)
+    {
+
+        $extra='';
+        $s_org=session()->get('_org');
+        if(session()->has('is_login'))
+        {
+            $loyalty_id=session()->get('loyalty_id');
+            $extra='&LoyaltyId='.$loyalty_id;
+        }
+
+
+        $token=$s_org->token;
+        $organization_id=$s_org->id;
+
+
+        $url=env('BASE_URL').'menu/GetMenuItemsByPlu?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&Plu='.$plu.$extra;
+        $query=Helper::getApi($url);
         return $query;
     }
 public static function CompareOrder($a, $b)

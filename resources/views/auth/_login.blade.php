@@ -14,7 +14,7 @@
                         <div class="form-group">
                             <label>Mobile</label>
                             <input type="hidden" name="country_code{{$sKey}}" id="country_code{{$sKey}}" />
-                            <input type="tel" class="form-control phone-css" onkeyup="ValidateMobile('mobile{{$sKey}}')" name="mobile{{$sKey}}" id="mobile{{$sKey}}" />
+                            <input type="tel" class="form-control phone-css" name="mobile{{$sKey}}" id="mobile{{$sKey}}" />
                             <div class="required" id="R_Mobile"></div>
                         </div>
                         <div class="form-group">

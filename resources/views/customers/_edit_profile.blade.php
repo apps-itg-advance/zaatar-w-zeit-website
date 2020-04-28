@@ -21,13 +21,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" id="FirstName" name="first_name{{$Skey}}" value="{{@$details->FirstName}}" />
+                            <input type="text" class="form-control" maxlength="70" id="FirstName" name="first_name{{$Skey}}" value="{{@$details->FirstName}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Family Name</label>
-                            <input type="text" class="form-control" id="LastName" name="last_name{{$Skey}}" value="{{@$details->LastName}}" />
+                            <input type="text" class="form-control" maxlength="70" id="LastName" name="last_name{{$Skey}}" value="{{@$details->LastName}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -170,10 +170,10 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <input class="form-control" type="number" id="manual_latitude" placeholder="Latitude" value="{{isset($main_address->YLocation)?$main_address->YLocation:''}}" >
+                                            <input class="form-control" type="number" id="manual_latitude0" placeholder="Latitude" value="{{isset($main_address->YLocation)?$main_address->YLocation:''}}" >
                                         </div>
                                         <div class="col-md-5">
-                                            <input class="form-control" type="number" id="manual_longitude" placeholder="Longitude" value="{{isset($main_address->XLocation)?$main_address->XLocation:''}}">
+                                            <input class="form-control" type="number" id="manual_longitude0" placeholder="Longitude" value="{{isset($main_address->XLocation)?$main_address->XLocation:''}}">
                                         </div>
                                     </div>
                                 </div>
@@ -181,13 +181,13 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 text-right">
-                                    <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation()">My Location</button>
+                                    <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation(0)">My Location</button>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-md-3"></label>
-                                <div id="modal_map" class="col-xs-9" style="height:200px" data-latitudeid="modal_latitude" data-longitudeid="modal_longitude" data-latitude="{{isset($main_address->YLocation)?$main_address->YLocation:''}}" data-longitude="{{isset($main_address->XLocation)?$main_address->XLocation:''}}"></div>
+                                <div id="modal_map0" class="col-xs-9" style="height:200px" data-latitudeid="modal_latitude0" data-longitudeid="modal_longitude0" data-latitude="{{isset($main_address->YLocation)?$main_address->YLocation:''}}" data-longitude="{{isset($main_address->XLocation)?$main_address->XLocation:''}}"></div>
                             </div>
 
 
@@ -230,11 +230,12 @@
 	    }).validate({
 		    rules: {
 			    first_name{{$Skey}}: {
-				    required: true
+				    required: true,
+                    maxlength: 70
 			    },
 			    last_name{{$Skey}}: {
 				    required: true,
-				    maxlength: 30
+				    maxlength: 70
 			    },
                 address_type{{$Skey}}: {
                     required: true
@@ -266,6 +267,7 @@
 			    return false; // for demo
 		    }
 	    });
+        loadModalMap.init(0);
 
     });
 

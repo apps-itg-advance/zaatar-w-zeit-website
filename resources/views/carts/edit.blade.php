@@ -17,7 +17,7 @@
                     <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                 </div>
                 <div class="col-lg-6 text-col py-4">
-                    <h5>{{$row->ItemName}}<span>{{number_format($row->Price)}}</span></h5>
+                    <h5>{{htmlspecialchars_decode($row->ItemName)}}<span>{{number_format($row->Price)}}</span></h5>
                     <div class="info">{{$row->Details}}</div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
 
                             @endphp
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="checkbox" {{$b_checked}} value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal_{{$meal_item->ID}}" name="make_meal[{{$row->ID}}][Items][{{$meal_item->ID}}]" class="custom-control-input mealItem">
+                                <input type="radio" {{$b_checked}} value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal_{{$meal_item->ID}}" name="make_meal[{{$row->ID}}][Items][{{$make_meal->ID}}]" class="custom-control-input mealItem">
                                 <label class="custom-control-label" for="makeMeal_{{$meal_item->ID}}">{{$meal_item->Name}}</label>
                             </div>
                         @endforeach

@@ -19,6 +19,7 @@
                         <input type="hidden" name="address_id{{$skey}}" value="{{$address->ID}}">
                         <input type="hidden" name="LoyaltyId" value="{{@$query->LoyaltyId}}">
                         <input type="hidden" name="is_default{{$skey}}" value="1">
+                        <input type="hidden" name="selected_id{{$skey}}" value="{{@$selected_id}}">
                         @php
                             $selectedCity='';
 
@@ -46,7 +47,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="address_type{{$add_type->ID}}" onclick="ValidateAddressType({{$add_type->ID}})">{{$add_type->Title}}</label>
-                                        <input data-code="{{$add_type->ID}}" type="radio" class="address_type" id="address_type{{$add_type->ID}}" {{(in_array($add_type->ID,$address_types) and $address->TypeID!=$add_type->ID)? 'disabled' :''}}  {{$address->TypeID==$add_type->ID? 'checked' :''}} name="address_type{{$skey}}" value="{{$add_type->ID}}" required />
+                                        <input data-code="{{$add_type->ID}}" type="radio" class="address_type{{$address->TypeID}}" id="address_type{{$add_type->ID}}" {{(in_array($add_type->ID,$address_types) and $address->TypeID!=$add_type->ID)? 'disabled' :''}}  {{$address->TypeID==$add_type->ID? 'checked' :''}} name="address_type{{$skey}}" value="{{$add_type->ID}}" required />
                                     </div>
                                 </div>
                                 @endforeach
@@ -115,7 +116,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12" id="company-input-container">
+                        <div class="col-md-12" id="company-input-container{{$address->TypeID}}">
                             <div class="form-group">
                                 <label>Company</label>
                                 <input type="text" class="form-control"  name="company{{$skey}}" value="{{@$company}}" required />
@@ -132,33 +133,33 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-5">
-                                        <input class="form-control" type="text" id="manual_latitude" placeholder="Latitude" value="{{$address->YLocation}}" >
+                                        <input class="form-control" type="text" id="manual_latitude{{$address->ID}}" placeholder="Latitude" value="{{$address->YLocation}}" >
                                     </div>
                                     <div class="col-md-5">
-                                        <input class="form-control" type="text" id="manual_longitude" placeholder="Longitude" value="{{$address->XLocation}}">
+                                        <input class="form-control" type="text" id="manual_longitude{{$address->ID}}" placeholder="Longitude" value="{{$address->XLocation}}">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-12 text-right">
-                            <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation()">My Location</button>
+                            <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation({{$address->ID}})">My Location</button>
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label col-md-3"></label>
-                                <div id="modal_map" class="col-xs-9" style="height:200px" data-latitudeid="modal_latitude" data-longitudeid="modal_longitude" data-latitude="{{$address->YLocation}}" data-longitude="{{$address->XLocation}}"></div>
+                                <div id="modal_map{{$address->ID}}" class="col-xs-9" style="height:200px" data-latitudeid="modal_latitude{{$address->ID}}" data-longitudeid="modal_longitude{{$address->ID}}" data-latitude="{{$address->YLocation}}" data-longitude="{{$address->XLocation}}"></div>
                             </div>
                         </div>
-
+<?php /*
                         <div class="col-md-12">
                             <div class="form-group mb-0">
                                 <label>More Details</label>
                                 <textarea class="form-control" name="more_details{{$skey}}">{{$address->ExtraAddress}}</textarea>
                             </div>
                         </div>
-
+*/?>
                     </div>
 
                 </div>
@@ -172,21 +173,21 @@
 <script>
     $(document).ready(function () {
 
-	    if($(".address_type:checked").data('code')=='45'){
-		    $('#company-input-container').removeClass('d-none');
-		    $('#company-input-container').find('input').prop('disabled',false);
+	    if($(".address_type{{$address->TypeID}}:checked").data('code')=='45'){
+		    $('#company-input-container{{$address->TypeID}}').removeClass('d-none');
+		    $('#company-input-container{{$address->TypeID}}').find('input').prop('disabled',false);
 	    }else{
-		    $('#company-input-container').find('input').prop('disabled',true);
-		    $('#company-input-container').addClass('d-none');
+		    $('#company-input-container{{$address->TypeID}}').find('input').prop('disabled',true);
+		    $('#company-input-container{{$address->TypeID}}').addClass('d-none');
 	    }
 
-	    $('body').on('click','.address_type', function(){
+	    $('body').on('click','.address_type{{$address->TypeID}}', function(){
 		    if($(this).data('code')=='45'){
-			    $('#company-input-container').removeClass('d-none');
-			    $('#company-input-container').find('input').prop('disabled',false);
+			    $('#company-input-container{{$address->TypeID}}').removeClass('d-none');
+			    $('#company-input-container{{$address->TypeID}}').find('input').prop('disabled',false);
 		    }else{
-			    $('#company-input-container').find('input').prop('disabled',true);
-			    $('#company-input-container').addClass('d-none');
+			    $('#company-input-container{{$address->TypeID}}').find('input').prop('disabled',true);
+			    $('#company-input-container{{$address->TypeID}}').addClass('d-none');
 		    }
 	    });
 
@@ -222,7 +223,7 @@
             }
         });
 
-        loadModalMap.init();
+        loadModalMap.init({{$address->ID}});
 
     });
 </script>

@@ -1,3 +1,5 @@
+@php $fav=$favourite ? 1: 0;
+@endphp
 @foreach($query as $row)
     @php
         $discount=0;
@@ -7,7 +9,7 @@
         $method='';
         $specials=array();
         $adderss_array=array($row->City,$row->Line1,$row->Line2,$row->Apartment,$row->CompanyName);
-        $fav=$favourite ? 1: 0;
+
 
     @endphp
     @if($favourite and !$row->Favorite)
@@ -242,9 +244,11 @@
         @endif
     </div>
 @endforeach
+@if($row_total>3)
 <h1 class="load-more">Load More</h1>
 <input type="hidden" id="row" value="0">
 <input type="hidden" id="all" value="{{$row_total}}">
+@endif
 @section('javascript')
     <script>
         function RepeatOrder(orderId)
@@ -258,6 +262,7 @@
         url:'{{route('customer.order.repeat')}}',
         success:function(data){
         LoadCart();
+         _getCountCartItems();
       /*  Swal.fire({
         // position: 'top-end',
         icon: 'success',
@@ -344,13 +349,12 @@
                                 $(".data-row:last").after(response).show().fadeIn("slow");
 
                                 var rowno = row + 3;
-
                                 // checking row value is greater than allcount or not
                                 if(rowno > allcount){
 
                                     // Change the text and background
-                                    $('.load-more').text("Hide");
-                                    $('.load-more').css("background","darkorchid");
+                                    $('.load-more').hide();
+                                   // $('.load-more').css("background","darkorchid");
                                 }else{
                                     $(".load-more").text("Load more");
                                 }
@@ -360,6 +364,7 @@
                         }
                     });
                 }else{
+                    alert('test');
                     $('.load-more').text("Loading...");
 
                     // Setting little delay while removing contents
@@ -373,7 +378,7 @@
 
                         // Change the text and background
                         $('.load-more').text("Load more");
-                        $('.load-more').css("background","#15a9ce");
+                       // $('.load-more').css("background","#15a9ce");
 
                     }, 2000);
 

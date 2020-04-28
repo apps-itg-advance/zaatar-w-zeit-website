@@ -166,5 +166,20 @@
     font-size: 16px;
 }
 .list-i{
-    font-size: 15px !important;
+    font-size: 13px !important;
+    text-transform: capitalize;
+}
+.btn-a{
+    padding: 2px 20px !important;
+    color: white !important;
+    float: right !important;
+}
+.title1{
+    font-size: 2.2rem !important;
+}
+.title2{
+    font-size: 1.3rem !important;
+}
+.title3{
+    font-size: 1.4rem !important;
 }

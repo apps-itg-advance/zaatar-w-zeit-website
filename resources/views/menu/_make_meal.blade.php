@@ -14,16 +14,16 @@
                         <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                     </div>
                     <div class="col-lg-6 text-col pt-4">
-                        <h4 class="futura-b">MAKE IT A MEAL ! </h4>
-                        <div class="info">
-                            {{$row->ItemName}}  {{$row->Price}}
+                        <h4 class="futura-b title1">MAKE IT A MEAL ! </h4>
+                        <div class="info title2">
+                            {{htmlspecialchars_decode($row->ItemName)}}  {{number_format($row->Price)}}
                         </div>
                         <div class="items-row items-meal-row row align-items-center mt-4">
                             <div class="col-12 item-col">
                                 <div class="custom-control custom-radio mb-3">
                                     <input type="checkbox"  value="{{$make_meal->ID.'-'.str_replace(',','',$make_meal->Price).'-'.$make_meal->Details.'-'.$make_meal->PLU}}"  onclick="CalculateMakeMealTotalQ({{$make_meal->ID}},{{$row->ID}})"  id="makeMealL{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]"  class="custom-control-input">
 
-                                    <label class="custom-control-label text-uppercase" for="makeMealL{{$make_meal->ID}}">
+                                    <label class="custom-control-label text-uppercase  title3" for="makeMealL{{$make_meal->ID}}">
                                         {{$make_meal->Details}}
                                     </label>
                                 </div>
@@ -44,9 +44,9 @@
                         </div>
                         <div class="modal-footer text-left justify-content-start p-0 mt-3 mt-lg-4">
                             <span class="title d-inline-block">Total</span>
-                            <span class="amount d-inline-block mx-5"  id="DisplayTotalQ{{$row->ID}}">{{number_format($row->Price)}} {{$currency}}</span>
+                            <span class="amount d-inline-block mx-5" style="margin-left:1rem !important;margin-right: 1rem !important;"  id="DisplayTotalQ{{$row->ID}}">{{number_format($row->Price)}} {{$currency}}</span>
                             <input type="hidden" id="TotalAmountQ{{$row->ID}}" name="TotalAmountQ[{{$row->ID}}]" value="{{str_replace(',','',$row->Price)}}">
-                            <a onclick="AddToCart({{$row->ID}},1)" class="btn btn-8DBF43 text-uppercase">Confirm</a>
+                            <div style="float: right"><a onclick="AddToCart({{$row->ID}},1)" class="btn btn-8DBF43 text-uppercase btn-a">Confirm</a></div>
                         </div>
                     </div>
                 </div>

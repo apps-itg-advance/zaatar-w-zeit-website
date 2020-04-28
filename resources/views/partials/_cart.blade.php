@@ -1,11 +1,14 @@
 @php
     $Skey=session()->get('skey');
         $user=session()->get('user'.$Skey);
-
+        $full_name=@$user->details->FirstName.' '.@$user->details->LastName;
+        if(strlen($full_name)>40){
+            $full_name=substr($full_name,0,40).'...';
+        }
 @endphp
 
 <h4 class="title text-center">Order Summary</h4>
-<h5 class="user">{{@$user->details->FirstName.' '.@$user->details->LastName}}</h5>
+<h5 class="user">{{$full_name}}</h5>
 <div class="cart-items my-3">
     @php
         $_total=0;
@@ -14,8 +17,10 @@
         @foreach($cart as $key=>$values)
             <div class="cart-item mb-4">
 
-                <h5 class="name text-4D4D4D">{{$values['name']}} <span class="price d-inline-block ml-3" style="text-align: right !important; float: right !important; margin-right: 6rem !important;">{{number_format($values['price'])}}</span></h5>
+                <h5 class="name text-4D4D4D"><span style="float: left; width: 45%;">{{htmlspecialchars_decode($values['name'])}}</span>
+                    <span class="price d-inline-block ml-3" style=" width: 18%;text-align: right !important; float: right !important; margin-right: 6rem !important;">{{number_format($values['price'])}}</span></h5>
                 <div class="info text-808080">
+                    <div class="clearfix"></div>
                     @php
 
                         $modifiers=$values['modifiers'];
@@ -37,7 +42,8 @@
                     @php
                         $meal=$values['meal'];
                     @endphp
-                    @if($meal!=null)
+                    @if($meal!=null and isset($meal['name']))
+                        <div class="clearfix"></div>
                         <div class="speacial-meal bg-8DBF43">
                             MEAL <span class="d-inline-block mx-3">{{$meal['name']}}</span><span class="d-inline-block">{{number_format($meal['price'])}}</span>
                             <a href="javascript:void(0)" onclick="_deleteMeal({{$key}})" class="close"><img src="{{asset('assets/images/icon-close-white.png')}}" /></a>
@@ -45,6 +51,7 @@
                     @endif
                 @endif
             </div>
+            <div class="clearfix"></div>
         @endforeach
     @endif
 </div>
