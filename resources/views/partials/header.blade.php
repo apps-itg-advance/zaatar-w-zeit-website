@@ -18,9 +18,11 @@
 
                             @if(count($orgs)>1)
                             @foreach($orgs as $org)
+                              @if($org->display==1)
                             <a class="dropdown-item mb-2" href="{{route('switch.organization',['id'=>$org->id])}}">
                                 <img src="{{$org->country_flag}}" /> {{$org->country}}
                             </a>
+                                    @endif
                             @endforeach
                             @else
                                 <a class="dropdown-item mb-2" href="#">

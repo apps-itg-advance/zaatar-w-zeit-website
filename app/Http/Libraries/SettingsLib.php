@@ -9,14 +9,14 @@
 namespace App\Http\Libraries;
 use App\Http\Helpers\Helper;
 use Illuminate\Support\Facades\Session;
-use phpDocumentor\Reflection\Types\Self_;
+use Illuminate\Support\Facades\Cache;
 
 
 class SettingsLib
 {
     public function __construct()
     {
-        $this->_org=session()->get('_org');
+        //$this->_org=session()->get('_org');
     }
     public static function UserTokens($loyalty_id)
     {
@@ -59,29 +59,56 @@ class SettingsLib
   //  public static function
     public static function CompanyChildren()
     {
-        $url=env('BASE_URL').'settings/CompanyChildren';
-        $array=array(
-            'organization_id'=>env('ORG_ID'),
-            'channel_id'=>env('CH_ID'),
-            'token'=>env('TOKEN'),
-        );
-        if (!session()->has('organizations') ) {
+        $key='settings';
+        if (Cache::has($key) and Cache::get($key)!=null) {
+            $res = Cache::get($key);
+            $client_geo = Cache::get('geo_location');
+        } else {
+            $url = env('BASE_URL') . 'settings/CompanyChildren';
+            $array = array(
+                'organization_id' => env('ORG_ID'),
+                'channel_id' => env('CH_ID'),
+                'token' => env('TOKEN'),
+                'ip' => request()->ip(),
+            );
             $query = Helper::postApi($url, $array);
             $res = $query->data;
-            session()->put('organizations', $res);
-        }
-        else{
-            $res=session()->get('organizations');
-        }
-        foreach ($res as $re)
-        {
-            if($re->parent_id!=0)
-            {
-                self::SetOrganization($re->id);
-                break;
-            }
-        }
+            $client_geo=$query->client_geo;
 
+           // echo 'from API';
+            Cache::put($key, $res, 150000);
+            Cache::put('geo_location', $client_geo, 150000);
+        }
+        if (!session()->has('organizations')) {
+
+            session()->put('organizations', $res);
+        } else {
+            $res = session()->get('organizations');
+        }
+        $flag=false;
+        if(!session::has('_org'))
+        {
+            foreach ($res as $re) {
+                if ($re->parent_id != 0 and strtolower($re->country_code)==strtolower($client_geo)) {
+                    $_org_id=$re->id;
+                    $flag=true;
+                    break;
+                }
+            }
+            if(!$flag)
+            {
+                foreach ($res as $re) {
+                    if ($re->parent_id != 0) {
+                        self::SetOrganization($re->id);
+                        break;
+                    }
+                }
+            }
+            else{
+                self::SetOrganization($_org_id);
+            }
+
+        }
         /*
         dump($query);
 
@@ -115,12 +142,14 @@ class SettingsLib
 
     public static function SetOrganization($organization_id)
     {
-        $res=session()->get('organizations');
-
+       // $res=session()->get('organizations');
+       // die;
+        $res=Cache::get('settings');
+       // dump($res);
         $res_user=session()->get('user_tokens');
         $_org=array();
 
-        if(!empty($res_user))
+     /*   if(!empty($res_user))
         {
             foreach($res_user as $re_u)
             {
@@ -140,10 +169,34 @@ class SettingsLib
                     break;
                 }
             }
+        } */
+        foreach($res as $re)
+        {
+            if($re->id==$organization_id)
+            {
+                $_org=$re;
+                break;
+            }
         }
-        session()->forget('_org');
-        session()->save();
+        $old_org=session()->get('_org');
+        if(isset($old_org->id) and $organization_id!=$old_org->id)
+        {
+            $key=session()->get('skey');
+            session()->forget('cart');
+            session()->forget('LoginRequestId'.$key);
+            session()->forget('LoginMobile'.$key);
+            session()->forget('LoginCountryCode'.$key);
+            session()->forget('user'.$key);
+            session()->forget('addresses'.$key);
+            session()->forget('loyalty_id');
+            session()->forget('is_login');
+            session()->forget('_org');
+
+        }
         session()->put('_org',$_org);
+        session()->save();
+
+
     }
 
     public static function SetUserOrganization($organization_id)

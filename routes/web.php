@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Libraries\SettingsLib;
 
 Route::get('/menu/{id?}/{name?}', 'HomeController@menu')->name('home.menu');
 Route::get('/', 'HomeController@menu')->name('home');
@@ -35,8 +36,16 @@ Route::post('/signin', 'Auth\LoginController@signin')->name('auth.signin');
 Route::post('/pin', 'Auth\LoginController@pin')->name('auth.pin');
 Route::post('/pin-resend', 'Auth\LoginController@resend_pin')->name('auth.pinresend');
 Route::post('/register', 'Auth\LoginController@register')->name('auth.register');
-Route::get('/switch-org/{id?}', 'Controller@switch_organization')->name('switch.organization');
+//Route::get('/switch-org/{id?}', 'Controller@switch_organization')->name('switch.organization');
 
+Route::get('/switch-org/{id?}', function($id) {
+
+    SettingsLib::SetOrganization($id);
+    return redirect(route('home'));
+   // session()->put('progress', '5%');
+   // session()->save();
+    // dd(Session::get('progress'));
+})->name('switch.organization');
 
 
 Route::group(['middleware' => ['checkLogin']], function () {
