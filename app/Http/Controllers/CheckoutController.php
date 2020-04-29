@@ -255,7 +255,7 @@ class CheckoutController extends Controller
         $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
         if($wallet_balance==0 and count($vouchers)==0)
         {
-            redirect(route('checkout.gift'));
+            return redirect(route('checkout.gift'));
         }
         session()->put('vouchers',$vouchers);
         $cart = Session::get('cart');
