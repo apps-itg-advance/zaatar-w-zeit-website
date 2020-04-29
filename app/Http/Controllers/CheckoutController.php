@@ -160,7 +160,8 @@ class CheckoutController extends Controller
         $skey=session()->get('skey');
         $user=session()->get('user'.$skey);
         $loyalty_id=$user->details->LoyaltyId;
-        $wallet_balance=$user->details->WalletAmountBalance;
+        $wallet_balance= $this->query->Wallet->RedeemableAmountBalance;
+        //$wallet_balance=$user->details->WalletAmountBalance;
         $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
         session()->put('vouchers',$vouchers);
         $cart = Session::get('cart');
