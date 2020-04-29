@@ -251,7 +251,12 @@ class CheckoutController extends Controller
         $loyalty_id=$user->details->LoyaltyId;
       //  $wallet_balance=$user->details->WalletAmountBalance;
         $wallet_balance= $this->query->Wallet->RedeemableAmountBalance;
+
         $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
+        if($wallet_balance==0 and count($vouchers)==0)
+        {
+            redirect(route('checkout.gift'));
+        }
         session()->put('vouchers',$vouchers);
         $cart = Session::get('cart');
         $_active_css='address';
@@ -259,6 +264,7 @@ class CheckoutController extends Controller
         $cart_wallet=session()->get('cart_wallet');
         //die;
         $cart_vouchers=session()->get('cart_vouchers');
+
         return view('checkouts.wallet',compact('cart','class_css','_active_css','vouchers','wallet_balance','settings','cart_wallet','cart_vouchers'));  //
         //return view('checkouts.test',compact('cart','class_css','_active_css'));  //
     }
