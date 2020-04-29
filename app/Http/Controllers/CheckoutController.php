@@ -249,7 +249,8 @@ class CheckoutController extends Controller
         $skey=session()->get('skey');
         $user=session()->get('user'.$skey);
         $loyalty_id=$user->details->LoyaltyId;
-        $wallet_balance=$user->details->WalletAmountBalance;
+      //  $wallet_balance=$user->details->WalletAmountBalance;
+        $wallet_balance= $this->query->Wallet->RedeemableAmountBalance;
         $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
         session()->put('vouchers',$vouchers);
         $cart = Session::get('cart');
@@ -524,8 +525,9 @@ class CheckoutController extends Controller
         $delivery_charge=$_org->delivery_charge;
         $currency=$_org->currency;
 //	    $_active_css='special_instructions';
-        $msg=$query->PaymentMessage;
-        $status=$query->PaymentStatus;
+
+        $msg=isset($query->PaymentMessage) ? $query->PaymentMessage: '';
+        $status=isset($query->PaymentStatus) ?$query->PaymentStatus:'error';
       if($query->message=='success')
       {
 
