@@ -88,7 +88,7 @@
 		});
 
 		$(window).scroll(function (event) {
-			adjustScrolling();
+			//adjustScrolling();
 		});
 
 	});

@@ -193,3 +193,10 @@
 .content-wrapper{
     margin-top: 60px !important;
 }
+.shopping-cart {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    width: 8em;
+    margin-top: -2.5em;
+}

@@ -1,4 +1,4 @@
-<div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-cartitems">
+<div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-cartitems" >
     <div class="cartbox-wrapper">
         <div class="cart-dropdown" id="cart-dropdown">
         </div>
