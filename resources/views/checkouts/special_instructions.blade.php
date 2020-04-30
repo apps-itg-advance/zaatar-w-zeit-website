@@ -34,7 +34,7 @@
 
                     @endphp
                 <div class="custom-control custom-radio mb-4">
-                    <input type="checkbox" id="instructions{{$row->ID}}" {{$check}} name="sp_i[]" value="{{json_encode($row)}}" class="custom-control-input">
+                    <input type="checkbox" id="instructions{{$row->ID}}" {{$check}} name="sp_i[]" value="{{json_encode($row)}}" class="custom-control-input sp_inst">
                     <label class="custom-control-label text-uppercase" for="instructions{{$row->ID}}">
                         {{$row->Title}}
                     </label>
@@ -58,6 +58,17 @@
         $(".confirm").click(function(){
 	        spinnerButtons('show', $(this));
             var that = this;
+            var radioValue = $("input[name='sp_i[]']:checked").val();
+            if(!radioValue || radioValue==undefined){
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'You must choose an option!',
+                    icon: 'warning',
+                    confirmButtonText: 'Close'
+                });
+                spinnerButtons('hide', $(this));
+                return null;
+            }
 	        $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
