@@ -77,9 +77,9 @@
 		function adjustScrolling(){
 			var scroll = $(window).scrollTop();
 			if(scroll>75){
-				$('.cartbox-wrapper .cart-dropdown').css('marginTop','-95px');
+				$('.cartbox-wrapper .cart-dropdown').css('marginTop','-70px');
 			}else{
-				$('.cartbox-wrapper .cart-dropdown').css('marginTop','-20px');
+				$('.cartbox-wrapper .cart-dropdown').css('marginTop','0px');
 			}
 		}
 
