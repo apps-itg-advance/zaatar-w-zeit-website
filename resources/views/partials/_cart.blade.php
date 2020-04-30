@@ -53,19 +53,23 @@
             </div>
             <div class="clearfix"></div>
         @endforeach
+        @else
+        @if($fav==1)
+        <h4>ADD YOU FAVOURITES HERE !</h4>
+            @endif
     @endif
+
 </div>
-@if($cart!=null)
     <div class="carttotal-block mt-3">
-        <div class="delivery-fee text-right"><span class="float-left">Delivery fee</span> {{number_format($delivery_fees).' '.$currency}}</div>
+        <div class="delivery-fee text-right"><span class="float-left">Delivery fee</span> @if($cart!=null){{number_format($delivery_fees).' '.$currency}}  @endif &nbsp;</div>
         <hr/>
-        <div class="total-fee text-right"><span class="float-left">Total</span> {{number_format(($_total+$delivery_fees)).' '.$currency}}</div>
+        <div class="total-fee text-right"><span class="float-left">Total</span>  @if($cart!=null){{number_format(($_total+$delivery_fees)).' '.$currency}} @else <span style="color: white">&nbsp; </span>  @endif </div>
+
     </div>
     <div class="action-buttons text-center mt-5 mb-3">
         <button class="btn btn-B3B3B3 text-uppercase" onclick="_destroyCart()" id="DestroyBtn">Clear All</button>
-        <a href="{{route('checkout.address')}}" class="btn btn-8DBF43 text-uppercase" >Checkout</a>
+        <a @if($cart!=null) href="{{route('checkout.address')}}" class="btn btn-8DBF43 text-uppercase" @else href="javascript:void(0)" class="btn btn-B3B3B3 text-uppercase" @endif >Checkout</a>
     </div>
-@endif
 
 <script>
 	$( document ).ready(function() {

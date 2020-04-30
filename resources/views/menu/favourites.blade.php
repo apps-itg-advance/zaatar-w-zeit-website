@@ -8,7 +8,7 @@
 				</div>
             </div>
     </div>
-    @include('partials.cart')
+    @include('partials.cart',array('favourite'=>true))
 @endsection
 
 @section('javascript')

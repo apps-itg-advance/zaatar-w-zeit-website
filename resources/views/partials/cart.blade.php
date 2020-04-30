@@ -4,6 +4,9 @@
         </div>
     </div>
 </div>
+@php
+$fav_flag=(isset($favourite) and $favourite=true) ? 1:0;
+@endphp
 @section('javascriptCart')
     <script>
 		jQuery(document).ready( function() {
@@ -11,9 +14,11 @@
 		});
 		function LoadCart()
 		{
+
 			//event.preventDefault();
 			$.ajax({
 				type:'GET',
+				data:{fav:{{$fav_flag}}},
 				url:'{{route('carts.index')}}',
 				success:function(data){
 					$("#cart-dropdown").html(data);

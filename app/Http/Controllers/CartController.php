@@ -27,7 +27,8 @@ class CartController extends BaseController
         }
 
         $menu=array();
-        return view('partials._cart',compact('cart','menu'));
+        $fav=request('fav');
+        return view('partials._cart',compact('cart','menu','fav'));
     }
     public function cart_count()
     {

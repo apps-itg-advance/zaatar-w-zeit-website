@@ -7,7 +7,7 @@
                 </button>
                 <div class="row">
                     <div class="col-lg-6 image-col">
-                        <img src="{{asset($row->LocalThumbnailImg)}}" class="img-fluid d-block mx-auto" />
+                        <img src="{{asset(isset($row->LocalThumbnailImg) ? $row->LocalThumbnailImg : $row->ThumbnailImg)}}" class="img-fluid d-block mx-auto" />
                     </div>
                     <div class="col-lg-6 text-col py-4">
                         <h5>{{htmlspecialchars_decode($row->ItemName)}}<span>{{number_format($row->Price)}}</span></h5>
