@@ -233,7 +233,9 @@
 	    spinnerButtons('show', $(this));
         var radioValue =  $("#voucher").val();
         var walletValue =   $("#WalletAmount").val();
-        if(radioValue!='' || walletValue!='')
+        var txtWallet=$(".redeem-wallet").text();
+
+        if(radioValue!='' || (walletValue!='' && walletValue>0 && txtWallet=='Redeemed'))
         {
             $.ajax({
                 headers: {
@@ -249,8 +251,13 @@
             });
         }
         else{
-          //
-            window.location = '{{route('checkout.gift')}}';
+            spinnerButtons('hide', $(this));
+            Swal.fire({
+                // position: 'top-end',
+                icon: 'warning',
+                title: 'You must select an amount or a voucher',
+                showConfirmButton: 'close'
+            });
         }
 
 
