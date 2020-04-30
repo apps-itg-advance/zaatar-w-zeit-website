@@ -225,7 +225,7 @@ class CheckoutController extends Controller
                 break;
             case 'green':
                 session()->forget('cart_green');
-                $redirect=route('checkout.payment');
+                $redirect=route('checkout.special_instructions');
                 break;
             case 'payment':
                 session()->forget('cart_payment');
@@ -234,7 +234,7 @@ class CheckoutController extends Controller
                 break;
             case 'special_inst':
                 session()->forget('cart_sp_instructions');
-                $redirect=route('checkout.wallet');
+                $redirect=route('checkout.payment');
                 break;
 
         }
