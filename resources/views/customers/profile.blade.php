@@ -1,7 +1,7 @@
 @extends('layouts.template')
 
 @section('css')
-    <link rel="stylesheet" href="{{asset('assets/css/owl.carousel.min.css')}}">
+	<link rel="stylesheet" href="{{asset('assets/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/circle.css')}}">
 	<style>
 		/* Always set the map height explicitly to define the size of the div
@@ -176,8 +176,8 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <div class="col-xl-10 col-lg-10 float-none p-0 mx-auto wallet-wrapper">
-                    @include('customers._vouchers',array('vouchers'=>$vouchers,'checkout'=>false))
+				<div class="col-xl-10 col-lg-10 float-none p-0 mx-auto wallet-wrapper">
+					@include('customers._vouchers',array('checkout'=>false,'vouchers'=>$vouchers,'cart_wallet'=>'','cart_vouchers'=>array()))
 					<?php /*
                         <div class="title-div mb-4">
                             <h2 class="title">Wallet</h2>
@@ -209,8 +209,8 @@
                             @endfor
                         </div>
                          */ ?>
-                </div>
-            </div>
+				</div>
+			</div>
         </div>
     </div>
 

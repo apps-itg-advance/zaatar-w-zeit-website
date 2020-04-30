@@ -377,7 +377,7 @@ class CheckoutController extends Controller
 
     public function payment()
     {
-        $step=5;
+        $step=6;
         $settings=$this->Steps[$step];
         $cart = Session::get('cart');
 	    $_active_css='special_instructions';
@@ -482,7 +482,7 @@ class CheckoutController extends Controller
     }
     public function special_instructions()
     {
-        $step=6;
+        $step=5;
         $settings=$this->Steps[$step];
         $cart = Session::get('cart');
 	    $_active_css='green';
