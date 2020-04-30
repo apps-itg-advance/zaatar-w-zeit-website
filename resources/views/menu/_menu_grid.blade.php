@@ -31,10 +31,10 @@
                         <input type="hidden" name="TotalAmounts" value="{{$row->Price}}">
                         <input type="hidden" name="QuickOrder{{$row->ID}}" id="QuickOrder{{$row->ID}}" value="0">
 
-                        <img src="{{asset($row->LocalThumbnailImg)}}" class="mr-3 img-thum"  alt="...">
+                        <img src="{{asset($row->LocalThumbnailImg)}}" @if($has_modifier==1) style="cursor: pointer" onclick="OpenModel({{$row->ID}})" @endif class="mr-3 img-thum"  alt="...">
                         <div class="media-body">
                             <h5 class="mt-0">
-                                <a href="#" style="max-width: 60% !important; float: left !important;">{{htmlspecialchars_decode($row->ItemName)}}</a>
+                                <a href="#" @if($has_modifier==1) onclick="OpenModel({{$row->ID}})" @endif style="max-width: 60% !important; float: left !important;">{{htmlspecialchars_decode($row->ItemName)}}</a>
                                 <span class="price" style="max-width: 38% !important; float:right !important; vertical-align: text-top">{{number_format($row->Price)}} {{$currency}}</span>
                                 <div class="clearfix"></div>
                                 <ul class="icon">
