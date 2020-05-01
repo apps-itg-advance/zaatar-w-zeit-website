@@ -337,11 +337,11 @@ button {
 .content-wrapper .favourite-box .link-close { position: absolute; top: -15px; right: -12px; background: #FFFFFF; display: block; border-radius: 30px;}
 .content-wrapper .favourite-box .link-close img { width: 22px;height: 22px; }
 .content-wrapper .favourite-box .link-customize { font-size: 15px;padding-left: 25px; background: url("../images/icon-pencil.png") no-repeat left center; color: #808080; float: right;}
-.content-wrapper .favourite-box .link-customize:hover {}
+.content-wrapper .favourite-box .link-customize:hover,
 .content-wrapper .favourite-box .link-customize.active { background-image: url("../images/icon-pencil-active.png"); color: #8DBF43;}
 .content-wrapper .favourite-box .link-favourite { font-family: 'Futura-Medium-BT';padding-left: 25px; background: url("../images/icon-heart.png") no-repeat left center; color: #808080;}
-.content-wrapper .favourite-box .link-favourite:hover {}
-.content-wrapper .favourite-box .link-favourite.active { background-image: url("../svg/icon-heart-active.svg"); color: #8DBF43;}
+.content-wrapper .favourite-box .link-favourite:hover,
+.content-wrapper .favourite-box .link-favourite.active { background-image: url("../images/icon-heart-active.png"); color: #8DBF43;}
 /*.link-favourite { padding-left: 25px; background: url("../images/icon-heart.png") no-repeat left center; color: #808080;}*/
 /*.link-favourite.active { background-image: url("../svg/icon-heart-active.svg"); color: #8DBF43;}*/
 .content-wrapper .favourite-box .input-group { /*width: 120px;*/ width: auto; float: right; position: relative; right: 15px;}
