@@ -26,9 +26,9 @@ class MenuLibrary
         $img_name=$array_name[$l-1];
         $folder='/uploads/'.$organization_id.'/menu/';
         $path=$folder.$img_name;
-        if(!file_exists($path)) {
+        $exists = Storage::disk('local')->exists($path);
+        if(!$exists) {
             $img_array=explode('.',$img_name);
-
             if(count($img_array)>1) {
                 if ($img_url != '') {
                     if (!$flag) {
