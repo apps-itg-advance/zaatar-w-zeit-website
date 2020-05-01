@@ -253,3 +253,4 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+.btn-link:hover, btn-link.active {color: #8DBF43;}
