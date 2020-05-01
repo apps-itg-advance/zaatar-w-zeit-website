@@ -152,7 +152,7 @@ public static function CompareOrder($a, $b)
 	    $query=Helper::postApi($url,$post_array);
 	    return $query;
     }
-    public static function SetFavoriteItem($itemId)
+    public static function SetFavoriteItem($itemId,$name='',$data_string='')
     {
         $s_org=session()->get('_org');
 
@@ -161,8 +161,8 @@ public static function CompareOrder($a, $b)
         $post_array['channel_id']=1;
         $post_array['LoyaltyId']=session()->get('loyalty_id');
         $post_array['item_id']=$itemId;
-        $post_array['item_data']=null;
-
+        $post_array['name']=$name;
+        $post_array['item_data']=$data_string;
         $url=env('BASE_URL').'items/SaveFavoriteItem';
         $query=Helper::postApi($url,$post_array);
         return $query;

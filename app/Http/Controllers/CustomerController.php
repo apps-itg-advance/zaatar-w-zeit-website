@@ -292,12 +292,57 @@ class CustomerController extends Controller
     }
     public function set_favourite(Request $request)
     {
-        $itemId=$request->input('item_id');
-        //echo $item;
-        //$_array=json_decode($item);
-        //dump($item);
-       // echo $item['ID'];
-        $query=MenuLibrary::SetFavoriteItem($itemId);
+        $plu=$request->input('ItemsPLU');
+        $item_id=$request->input('ItemId');
+        $favourite_name=$request->input('favourite_name');
+        $item_id=$request->input('ItemId');
+        $query=MenuLibrary::GetMenuItemByPlu($plu);
+        //$m_item->ID.'-'.$m_item->PLU.'-'.str_replace(',','',$m_item->Price).'-'.$category_name.' '.$m_item->ModifierName
+        $array_modifiers=$request->input('modifiers'.$item_id);
+        $array_s_modifiers=array();
+        foreach ($array_modifiers as $key=>$value)
+        {
+            if(is_array($value))
+            {
+                foreach ($value as $_v)
+                {
+                    $_array_row=explode('-',$_v);
+                    array_push($array_s_modifiers,$_array_row[0]);
+                }
+
+            }
+
+        }
+        $data=array();
+        if(isset($query->data))
+        {
+            $data=$query->data;
+            if(isset($data->Modifiers))
+            {
+
+                $modifiers=$data->Modifiers;
+                $data->customName=$request->input('favourite_name');
+                $data->isCustomized=count($array_s_modifiers)>0 ? true :false;
+                foreach ($modifiers as $modifier)
+                {
+                    $row_m=$modifier->details;
+                    $_count=(isset($array_modifiers[$row_m->ID]) ? count($array_modifiers[$row_m->ID]):0);
+                    $row_m->isSelected=$_count>0 ? true:false;
+                    $row_m->NoOfSelectedCategory=$_count;
+                    if(isset($row_m->items))
+                    {
+                        $m_items=$row_m->items;
+                        foreach ($m_items as $m_item)
+                        {
+                            //isSelected
+                            $m_item->isSelected=in_array($m_item->ID,$array_s_modifiers) ? true: false;
+                        }
+                    }
+
+                }
+            }
+        }
+        $query=MenuLibrary::SetFavoriteItem($item_id,$favourite_name,json_encode($data));
         echo $query->message;
     }
 

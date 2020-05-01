@@ -101,7 +101,7 @@
                     @endif
                 </div>
             </div>
-            @include('menu._menu_details',array('row'=>$row))
+            @include('menu._menu_details',array('row'=>$row,'display_favourite'=>$display_favourite))
             @include('menu._make_meal',array('row'=>$row))
         </form>
     @endforeach

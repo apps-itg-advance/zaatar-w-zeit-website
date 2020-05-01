@@ -192,19 +192,24 @@
 		})
     }
 
-	function SetFavourite(itemId)
+	function SetFavourite(itemId,flag='')
 	{
 		// console.log(item.ID);
-		if($("#Favourite" + itemId).hasClass('href-disabled') || $("#Favourite" + itemId).hasClass('active')){
-			return null;
-		}
+        if(flag!=1)
+        {
+            if($("#Favourite" + itemId).hasClass('href-disabled') || $("#Favourite" + itemId).hasClass('active')){
+                return null;
+            }
+        }
+
 		$("#Favourite" + itemId).addClass('href-disabled');
+
 		$.ajax({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
 			type:'POST',
-			data:{item_id:itemId},
+			data:$('#Form'+itemId).serialize(),
 			url:'{{route('customer.set.favourite')}}',
 			success:function(data){
 				Swal.fire({

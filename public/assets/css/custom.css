@@ -224,3 +224,31 @@
     display: inline-block;
     margin-right: 15px;
 }
+.items-favourite{
+    border: 1px solid #8DBF43 !important;
+    margin: 5px !important;
+    padding-bottom: 5px !important;
+}
+.link-favourite-u {
+    font-family: 'Futura-Medium-BT';
+    padding-left: 18px;
+    background: url("../images/icon-heart.png") no-repeat left center;
+    color: #808080;
+    font-size: 18px !important;
+}
+.link-favourite-u:hover,.link-favourite-u.active {
+    background-image: url("../images/icon-heart-active.png");
+    color: #8DBF43;
+}
+.favourite-title{
+    padding: 1px;
+    margin: 10px 5px 5px 5px !important;
+}
+.txt-favourite {
+    border-radius: 35px;
+    margin-left: 10px;
+    width: 200px;
+    border: 1px solid lightgrey;
+    padding-left: 15px;
+    padding-right: 15px;
+}
