@@ -26,22 +26,22 @@ class MenuLibrary
         $img_name=$array_name[$l-1];
         $folder='/uploads/'.$organization_id.'/menu/';
         $path=$folder.$img_name;
-        $img_array=explode('.',$img_name);
+        if(!file_exists($path)) {
+            $img_array=explode('.',$img_name);
 
-        if(count($img_array)>1) {
-            if ($img_url != '') {
-                if (!$flag) {
-                    $content = @file_get_contents($img_url);
-                    if($content!='')
-                    {
-                        Storage::put($path, $content);
+            if(count($img_array)>1) {
+                if ($img_url != '') {
+                    if (!$flag) {
+                        $content = @file_get_contents($img_url);
+                        if($content!='')
+                        {
+                            Storage::put($path, $content);
+                        }
+
                     }
-
                 }
             }
         }
-
-
         return 'storage/'.$path;
     }
     public static function GetMenuItems($cat_id)
