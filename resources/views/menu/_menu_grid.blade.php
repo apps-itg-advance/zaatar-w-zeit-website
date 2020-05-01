@@ -105,5 +105,12 @@
             @include('menu._make_meal',array('row'=>$row))
         </form>
     @endforeach
+    <div class="food-icon-container">
+        <ul class="food-icon">
+            @foreach($icons as $icn)
+                <li><img src="{{$icn->IconUrl}}" />{{$icn->IconLabel}}</li>
+            @endforeach
+        </ul>
+    </div>
 
 </div>
