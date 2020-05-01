@@ -300,19 +300,23 @@ class CustomerController extends Controller
         //$m_item->ID.'-'.$m_item->PLU.'-'.str_replace(',','',$m_item->Price).'-'.$category_name.' '.$m_item->ModifierName
         $array_modifiers=$request->input('modifiers'.$item_id);
         $array_s_modifiers=array();
-        foreach ($array_modifiers as $key=>$value)
+        if(is_array($array_modifiers))
         {
-            if(is_array($value))
+            foreach ($array_modifiers as $key=>$value)
             {
-                foreach ($value as $_v)
+                if(is_array($value))
                 {
-                    $_array_row=explode('-',$_v);
-                    array_push($array_s_modifiers,$_array_row[0]);
+                    foreach ($value as $_v)
+                    {
+                        $_array_row=explode('-',$_v);
+                        array_push($array_s_modifiers,$_array_row[0]);
+                    }
+
                 }
 
             }
-
         }
+
         $data=array();
         if(isset($query->data))
         {
