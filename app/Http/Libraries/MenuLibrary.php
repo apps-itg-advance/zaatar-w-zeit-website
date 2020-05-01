@@ -79,7 +79,7 @@ class MenuLibrary
             $path=self::DownloadImg($url_img,$organization_id,$flag);
             if(!$flag)
             {
-                cache()->add($key,1,now()->addMinutes(15));
+                cache()->add($key,1,now()->addMinutes(1440));
             }
 
             $item->LocalThumbnailImg=$path;
