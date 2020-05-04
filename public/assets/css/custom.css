@@ -253,4 +253,24 @@
     padding-left: 15px;
     padding-right: 15px;
 }
-.btn-link:hover, btn-link.active {color: #8DBF43;}
+.btn-q-active{
+    display: none;
+}
+.btn-link-plus{
+    background: url("../images/icon-plus.png") center center no-repeat;
+    width: 17px;
+    height: 17px;
+    margin-top: 12px;
+}
+.btn-link-plus:hover{
+    background: url("../images/icon-plus-active.png") center center no-repeat;
+}
+.btn-link-minus{
+    background: url("../images/icon-minus.png") center center no-repeat;
+    width: 17px;
+    height: 17px;
+    margin-top: 12px;
+}
+.btn-link-minus:hover{
+    background: url("../images/icon-minus-active.png") center center no-repeat;
+}

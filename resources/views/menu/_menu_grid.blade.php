@@ -31,7 +31,7 @@
                         <input type="hidden" name="TotalAmounts" value="{{$row->Price}}">
                         <input type="hidden" name="QuickOrder{{$row->ID}}" id="QuickOrder{{$row->ID}}" value="0">
 
-                        <img src="{{asset(isset($row->LocalThumbnailImg) ? $row->LocalThumbnailImg : $row->ThumbnailImg)}}" @if($has_modifier==1) style="cursor: pointer" onclick="OpenModel({{$row->ID}})" @endif class="mr-3 img-thum"  alt="...">
+                        <img  alt="loading.." data-src="{{asset(isset($row->LocalThumbnailImg) ? $row->LocalThumbnailImg : $row->ThumbnailImg)}}" @if($has_modifier==1) style="cursor: pointer" onclick="OpenModel({{$row->ID}})" @endif class="mr-3 img-thum b-lazy"  alt="...">
                         <div class="media-body">
                             <h5 class="mt-0">
                                 <a href="javascript:void(0)" @if($has_modifier==1) onclick="OpenModel({{$row->ID}})" @endif style="max-width: 60% !important; float: left !important;">{{htmlspecialchars_decode($row->ItemName)}}</a>
@@ -85,12 +85,13 @@
                         <div class="col-sm-5 text-center">
                             <div class="input-group mx-auto item-plus-minus">
                                 <div class="input-group-append">
-                                    <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="SubQty({{$row->ID}},{{$row->PLU}})"><img src="{{asset('assets/images/icon-minus.png')}}" /></button>
+                                    <button type="button" class="btn btn-link-minus pointer" data-code="{{$row->ID}}" onclick="SubQty({{$row->ID}},{{$row->PLU}})">&nbsp;</button>
                                 </div>
                                 <input type="text" name="qty[{{$row->ID}}]" id="qty_{{$row->ID}}" class="form-control qty_all" value="{{isset($item_qty[$row->PLU])? $item_qty[$row->PLU]:0}}" style="background: none !important" readonly="readonly">
                                 @if($row->QuickOrder==1)
                                     <div class="input-group-prepend">
-                                        <button type="button" class="btn btn-link pointer" data-code="{{$row->ID}}" onclick="AddQty({{$row->ID}})"><img src="{{asset('assets/images/icon-plus.png')}}" /></button>
+                                        <button type="button" class="btn btn-link-plus pointer" data-code="{{$row->ID}}" onclick="AddQty({{$row->ID}})">
+                                        </button>
                                     </div>
                                 @endif
                             </div>
