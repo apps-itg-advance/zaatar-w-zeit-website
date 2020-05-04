@@ -17,7 +17,7 @@
 @section('javascript')
   <script src="{{asset('assets/js/blazy.min.js')}}"></script>
   <script>
-      ;(function() {
+      (function() {
           // Initialize
           var bLazy = new Blazy();
       })();

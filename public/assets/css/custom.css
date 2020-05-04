@@ -184,11 +184,10 @@
     font-size: 1.4rem !important;
 }
 .header-wrapper{
-    overflow: hidden;
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 8;
+    z-index: 1000;
 }
 .content-wrapper{
     margin-top: 60px !important;
