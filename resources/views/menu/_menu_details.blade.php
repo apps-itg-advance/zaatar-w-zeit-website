@@ -20,6 +20,7 @@
                         $fav_name='';
                         $fv_array=array();
                         $fav_selected_array=array();
+
                         if($row->IsFavorite=='1'){
                            if(isset($row->FavoriteData) and $row->FavoriteData!='')
                            {
@@ -85,6 +86,10 @@
                             @php
                                 $txtF='Favourite your customized item and add as special name to it!';
                                 $active_f='';
+                            if($row->IsFavorite=='1')
+                            {
+                            $active_f='link-favourite-u active';
+                            }
                             @endphp
                                 @if(session('is_login'))
                                     <a onclick="SetFavourite({{$row->ID}},1)" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite-u mr-3 {{$active_f}}"></a>

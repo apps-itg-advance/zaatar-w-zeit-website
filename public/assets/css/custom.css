@@ -233,7 +233,7 @@
 .link-favourite-u {
     font-family: 'Futura-Medium-BT';
     padding-left: 18px;
-    background: url("../images/icon-heart.png") no-repeat left center;
+    background: url("../images/icon-heart-bordered.svg") no-repeat left center;
     color: #808080;
     font-size: 18px !important;
 }
