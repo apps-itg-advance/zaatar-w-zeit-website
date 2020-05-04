@@ -85,13 +85,12 @@
                         <div class="col-sm-5 text-center">
                             <div class="input-group mx-auto item-plus-minus">
                                 <div class="input-group-append">
-                                    <button type="button" class="btn btn-link-minus pointer" data-code="{{$row->ID}}" onclick="SubQty({{$row->ID}},{{$row->PLU}})">&nbsp;</button>
+                                    <button type="button" class="btn btn-link btn-link-minus pointer" data-code="{{$row->ID}}" onclick="SubQty({{$row->ID}},{{$row->PLU}})">&nbsp;</button>
                                 </div>
                                 <input type="text" name="qty[{{$row->ID}}]" id="qty_{{$row->ID}}" class="form-control qty_all" value="{{isset($item_qty[$row->PLU])? $item_qty[$row->PLU]:0}}" style="background: none !important" readonly="readonly">
                                 @if($row->QuickOrder==1)
                                     <div class="input-group-prepend">
-                                        <button type="button" class="btn btn-link-plus pointer" data-code="{{$row->ID}}" onclick="AddQty({{$row->ID}})">
-                                        </button>
+                                        <button type="button" class="btn btn-link btn-link-plus pointer" data-code="{{$row->ID}}" onclick="AddQty({{$row->ID}})">&nbsp;</button>
                                     </div>
                                 @endif
                             </div>
