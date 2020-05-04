@@ -49,9 +49,9 @@
                     @endforeach
                 </div>
                 <div class="items-row items-favourite row align-items-center mt-3">
-                    <div class="col-lg-12 col-md-12 item-col">
+                    <div class="col-lg-12 col-md-12 item-col" style="margin-left: -10px !important;">
                         <h5 class="favourite-title futura-b">Want to Personalize?</h5>
-                        <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-12 col-md-12"  style="margin-left: -10px !important;">
                             @php
                                 $txtF='Favourite your customized item and add as special name to it!';
                                 $active_f='';
@@ -66,7 +66,7 @@
                                     <a onclick="loginAlert()" class="effect-underline link-favourite-u mr-3 cursor-pointer"></a>
                                 @endif
                             @php echo $txtF @endphp
-                            <input type="text" name="favourite_name" id="favourite_name{{$row->ID}}" class="txt-favourite" value="{{$row->fav_name}}">
+                            <input type="text" name="favourite_name" id="favourite_name{{$row->ID}}" placeholder="ex. yara's famous" class="txt-favourite" value="{{$row->fav_name}}">
                         </div>
                     </div>
                 </div>
