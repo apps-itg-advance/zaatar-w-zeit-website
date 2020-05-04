@@ -195,14 +195,24 @@
 	function SetFavourite(itemId,flag='')
 	{
 		// console.log(item.ID);
+        if(flag==1)
+        {
+            var x=$('#CFavourite'+itemId);
+        }
+        else{
+            var x=$('#Favourite'+itemId);
+        }
         if(flag!=1)
         {
-            if($("#Favourite" + itemId).hasClass('href-disabled') || $("#Favourite" + itemId).hasClass('active')){
+            if(x.hasClass('href-disabled') || x.hasClass('active')){
                 return null;
             }
         }
+        else{
+            spinner('show', x);
+        }
 
-		$("#Favourite" + itemId).addClass('href-disabled');
+        x.addClass('href-disabled');
 
 		$.ajax({
 			headers: {
@@ -219,7 +229,14 @@
 					showConfirmButton: false,
 					timer: 1200
 				});
-				$("#Favourite" + itemId).removeClass('href-disabled').addClass('active');
+				if(flag==1)
+                {
+                    spinner('hide', x);
+
+                    $('#ItemName'+itemId).text($('#favourite_name'+itemId).val());
+                    $('#ItemNameDetails'+itemId).text($('#favourite_name'+itemId).val());
+                }
+                x.removeClass('href-disabled').addClass('active');
 			}
 		});
 	}

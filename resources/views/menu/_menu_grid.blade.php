@@ -20,6 +20,43 @@
             @php
                 $has_meal=is_object($row->MakeMeal)  ? 1 :0;
             $has_modifier=(is_array($row->Modifiers) and count($row->Modifiers)>0)  ? 1 :0;
+                         $fav_name='';
+                        $fv_array=array();
+                        $fav_selected_array=array();
+
+                        if($row->IsFavorite=='1'){
+                           if(isset($row->FavoriteData) and $row->FavoriteData!='')
+                           {
+                                $fv_array=json_decode($row->FavoriteData);
+                                if(is_object($fv_array) and isset($fv_array->customName)>0)
+                                {
+                                $fav_name=$fv_array->customName;
+                                if(isset($fv_array->Modifiers))
+                                {
+                                    foreach ($fv_array->Modifiers as $fv_row)
+                                        {
+                                            if(isset($fv_row->details->items))
+                                            {
+                                                $fv_items=$fv_row->details->items;
+                                                foreach ($fv_items as $fv_item)
+                                                {
+                                                if($fv_item->isSelected)
+                                                {
+                                                $fav_selected_array[$fv_item->ID]='checked="checked"';
+                                                }
+
+                                                }
+                                            }
+                                        }
+                                }
+
+                                }
+                           }
+                        }
+                        $item_name=($fav_name!='') ? $fav_name:htmlspecialchars_decode($row->ItemName);
+                        $row->fav_name=$fav_name;
+                        $row->item_name=$item_name;
+                        $row->fav_selected_array=$fav_selected_array;
             @endphp
             <div class="col-favourite">
                 <div class="favourite-box">
@@ -34,7 +71,7 @@
                         <img  alt="loading.." data-src="{{asset(isset($row->LocalThumbnailImg) ? $row->LocalThumbnailImg : $row->ThumbnailImg)}}" @if($has_modifier==1) style="cursor: pointer" onclick="OpenModel({{$row->ID}})" @endif class="mr-3 img-thum b-lazy"  alt="...">
                         <div class="media-body">
                             <h5 class="mt-0">
-                                <a href="javascript:void(0)" @if($has_modifier==1) onclick="OpenModel({{$row->ID}})" @endif style="max-width: 60% !important; float: left !important;">{{htmlspecialchars_decode($row->ItemName)}}</a>
+                                <a id="ItemName{{$row->ID}}" href="javascript:void(0)" @if($has_modifier==1) onclick="OpenModel({{$row->ID}})" @endif style="max-width: 60% !important; float: left !important;">{{$row->item_name}}</a>
                                 <span class="price" style="max-width: 38% !important; float:right !important; vertical-align: text-top">{{number_format($row->Price)}} {{$currency}}</span>
                                 <div class="clearfix"></div>
                                 <ul class="icon">

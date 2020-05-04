@@ -10,46 +10,15 @@
                         <img src="{{asset(isset($row->LocalThumbnailImg) ? $row->LocalThumbnailImg : $row->ThumbnailImg)}}" class="img-fluid d-block mx-auto" />
                     </div>
                     <div class="col-lg-6 text-col py-4">
-                        <h5>{{htmlspecialchars_decode($row->ItemName)}}<span>{{number_format($row->Price)}}</span></h5>
+
+                        <h5><span style="float: none !important;" id="ItemNameDetails{{$row->ID}}">{{$row->item_name}}</span><span>{{number_format($row->Price)}}</span></h5>
                         <div class="info">{{substr(htmlspecialchars_decode($row->Details),0,250)}}</div>
                     </div>
                 </div>
                 @php
                         $display_fv=isset($display_favourite) ? $display_favourite:false;
                         $modifiers=$row->Modifiers;
-                        $fav_name='';
-                        $fv_array=array();
-                        $fav_selected_array=array();
 
-                        if($row->IsFavorite=='1'){
-                           if(isset($row->FavoriteData) and $row->FavoriteData!='')
-                           {
-                                $fv_array=json_decode($row->FavoriteData);
-                                if(is_object($fv_array) and isset($fv_array->customName)>0)
-                                {
-                                $fav_name=$fv_array->customName;
-                                if(isset($fv_array->Modifiers))
-                                {
-                                    foreach ($fv_array->Modifiers as $fv_row)
-                                        {
-                                            if(isset($fv_row->details->items))
-                                            {
-                                                $fv_items=$fv_row->details->items;
-                                                foreach ($fv_items as $fv_item)
-                                                {
-                                                if($fv_item->isSelected)
-                                                {
-                                                $fav_selected_array[$fv_item->ID]='checked="checked"';
-                                                }
-
-                                                }
-                                            }
-                                        }
-                                }
-
-                                }
-                           }
-                        }
                 @endphp
 
                 <div class="items-row row mt-4">
@@ -67,7 +36,7 @@
                             <h5 class="text-uppercase text-center mb-3">{{$category_name}}</h5>
                             @foreach($modifier_items as $m_item)
                                 <div class="custom-control custom-radio mb-1">
-                                    <input type="checkbox" {{(isset($fav_selected_array[$m_item->ID]))? $fav_selected_array[$m_item->ID]:''}} onclick="CalculateTotal({{$category_id}},{{$max_qty}},{{$m_item->RowId}},{{$row->ID}})" id="Modifier{{$m_item->RowId}}"  name="modifiers{{$row->ID}}[{{$category_id}}][]" value="{{$m_item->ID.'-'.$m_item->PLU.'-'.str_replace(',','',$m_item->Price).'-'.$category_name.' '.$m_item->ModifierName}}" class="custom-control-input m-{{$category_id}}-{{$row->ID}} Item{{$row->ID}}">
+                                    <input type="checkbox" {{(isset($row->fav_selected_array[$m_item->ID]))? $row->fav_selected_array[$m_item->ID]:''}} onclick="CalculateTotal({{$category_id}},{{$max_qty}},{{$m_item->RowId}},{{$row->ID}})" id="Modifier{{$m_item->RowId}}"  name="modifiers{{$row->ID}}[{{$category_id}}][]" value="{{$m_item->ID.'-'.$m_item->PLU.'-'.str_replace(',','',$m_item->Price).'-'.$category_name.' '.$m_item->ModifierName}}" class="custom-control-input m-{{$category_id}}-{{$row->ID}} Item{{$row->ID}}">
                                     <label  class="custom-control-label" for="Modifier{{$m_item->RowId}}" style="vertical-align: bottom;">
                                         <div style="float: left; max-width: 75%; overflow: hidden;">{{$m_item->ModifierName}}</div>
                                         <span class="price" style="vertical-align: bottom; display: inline-block; height: 100%">{{$m_item->Price>0 ?  number_format($m_item->Price):''}}</span>
@@ -92,12 +61,12 @@
                             }
                             @endphp
                                 @if(session('is_login'))
-                                    <a onclick="SetFavourite({{$row->ID}},1)" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite-u mr-3 {{$active_f}}"></a>
+                                    <a onclick="SetFavourite({{$row->ID}},1)" id="CFavourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite-u mr-3 {{$active_f}}"></a>
                                 @else
                                     <a onclick="loginAlert()" class="effect-underline link-favourite-u mr-3 cursor-pointer"></a>
                                 @endif
                             @php echo $txtF @endphp
-                            <input type="text" name="favourite_name" id="favourite_name{{$row->ID}}" class="txt-favourite" value="{{$fav_name}}">
+                            <input type="text" name="favourite_name" id="favourite_name{{$row->ID}}" class="txt-favourite" value="{{$row->fav_name}}">
                         </div>
                     </div>
                 </div>
