@@ -102,7 +102,7 @@ class CustomerController extends Controller
         $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
         $wallet_balance=$query->details->WalletAmountBalance;
         $page_title='Profile';
-        return view('customers.profile',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level','vouchers','wallet_balance','addresses_types','address_types','page_title'));  //
+        return view('customers.details',compact('query','addresses','class_css','flag','type','Skey','cities','loyalty_levels','next_level','vouchers','wallet_balance','addresses_types','address_types','page_title'));  //
     }
 
     public function orders()

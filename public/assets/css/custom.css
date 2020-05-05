@@ -273,3 +273,17 @@
 .btn-link-minus:hover{
     background: url("../images/icon-minus-active.png") center center no-repeat;
 }
+.shadow {
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+.owl-stage-outer {
+    overflow: visible !important;
+}
+
+.owl-item {
+    opacity: 0;
+    transition: opacity .75s linear;
+}
+.owl-item.active {
+    opacity: 1 !important;
+}

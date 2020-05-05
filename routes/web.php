@@ -36,6 +36,7 @@ Route::post('/signin', 'Auth\LoginController@signin')->name('auth.signin');
 Route::post('/pin', 'Auth\LoginController@pin')->name('auth.pin');
 Route::post('/pin-resend', 'Auth\LoginController@resend_pin')->name('auth.pinresend');
 Route::post('/register', 'Auth\LoginController@register')->name('auth.register');
+Route::get('/clear-cache', 'Auth\LoginController@clear_cache')->name('clear.cache');
 //Route::get('/switch-org/{id?}', 'Controller@switch_organization')->name('switch.organization');
 
 Route::get('/switch-org/{id?}', function($id) {

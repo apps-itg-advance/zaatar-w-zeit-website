@@ -21,6 +21,7 @@ class SettingsLib
     }
     public static function UserTokens($loyalty_id)
     {
+        $organization_id=session()->get('_org');
         $url=env('BASE_URL').'settings/CompanyChildren';
         $array=array(
             'organization_id'=>env('ORG_ID'),
@@ -39,40 +40,30 @@ class SettingsLib
 
             $res=session::get('user_tokens');
         }
-
-        if(count($res)>1)
-        {
-
-                foreach ($res as $re)
-                {
-                    if($re->parent_id!=0)
-                    {
-                        self::SetUserOrganization($re->id) ;
-                        break;
-                    }
-                }
-            }
-
-
-
+        self::SetUserOrganization($organization_id) ;
         return $res;
     }
   //  public static function
-    public static function CompanyChildren()
+    public static function CompanyChildren($refresh=false)
     {
         $expiresAt = Carbon::now()->addMinutes(15);
         $key='settings';
-        if (Cache::has($key) and Cache::get($key)!=null) {
+        if ((Cache::has($key) and Cache::get($key)!=null) and !$refresh) {
             $res = Cache::get($key);
             $client_geo = Cache::get('geo_location');
         } else {
             $url = env('BASE_URL') . 'settings/CompanyChildren';
+
             $array = array(
                 'organization_id' => env('ORG_ID'),
                 'channel_id' => env('CH_ID'),
                 'token' => env('TOKEN'),
                 'ip' => request()->ip(),
             );
+            if(session()->has('loyalty_id') and !empty(session()->get('loyalty_id')))
+            {
+                $array['loyalty_id']=session()->get('loyalty_id');
+            }
             $query = Helper::postApi($url, $array);
             $res = $query->data;
             $client_geo=$query->client_geo;
@@ -88,29 +79,36 @@ class SettingsLib
             $res = session()->get('organizations');
         }
         $flag=false;
-        if(!session::has('_org'))
+        if(!$refresh)
         {
-            foreach ($res as $re) {
-                if ($re->parent_id != 0 and strtolower($re->country_code)==strtolower($client_geo)) {
-                    $_org_id=$re->id;
-                    $flag=true;
-                    break;
-                }
-            }
-            if(!$flag)
+            if(!session::has('_org') or empty(session()->get('_org')))
             {
                 foreach ($res as $re) {
-                    if ($re->parent_id != 0) {
-                        self::SetOrganization($re->id);
+                    if ($re->parent_id != 0 and strtolower($re->country_code)==strtolower($client_geo)) {
+                        $_org_id=$re->id;
+                        $flag=true;
                         break;
                     }
                 }
-            }
-            else{
-                self::SetOrganization($_org_id);
-            }
+                if(!$flag)
+                {
+                    foreach ($res as $re) {
+                        if ($re->parent_id != 0) {
+                            self::SetOrganization($re->id);
+                            break;
+                        }
+                    }
+                }
+                else{
+                    self::SetOrganization($_org_id);
+                }
 
+            }
         }
+        else{
+            self::SetOrganization(session()->get('OrgId'));
+        }
+
         /*
         dump($query);
 
@@ -193,8 +191,10 @@ class SettingsLib
             session()->forget('loyalty_id');
             session()->forget('is_login');
             session()->forget('_org');
-
+            session()->forget('OrgId');
         }
+
+        session()->put('OrgId',$organization_id);
         session()->put('_org',$_org);
         session()->save();
 
@@ -233,9 +233,14 @@ class SettingsLib
     }
     public static function GetCities()
     {
+        //dump(session()->get('_org'));
         $_org=self::GetSelectedCompany();
+        //dump($_org);
+        //die;
         $loyalty_id=session()->get('loyalty_id');
         $url=env('BASE_URL').'geo/GetCities?token='.$_org->token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+        //echo $url;
+        //die;
         if (!session::has('cities')) {
             $query=Helper::getApi($url);
             $res=$query->data;
@@ -257,6 +262,9 @@ class SettingsLib
             $loyalty_id=session()->get('loyalty_id');
             $url=env('BASE_URL').'settings/GetDeliveryScreenDataSteps?token='.$_org->token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
             $query=Helper::getApi($url);
+           // echo $url;
+           // dump($query);
+           // die;
             $res=$query->data;
             session()->forget('delivery_screens');
             session()->put('delivery_screens',$res);
@@ -270,7 +278,8 @@ class SettingsLib
         $loyalty_id=session()->get('loyalty_id');
         $url=env('BASE_URL').'LoyaltiesApi/GetLoyaltyLevel?token='.$_org->token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
         $query=Helper::getApi($url);
-        $res=$query->data;
+
+        $res=isset($query->data) ? $query->data:array();
         return $res;
     }
 

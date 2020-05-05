@@ -122,4 +122,10 @@ class LoginController extends Controller
 
         echo json_encode($res);
     }
+    public function clear_cache()
+    {
+        session()->flush();
+        session()->save();
+        cache()->clear();
+    }
 }

@@ -50,7 +50,6 @@ class AuthLibrary
     {
         $Skey=session()->get('skey');
         $data=$res->data;
-
         $loyalty_id=$data->customer->details->LoyaltyId;
         $org_id=$data->customer->details->OrgId;
         $data->customer->vouchers=array();
@@ -61,7 +60,7 @@ class AuthLibrary
         session()->put('loyalty_id',$loyalty_id);
         session()->put('OrgId',$org_id);
 
-      SettingsLib::UserTokens($loyalty_id);
+      SettingsLib::CompanyChildren(true);
 
 
     }
@@ -91,8 +90,11 @@ class AuthLibrary
     }
     public static function LogOut()
     {
+        $s_org_id=session()->get('OrgId');
         session()->flush();
         session()->save();
+        session()->put('OrgId',$s_org_id);
+        SettingsLib::CompanyChildren(true);
         return true;
     }
     public static function ResendPin()
