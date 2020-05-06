@@ -276,17 +276,4 @@
 .slide-shadow {
     box-shadow: 0px 0px 10px;
 }
-.owl-stage-outer {
-    overflow: visible !important;
-}
 
-.owl-item {
-    opacity: 0;
-    transition: opacity .75s linear;
-}
-.owl-item.active {
-    opacity: 1 !important;
-}
-.user-div{
-    width: 100%;
-}
