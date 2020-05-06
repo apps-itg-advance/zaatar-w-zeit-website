@@ -27,10 +27,12 @@ Route::get('/cart/add-qty/{id?}', 'CartController@add_qty')->name('carts.add_qty
 Route::get('/cart/edit/{id?}', 'CartController@edit')->name('carts.edit');
 Route::post('/cart/update/{id?}', 'CartController@update')->name('carts.update');
 Route::post('/cart/remove', 'CartController@remove')->name('carts.remove');
+Route::get('/checkout', 'CheckoutController@index')->name('checkout.summary');
 
 Route::get('/cart/count', 'CartController@cart_count')->name('carts.count');
 Route::get('/cart/destroy', 'CartController@destroy')->name('carts.destroy');
-Route::get('/checkout', 'CheckoutController@index')->name('checkout.summary');
+Route::get('/cart/show', 'CartController@show')->name('carts.show');
+
 Route::get('/login', 'Auth\LoginController@index')->name('auth.login');
 Route::post('/signin', 'Auth\LoginController@signin')->name('auth.signin');
 Route::post('/pin', 'Auth\LoginController@pin')->name('auth.pin');

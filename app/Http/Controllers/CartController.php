@@ -16,6 +16,10 @@ class CartController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
+    public function show()
+    {
+        return view('carts.index');  //
+    }
     public function index()
     {
         $cart = session()->get('cart');

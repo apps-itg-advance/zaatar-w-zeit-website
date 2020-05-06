@@ -105,7 +105,7 @@
 			type:'GET',
 			url:'{{route('carts.count')}}',
 			success:function(data){
-				$("#CartItems").html(data);
+				$(".CartItems").html(data);
 				//OpenCart();
 			}
 		});

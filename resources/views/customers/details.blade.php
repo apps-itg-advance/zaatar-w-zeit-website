@@ -111,7 +111,7 @@
 					</div>
 
 
-					<div class="col-md-4">
+					<div class="col-md-9">
 						<button type="button" id="edit-profile" class="btn btn-8DBF43 btn-1-anim btn-user">Edit Profile</button>&nbsp;&nbsp;
 						<a href="{{route('logout')}}" class="btn btn-808080 btn-1-anim btn-user">&nbsp;&nbsp;Logout&nbsp;&nbsp;</a>
 					</div>

@@ -279,4 +279,21 @@
 .btn-user{
     min-width: 100px !important;
 }
+.media-item{
+    height: 200px;
+}
+
+@media screen and (max-width: 992px) {
+    header{
+        position: relative !important;
+    }
+    .media{
+        height: auto;
+    }
+    .col-cartitems{
+        display: none;
+    }
+
+}
+
 

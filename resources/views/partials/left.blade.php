@@ -39,6 +39,7 @@
 	$( document ).ready(function() {
 		function adjustWidth() {
 			var asideMenuWidth = $(".aside-menu").width();
+			//alert(asideMenuWidth);
 			document.getElementById("items-container").style.width = asideMenuWidth+'px';
 		}
 		$(function() {
@@ -54,7 +55,10 @@
 			if(scroll>75){
 				$('.aside-menu .items-container').css('marginTop','-110px');
 			}else{
-				$('.aside-menu .items-container').css('marginTop','-30px');
+				//$('.aside-menu .items-container').css('marginTop','-30px');
+               // var asideMenuWidth = $(".aside-menu").width();
+               // alert(asideMenuWidth);
+                $('.aside-menu .items-container').css('marginTop','-30px');
 			}
         }
 

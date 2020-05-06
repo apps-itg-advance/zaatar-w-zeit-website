@@ -60,7 +60,7 @@
             @endphp
             <div class="col-favourite">
                 <div class="favourite-box">
-                    <div class="media" style="height: 200px;">
+                    <div class="media media-item">
                         <input type="hidden" name="ItemId" value="{{$row->ID}}">
                         <input type="hidden" id="MakeMeal{{$row->ID}}" value="{{$has_meal}}">
                         <input type="hidden" name="ItemsName" value="{{$row->ItemName}}">
