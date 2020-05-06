@@ -250,6 +250,7 @@
 <input type="hidden" id="all" value="{{$row_total}}">
 @endif
 @section('javascript')
+    @parent
     <script>
         function RepeatOrder(orderId)
         {

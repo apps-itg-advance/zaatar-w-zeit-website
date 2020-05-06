@@ -423,9 +423,9 @@ button {
 .profile-wrapper .loyaltygraph-wrapper { position: relative;}
 .profile-wrapper .loyaltygraph-wrapper .user-div { position: absolute; left: 0; top: 0;}
 .profile-wrapper .loyaltygraph-wrapper .user-div h4 { font-family: 'Futura-Bold'; color: #8DBF43; font-size: 30px; margin-bottom: 15px;}
-.profile-wrapper .loyaltygraph-wrapper .user-div .btn {
-    border-radius: 20px; padding: 6px 20px; font-family: 'Futura-Bold';
-    font-size: 18px;
+.profile-wrapper .loyaltygraph-wrapper .profile-btn .col-md-2 .btn {
+    border-radius: 20px; padding: 2px 20px; font-family: 'Futura-Bold';
+    font-size: 17px;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);

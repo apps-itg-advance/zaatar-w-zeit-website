@@ -89,11 +89,9 @@
 @section('content')
 	<div class="col-xl-7 col-lg-5 col-md-12 col-sm-12 col-favourite-items">
 		<div class="col-xl-11 float-none p-0 mx-auto">
-			<div class="title-div mb-2 pb-2">
-				<h2 class="title">Loyalty</h2>
-			</div>
 			<div class="loyaltygraph-wrapper">
-				<div class="user-div">
+				<div class="row profile-btn">
+					<div class="col-md-3"><div class="user-div">
 
 					@php
 						$details=array();
@@ -103,15 +101,16 @@
                         }
 					@endphp
 					<h4>{{@$details->FirstName.' '.@$details->LastName}}</h4>
-					<button type="button" id="edit-profile" class="btn btn-8DBF43 text-uppercase bg-white text-8DBF43 btn-1-anim">Edit Profile</button>
-					<br>
-					<button type="button" class="btn btn-8DBF43 bg-white text-uppercase mt-2 btn-1-anim"><a class="text-8DBF43" href="{{route('customer.order-history')}}">Order History</a></button>
-					<br>
-					<button type="button" class="btn btn-8DBF43 text-uppercase mt-2"><a href="{{route('logout')}}" class="cursor-pointer text-white">Logout</a></button>
-
 				</div>
-				<div class="col-xl-8 col-lg-10 float-none p-0 mx-auto loyaltygraph-div pt-4 mb-5 pb-3">
+					</div>
 
+
+					<div class="col-md-2"><button type="button" id="edit-profile" class="btn btn-8DBF43 btn-1-anim">Edit Profile</button></div>
+					<div class="col-md-2"><a href="{{route('logout')}}" class="btn btn-808080 btn-1-anim">Logout</a></div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="clearfix"></div>
+				<div class="col-xl-8 col-lg-10 float-none p-0 mx-auto loyaltygraph-div pt-4 mb-5 pb-3">
 					<div class="row">
 						@php
 							if($query->details->LevelMaxCollection> $query->details->TierBalance)
@@ -121,17 +120,13 @@
                         else{
                             $per=100;
                         }
-
-
 						@endphp
-
 						<div  class="col-md-3 d-flex align-items-end">
 							<div style="font-size: 16px !important;">
 								@php
 									isset($next_level->NeededPoints) ? $next_level->NeededPoints.' Points left' : ''
 								@endphp
 							</div>
-
 						</div>
 						<div  class="col-md-6">
 							<div class="c100 p{{$per}} big green">
@@ -166,7 +161,7 @@
 								$rand = array_rand($array_colors, 1);
                                // $type_l=$vouchers[$i]['ValueType']=='percentage' ? '%':'';
 							@endphp
-							<div class="item {{$array_colors[$rand]}}"  id="voucher-b{{$vouchers[$i]->Id}}" data-mh="matchHeight">
+							<div class="slide-shadow item {{$array_colors[$rand]}}"  id="voucher-b{{$vouchers[$i]->Id}}" data-mh="matchHeight">
 								<div class="item-div text-white p-3" id="voucher-b1{{$vouchers[$i]->Id}}">
 									<div class="py-4 item-quantity text-right">
 										<div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> quantity</div>
@@ -207,8 +202,16 @@
 						@endfor
 					</div>
 				</div>
+
 				<div class="clearfix" style="margin-bottom: 30px !important;"></div>
+				<div class="col-xl-11 col-lg-10 float-none p-0 mx-auto wallet-wrapper">
+				<div class="title-div mb-4">
+					<h3 class="title">Order History</h3>
+				</div>
+				</div>
+				@include('customers._order_grid',array('query'=>$orders,'favourite'=>false,'page_title'=>'Orders History','row_total'=>$total_orders))
 			</div>
+
 		</div>
 	</div>
 
