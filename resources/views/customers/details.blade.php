@@ -84,6 +84,12 @@
 		#target {
 			width: 345px;
 		}
+		.wallet-wrapper .item-div .item-discount {
+
+			font-size: 25px !important;
+			line-height: normal;
+			margin: 0px 0 25px 0;
+		}
 	</style>
 @endsection
 @section('content')
@@ -105,12 +111,14 @@
 					</div>
 
 
-					<div class="col-md-2"><button type="button" id="edit-profile" class="btn btn-8DBF43 btn-1-anim">Edit Profile</button></div>
-					<div class="col-md-2"><a href="{{route('logout')}}" class="btn btn-808080 btn-1-anim">Logout</a></div>
+					<div class="col-md-4">
+						<button type="button" id="edit-profile" class="btn btn-8DBF43 btn-1-anim btn-user">Edit Profile</button>&nbsp;&nbsp;
+						<a href="{{route('logout')}}" class="btn btn-808080 btn-1-anim btn-user">&nbsp;&nbsp;Logout&nbsp;&nbsp;</a>
+					</div>
 				</div>
 				<div class="clearfix"></div>
 				<div class="clearfix"></div>
-				<div class="col-xl-8 col-lg-10 float-none p-0 mx-auto loyaltygraph-div pt-4 mb-5 pb-3">
+				<div style="margin-top: 50px;" class="col-xl-8 col-lg-10 float-none p-0 mx-auto loyaltygraph-div pt-4 mb-5 pb-3">
 					<div class="row">
 						@php
 							if($query->details->LevelMaxCollection> $query->details->TierBalance)
@@ -156,14 +164,29 @@
 						@php
 							$array_colors=array('bg-AFD27C','bg-9DBFC1','bg-808080');
 						@endphp
+						@if($wallet_balance>0)
+							<div class="item active bg-8DBF43" data-mh="matchHeight" id="wallet-b">
+								<div class="item-div active text-white p-3"  id="wallet-b-1">
+									<div class="py-4 item-quantity text-right">
+										<div class="float-right"></div>
+									</div>
+									<div class="item-discount text-uppercase" >
+										YOU HAVE <span class="wallet-balance">{{number_format($wallet_balance)}}</span> {{$currency}}
+									</div>
+
+									<p><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
+								</div>
+
+							</div>
+						@endif
 						@for($i=0;$i<count($vouchers);$i++)
 							@php
 								$rand = array_rand($array_colors, 1);
                                // $type_l=$vouchers[$i]['ValueType']=='percentage' ? '%':'';
 							@endphp
-							<div class="slide-shadow item {{$array_colors[$rand]}}"  id="voucher-b{{$vouchers[$i]->Id}}" data-mh="matchHeight">
+							<div class="slide-shadow item {{$array_colors[$rand]}}"  id="voucher-b{{$vouchers[$i]->Id}}">
 								<div class="item-div text-white p-3" id="voucher-b1{{$vouchers[$i]->Id}}">
-									<div class="py-4 item-quantity text-right">
+									<div class="py-4 item-quantity text-right float-right">
 										<div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> quantity</div>
 									</div>
 									<div class="item-discount text-uppercase title-{{$vouchers[$i]->Id}}" data-title="{{$vouchers[$i]->Title}}">
@@ -193,8 +216,6 @@
 
 									</div>
 									<p><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
-									<div class="buttons text-center mt-3">
-									</div>
 								</div>
 
 							</div>
@@ -243,7 +264,7 @@
 			$('.owl-carousel').owlCarousel({
 				loop : false,
 				navText : ['', ''],
-				margin : 40,
+				margin : 35,
 				dots : false,
 				nav : true,
 				responsive:{

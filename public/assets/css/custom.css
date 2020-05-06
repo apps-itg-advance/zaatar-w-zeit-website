@@ -276,4 +276,7 @@
 .slide-shadow {
     box-shadow: 0px 0px 10px;
 }
+.btn-user{
+    min-width: 100px !important;
+}
 

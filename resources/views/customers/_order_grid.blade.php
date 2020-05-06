@@ -190,7 +190,7 @@
                             Go Green
                         </div>
                         <div class="col-6 text-808080 mb-3 futura-book">
-                            {{$go_green}}
+                            {{$go_green!=''? $go_green:'No'}}
                         </div>
                     </div>
                     <div class="row align-items-center">
@@ -207,7 +207,7 @@
                             Special Instructions
                         </div>
                         <div class="col-6 text-808080 mb-3 futura-book">
-                            {{isset($specials)? implode(' , ',$specials):''}}
+                            {{(isset($specials) and !empty($specials))? implode(' , ',$specials):'No'}}
                         </div>
                     </div>
                     @if($row->ScheduleTime!='0000-00-00 00:00:00')
