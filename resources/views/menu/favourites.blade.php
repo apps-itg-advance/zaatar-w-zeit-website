@@ -12,6 +12,13 @@
 @endsection
 
 @section('javascript')
+	<script src="{{asset('assets/js/blazy.min.js')}}"></script>
+	<script>
+		(function() {
+			// Initialize
+			var bLazy = new Blazy();
+		})();
+	</script>
 	@include('menu._menu_js')
 		<script type="text/javascript">
 				$('body').on('click', '.remove-fav-item', function(){

@@ -206,6 +206,36 @@ public static function CompareOrder($a, $b)
 
         $url=env('BASE_URL').'items/GetMenuFavorite?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&LoyaltyId='.$loyalty_id;
         $query=Helper::getApi($url);
+        foreach ($query->data as $item)
+        {
+            $id=$item->ID;
+            $flag=false;
+            $key=$organization_id.'-'.$id;
+            if(isset($item->ThumbnailImg))
+            {
+                $url_img=$item->ThumbnailImg;
+
+                if(cache()->has($key) and cache()->get($key)!='')
+                {
+                    $flag=true;
+
+                }
+            }
+            $path=self::DownloadImg($url_img,$organization_id,$flag);
+            if(!$flag)
+            {
+                cache()->add($key,1,now()->addMinutes(1440));
+            }
+
+            $item->LocalThumbnailImg=$path;
+            if(isset($item->Modifiers->details->MOrder))
+            {
+                usort($item->Modifiers, function($a, $b)
+                {
+                    return strcmp($a->details->MOrder, $b->details->MOrder);
+                });
+            }
+        }
         return $query;
     }
     public static function GetOrdersHistoryWithFav()
