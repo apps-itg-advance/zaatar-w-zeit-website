@@ -7,6 +7,12 @@
         .cart-items {
             height: auto !important;
         }
+        .cartbox-wrapper .cart-dropdown{
+            position:relative !important;
+        }
+        .mt-3, .my-3 {
+            margin-top: 2rem !important;
+        }
     </style>
 @endsection
 @section('content')
