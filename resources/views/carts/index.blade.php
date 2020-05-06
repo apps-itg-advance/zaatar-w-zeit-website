@@ -9,6 +9,7 @@
         }
         .cartbox-wrapper .cart-dropdown{
             position:relative !important;
+            height: auto !important;
         }
         .mt-3, .my-3 {
             margin-top: 2rem !important;
