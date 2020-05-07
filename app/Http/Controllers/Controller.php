@@ -21,8 +21,8 @@ class Controller extends BaseController
 
     public function __construct()
     {
-      session()->flush();
-      cache()->clear();
+      //session()->flush();
+      //cache()->clear();
         SettingsLib::CompanyChildren();
             $this->_org=session()->get('_org');
       //  if(isset())
