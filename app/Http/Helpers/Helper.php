@@ -47,12 +47,12 @@ class Helper extends Controller
 			if(!empty($token)) $headers['Authorization'] = 'Bearer ' . $token;
 			$options = ['headers' => $headers];
 			$request = $client->get($url,$options);
-			dump($request);
-
+			//dump($request);
+//die;
 			$response = $request->getBody();
 			return json_decode((string)$response);
 		}catch (GuzzleException\BadResponseException $e) {
-		    echo $e;
+//		    echo $e;
 		    //dump($request);
 			//$content = json_decode((string)$e->getResponse()->getBody()->getContents());
 			//dd($content);

@@ -51,6 +51,7 @@ class SettingsLib
         if ((Cache::has($key) and Cache::get($key)!=null) and !$refresh) {
             $res = Cache::get($key);
             $client_geo = Cache::get('geo_location');
+
         } else {
             $url = env('BASE_URL') . 'settings/CompanyChildren';
 
@@ -66,6 +67,7 @@ class SettingsLib
             }
             $query = Helper::postApi($url, $array);
             $res = $query->data;
+
             $client_geo=$query->client_geo;
 
            // echo 'from API';
@@ -108,7 +110,6 @@ class SettingsLib
         else{
             self::SetOrganization(session()->get('OrgId'));
         }
-
         /*
         dump($query);
 
@@ -196,11 +197,14 @@ class SettingsLib
             session()->forget('is_login');
             session()->forget('_org');
             session()->forget('OrgId');
+           // session()->forget('_org');
         }
 
         session()->put('OrgId',$organization_id);
+       // self::CompanyChildren(true);
         session()->put('_org',$_org);
         session()->save();
+
 
 
     }
