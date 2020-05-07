@@ -63,7 +63,8 @@ class MenuLibrary
         echo $url;
 
         $query=Helper::getApi($url);
-        dump($query);
+        echo $query;
+        var_dump($query);
         die;
         foreach ($query->data as $item)
         {
