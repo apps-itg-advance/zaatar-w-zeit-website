@@ -51,6 +51,7 @@ class Helper extends Controller
 			$response = $request->getBody();
 			return json_decode((string)$response);
 		}catch (GuzzleException\BadResponseException $e) {
+		    echo $e;
 		    dump($request);
 			//$content = json_decode((string)$e->getResponse()->getBody()->getContents());
 			//dd($content);
