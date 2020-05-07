@@ -60,6 +60,8 @@ class MenuLibrary
 
         $url_img='';
         $url=env('BASE_URL').'menu/GetMenuItems?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&category_id='.$cat_id.$extra;
+        echo $url;
+        die;
         $query=Helper::getApi($url);
         foreach ($query->data as $item)
         {
