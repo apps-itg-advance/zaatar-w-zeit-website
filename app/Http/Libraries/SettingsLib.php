@@ -140,7 +140,7 @@ class SettingsLib
 
         return $res;
     }
-    public function SwitchOrganization($organization_id)
+    public static function SwitchOrganization($organization_id)
     {
         $expiresAt = Carbon::now()->addMinutes(15);
         $key='settings';
