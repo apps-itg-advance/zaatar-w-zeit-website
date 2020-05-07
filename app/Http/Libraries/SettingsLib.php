@@ -140,7 +140,28 @@ class SettingsLib
 
         return $res;
     }
+    public function SwitchOrganization($organization_id)
+    {
+        $expiresAt = Carbon::now()->addMinutes(15);
+        $key='settings';
+        $url = env('BASE_URL') . 'settings/CompanyChildren';
+        $array = array(
+            'organization_id' => env('ORG_ID'),
+            'channel_id' => env('CH_ID'),
+            'token' => env('TOKEN'),
+            'ip' => request()->ip(),
+        );
+        $query = Helper::postApi($url, $array);
+        $res = $query->data;
+        Cache::put($key, $res, $expiresAt);
+        session()->forget('organizations');
+        session()->forget('_org');
+        session()->save();
+        session()->put('organizations', $res);
+        self::SetOrganization($organization_id);
 
+
+    }
     public static function SetOrganization($organization_id)
     {
        // $res=session()->get('organizations');

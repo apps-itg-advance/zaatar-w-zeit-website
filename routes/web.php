@@ -43,7 +43,7 @@ Route::get('/clear-cache', 'Auth\LoginController@clear_cache')->name('clear.cach
 
 Route::get('/switch-org/{id?}', function($id) {
 
-    SettingsLib::SetOrganization($id);
+    SettingsLib::SwitchOrganization($id);
     return redirect(route('home'));
    // session()->put('progress', '5%');
    // session()->save();
