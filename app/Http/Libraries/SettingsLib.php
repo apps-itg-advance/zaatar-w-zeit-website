@@ -145,6 +145,10 @@ class SettingsLib
        // $res=session()->get('organizations');
        // die;
         $res=Cache::get('settings');
+        if(is_null($res))
+        {
+            $res=session()->get('organizations');
+        }
        // dump($res);
         $res_user=session()->get('user_tokens');
         $_org=array();
