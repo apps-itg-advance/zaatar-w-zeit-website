@@ -612,7 +612,7 @@ class CheckoutController extends Controller
         session()->forget('schedule_date');
         session()->forget('schedule_day');
         session()->save();
-        return redirect(route('home.menu'));
+        return redirect(route('customer.index'));
     }
 
     /**

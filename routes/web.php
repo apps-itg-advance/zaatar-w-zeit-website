@@ -90,7 +90,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::post('/checkout/payment/card/store', 'CheckoutController@payment_card_save')->name('checkout.card.store');
     Route::get('/checkout/payment/status/{status?}', 'CheckoutController@payment_status')->name('checkout.payment.status');
 
-    Route::get('/checkout/payment/status/{status?}', 'CheckoutController@payment_status')->name('checkout.payment.status');
+   // Route::get('/checkout/payment/status/{status?}', 'CheckoutController@payment_status')->name('checkout.payment.status');
 
     Route::get('/settings/calender', 'SettingsController@calender')->name('checkout.calender');
 

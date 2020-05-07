@@ -263,7 +263,7 @@ $discount=0;
                     {
                         msg_title='Order Submitted successfully.';
                         msg_icon='success';
-                        xurl='{{route('home.menu')}}';
+                        xurl='{{route('customer.index')}}';
                     }
                     else{
                         msg_title=res.message;
