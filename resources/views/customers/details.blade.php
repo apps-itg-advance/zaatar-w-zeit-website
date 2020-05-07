@@ -118,6 +118,7 @@
 				</div>
 				<div class="clearfix"></div>
 				<div class="clearfix"></div>
+				@if(isset($LEVEL_ID) and $LEVEL_ID!='')
 				<div style="margin-top: 50px;" class="col-xl-8 col-lg-10 float-none p-0 mx-auto loyaltygraph-div pt-4 mb-5 pb-3">
 					<div class="row">
 						@php
@@ -223,7 +224,7 @@
 						@endfor
 					</div>
 				</div>
-
+				@endif
 				<div class="clearfix" style="margin-bottom: 30px !important;"></div>
 				<div class="col-xl-11 col-lg-10 float-none p-0 mx-auto wallet-wrapper">
 				<div class="title-div mb-4">

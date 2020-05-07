@@ -122,11 +122,13 @@
                                             {{number_format($discount ?? 0). ' '.$currency}}
                                 </span>
                         </div>
+                        @if(isset($LEVEL_ID) and $LEVEL_ID!='')
                         <div class="total-block text-right">
                             Wallet <span class="price d-inline-block ml-4" style="width: 30% !important;">
                                             {{number_format($wallet ?? 0). ' '.$currency}}
                                 </span>
                         </div>
+                        @endif
                         <div class="total-block text-right">
                             Payment <span class="price d-inline-block ml-4" style="width: 30% !important;">
                                             {{number_format($pay_online ?? 0 ). ' '.$currency}}
@@ -168,6 +170,7 @@
                     }
                 @endphp
                 <div class="order-info">
+                    @if(isset($LEVEL_ID) and $LEVEL_ID!='')
                     <div class="row align-items-center">
                         <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                             Wallet
@@ -176,7 +179,7 @@
                             {{$wallet>0? 'Yes':'No'}}
                         </div>
                     </div>
-
+                    @endif
                     <div class="row align-items-center">
                         <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                             Gift

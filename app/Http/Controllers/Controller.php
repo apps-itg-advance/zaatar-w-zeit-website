@@ -53,7 +53,7 @@ class Controller extends BaseController
             $skey = Carbon::now()->timestamp;
             session()->put('skey',$skey);
         }
-
+        //View()->share('LEVEL_ID',self::LevelId());
 
         $this->GetActiveMenu();
     }
@@ -91,6 +91,18 @@ class Controller extends BaseController
         session()->save();
         SettingsLib::SetOrganization($id);
         return redirect(route('home'));
+    }
+    public function LevelId()
+    {
+        $skey= session()->has('skey')? session()->get('skey'): '';
+        $level_id='';
+        if($skey!='')
+        {
+            $key='user'.$skey;
+            $user=session()->has($key)? session()->get($key): array();
+            $level_id=(isset($user->details->LevelId) and !is_null($user->details->LevelId))? $user->details->LevelId: '';
+        }
+        return $level_id;
     }
 
 

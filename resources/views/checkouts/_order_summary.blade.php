@@ -111,9 +111,11 @@ $discount=0;
                             <div class="total-block text-right">
                                 Discount <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($discount)}} {{$currency}}</span>
                             </div>
+                            @if(isset($LEVEL_ID) and $LEVEL_ID!='')
                             <div class="total-block text-right">
                                 Wallet <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($cart_wallet)}} {{$currency}}</span>
                             </div>
+                            @endif
                             <div class="total-block text-right">
                                 Payment <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($payment)}} {{$currency}}</span>
                             </div>
@@ -124,6 +126,7 @@ $discount=0;
                         </div>
                     </div>
                     <div class="order-info">
+                        @if(isset($LEVEL_ID) and $LEVEL_ID!='')
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                 Wallet
@@ -149,6 +152,7 @@ $discount=0;
                                 @endphp
                             </div>
                         </div>
+                        @endif
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                 Gift

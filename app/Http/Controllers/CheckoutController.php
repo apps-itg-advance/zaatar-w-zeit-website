@@ -29,12 +29,20 @@ class CheckoutController extends Controller
             $this->Steps[$i]=$row;
             $i++;
         }
+        $this->level_id='';
 
         $this->skey = session()->get('skey');
+        if($this->skey!='')
+        {
+            $key='user'.$this->skey;
+            $user=session()->has($key)? session()->get($key): array();
+            $this->level_id=(isset($user->details->LevelId) and !is_null($user->details->LevelId))? $user->details->LevelId: '';
+        }
         view()->composer('*', function ($view) {
             $view->with('delivery_info',$this->query);
             $view->with('skey',$this->skey);
             $view->with('page_title','Checkout');
+            $view->with('LEVEL_ID',$this->level_id);
         });
     }
 

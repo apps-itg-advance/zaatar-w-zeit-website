@@ -59,6 +59,7 @@ else{
 
             $_css_special_ins_active='active';
 }
+$_css_wallet_active=isset($LEVEL_ID) and $LEVEL_ID==''? 'disabled':$_css_wallet_active;
 @endphp
 <div class="checkout-navblock mb-5">
     <ul class="checkout-nav">

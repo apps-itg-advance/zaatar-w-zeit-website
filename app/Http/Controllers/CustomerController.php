@@ -14,8 +14,16 @@ class CustomerController extends Controller
     public function __construct()
     {
         $this->limit_order=3;
+        $this->skey = session()->get('skey');
+        if($this->skey!='')
+        {
+            $key='user'.$this->skey;
+            $user=session()->has($key)? session()->get($key): array();
+            $this->level_id=(isset($user->details->LevelId) and !is_null($user->details->LevelId))? $user->details->LevelId: '';
+        }
         view()->composer('*', function ($view) {
             $view->with('limit',$this->limit_order);
+            $view->with('LEVEL_ID',$this->level_id);
         });
     }
     /**
@@ -35,6 +43,7 @@ class CustomerController extends Controller
         $loyalty_id=$query->details->LoyaltyId;
         $data_all=SettingsLib::GetDeliveryScreenDataSteps();
         $addresses_types=$data_all->AddressTypes;
+
 
 
      /*   $v=isset($query->vouchers)  ? $query->vouchers : array();
