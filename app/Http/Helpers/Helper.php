@@ -47,6 +47,7 @@ class Helper extends Controller
 			if(!empty($token)) $headers['Authorization'] = 'Bearer ' . $token;
 			$options = ['headers' => $headers];
 			$request = $client->get($url,$options);
+			dump($request);
 
 			$response = $request->getBody();
 			return json_decode((string)$response);
