@@ -18,9 +18,10 @@ class Auth
     public function handle($request, Closure $next)
     {
         $token=session()->get('token');
+        $is_login=(session()->has('is_login') ? session()->has('is_login'):false);
         $datetime=session()->get('time');
         $user=session()->get('user');
-        if(empty($token)){
+        if(!$is_login){
             return redirect()->route('auth.login');
         }
         else{
