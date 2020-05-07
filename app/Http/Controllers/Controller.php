@@ -23,7 +23,7 @@ class Controller extends BaseController
     {
       session()->flush();
       cache()->clear();
-       dump(session()->all());
+       //dump(session()->all());
       //  die;
         SettingsLib::CompanyChildren();
             $this->_org=session()->get('_org');
