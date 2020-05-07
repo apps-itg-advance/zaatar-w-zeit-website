@@ -747,7 +747,7 @@ button {
         position: relative;
     }
     .content-wrapper .aside-menu .items-container::-webkit-scrollbar {
-        display: none;
+        display: block;
     }
 
 
