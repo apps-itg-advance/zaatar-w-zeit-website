@@ -299,6 +299,9 @@
 .content-wrapper .aside-menu .items-container::-webkit-scrollbar {
     display: block !important;
 }
+.btn-orderrepeat:hover{
+    color:#8DBF43 !important ;
+}
 
     /*.aside-menu */
 }

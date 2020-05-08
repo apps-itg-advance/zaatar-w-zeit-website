@@ -63,9 +63,10 @@ class MenuLibrary
 
         $url_img='';
         $url=env('BASE_URL').'menu/GetMenuItems?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&category_id='.$cat_id.$extra;
+     //   echo $url;
 
         $query=Helper::getApi($url);
-       // echo $query;
+       // die;
        // var_dump($query);
        // die;
 

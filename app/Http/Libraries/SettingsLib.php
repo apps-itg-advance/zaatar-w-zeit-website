@@ -142,23 +142,53 @@ class SettingsLib
     }
     public static function SwitchOrganization($organization_id)
     {
-        $expiresAt = Carbon::now()->addMinutes(15);
-        $key='settings';
-        $url = env('BASE_URL') . 'settings/CompanyChildren';
-        $array = array(
-            'organization_id' => env('ORG_ID'),
-            'channel_id' => env('CH_ID'),
-            'token' => env('TOKEN'),
-            'ip' => request()->ip(),
-        );
-        $query = Helper::postApi($url, $array);
-        $res = $query->data;
-        Cache::put($key, $res, $expiresAt);
-        session()->forget('organizations');
-        session()->forget('_org');
-        session()->save();
-        session()->put('organizations', $res);
-        self::SetOrganization($organization_id);
+        $old_org=session()->get('_org');
+        if(isset($old_org->id) and $organization_id!=$old_org->id)
+        {
+            $key=session()->get('skey');
+            session()->forget('cart');
+            session()->forget('LoginRequestId'.$key);
+            session()->forget('LoginMobile'.$key);
+            session()->forget('LoginCountryCode'.$key);
+            session()->forget('user'.$key);
+            session()->forget('addresses'.$key);
+            session()->forget('loyalty_id');
+            session()->forget('is_login');
+            session()->forget('_org');
+            session()->forget('OrgId');
+            session()->forget('organizations');
+            $expiresAt = Carbon::now()->addMinutes(15);
+            $key='settings';
+            $url = env('BASE_URL') . 'settings/CompanyChildren';
+            $array = array(
+                'organization_id' => env('ORG_ID'),
+                'channel_id' => env('CH_ID'),
+                'token' => env('TOKEN'),
+                'ip' => request()->ip(),
+            );
+            $query = Helper::postApi($url, $array);
+            $res = $query->data;
+            Cache::put($key, $res, $expiresAt);
+
+
+
+            session()->put('organizations', $res);
+            foreach($res as $re)
+            {
+                if($re->id==$organization_id)
+                {
+                    $_org=$re;
+                    break;
+                }
+            }
+            session()->put('_org',$_org);
+            session()->put('OrgId',$organization_id);
+            // session()->forget('_org');
+            session()->save();
+        }
+
+
+      //  self::SetOrganization($organization_id);
 
 
     }
