@@ -232,9 +232,13 @@
 				if(flag==1)
                 {
                     spinner('hide', x);
+                    var fav_name=$('#favourite_name'+itemId).val();
+                    if(fav_name!='')
+                    {
+                        $('#ItemName'+itemId).text(fav_name);
+                        $('#ItemNameDetails'+itemId).text(fav_name);
+                    }
 
-                    $('#ItemName'+itemId).text($('#favourite_name'+itemId).val());
-                    $('#ItemNameDetails'+itemId).text($('#favourite_name'+itemId).val());
                 }
                 x.removeClass('href-disabled').addClass('active');
 			}
