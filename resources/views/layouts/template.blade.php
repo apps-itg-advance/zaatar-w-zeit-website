@@ -237,7 +237,7 @@
                     {
                         $('#ItemName'+itemId).text(fav_name);
                         $('#ItemNameDetails'+itemId).text(fav_name);
-                        $('#Favourite'+itemId).addClass('active');
+                        $('#Favourite'+itemId).removeClass('href-disabled').addClass('active');
                     }
 
                 }
