@@ -28,7 +28,8 @@
                            if(isset($row->FavoriteData) and $row->FavoriteData!='')
                            {
                                 $fv_array=json_decode($row->FavoriteData);
-                                if(is_object($fv_array) and isset($fv_array->customName)>0)
+
+                                if(is_object($fv_array))
                                 {
                                 $fav_name=$fv_array->customName;
                                 if(isset($fv_array->Modifiers))
