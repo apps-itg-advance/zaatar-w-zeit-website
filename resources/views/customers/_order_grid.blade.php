@@ -20,7 +20,7 @@
             ORDER {{$row->OrderId}}
             <span>{{\Carbon\Carbon::parse($row->OrderDate)->format('d/m/Y - H:i')}}</span>
         </h4>
-        <div class="order-info py-2 py-md-4 cursor-pointer" data-toggle="collapse" data-target=".order-history-{{$row->OrderId}}">
+        <div id="{{$row->OrderId}}" class="order-info py-2 py-md-4 cursor-pointer" data-toggle="collapse" data-target=".order-history-{{$row->OrderId}}">
             <div class="row align-items-center mb-3">
                 <div class="col-sm-4 text-left text-sm-right text-label text-uppercase text-666666">
                     Address
@@ -327,6 +327,18 @@
             });
         }
         $(document).ready(function(){
+            var hash = window.location.hash;
+            hash = hash.substring(1); // '#foo'
+            if(hash){
+                $('.order-history-'+hash).collapse('toggle');
+            }
+            $(window).on('hashchange', function(e) {
+                var hash = window.location.hash;
+                hash = hash.substring(1); // '#foo'
+                if(hash){
+                    $('.order-history-'+hash).collapse('toggle');
+                }
+            });
             var limit=Number({{$limit}});
             // Load more data
             $('.load-more').click(function(){
@@ -368,7 +380,6 @@
                         }
                     });
                 }else{
-                    alert('test');
                     $('.load-more').text("Loading...");
 
                     // Setting little delay while removing contents

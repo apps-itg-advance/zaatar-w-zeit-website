@@ -577,7 +577,7 @@ class CheckoutController extends Controller
           session()->put('onlinePaymentUrl',$query->PaymentURL);
       }
 
-      echo json_encode(array('url'=>$url,'status'=>$status,'message'=>$msg));
+      echo json_encode(array('url'=>$url,'status'=>$status,'message'=>$msg,'OrderId'=>(isset($query->OrderId) ? $query->OrderId : 0)));
         //return $query;
         //return view('checkouts.order_response',compact('query','cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet'));
     }
@@ -612,7 +612,7 @@ class CheckoutController extends Controller
         session()->forget('schedule_date');
         session()->forget('schedule_day');
         session()->save();
-        return redirect(route('customer.index'));
+       // return redirect(route('customer.index').'#'.$status);
     }
 
     /**
