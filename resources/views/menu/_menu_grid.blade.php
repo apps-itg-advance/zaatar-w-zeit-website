@@ -84,7 +84,6 @@
                                                 echo '<li><img src="'.$val['URL'].'" /> '.$val['Label'].'</li>';
                                             }
                                         }
-
                                 ?>
                                 </ul>
                             </h5>
