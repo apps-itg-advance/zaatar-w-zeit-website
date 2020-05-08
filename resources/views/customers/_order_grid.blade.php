@@ -240,7 +240,7 @@
             @if(!$favourite)
                 <a onclick="SetFavouriteOrder({{$row->OrderId}})" id="Favourite{{$row->OrderId}}" href="javascript:void(0)" class="effect-underline link-favourite {{$active_f}}">Favourite</a>
             @endif
-                <a class="btn btn-orderrepeat" onclick="RepeatOrder({{$row->OrderId}})"><img src="{{asset('assets/images/icon-refresh.png')}}" height="15" class="mr-1"/> Repeat Order</a>
+                <a class="btn btn-orderrepeat effect-underline" onclick="RepeatOrder({{$row->OrderId}})"><img src="{{asset('assets/images/icon-refresh.png')}}" height="15" class="mr-1"/> Repeat Order</a>
         </div>
         @if($favourite)
             <a href="#" onclick="RemoveFavouriteOrder({{$row->OrderId}})" id="Favourite{{$row->OrderId}}" class="link-close"><img src="{{asset('assets/svg/icon-close.svg')}}" width="24"></a>
