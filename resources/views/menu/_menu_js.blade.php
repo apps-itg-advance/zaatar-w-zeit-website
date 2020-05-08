@@ -200,7 +200,8 @@
                 // loader('hide');
                 var res = data.split("-");
                 $('#qty_'+id).val(res[0]);
-                if(res[1]>0)
+               var x=$('#MCust'+id).val();
+                if(res[1]>0 || x>0)
                 {
                     $('#CustomizedLink'+id).addClass("active");
                     $('#Customize'+id).html("Customized");

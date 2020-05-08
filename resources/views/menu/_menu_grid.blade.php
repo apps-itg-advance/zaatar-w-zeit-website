@@ -108,18 +108,21 @@
                                 @endif
                             @endif
                             @php
-                                $customize= 'Customize';
-                                $cust_css='';
-                                if(isset($items_customized[$row->PLU]) and $items_customized[$row->PLU]=='1')
-                                {
-                                    $customize='Customized';
-                                    $cust_css='active';
-                                }
-                            elseif($row->IsFavorite=='1' and count($fav_selected_array)>0)
-                                {
-                                    $customize='Customized';
-                                    $cust_css='active';
-                                }
+                                $x=0;
+                                    $customize= 'Customize';
+                                    $cust_css='';
+                                    if(isset($items_customized[$row->PLU]) and $items_customized[$row->PLU]=='1')
+                                    {
+                                        $customize='Customized';
+                                        $cust_css='active';
+                                    }
+                                elseif($row->IsFavorite=='1' and count($fav_selected_array)>0)
+                                    {
+                                        $customize='Customized';
+                                        $cust_css='active';
+                                        $x=1;
+
+                                    }
                             @endphp
                             @if($has_modifier==1)
                             <a onclick="OpenModel({{$row->ID}})" id="CustomizedLink{{$row->ID}}"  class="link-customize pointer effect-underline {{$cust_css}}"><span class="customize-label" id="Customize{{$row->ID}}">{{$customize}}</span></a>
@@ -140,6 +143,7 @@
                         </div>
                     </div>
                     @if($display_favourite)
+                        <input type="hidden" id="MCust{{$row->ID}}" value="{{$x}}">
                     <a href="#!" class="link-close remove-fav-item" data-code="{{$row->FavouriteId}}"><img src="{{asset('assets/images/icon-close.png')}}" /></a>
                     @endif
                 </div>
