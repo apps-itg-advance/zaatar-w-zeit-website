@@ -115,7 +115,7 @@
                                     $customize='Customized';
                                     $cust_css='active';
                                 }
-                            if($row->IsFavorite=='1' and count($fav_selected_array)>0)
+                            elseif($row->IsFavorite=='1' and count($fav_selected_array)>0)
                                 {
                                     $customize='Customized';
                                     $cust_css='active';
