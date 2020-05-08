@@ -97,6 +97,7 @@
                                if($row->IsFavorite=='1')
                                    {
                                        $active_f='active';
+
                                    }
                             @endphp
                             @if(!$display_favourite)
@@ -110,6 +111,11 @@
                                 $customize= 'Customize';
                                 $cust_css='';
                                 if(isset($items_customized[$row->PLU]) and $items_customized[$row->PLU]=='1')
+                                {
+                                    $customize='Customized';
+                                    $cust_css='active';
+                                }
+                            if($row->IsFavorite=='1' and count($fav_selected_array)>0)
                                 {
                                     $customize='Customized';
                                     $cust_css='active';
