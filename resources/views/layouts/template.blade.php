@@ -237,6 +237,7 @@
                     {
                         $('#ItemName'+itemId).text(fav_name);
                         $('#ItemNameDetails'+itemId).text(fav_name);
+                        $('#Favourite'+itemId).addClass('active');
                     }
 
                 }
