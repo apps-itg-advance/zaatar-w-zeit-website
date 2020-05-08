@@ -88,7 +88,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
 
     Route::get('/checkout/payment/cards', 'CheckoutController@payment_cards')->name('checkout.payment.cards');
     Route::post('/checkout/payment/card/store', 'CheckoutController@payment_card_save')->name('checkout.card.store');
-    Route::get('/checkout/payment/status/{status?}', 'CheckoutController@payment_status')->name('checkout.payment.status');
+    Route::get('/checkout/payment/status/{status?}/{id?}', 'CheckoutController@payment_status')->name('checkout.payment.status');
 
    // Route::get('/checkout/payment/status/{status?}', 'CheckoutController@payment_status')->name('checkout.payment.status');
 

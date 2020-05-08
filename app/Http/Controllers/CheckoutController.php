@@ -593,7 +593,7 @@ class CheckoutController extends Controller
         $url=session()->get('onlinePaymentUrl');
         return view('checkouts.payment_online',compact('url'));
     }
-    public function payment_status($status)
+    public function payment_status($status,$id)
     {
         session()->forget('onlinePaymentUrl');
         session()->forget('cart_sp_instructions');
