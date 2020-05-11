@@ -42,7 +42,7 @@
                 </div>
 
                 <p class=" float-left"><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
-                <div class="buttons  text-center mt-3">
+                <div class="buttons  float-right "  style="margin: 10px !important;">
                     <a href="javascript:void(0)" style="cursor: pointer" class="btn btn-redeem text-uppercase redeem-wallet">Redeem</a>
                 </div>
             </div>
@@ -86,7 +86,7 @@
 
                 </div>
                 <p class=" float-left"><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
-                <div class="buttons text-center mt-3">
+                <div class="buttons float-right" style="margin: 10px !important;">
                     <a href="javascript:void(0)" style="cursor: pointer" onclick="SelectRedeem('{{$vouchers[$i]->Id}}')" class="btn btn-redeem text-uppercase redeem-{{$vouchers[$i]->Id}}">Redeem</a>
                 </div>
             </div>
