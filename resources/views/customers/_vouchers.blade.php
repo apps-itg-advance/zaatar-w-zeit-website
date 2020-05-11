@@ -6,6 +6,9 @@
         border: 5px solid white;
 
     }
+    .checkout-wrapper .wallet-wrapper .item-div .items-vouchers{
+        min-height: 120px !important;
+    }
 </style>
 <div class="title-div mb-4">
     <h2 class="title">Wallet</h2>
@@ -22,9 +25,9 @@
         $rand = array_rand($array_colors, 1);
     @endphp
     @if($checkout and $wallet_balance>0)
-        <div class="item active bg-8DBF43" data-mh="matchHeight" id="wallet-b">
+        <div class="slide-shadow item active bg-8DBF43" data-mh="matchHeight" id="wallet-b">
             <div class="item-div active text-white p-3"  id="wallet-b-1">
-                <div class="py-4 item-quantity text-right">
+                <div class="py-4 item-quantity  float-right">
                     <div class="float-right"></div>
                 </div>
                 <div class="item-discount text-uppercase" >
@@ -38,7 +41,7 @@
                     </div>
                 </div>
 
-                <p><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
+                <p class=" float-left"><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
                 <div class="buttons  text-center mt-3">
                     <a href="javascript:void(0)" style="cursor: pointer" class="btn btn-redeem text-uppercase redeem-wallet">Redeem</a>
                 </div>
@@ -51,9 +54,9 @@
             $rand = array_rand($array_colors, 1);
            // $type_l=$vouchers[$i]['ValueType']=='percentage' ? '%':'';
         @endphp
-        <div class="item {{$array_colors[$rand]}}"  id="voucher-b{{$vouchers[$i]->Id}}" data-mh="matchHeight">
+        <div class="slide-shadow item {{$array_colors[$rand]}}"  id="voucher-b{{$vouchers[$i]->Id}}" data-mh="matchHeight">
             <div class="item-div text-white p-3" id="voucher-b1{{$vouchers[$i]->Id}}">
-                <div class="py-4 item-quantity text-right">
+                <div class="py-4 item-quantity  float-right">
                     <div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> quantity</div>
                 </div>
                 <div class="item-discount text-uppercase title-{{$vouchers[$i]->Id}}" data-title="{{$vouchers[$i]->Title}}">
@@ -82,7 +85,7 @@
                     @endforeach
 
                 </div>
-                <p><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
+                <p class=" float-left"><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
                 <div class="buttons text-center mt-3">
                     <a href="javascript:void(0)" style="cursor: pointer" onclick="SelectRedeem('{{$vouchers[$i]->Id}}')" class="btn btn-redeem text-uppercase redeem-{{$vouchers[$i]->Id}}">Redeem</a>
                 </div>

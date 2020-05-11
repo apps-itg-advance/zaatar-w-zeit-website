@@ -166,7 +166,7 @@
 							$array_colors=array('bg-AFD27C','bg-9DBFC1','bg-808080');
 						@endphp
 						@if($wallet_balance>0)
-							<div class="item active bg-8DBF43" data-mh="matchHeight" id="wallet-b">
+							<div class="slide-shadow item active bg-8DBF43" data-mh="matchHeight" id="wallet-b">
 								<div class="item-div active text-white p-3"  id="wallet-b-1">
 									<div class="py-4 item-quantity text-right">
 										<div class="float-right"></div>
