@@ -55,7 +55,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Address Name</label>
+                                <label>Address Nickname</label>
                                 <input type="text" class="form-control" name="name{{$skey}}" value="{{@$address->Name}}" />
                             </div>
                         </div>
