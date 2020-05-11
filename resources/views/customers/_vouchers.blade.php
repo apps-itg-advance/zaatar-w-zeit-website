@@ -53,8 +53,9 @@
         @php
             $rand = array_rand($array_colors, 1);
            // $type_l=$vouchers[$i]['ValueType']=='percentage' ? '%':'';
+        	$bg_color=(isset($vouchers[$i]->Color) and $vouchers[$i]->Color!='') ? $vouchers[$i]->Color:$array_colors[$rand];
         @endphp
-        <div class="slide-shadow item {{$array_colors[$rand]}}"  id="voucher-b{{$vouchers[$i]->Id}}" data-mh="matchHeight">
+        <div class="slide-shadow item " style="background-color: {{$bg_color}}"  id="voucher-b{{$vouchers[$i]->Id}}" data-mh="matchHeight">
             <div class="item-div text-white p-3" id="voucher-b1{{$vouchers[$i]->Id}}">
                 <div class="py-4 item-quantity  float-right">
                     <div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> quantity</div>
