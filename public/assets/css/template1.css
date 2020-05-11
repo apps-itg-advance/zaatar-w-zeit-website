@@ -818,8 +818,8 @@ button {
 @media (max-width: 576px) {
 
 
-    .header-wrapper .logo-col .logo { width: 100px;}
-    .header-wrapper .logo-col .flag { width: 40px;}
+    .header-wrapper .logo-col .logo1 { width: 100px;}
+    .header-wrapper .logo-col .flag { width: 45px;}
 
     .header-wrapper .menu-col { padding: 0;}
     .header-wrapper .main-nav a { font-size: 15px;margin-left: 0px;margin-right: 0px;}
