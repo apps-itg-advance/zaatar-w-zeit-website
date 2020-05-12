@@ -57,6 +57,42 @@
     .modal-close img{
         width: 40px;
     }
+
+    @media (max-width: 1200px) {
+        .modal-body .form-container{
+            width: 60%;
+            margin: 0 auto;
+        }
+
+    }
+    @media (max-width: 992px) {
+        .modal-body{
+            margin-top: 10%;
+        }
+        .modal-body .form-container{
+            width: 70%;
+            margin: 0 auto;
+        }
+    }
+    @media (max-width: 768px) {
+        .modal-body{
+            margin-top: 25%;
+        }
+        .modal-body .form-container{
+            width: 90%;
+            margin: 0 auto;
+        }
+    }
+    @media (max-width: 576px) {
+        .modal-body{
+            width: 80%;
+            margin-top: 35%;
+        }
+        .modal-body .form-container{
+            width: 98%;
+            margin: 0 auto;
+        }
+    }
 </style>
 @endsection
 @section('content')
