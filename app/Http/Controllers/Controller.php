@@ -27,7 +27,12 @@ class Controller extends BaseController
       //  die;
         SettingsLib::CompanyChildren();
             $this->_org=session()->get('_org');
-        if(!isset($this->_org) or !isset($this->_org->currency) or !isset($this->_org->delivery_charge) or !isset($this->_org->country_code) or !isset($this->_org->country))
+        if(!isset($this->_org))
+        {
+            session()->flush();
+            cache()->clear();
+        }
+        if(!isset($this->_org->country_code))
         {
             session()->flush();
             cache()->clear();
