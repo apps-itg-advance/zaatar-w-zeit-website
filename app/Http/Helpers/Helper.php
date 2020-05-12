@@ -52,8 +52,9 @@ class Helper extends Controller
 			$response = $request->getBody();
 			return json_decode((string)$response);
 		}catch (GuzzleException\BadResponseException $e) {
-           // session()->flush();
-            // cache()->clear();
+            session()->flush();
+            cache()->clear();
+            return redirect('home.menu');
 //		    echo $e;
 		    //dump($request);
 			//$content = json_decode((string)$e->getResponse()->getBody()->getContents());
