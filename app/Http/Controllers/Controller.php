@@ -34,7 +34,7 @@ class Controller extends BaseController
             SettingsLib::CompanyChildren();
             $this->_org=session()->get('_org');
         }
-        
+
       //  if(isset())
             if (!session::has('navigations_'.$this->_org->id)) {
                 $navigation=MenuLibrary::GetCategories($this->_org->id,$this->_org->token);
