@@ -36,7 +36,7 @@
                                 @foreach($meal_items as $meal_item)
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMealQ{{$meal_item->ID.'-'.$make_meal->ID}}" name="make_meal[{{$row->ID}}][Items][{{$make_meal->ID}}]" class="custom-control-input Sub{{$make_meal->ID}}" disabled>
-                                        <label class="custom-control-label list-i" for="makeMealQ{{$meal_item->ID}}">{{$meal_item->Name}}</label>
+                                        <label class="custom-control-label list-i" for="makeMealQ{{$meal_item->ID.'-'.$make_meal->ID}}">{{$meal_item->Name}}</label>
                                     </div>
                                 @endforeach
                                 @endif
