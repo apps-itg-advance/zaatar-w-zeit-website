@@ -29,18 +29,12 @@ class Controller extends BaseController
             $this->_org=session()->get('_org');
         if(!isset($this->_org))
         {
-            session()->flush();
-            cache()->clear();
+           // session()->flush();
+           // cache()->clear();
             SettingsLib::CompanyChildren();
             $this->_org=session()->get('_org');
         }
-        if(!isset($this->_org->country_code))
-        {
-            session()->flush();
-            cache()->clear();
-            SettingsLib::CompanyChildren();
-            $this->_org=session()->get('_org');
-        }
+
       //  if(isset())
             if (!session::has('navigations_'.$this->_org->id)) {
                 $navigation=MenuLibrary::GetCategories($this->_org->id,$this->_org->token);

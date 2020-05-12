@@ -35,11 +35,11 @@ class AppServiceProvider extends ServiceProvider
                 session()->flush();
                 cache()->clear();
             } */
-          
-            $this->currency=$_org->currency;
-            $this->delivery_charge=$_org->delivery_charge;
-            $this->country_code=$_org->country_code;
-            $this->country=$_org->country;
+
+            $this->currency=isset($_org->currency)? $_org->currency:'';
+            $this->delivery_charge=isset($_org->delivery_charge) ? $_org->delivery_charge:'lebanon';
+            $this->country_code=isset($_org->country_code) ? $_org->country_code:'lb';
+            $this->country=isset($_org->country) ? $_org->country:'lebanon';
             $view->with('currency',  $this->currency);
             $view->with('delivery_fees',$this->delivery_charge);
             $view->with('country_code',$this->country_code);
