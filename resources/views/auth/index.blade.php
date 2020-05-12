@@ -116,6 +116,7 @@
         function ValidateIntMobile(code,mobile)
         {
             var css_mobile='.phone-css';
+            $('input[type="hidden"][name="country_code{{$sKey}}"]').val(code);
             if(code==='+961')
             {
                 var mobile_code1=mobile.charAt(0);
