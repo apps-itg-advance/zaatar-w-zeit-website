@@ -31,11 +31,15 @@ class Controller extends BaseController
         {
             session()->flush();
             cache()->clear();
+            SettingsLib::CompanyChildren();
+            $this->_org=session()->get('_org');
         }
         if(!isset($this->_org->country_code))
         {
             session()->flush();
             cache()->clear();
+            SettingsLib::CompanyChildren();
+            $this->_org=session()->get('_org');
         }
       //  if(isset())
             if (!session::has('navigations_'.$this->_org->id)) {

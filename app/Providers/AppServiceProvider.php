@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
                 session()->flush();
                 cache()->clear();
             } */
+          
             $this->currency=$_org->currency;
             $this->delivery_charge=$_org->delivery_charge;
             $this->country_code=$_org->country_code;
