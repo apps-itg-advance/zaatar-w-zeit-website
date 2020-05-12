@@ -14,14 +14,13 @@
     <h2 class="title">Wallet</h2>
 </div>
 @php
-    $array_colors=array('bg-AFD27C','bg-9DBFC1','bg-808080','bg-8DBF43');
+    $array_colors=array('#AFD27C','#9DBFC1','#808080','#8DBF43');
     $rand = array_rand($array_colors, 1);
     $cart_wallet=isset($cart_wallet) ? $cart_wallet :'';
     $cart_voucher_id=isset($cart_vouchers['VParentId']) ? $cart_vouchers['VParentId'] :'';
 @endphp
 <div id="wallet-carousel" class="owl-carousel wallet-carousel">
     @php
-        $array_colors=array('bg-AFD27C','bg-9DBFC1','bg-808080');
         $rand = array_rand($array_colors, 1);
     @endphp
     @if($checkout and $wallet_balance>0)
