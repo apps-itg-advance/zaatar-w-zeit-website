@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('*', function ($view) {
             $_org=session()->get('_org');
-            if(!isset($_org) or !isset($_org->currency) or !isset($_org->delivery_charge) or !isset($_org->country_code) or !isset($_org->country))
+            if(!isset($_org) and !isset($_org->currency) and !isset($_org->delivery_charge) and !isset($_org->country_code) and !isset($_org->country))
             {
                 session()->flush();
                 cache()->clear();
