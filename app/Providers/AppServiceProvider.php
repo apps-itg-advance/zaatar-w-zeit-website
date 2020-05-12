@@ -30,10 +30,10 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('*', function ($view) {
             $_org=session()->get('_org');
-            if(!isset($_org))
+            if(!isset($_org) or !isset($_org->currency) or !isset($_org->delivery_charge) or !isset($_org->country_code) or !isset($_org->country))
             {
-               // SettingsLib::CompanyChildren();
-               // $_org=session()->get('_org');
+                session()->flush();
+                cache()->clear();
             }
             $this->currency=$_org->currency;
             $this->delivery_charge=$_org->delivery_charge;
