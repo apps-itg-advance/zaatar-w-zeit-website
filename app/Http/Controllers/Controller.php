@@ -31,8 +31,9 @@ class Controller extends BaseController
         {
             session()->flush();
             cache()->clear();
-            SettingsLib::CompanyChildren();
-            $this->_org=session()->get('_org');
+            return redirect(route('home.menu'));
+           // SettingsLib::CompanyChildren();
+           // $this->_org=session()->get('_org');
         }
 
       //  if(isset())
