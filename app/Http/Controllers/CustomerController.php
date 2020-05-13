@@ -40,7 +40,14 @@ class CustomerController extends Controller
         $cities=SettingsLib::GetCities();
         $loyalty_levels=SettingsLib::GetLoyaltyLevels();
         $query=session()->has('user'.$Skey) ? session()->get('user'.$Skey) : array();
-        $loyalty_id=$query->details->LoyaltyId;
+        if(isset($query->details->LoyaltyId))
+        {
+            $loyalty_id=$query->details->LoyaltyId;
+        }
+        else{
+            return redirect(route('logout'));
+        }
+
         $data_all=SettingsLib::GetDeliveryScreenDataSteps();
         $addresses_types=$data_all->AddressTypes;
 
