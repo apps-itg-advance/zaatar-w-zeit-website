@@ -9,6 +9,9 @@
     .checkout-wrapper .wallet-wrapper .item-div .items-vouchers{
         min-height: 120px !important;
     }
+    .checkout-wrapper .wallet-wrapper .item-div{
+        height: 100% !important;
+    }
 </style>
 <div class="title-div mb-4">
     <h2 class="title">Wallet</h2>
