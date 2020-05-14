@@ -55,7 +55,6 @@
                                 {
                                     foreach ($addresses as $address)
                                     {
-
                                         if($address->IsDefault=='1' or count($addresses)==1)
                                         {
                                          echo '<input type="hidden" name="address_id'.$Skey.'" value="'.$address->ID.'">';
@@ -77,6 +76,10 @@
                                         }
                                     }
                                 }
+                                if(count($main_address)==0)
+                                {
+                                    $main_address=isset($addresses[0]) ? $addresses[0]:array();
+                                }
                     @endphp
                     <div class="col-md-12">
                         <label>Address Type</label>
@@ -85,7 +88,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="address_type{{$add_type->ID}}" onclick="ValidateAddressType({{$add_type->ID}})">{{$add_type->Title}}</label>
-                                        <input data-code="{{$add_type->ID}}" type="radio" class="address_type" id="address_type{{$add_type->ID}}" {{(in_array($add_type->ID,$address_types) and (isset($main_address->TypeID) and $main_address->TypeID!=$add_type->ID))? 'disabled' :''}}  {{(isset($main_address->TypeID) and $main_address->TypeID==$add_type->ID )? 'checked' :''}} name="address_type{{$Skey}}" value="{{$add_type->ID}}" required />
+                                        <input data-code="{{$add_type->ID}}"  data-id="{{$add_type->CategoryId}}" type="radio" class="address_type" id="address_type{{$add_type->ID}}" {{(in_array($add_type->ID,$address_types) and (isset($main_address->TypeID) and $main_address->TypeID!=$add_type->ID))? 'disabled' :''}}  {{(isset($main_address->TypeID) and $main_address->TypeID==$add_type->ID )? 'checked' :''}} name="address_type{{$Skey}}" value="{{$add_type->ID}}" required />
                                     </div>
                                 </div>
                             @endforeach
@@ -206,7 +209,8 @@
 </div>
 <script>
     $(document).ready(function () {
-        if($(".address_type:checked").data('code')=='45'){
+        if($(".address_type:checked").data('id')=='3'){
+
             $('#company-input-container').removeClass('d-none');
             $('#company-input-container').find('input').prop('disabled',false);
         }else{
@@ -215,7 +219,7 @@
         }
 
         $('body').on('click','.address_type', function(){
-            if($(this).data('code')=='45'){
+            if($(this).data('id')=='3'){
                 $('#company-input-container').removeClass('d-none');
                 $('#company-input-container').find('input').prop('disabled',false);
             }else{
