@@ -31,7 +31,7 @@
 
                                 if(is_object($fv_array))
                                 {
-                                $fav_name=$fv_array->customName;
+                                $fav_name=isset($fv_array->customName)? $fv_array->customName:'';
                                 if(isset($fv_array->Modifiers))
                                 {
                                     foreach ($fv_array->Modifiers as $fv_row)
