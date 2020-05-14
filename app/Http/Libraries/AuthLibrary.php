@@ -59,8 +59,8 @@ class AuthLibrary
         session()->put('token',$data->token);
         session()->put('loyalty_id',$loyalty_id);
         session()->put('OrgId',$org_id);
-
-      SettingsLib::CompanyChildren(true);
+        session()->save();
+      //SettingsLib::CompanyChildren(true);
 
 
     }

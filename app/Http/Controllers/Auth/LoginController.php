@@ -87,6 +87,8 @@ class LoginController extends Controller
         $request_id=session()->get($request_id_key);
         $pin=$request->input($pin_key);
         $res=AuthLibrary::PinConfirmation(array('mobile'=>$mobile,'country_code'=>$country_code,'request_id'=>$request_id,'pin'=>$pin));
+      // dump($res);
+
         if($res->message=='success')
         {
             if($res->type=='login')

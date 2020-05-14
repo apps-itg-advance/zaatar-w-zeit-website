@@ -254,7 +254,7 @@ class OrdersLibrary{
 
         }
 
-        $post_array['token']=$s_org->token;
+        $post_array['token']=session()->get('token');
         $post_array['organization_id']=$s_org->id;
         $post_array['channel_id']=1;
         $post_array['LoyaltyId']=session()->get('loyalty_id');

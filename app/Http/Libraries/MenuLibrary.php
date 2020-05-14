@@ -50,15 +50,16 @@ class MenuLibrary
         //die;
         $extra='';
         $s_org=session()->get('_org');
-
+        $token=$s_org->token;
         if(session()->has('is_login'))
         {
             $loyalty_id=session()->get('loyalty_id');
             $extra='&LoyaltyId='.$loyalty_id;
+            $token=session()->get('token');
         }
         //dum
 
-        $token=$s_org->token;
+
         $organization_id=$s_org->id;
 
         $url_img='';
@@ -108,14 +109,16 @@ class MenuLibrary
 
         $extra='';
         $s_org=session()->get('_org');
+        $token=$s_org->token;
         if(session()->has('is_login'))
         {
             $loyalty_id=session()->get('loyalty_id');
             $extra='&LoyaltyId='.$loyalty_id;
+            $token=session()->get('token');
         }
 
 
-        $token=$s_org->token;
+
         $organization_id=$s_org->id;
 
 
@@ -128,14 +131,16 @@ class MenuLibrary
 
         $extra='';
         $s_org=session()->get('_org');
+        $token=$s_org->token;
         if(session()->has('is_login'))
         {
             $loyalty_id=session()->get('loyalty_id');
             $extra='&LoyaltyId='.$loyalty_id;
+            $token=session()->get('token');
         }
 
 
-        $token=$s_org->token;
+
         $organization_id=$s_org->id;
 
 
@@ -150,7 +155,7 @@ public static function CompareOrder($a, $b)
     public static function RemoveFavoriteItem($itemId){
 	    $s_org=session()->get('_org');
 
-	    $post_array['token']=$s_org->token;
+	    $post_array['token']=session()->get('token');;
 	    $post_array['organization_id']=$s_org->id;
 	    $post_array['channel_id']=1;
 	    $post_array['LoyaltyId']=session()->get('loyalty_id');
@@ -165,7 +170,7 @@ public static function CompareOrder($a, $b)
     {
         $s_org=session()->get('_org');
 
-        $post_array['token']=$s_org->token;
+        $post_array['token']=session()->get('token');
         $post_array['organization_id']=$s_org->id;
         $post_array['channel_id']=1;
         $post_array['LoyaltyId']=session()->get('loyalty_id');
@@ -180,7 +185,7 @@ public static function CompareOrder($a, $b)
     {
         $s_org=session()->get('_org');
 
-        $post_array['token']=$s_org->token;
+        $post_array['token']=session()->get('token');
         $post_array['organization_id']=$s_org->id;
         $post_array['channel_id']=1;
         $post_array['LoyaltyId']=session()->get('loyalty_id');
@@ -195,7 +200,7 @@ public static function CompareOrder($a, $b)
     {
         $s_org=session()->get('_org');
 
-        $post_array['token']=$s_org->token;
+        $post_array['token']=session()->get('token');
         $post_array['organization_id']=$s_org->id;
         $post_array['channel_id']=1;
         $post_array['LoyaltyId']=session()->get('loyalty_id');
@@ -210,7 +215,7 @@ public static function CompareOrder($a, $b)
     {
         $s_org=session()->get('_org');
         $loyalty_id=session()->get('loyalty_id');
-        $token=$s_org->token;
+        $token=session()->get('token');
         $organization_id=$s_org->id;
 
         $url=env('BASE_URL').'items/GetMenuFavorite?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&LoyaltyId='.$loyalty_id;
@@ -251,7 +256,7 @@ public static function CompareOrder($a, $b)
     {
         $s_org=session()->get('_org');
         $loyalty_id=session()->get('loyalty_id');
-        $token=$s_org->token;
+        $token=session()->get('token');
         $organization_id=$s_org->id;
 
         $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&LoyaltyId='.$loyalty_id;

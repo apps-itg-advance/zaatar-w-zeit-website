@@ -47,19 +47,30 @@ class Helper extends Controller
 			if(!empty($token)) $headers['Authorization'] = 'Bearer ' . $token;
 			$options = ['headers' => $headers];
 			$request = $client->get($url,$options);
+
 			//dump($request);
 //die;
 			$response = $request->getBody();
 			return json_decode((string)$response);
 		}catch (GuzzleException\BadResponseException $e) {
-            session()->flush();
-            cache()->clear();
-            return redirect('home.menu');
+
+           // session()->flush();
+           // cache()->clear();
+           // return redirect('home.menu');
 //		    echo $e;
 		    //dump($request);
 			//$content = json_decode((string)$e->getResponse()->getBody()->getContents());
 			//dd($content);
-			//throw new Exception($e->getResponse()->getBody()->getContents(),$e->getResponse()->getStatusCode());
+            $body=$e->getResponse()->getBody()->getContents();
+            $array=json_decode($body);
+            if(isset($array->error) and $array->error=='Token not valid')
+            {
+                 session()->flush();
+                 cache()->clear();
+                 return redirect('home.menu');
+            }
+            //echo $array->message;
+		//	throw new Exception($e->getResponse()->getBody()->getContents(),$e->getResponse()->getStatusCode());
             return (object)array();
 		}
 	}

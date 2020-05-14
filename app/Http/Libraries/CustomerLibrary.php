@@ -15,10 +15,11 @@ class CustomerLibrary
     public static function UpdateAddress($array)
     {
         $s_org=session()->get('_org');
-
-        $array['token']=$s_org->token;
+        $token=session()->get('token');
+        $array['token']=$token;
         $array['organization_id']=$s_org->id;
         $array['channel_id']=1;
+      //  $array['LoyaltyId']=session()->get('loyalty_id');
 
         $url=env('BASE_URL').'addresses/edit';
         $query=Helper::postApi($url,$array);
@@ -28,7 +29,8 @@ class CustomerLibrary
     {
         $s_org=session()->get('_org');
 
-        $array['token']=$s_org->token;
+        $token=session()->get('token');
+        $array['token']=$token;
         $array['organization_id']=$s_org->id;
         $array['channel_id']=1;
 
@@ -41,7 +43,8 @@ class CustomerLibrary
     {
         $s_org=session()->get('_org');
 
-        $array['token']=$s_org->token;
+        $token=session()->get('token');
+        $array['token']=$token;
         $array['organization_id']=$s_org->id;
         $array['channel_id']=1;
         $array['ID']=$id;
@@ -55,8 +58,8 @@ class CustomerLibrary
     public static function DeleteCreditCards($id,$loyalty_id)
     {
         $s_org=session()->get('_org');
-
-        $array['token']=$s_org->token;
+        $token=session()->get('token');
+        $array['token']=$token;
         $array['organization_id']=$s_org->id;
         $array['channel_id']=1;
         $array['CardId']=$id;
@@ -69,8 +72,8 @@ class CustomerLibrary
     public static function UpdateCustomers($array)
     {
         $s_org=session()->get('_org');
-
-        $array['token']=$s_org->token;
+        $token=session()->get('token');
+        $array['token']=$token;
         $array['organization_id']=$s_org->id;
         $array['channel_id']=1;
 
@@ -82,7 +85,8 @@ class CustomerLibrary
     {
         $Skey=session()->get('skey');
         $s_org=session()->get('_org');
-        $url=env('BASE_URL').'addresses/get?token='.$s_org->token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+        $token=session()->get('token');
+        $url=env('BASE_URL').'addresses/get?token='.$token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
             $query=Helper::getApi($url);
             $res=array();
             if(isset($query->data))
@@ -96,7 +100,7 @@ class CustomerLibrary
     {
         $Skey=session()->get('skey');
         $s_org=session()->get('_org');
-
+        $token=session()->get('token');
         $extra='';
         if(!$row)
         {
@@ -110,7 +114,7 @@ class CustomerLibrary
         {
             $extra.='&favorite=1';
         }
-        $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$s_org->token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id.$extra;
+        $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id.$extra;
         $query=Helper::getApi($url);
         $res=$query->data;
         return array('rows'=>$res,'total'=>$query->total);
@@ -119,7 +123,8 @@ class CustomerLibrary
     {
         $Skey=session()->get('skey');
         $s_org=session()->get('_org');
-        $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$s_org->token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+        $token=session()->get('token');
+        $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
         $query=Helper::getApi($url);
         $res=$query->data;
         return $res;
@@ -127,8 +132,8 @@ class CustomerLibrary
     public static function GetVouchers($array)
     {
         $s_org=session()->get('_org');
-
-        $array['token']=$s_org->token;
+        $token=session()->get('token');
+        $array['token']=$token;
         $array['organization_id']=$s_org->id;
         $array['channel_id']=1;
         $url=env('BASE_URL').'LoyaltiesApi/GetVouchers';

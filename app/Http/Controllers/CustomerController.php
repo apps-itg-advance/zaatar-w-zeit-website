@@ -33,19 +33,22 @@ class CustomerController extends Controller
      */
     public function index($type=null)
     {
+
         $Skey=session()->get('skey');
         $type=$type ? $type : 'login';
         $class_css='profile-wrapper';
         $flag=true;
         $cities=SettingsLib::GetCities();
+
         $loyalty_levels=SettingsLib::GetLoyaltyLevels();
+
         $query=session()->has('user'.$Skey) ? session()->get('user'.$Skey) : array();
         if(isset($query->details->LoyaltyId))
         {
             $loyalty_id=$query->details->LoyaltyId;
         }
         else{
-            return redirect(route('logout'));
+          //  return redirect(route('logout'));
         }
 
         $data_all=SettingsLib::GetDeliveryScreenDataSteps();
