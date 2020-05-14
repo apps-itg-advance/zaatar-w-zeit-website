@@ -41,7 +41,7 @@
                                                 $fv_items=$fv_row->details->items;
                                                 foreach ($fv_items as $fv_item)
                                                 {
-                                                if($fv_item->isSelected)
+                                                if(isset($fv_item->isSelected) and $fv_item->isSelected==true)
                                                 {
                                                 $fav_selected_array[$fv_item->ID]='checked="checked"';
                                                 }
