@@ -405,13 +405,13 @@ class SettingsLib
       //  echo $url;
        // die;
         //die;
-        if (!session::has('cities')) {
+        if (!session::has('cities'.$_org->id)) {
             $query=Helper::getApi($url);
             $res=$query->data;
-            session::put('cities',$res);
+            session::put('cities'.$_org->id,$res);
         }
         else{
-            $res=session::get('cities');
+            $res=session::get('cities'.$_org->id);
         }
         return $res;
     }
