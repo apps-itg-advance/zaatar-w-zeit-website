@@ -444,7 +444,7 @@ class SettingsLib
         $loyalty_id=session()->get('loyalty_id');
         $token=session()->get('token');
         $url=env('BASE_URL').'LoyaltiesApi/GetLoyaltyLevel?token='.$token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
-        echo $url;
+      //  echo $url;
         $query=Helper::getApi($url);
 
         $res=isset($query->data) ? $query->data:array();
