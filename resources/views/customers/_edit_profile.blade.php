@@ -76,7 +76,7 @@
                                         }
                                     }
                                 }
-                                if(count($main_address)==0)
+                                if(!isset($main_address->ID))
                                 {
                                     $main_address=isset($addresses[0]) ? $addresses[0]:array();
                                 }
