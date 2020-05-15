@@ -1,5 +1,4 @@
 @php
-
     $_css_address_active='';
     $_css_wallet_active='';
     $_css_gift_active='';
@@ -7,7 +6,9 @@
     $_css_payment_active='';
     $_css_special_ins_active='';
     if(isset($_active_css)){
-    switch ($_active_css)
+    $checkout_steps=session()->has('checkout_steps')? session()->get('checkout_steps'):'address';
+   // $_active_css;
+    switch ($checkout_steps)
         {
         case 'address':
             $_css_address_active='active';
@@ -60,6 +61,15 @@ else{
             $_css_special_ins_active='active';
 }
 $_css_wallet_active=(isset($LEVEL_ID) and $LEVEL_ID=='')? 'disabled':$_css_wallet_active;
+//$_css_address_active=(session()->has('cart_info') and session()->get('cart_info')!=null)? 'active':'';
+ /*
+ $_css_wallet_active='active';
+            $_css_gift_active='active';
+            $_css_green_active='active';
+            $_css_payment_active='active';
+
+            $_css_special_ins_active='active';
+*/
 @endphp
 <div class="checkout-navblock mb-5">
     <ul class="checkout-nav">

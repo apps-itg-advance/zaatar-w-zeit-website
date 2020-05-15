@@ -155,8 +155,10 @@ class CheckoutController extends Controller
         );
 
         session()->forget('cart_info');
+        session()->put('checkout_steps','address');
         session()->save();
         session()->put('cart_info',(object)$array);
+        session()->put('checkout_steps','address');
         return 'true';
 
     }
@@ -203,6 +205,7 @@ class CheckoutController extends Controller
         );
 
         session()->forget('cart_gift');
+        session()->put('checkout_steps','gift');
         session()->save();
         session()->put('cart_gift',(object)$array);
         return 'true';
@@ -352,6 +355,8 @@ class CheckoutController extends Controller
             session()->save();
             session()->put('cart_wallet', $wallet_amount);
         }
+        session()->put('checkout_steps','wallet');
+        session()->save();
         return 'true';
     }
 
@@ -377,6 +382,7 @@ class CheckoutController extends Controller
             'PLU'=>$green_plu,
         );
         session()->forget('cart_green');
+        session()->put('checkout_steps','green');
         session()->save();
         session()->put('cart_green',$_array);
         return 'true';
@@ -402,6 +408,7 @@ class CheckoutController extends Controller
         $_array=json_decode($query);
         session()->forget('cart_payment');
         session()->forget('cart_payment_currency');
+        session()->put('checkout_steps','payment');
         session()->save();
         session()->put('cart_payment',$_array);
         session()->put('cart_payment_currency',$currency);
@@ -512,6 +519,7 @@ class CheckoutController extends Controller
             }
         }
         session()->forget('cart_sp_instructions');
+        session()->put('checkout_steps','special_instructions');
         session()->save();
         session()->put('cart_sp_instructions',$sp_array);
         return 'true';
