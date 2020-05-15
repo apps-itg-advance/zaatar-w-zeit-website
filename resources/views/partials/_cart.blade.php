@@ -8,7 +8,10 @@
 @endphp
 
 <h4 class="title text-center">Order Summary</h4>
-<h5 class="user">{{$full_name}}</h5>
+@if($fav==1 and $cart==null)
+    <h4 class="text-center" style="margin-top: 2px !important; font-weight: normal !important; font-size: 30px !important; line-height: 0px;">ADD YOU FAVOURITES HERE !</h4>
+@endif
+<?php /* <h5 class="user">{{$full_name}}</h5> */ ?>
 <div class="cart-items my-3">
     @php
         $_total=0;
@@ -53,10 +56,7 @@
             </div>
             <div class="clearfix"></div>
         @endforeach
-        @else
-        @if($fav==1)
-        <h4>ADD YOU FAVOURITES HERE !</h4>
-            @endif
+
     @endif
 
 </div>
