@@ -3,8 +3,9 @@
     <div class="col-xl-7 col-lg-5 col-md-12 col-sm-12 col-favourite-items">
         <form id="Form" action="#">
             <div class="col-lg-12 float-none p-0 mx-auto">
-                @include('customers._favourite_menu')
+
                 <div class="row row-favourite mx-auto">
+					@include('customers._favourite_menu')
                     <input type="hidden" name="SItemId" id="SItemId">
                     <input type="hidden" name="SQty" id="SQty">
                     @foreach($query->data as $row)

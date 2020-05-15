@@ -306,5 +306,28 @@
 
     /*.aside-menu */
 }
+@media screen and (max-width: 1540px) {
+    .fav-padding{
+        margin-left: 0 !important ;
+    }
 
+}
+
+@media screen and (max-width: 1590px) {
+    .fav-padding{
+        margin-left:0px ;
+    }
+
+}
+@media screen and (max-width: 1620px) {
+    .fav-padding{
+        margin-left: 5%;
+    }
+
+}
+@media screen and (max-width: 1900px) {
+    .fav-padding{
+        margin-left: 45px ;
+    }
+}
 
