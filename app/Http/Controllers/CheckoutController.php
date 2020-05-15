@@ -94,8 +94,6 @@ class CheckoutController extends Controller
     }
     public function address()
     {
-        session()->put('checkout_steps','address');
-        session()->save();
         $this->query=SettingsLib::GetDeliveryScreenDataSteps(true);
         $step=1;
         $settings=$this->Steps[$step];
@@ -157,7 +155,7 @@ class CheckoutController extends Controller
         );
 
         session()->forget('cart_info');
-     //  session()->put('checkout_steps','address');
+        session()->put('checkout_steps','address');
         session()->save();
         session()->put('cart_info',(object)$array);
         session()->put('checkout_steps','address');
@@ -167,8 +165,6 @@ class CheckoutController extends Controller
 
     public function loyalty()
     {
-        session()->put('checkout_steps','wallet');
-        session()->save();
         $step=2;
         $settings=$this->Steps[$step];
         $skey=session()->get('skey');
@@ -188,8 +184,6 @@ class CheckoutController extends Controller
 
     public function gift()
     {
-        session()->put('checkout_steps','gift');
-        session()->save();
         $step=3;
         $settings=$this->Steps[$step];
         $cart = session()->get('cart');
@@ -211,6 +205,7 @@ class CheckoutController extends Controller
         );
 
         session()->forget('cart_gift');
+        session()->put('checkout_steps','gift');
         session()->save();
         session()->put('cart_gift',(object)$array);
         return 'true';
@@ -227,28 +222,34 @@ class CheckoutController extends Controller
     {
         switch ($step) {
             case 'address':
+                session()->put('checkout_steps','address');
                 session()->forget('cart_info');
                 $redirect=route('checkout.wallet');
                 break;
             case 'wallet':
+                session()->put('checkout_steps','wallet');
                 session()->forget('cart_wallet');
                 session()->forget('cart_vouchers');
                 $redirect=route('checkout.gift');
                 break;
             case 'gift':
+                session()->put('checkout_steps','gift');
                 session()->forget('cart_gift');
                 $redirect=route('checkout.green');
                 break;
             case 'green':
+                session()->put('checkout_steps','green');
                 session()->forget('cart_green');
                 $redirect=route('checkout.special_instructions');
                 break;
             case 'payment':
+                session()->put('checkout_steps','payment');
                 session()->forget('cart_payment');
                 session()->forget('cart_payment_currency');
                 $redirect=route('checkout.special_instructions');
                 break;
             case 'special_inst':
+                session()->put('checkout_steps','special_instructions');
                 session()->forget('cart_sp_instructions');
                 $redirect=route('checkout.payment');
                 break;
@@ -260,8 +261,6 @@ class CheckoutController extends Controller
     }
     public function wallet()
     {
-        session()->put('checkout_steps','wallet');
-        session()->save();
         $step=2;
         $settings=$this->Steps[$step];
         $skey=session()->get('skey');
@@ -362,14 +361,13 @@ class CheckoutController extends Controller
             session()->save();
             session()->put('cart_wallet', $wallet_amount);
         }
-
+        session()->put('checkout_steps','wallet');
+        session()->save();
         return 'true';
     }
 
     public function green()
     {
-        session()->put('checkout_steps','green');
-        session()->save();
         $step=4;
         $settings=$this->Steps[$step];
         $cart = Session::get('cart');
@@ -390,7 +388,7 @@ class CheckoutController extends Controller
             'PLU'=>$green_plu,
         );
         session()->forget('cart_green');
-       // session()->put('checkout_steps','green');
+        session()->put('checkout_steps','green');
         session()->save();
         session()->put('cart_green',$_array);
         return 'true';
@@ -399,8 +397,6 @@ class CheckoutController extends Controller
 
     public function payment()
     {
-        session()->put('checkout_steps','payment');
-        session()->save();
         $step=6;
         $settings=$this->Steps[$step];
         $cart = Session::get('cart');
@@ -418,6 +414,7 @@ class CheckoutController extends Controller
         $_array=json_decode($query);
         session()->forget('cart_payment');
         session()->forget('cart_payment_currency');
+        session()->put('checkout_steps','payment');
         session()->save();
         session()->put('cart_payment',$_array);
         session()->put('cart_payment_currency',$currency);
@@ -506,8 +503,6 @@ class CheckoutController extends Controller
     }
     public function special_instructions()
     {
-        session()->put('checkout_steps','special_instructions');
-        session()->save();
         $step=5;
         $settings=$this->Steps[$step];
         $cart = Session::get('cart');
@@ -530,6 +525,7 @@ class CheckoutController extends Controller
             }
         }
         session()->forget('cart_sp_instructions');
+        session()->put('checkout_steps','special_instructions');
         session()->save();
         session()->put('cart_sp_instructions',$sp_array);
         return 'true';
