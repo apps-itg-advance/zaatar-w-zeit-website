@@ -727,6 +727,7 @@ button {
 
 @media (max-width: 992px) {
 
+  /*  .content-wrapper .col-favourite { padding-left: 15px; padding-right: 15px;} */
     .header-wrapper .main-nav a {
         padding-left: 8px;
         padding-right: 8px;

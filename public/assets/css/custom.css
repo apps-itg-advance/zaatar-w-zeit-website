@@ -306,28 +306,25 @@
 
     /*.aside-menu */
 }
-@media screen and (max-width: 1540px) {
-    .fav-padding{
-        margin-left: 0 !important ;
-    }
 
+@media screen and (max-width: 1545px) {
+    .fav-padding{
+        padding-left:15px !important ;
+    }
+}
+@media screen and (max-width: 1600px) {
+    .fav-padding{
+        padding-left:3% !important ;
+    }
+}
+@media screen and (max-width: 1710px) {
+    .fav-padding{
+        padding-left:5% !important ;
+    }
 }
 
-@media screen and (max-width: 1590px) {
-    .fav-padding{
-        margin-left:0px ;
-    }
-
-}
-@media screen and (max-width: 1620px) {
-    .fav-padding{
-        margin-left: 5%;
-    }
-
-}
 @media screen and (max-width: 1900px) {
     .fav-padding{
-        margin-left: 45px ;
+        padding-left: 7.5% ;
     }
 }
-
