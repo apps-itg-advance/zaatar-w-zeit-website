@@ -9,7 +9,7 @@
 
 <h4 class="title text-center">Order Summary</h4>
 @if($fav==1 and $cart==null)
-    <h4 class="text-center" style="margin-top: 2px !important; font-weight: normal !important; font-size: 30px !important; line-height: 0px;">ADD YOU FAVOURITES HERE !</h4>
+    <h4 class="text-center" style="margin-top: 2px !important; font-weight: normal !important; font-size: 30px !important; line-height: 0px;">ADD YOUR FAVOURITES HERE !</h4>
 @endif
 <?php /* <h5 class="user">{{$full_name}}</h5> */ ?>
 <div class="cart-items my-3">
