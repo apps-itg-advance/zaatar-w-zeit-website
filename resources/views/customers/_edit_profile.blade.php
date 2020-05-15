@@ -81,9 +81,12 @@
                                     $main_address=isset($addresses[0]) ? $addresses[0]:array();
                                 }
                     @endphp
+                    <input type="hidden" name="address_type{{$Skey}}" value="{{(isset($main_address->TypeID) and $main_address->TypeID!='')? $main_address->TypeID : (isset($addresses_types[0]->ID) ? $addresses_types[0]->ID:0)}}" >
+                    <?php /*
                     <div class="col-md-12">
                         <label>Address Type</label>
                         <div class="row">
+
                             @foreach($addresses_types as $add_type)
                                 <div class="col-sm-4">
                                     <div class="form-group">
@@ -94,6 +97,7 @@
                             @endforeach
                         </div>
                     </div>
+ */?>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Address Nickname</label>
