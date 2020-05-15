@@ -81,7 +81,7 @@
 		var contentHeight = jQuery('.content-container').height();
 		var finalheight = windowHeight;
 		if(contentHeight < finalheight) {
-			jQuery(".content-container").css("height", windowHeight);
+			jQuery(".content-container").css("height", windowHeight-160);
 		}
 
 
