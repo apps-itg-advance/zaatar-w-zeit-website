@@ -20,7 +20,10 @@ class CheckoutController extends Controller
      */
     public function __construct()
     {
-
+        if(!session()->has('is_login') or session()->get('is_login')==false)
+        {
+           return redirect(route('auth.login'));
+        }
         $this->query=SettingsLib::GetDeliveryScreenDataSteps(false);
         $this->Steps=array();
         $i=1;
@@ -44,6 +47,7 @@ class CheckoutController extends Controller
             $view->with('page_title','Checkout');
             $view->with('LEVEL_ID',$this->level_id);
         });
+
     }
 
     public function index()
