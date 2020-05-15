@@ -62,7 +62,12 @@
                 </div>
                 <div class="col-xl-3 col-lg-2 col-md-1 cart-col text-right d-none d-md-block">
                     <div class="dropdown">
-                        <a href="{{route('checkout.address')}}" class="cart-link d-block checkout-address">
+                        @php
+                            $cart=(session()->has('cart') and session()->get('cart')!=null)?session()->get('cart'):null;
+                           // dump(session()->all());
+                        //@if($cart!=null) href="{{route('checkout.address')}}"
+                        @endphp
+                        <a @if($cart!=null) href="{{route('checkout.address')}}" @endif id="ShoppingCart" class="cart-link d-block checkout-address">
                             <div class="CartItems"></div>
                         </a>
                     </div>

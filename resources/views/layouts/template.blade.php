@@ -106,6 +106,7 @@
 			url:'{{route('carts.count')}}',
 			success:function(data){
 				$(".CartItems").html(data);
+                $("#ShoppingCart").attr("href", "#");
 				//OpenCart();
 			}
 		});
