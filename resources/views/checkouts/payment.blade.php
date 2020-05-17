@@ -130,10 +130,23 @@
 				data: {query: radioValue,currency :currency},
 				url: '{{route('checkout.payment.store')}}',
 				success: function (data) {
-					if(pname=='credit')
+			 if(data=='error_empty_item')
+					{
+						Swal.fire({
+							title: 'Error!',
+							text: 'You must select an item!',
+							icon: 'danger',
+							confirmButtonText: 'Close'
+						});
+						spinnerButtons('hide', $(that));
+						return null;
+
+					}
+					else if(pname=='credit')
 					{
 						window.location = '{{route('checkout.payment.cards')}}';
 					}
+
 					else{
 						spinnerButtons('hide', $(that));
 						$("#OrderSummaryDisplay").html(data);

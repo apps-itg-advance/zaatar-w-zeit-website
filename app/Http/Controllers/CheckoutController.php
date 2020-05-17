@@ -435,16 +435,21 @@ class CheckoutController extends Controller
         $_org=session()->get('_org');
         $delivery_charge=$_org->delivery_charge;
         $currency=$_org->currency;
-        if($_array->Name!='credit')
+        if($cart!=null)
         {
-            return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet','order_schedule','schedule_date'));
+            if($_array->Name!='credit')
+            {
+                return view('checkouts._order_summary',compact('cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','delivery_charge','currency','cart_vouchers','cart_wallet','order_schedule','schedule_date'));
 
+            }
+            else{
+                echo 'credit';
+            }
         }
         else{
-            echo 'credit';
+            echo 'error_empty_item';
+
         }
-
-
 
     }
     public function payment_cards()
@@ -544,8 +549,9 @@ class CheckoutController extends Controller
      */
     public function store()
     {
+        
       $query=OrdersLibrary::SaveOrders();
-        $cart=session()->get('cart');
+
         $cart_info=session()->get('cart_info');
         $cart_gift=session()->get('cart_gift');
         $cart_payment=session()->get('cart_payment');
