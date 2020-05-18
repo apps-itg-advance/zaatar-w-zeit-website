@@ -204,6 +204,12 @@ button {
 .text-666666 { color: #666666!important;}
 
 .btn-B3B3B3 { background: #B3B3B3; color: #FFFFFF;}
+.btn-B3B3B3-non-hover{
+    background: #B3B3B3 !important;
+    color: #FFFFFF !important;
+    cursor: default !important;
+
+}
 .btn-B3B3B3.active,
 .btn-B3B3B3:hover,
 .btn-B3B3B3:focus { background: #808080; color: #FFFFFF;}

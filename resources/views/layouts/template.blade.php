@@ -110,10 +110,14 @@
                 {
                     $("#ShoppingCart").attr("href", "#");
                     $("#ShoppingCart").removeClass("active-cart");
+                    $("#DestroyBtn").addClass("btn-B3B3B3-non-hover");
+                    $("#CheckOutBtn").addClass("btn-B3B3B3-non-hover");
                 }
 				else{
                     $("#ShoppingCart").attr("href", "{{route('checkout.address')}}");
                     $("#ShoppingCart").addClass("active-cart");
+                    $("#DestroyBtn").removeClass("btn-B3B3B3-non-hover");
+                    $("#CheckOutBtn").removeClass("btn-B3B3B3-non-hover");
                 }
 
 				//OpenCart();
