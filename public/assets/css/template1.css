@@ -210,6 +210,12 @@ button {
     cursor: default !important;
 
 }
+.btn-B3B3B3-non-hover:hover, .btn-B3B3B3-non-hover:focus{
+    background: #B3B3B3 !important;
+    color: #FFFFFF !important;
+    cursor: default !important;
+
+}
 .btn-B3B3B3.active,
 .btn-B3B3B3:hover,
 .btn-B3B3B3:focus { background: #808080; color: #FFFFFF;}
