@@ -152,6 +152,9 @@
             @include('menu._make_meal',array('row'=>$row))
         </form>
     @endforeach
+    @if(empty($query->data))
+        <h3 style="text-align: center">No Items Here!</h3>
+    @endif
     <div class="food-icon-container">
         <ul class="food-icon">
             @foreach($icons as $icn)

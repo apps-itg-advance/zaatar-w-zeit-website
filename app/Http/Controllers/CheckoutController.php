@@ -549,7 +549,7 @@ class CheckoutController extends Controller
      */
     public function store()
     {
-        
+
       $query=OrdersLibrary::SaveOrders();
 
         $cart_info=session()->get('cart_info');
