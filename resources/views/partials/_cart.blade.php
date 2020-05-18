@@ -67,8 +67,8 @@
 
     </div>
     <div class="action-buttons text-center mt-5 mb-3">
-        <button class="btn btn-B3B3B3 text-uppercase" onclick="_destroyCart()" id="DestroyBtn">Clear All</button>
-        <a id="CheckOutBtn" @if($cart!=null) href="{{route('checkout.address')}}" class="btn btn-8DBF43 text-uppercase" @else href="javascript:void(0)" class="btn btn-B3B3B3 text-uppercase" @endif >Checkout</a>
+        <button class="btn btn-B3B3B3 text-uppercase btn-B3B3B3-non-hover" onclick="_destroyCart()" id="DestroyBtn">Clear All</button>
+        <a id="CheckOutBtn" @if($cart!=null) href="{{route('checkout.address')}}" class="btn btn-8DBF43 text-uppercase " @else href="javascript:void(0)" class="btn btn-B3B3B3 text-uppercase btn-B3B3B3-non-hover" @endif >Checkout</a>
     </div>
 
 <script>
