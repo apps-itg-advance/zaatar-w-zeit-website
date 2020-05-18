@@ -234,6 +234,9 @@ button {
 
 .header-wrapper .cart-col { color: #FFFFFF;}
 .header-wrapper .cart-col .cart-link { color: #FFFFFF; font-family: 'Futura-Heavy'; background: url("../svg/icon-cart.svg") no-repeat center center #4D4D4D; height: 44px; width: 44px; text-align: center; float: right; padding-top: 11px; font-size: 20px; border: none; background-size: 100%;}
+
+.active-cart { background: url("../svg/icon-cart-active.svg") no-repeat center center !important;}
+
 .header-wrapper .cart-col .cart-link:after { display: none;}
 
 .header-wrapper .lebanon-a.dropdown-toggle { border: none;}

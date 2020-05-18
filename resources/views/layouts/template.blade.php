@@ -109,9 +109,11 @@
 				if(data=='0')
                 {
                     $("#ShoppingCart").attr("href", "#");
+                    $("#ShoppingCart").removeClass("active-cart");
                 }
 				else{
                     $("#ShoppingCart").attr("href", "{{route('checkout.address')}}");
+                    $("#ShoppingCart").addClass("active-cart");
                 }
 
 				//OpenCart();
