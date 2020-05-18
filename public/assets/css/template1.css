@@ -203,7 +203,7 @@ button {
 .text-4D4D4D { color: #4D4D4D!important;}
 .text-666666 { color: #666666!important;}
 
-.btn-B3B3B3 { background: #B3B3B3; color: #FFFFFF;}
+.btn-B3B3B3 { background: #B3B3B3; color: #FFFFFF; cursor: pointer}
 .btn-B3B3B3-non-hover{
     background: #B3B3B3 !important;
     color: #FFFFFF !important;
