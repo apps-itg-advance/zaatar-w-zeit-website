@@ -238,7 +238,7 @@ class OrdersLibrary{
                 $x=false;
             }
             $_payments=array(
-                'Settlement'=>$_total-$discount,
+                'Settlement'=>$_total-$discount-$cart_wallet,
                 'Currency'=>$currency,
                 'Category'=>$cart_payment->Name,
                 'PaymentTypeId'=>$cart_payment->POSCode
