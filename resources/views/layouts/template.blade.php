@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{(App::isLocale('ar') ? 'rtl' : 'ltr')}}">
+{{--<html lang="{{(App::isLocale('ar')?'ar':'en')}}" dir="{{(App::isLocale('ar') ? 'rtl' : 'ltr')}}">--}}
+{{--<script type="text/javascript"> Lang.setLocale('{{App::getLocale()}}'); </script>--}}
+{{--<html lang="{{App::getLocale()}}" dir="{{(App::isLocale('ar') ? 'rtl' : 'ltr')}}">--}}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

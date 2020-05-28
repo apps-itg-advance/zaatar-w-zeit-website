@@ -118,10 +118,10 @@
             @endif
         </div>
         <div class="modal-footer pt-0">
-            <span class="title d-inline-block">Total</span>
+            <span class="title d-inline-block">@lang('total')</span>
             <span class="amount d-inline-block mx-5" id="DisplayTotalE{{$row->ID}}">{{$item['price']}} {{$currency}}</span>
             <input type="hidden" id="TotalAmountE{{$row->ID}}" name="TotalAmount" value="{{$item['price']}}">
-            <button type="submit" class="btn btn-8DBF43 text-uppercase">Confirm</button>
+            <button type="submit" class="btn btn-8DBF43 text-uppercase">@lang('confirm')</button>
         </div>
     </div>
     </form>

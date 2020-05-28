@@ -5,12 +5,12 @@
 @section('content')
     <div class="col-xl-10 float-none p-0 mx-auto">
         <div class="title-div text-center mb-4">
-            <h2 class="title">Checkout</h2>
+            <h2 class="title">@lang('checkout')</h2>
         </div>
         @include('partials.checkout_bread')
         <div class="col-xl-9 col-lg-10 float-none p-0 mx-auto item-summary wallet-wrapper">
             <div class="title-div">
-                <h2 class="title">Wallet</h2>
+                <h2 class="title">@lang('wallet')</h2>
             </div>
             <div id="wallet-carousel" class="owl-carousel wallet-carousel mb-3">
                 @php
@@ -91,9 +91,9 @@
             </div>
             <input type="hidden" name="Voucher" id="voucher">
             <div class="action-buttons text-center pt-4">
-                <button type="button" class="btn btn-8DBF43 mr-sm-4 text-uppercase">Cofirm</button>
+                <button type="button" class="btn btn-8DBF43 mr-sm-4 text-uppercase">@lang('confirm')</button>
                 @if(isset($settings->Required) and !$settings->Required)
-                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('wallet')">Skip</button>
+                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('wallet')">@lang('skip')</button>
                 @endif
             </div>
         </div>

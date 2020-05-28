@@ -23,8 +23,8 @@
                         </div>
                         <div class="mediabox row align-items-center">
                             <div class="col-sm-7 text-center">
-                                <a href="#" class="link-favourite mr-3">Favourite</a>
-                                <a onclick="OpenModel({{$row->ID}})" class="link-customize" style="cursor: pointer">Customize</a>
+                                <a href="#" class="link-favourite mr-3">@lang('favourite')</a>
+                                <a onclick="OpenModel({{$row->ID}})" class="link-customize" style="cursor: pointer">@lang('customized')</a>
                             </div>
                             <div class="col-sm-5 text-center">
                                 <div class="input-group mx-auto">
@@ -115,10 +115,10 @@
                                         @endif
                                 </div>
                                 <div class="modal-footer pt-0">
-                                    <span class="title d-inline-block">Total</span>
+                                    <span class="title d-inline-block">@lang('total')</span>
                                     <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{$row->Price}}</span>
                                     <input type="hidden" id="TotalAmount{{$row->ID}}" name="total_amount[]" value="{{$row->Price}}">
-                                    <button class="btn btn-8DBF43 text-uppercase">Confirm</button>
+                                    <button class="btn btn-8DBF43 text-uppercase">@lang('confirm')</button>
                                 </div>
                             </div>
                         </div>

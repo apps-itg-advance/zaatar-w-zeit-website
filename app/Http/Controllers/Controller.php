@@ -27,6 +27,7 @@ class Controller extends BaseController
       //  die;
         SettingsLib::CompanyChildren();
             $this->_org=session()->get('_org');
+
         if(!isset($this->_org))
         {
             session()->flush();
@@ -37,9 +38,8 @@ class Controller extends BaseController
         }
 
       //  if(isset())
-            if (!session::has('navigations_'.$this->_org->id)) {
+            //if (!session::has('navigations_'.$this->_org->id)) {
                 $navigation=MenuLibrary::GetCategories($this->_org->id,$this->_org->token);
-
                 if(isset($navigation->data))
                 {
                     session()->put('navigations_'.$this->_org->id,$navigation->data);
@@ -47,7 +47,7 @@ class Controller extends BaseController
                     session()->put('first_category_name_'.$this->_org->id,$navigation->data[0]->Label);
                 }
 
-            }
+            //}
 
 
         if (session()->has('cart')) {

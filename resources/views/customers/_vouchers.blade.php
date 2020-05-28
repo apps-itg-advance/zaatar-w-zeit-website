@@ -14,7 +14,7 @@
     }
 </style>
 <div class="title-div mb-4">
-    <h2 class="title">Wallet</h2>
+    <h2 class="title">@lang('wallet')</h2>
 </div>
 @php
     $array_colors=array('#AFD27C','#9DBFC1','#808080','#8DBF43');
@@ -102,9 +102,9 @@
 @if($checkout)
     <input type="hidden" name="Voucher" id="voucher">
     <div class="action-buttons text-center pt-4">
-        <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">Confirm</button>
+        <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">@lang('confirm')</button>
         @if(isset($settings->Required) and !$settings->Required)
-            <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('wallet')">Skip</button>
+            <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('wallet')">@lang('skip')</button>
         @endif
     </div>
 @endif

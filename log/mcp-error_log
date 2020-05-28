@@ -1,0 +1,1 @@
+[Thu May 28 09:59:13.301892 2020] [php7:error] [pid 16340:tid 1856] [client 127.0.0.1:55132] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 268439552 bytes) in C:\\xampp\\htdocs\\zaatar-w-zeit-website\\routes\\web.php on line 49, referer: http://zwz.agora.ventures.local:88/public/

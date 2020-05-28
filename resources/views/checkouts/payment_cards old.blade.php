@@ -45,8 +45,8 @@
             </div>
             <div class="action-buttons text-center pt-4">
                 <input type="hidden" name="token_card" id="TokenCard">
-                <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">Confirm</button>
-                <button type="button" class="btn btn-B3B3B3 text-uppercase new-card">Pay with a new card</button>
+                <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">@lang('confirm')</button>
+                <button type="button" class="btn btn-B3B3B3 text-uppercase new-card">@lang('pay_with_a_new_card')</button>
 
             </div>
         </div>

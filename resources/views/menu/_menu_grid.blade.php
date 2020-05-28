@@ -125,7 +125,8 @@
                                     }
                             @endphp
                             @if($has_modifier==1)
-                            <a onclick="OpenModel({{$row->ID}})" id="CustomizedLink{{$row->ID}}"  class="link-customize pointer effect-underline {{$cust_css}}"><span class="customize-label" id="Customize{{$row->ID}}">{{$customize}}</span></a>
+{{--                            <a onclick="OpenModel({{$row->ID}})" id="CustomizedLink{{$row->ID}}"  class="link-customize pointer effect-underline {{$cust_css}}"><span class="customize-label" id="Customize{{$row->ID}}">{{$customize}}</span></a>--}}
+                            <a onclick="OpenModel({{$row->ID}})" id="CustomizedLink{{$row->ID}}"  class="link-customize pointer effect-underline {{$cust_css}}"><span class="customize-label" id="Customize{{$row->ID}}">@lang('customized')</span></a>
                             @endif
                         </div>
                         <div class="col-sm-5 text-center">
@@ -153,7 +154,7 @@
         </form>
     @endforeach
     @if(empty($query->data))
-        <h3 style="text-align: center">No Items Here!</h3>
+        <h3 style="text-align: center"><?php echo app('translator')->get('No Items Here!'); ?></h3>
     @endif
     <div class="food-icon-container">
         <ul class="food-icon">

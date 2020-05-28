@@ -389,7 +389,7 @@
                 var email=$('#email{{$sKey}}').val();
                 if(mobile=='')
                 {
-                    jQuery('#R_Mobile').html('Mobile is required');
+                    jQuery('#R_Mobile').html('<?= app('translator')->get('mobile_is_required')?>');
                     validated = false;
                 }
                 else
@@ -397,7 +397,7 @@
 	                jQuery('#R_Mobile').html(' ');
                 }
                 if( email==''){
-	                jQuery('#R_Email').html('Email is required');
+	                jQuery('#R_Email').html('<?= app('translator')->get('email_is_required')?>');
 	                validated = false;
                 }
                 else if( !validateEmail(email)){

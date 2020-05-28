@@ -5,7 +5,7 @@
 @section('content')
     <div class="col-xl-10 float-none p-0 mx-auto">
         <div class="title-div text-center mb-4">
-            <h2 class="title">Checkout</h2>
+            <h2 class="title">@lang('checkout')</h2>
         </div>
         @include('partials.checkout_bread')
         <div class="col-xl-9 col-lg-10 float-none p-0 mx-auto item-summary wallet-wrapper">

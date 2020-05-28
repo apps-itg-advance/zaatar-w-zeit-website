@@ -41,11 +41,12 @@ Route::post('/register', 'Auth\LoginController@register')->name('auth.register')
 Route::get('/clear-cache', 'Auth\LoginController@clear_cache')->name('clear.cache');
 //Route::get('/switch-org/{id?}', 'Controller@switch_organization')->name('switch.organization');
 
-Route::get('/switch-org/{id?}', function($id) {
-
+Route::get('/switch-org/{id?}/{lang?}', function($id,$lang) {
+    App::setLocale($lang);
+    session()->put('locale',$lang);
     SettingsLib::SwitchOrganization($id);
     return redirect(route('home'));
-   // session()->put('progress', '5%');
+    // session()->put('progress', '5%');
    // session()->save();
     // dd(Session::get('progress'));
 })->name('switch.organization');
@@ -115,3 +116,5 @@ Route::group(['middleware' => ['checkLogin']], function () {
 
 
 //Route::get('/details/{id}', 'MenuController@details')->name('menu.details');
+
+//Route::get('lang/{locale}', 'LocalizationController@index');

@@ -6,11 +6,13 @@
  * Time: 3:31 PM
  */
 
+
 namespace App\Http\Libraries;
 use App\Http\Helpers\Helper;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
+use App;
 
 
 class SettingsLib

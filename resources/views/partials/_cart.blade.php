@@ -7,7 +7,7 @@
         }
 @endphp
 
-<h4 class="title text-center">Order Summary</h4>
+<h4 class="title text-center">@lang("order_summary")</h4>
 @if($fav==1 and $cart==null)
     <h4 class="text-center" style="margin-top: 2px !important; font-weight: normal !important; font-size: 30px !important; line-height: 0px;">ADD YOUR FAVOURITES HERE !</h4>
 @endif
@@ -61,13 +61,13 @@
 
 </div>
     <div class="carttotal-block mt-3">
-        <div class="delivery-fee text-right"><span class="float-left">Delivery fee</span> @if($cart!=null){{number_format($delivery_fees).' '.$currency}}  @endif &nbsp;</div>
+        <div class="delivery-fee text-right"><span class="float-left">@lang('delivery_fee')</span> @if($cart!=null){{number_format($delivery_fees).' '.$currency}}  @endif &nbsp;</div>
         <hr/>
-        <div class="total-fee text-right"><span class="float-left">Total</span>  @if($cart!=null){{number_format(($_total+$delivery_fees)).' '.$currency}} @else <span style="color: white">&nbsp; </span>  @endif </div>
+        <div class="total-fee text-right"><span class="float-left">@lang('total')</span>  @if($cart!=null){{number_format(($_total+$delivery_fees)).' '.$currency}} @else <span style="color: white">&nbsp; </span>  @endif </div>
 
     </div>
     <div class="action-buttons text-center mt-5 mb-3">
-        <button @if($cart!=null) class="btn btn-B3B3B3 text-uppercase" @else class="btn btn-B3B3B3 text-uppercase btn-B3B3B3-non-hover" @endif onclick="_destroyCart()" id="DestroyBtn">Clear All</button>
+        <button @if($cart!=null) class="btn btn-B3B3B3 text-uppercase" @else class="btn btn-B3B3B3 text-uppercase btn-B3B3B3-non-hover" @endif onclick="_destroyCart()" id="DestroyBtn">@lang('clear_all')</button>
         <a id="CheckOutBtn" @if($cart!=null) href="{{route('checkout.address')}}" class="btn btn-8DBF43 text-uppercase " @else href="javascript:void(0)" class="btn btn-B3B3B3 text-uppercase btn-B3B3B3-non-hover" @endif >Checkout</a>
     </div>
 

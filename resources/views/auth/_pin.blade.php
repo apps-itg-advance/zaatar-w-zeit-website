@@ -6,14 +6,14 @@
                     <div class="form-container">
                         <div class="form-group">
                             {{--<input type="text" class="form-control" id="Pin" name="pin{{$sKey}}" />--}}
-                            <label>Enter the validation code sent by SMS</label>
+                            <label><?php echo app('translator')->get('not_registered'); ?></label>
                             <input name="pin{{$sKey}}" type="text" id="Pin" class="mb-2">
                             <label id="PinMsg" class="text-danger"></label>
                         </div>
                         <div class="py-5">
-                            <button type="button" id="Pinbtn" class="btn btn-submit btn-login btn-block text-uppercase d-none">Confirmation</button>
-                            <button type="button" id="Backbtn" class="btn btn-submit btn-login btn-block text-uppercase">Back</button>
-                            <button type="button" id="Resendbtn" class="btn btn-submit btn-login btn-block text-uppercase">Resend Pin Code</button>
+                            <button type="button" id="Pinbtn" class="btn btn-submit btn-login btn-block text-uppercase d-none">@lang('confirmation')</button>
+                            <button type="button" id="Backbtn" class="btn btn-submit btn-login btn-block text-uppercase">@lang('back')</button>
+                            <button type="button" id="Resendbtn" class="btn btn-submit btn-login btn-block text-uppercase">@lang('resend_pin_code')</button>
                         </div>
                     </div>
                 </div>

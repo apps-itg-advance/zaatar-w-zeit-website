@@ -112,8 +112,8 @@
 
 
 					<div class="col-md-9">
-						<button type="button" id="edit-profile" class="btn btn-8DBF43 btn-1-anim btn-user">Edit Profile</button>&nbsp;&nbsp;
-						<a href="{{route('logout')}}" class="btn btn-808080 btn-1-anim btn-user">&nbsp;&nbsp;Logout&nbsp;&nbsp;</a>
+						<button type="button" id="edit-profile" class="btn btn-8DBF43 btn-1-anim btn-user">@lang('edit_profile')</button>&nbsp;&nbsp;
+						<a href="{{route('logout')}}" class="btn btn-808080 btn-1-anim btn-user">&nbsp;&nbsp;<?php echo app('translator')->get('logout'); ?>&nbsp;&nbsp;</a>
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -159,7 +159,7 @@
 				</div>
 				<div class="col-xl-11 col-lg-10 float-none p-0 mx-auto wallet-wrapper">
 					<div class="title-div mb-4">
-						<h2 class="title">Wallet</h2>
+						<h2 class="title">@lang('wallet')</h2>
 					</div>
 					<div id="wallet-carousel" class="owl-carousel wallet-carousel">
 						@php
@@ -229,7 +229,7 @@
 				<div class="clearfix" style="margin-bottom: 30px !important;"></div>
 				<div class="col-xl-11 col-lg-10 float-none p-0 mx-auto wallet-wrapper">
 				<div class="title-div mb-4">
-					<h3 class="title">Order History</h3>
+					<h3 class="title">@lang('order_history')</h3>
 				</div>
 				</div>
 				@include('customers._order_grid',array('query'=>$orders,'favourite'=>false,'page_title'=>'Orders History','row_total'=>$total_orders))
