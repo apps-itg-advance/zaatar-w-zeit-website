@@ -72,8 +72,8 @@
                         <img  alt="loading.." data-src="{{asset(isset($row->LocalThumbnailImg) ? $row->LocalThumbnailImg : $row->ThumbnailImg)}}" @if($has_modifier==1) style="cursor: pointer" onclick="OpenModel({{$row->ID}})" @endif class="mr-3 img-thum b-lazy"  alt="...">
                         <div class="media-body">
                             <h5 class="mt-0">
-                                <a id="ItemName{{$row->ID}}" href="javascript:void(0)" @if($has_modifier==1) onclick="OpenModel({{$row->ID}})" @endif style="max-width: 60% !important; float: left !important;">{{$row->item_name}}</a>
-                                <span class="price" style="max-width: 38% !important; float:right !important; vertical-align: text-top">{{number_format($row->Price)}} {{$currency}}</span>
+                                <a id="ItemName{{$row->ID}}" href="javascript:void(0)" @if($has_modifier==1) onclick="OpenModel({{$row->ID}})" @endif style="max-width: 60% !important; float: left">{{$row->item_name}}</a>
+                                <span class="price" style="max-width: 38% !important; float:right; vertical-align: text-top">{{number_format($row->Price)}} {{$currency}}</span>
                                 <div class="clearfix"></div>
                                 <ul class="icon">
                                 <?php
@@ -104,7 +104,7 @@
                                 @if(session('is_login'))
                                     <a onclick="SetFavourite({{$row->ID}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite mr-3 {{$active_f}}"><span>Favourite</span></a>
                                 @else
-                                    <a onclick="loginAlert()" class="effect-underline link-favourite mr-3 cursor-pointer"><span>Favourite</span></a>
+                                    <a onclick="loginAlert()" class="effect-underline link-favourite mr-3 cursor-pointer"><span>@lang('favourite')</span></a>
                                 @endif
                             @endif
                             @php

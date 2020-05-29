@@ -183,5 +183,11 @@
   "sub_total":"المجموع الفرعي",
   "address_nickname":"عنوان الإسم المستعار",
   "building":"بناء ",
+<<<<<<< Updated upstream
   "address_type":"نوع العنوان"
+=======
+  "address_type":"نوع العنوان",
+  "favourites":"المفضلة",
+  "add_favourites":"أضف مفضلاتك هنا!"
+>>>>>>> Stashed changes
 }

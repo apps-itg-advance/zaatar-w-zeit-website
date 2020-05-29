@@ -181,5 +181,11 @@
   "sub_total":"SubTotal",
   "address_nickname":"Address Nickname",
   "building":"Building",
+<<<<<<< Updated upstream
   "address_type":"Address Type"
+=======
+  "address_type":"Address Type",
+  "favourites":"Favourites",
+  "add_favourites":"ADD YOUR FAVOURITES HERE !"
+>>>>>>> Stashed changes
 }

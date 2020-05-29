@@ -67,7 +67,7 @@
                                                        <div class="text-808080">'.implode(', ',$array_modifiers).'</div>
                                                        '.$meal_display.'
                                                    </div>
-                                                   <div class="col-md-4"> <h5 class="mb-0" style="text-align: right !important;">'.number_format($amount).'</h5></div>
+                                                   <div class="col-md-4"> <h5 class="mb-0" style="text-align: right">'.number_format($amount).'</h5></div>
                                                </div>';
 
                             }
