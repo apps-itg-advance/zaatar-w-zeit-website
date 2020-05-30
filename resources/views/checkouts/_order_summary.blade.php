@@ -78,7 +78,7 @@ $discount=0;
                                                 @endif
                                             @endif
                                         </div>
-                                        <div class="col-md-4"> <h5 class="mb-0" style="text-align: right !important;">{{number_format($price)}}</h5></div>
+                                        <div class="col-md-4"> <h5 class="mb-0" style="text-align: right;">{{number_format($price)}}</h5></div>
                                     </div>
                               @endforeach
                             </div>

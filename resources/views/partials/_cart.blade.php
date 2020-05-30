@@ -68,16 +68,11 @@
     </div>
     <div class="action-buttons text-center mt-5 mb-3">
         <button @if($cart!=null) class="btn btn-B3B3B3 text-uppercase" @else class="btn btn-B3B3B3 text-uppercase btn-B3B3B3-non-hover" @endif onclick="_destroyCart()" id="DestroyBtn">@lang('clear_all')</button>
-<<<<<<< Updated upstream
-        <a id="CheckOutBtn" @if($cart!=null) href="{{route('checkout.address')}}" class="btn btn-8DBF43 text-uppercase " @else href="javascript:void(0)" class="btn btn-B3B3B3 text-uppercase btn-B3B3B3-non-hover" @endif >Checkout</a>
-=======
         <a id="CheckOutBtn" @if($cart!=null) href="{{route('checkout.address')}}" class="btn btn-8DBF43 text-uppercase " @else href="javascript:void(0)" class="btn btn-B3B3B3 text-uppercase btn-B3B3B3-non-hover" @endif >@lang('checkout')</a>
->>>>>>> Stashed changes
     </div>
-
 <script>
 	$( document ).ready(function() {
-	
+
 		function adjustScrolling(){
 			var scroll = $(window).scrollTop();
 			if(scroll>75){
