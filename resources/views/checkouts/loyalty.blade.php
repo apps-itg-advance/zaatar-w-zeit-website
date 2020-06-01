@@ -28,7 +28,7 @@
                             </div>
                             <div class="items-vouchers">
                                 <div class="row">
-                                    <div class="col-md-12">How much would you like to use?</div>
+                                    <div class="col-md-12">@lang('how_much_would_you_like_to_use?')</div>
                                     <div class="col-md-9"><input name="wallet_amount" id="WalletAmount" class="form-control w-amount"></div>
                                     <div class="col-md-3" style="font-size: 20px !important;"> {{$currency}}</div>
                                 </div>
@@ -50,7 +50,7 @@
                     <div class="item {{$array_colors[$rand]}}" data-mh="matchHeight">
                         <div class="item-div text-white p-3">
                             <div class="py-4 item-quantity text-right">
-                                <div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> quantity</div>
+                                <div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> @lang('quantity')</div>
                             </div>
                             <div class="item-discount text-uppercase title-{{$vouchers[$i]->Id}}" data-title="{{$vouchers[$i]->Title}}">
                                 {{$vouchers[$i]->Title}}
@@ -73,7 +73,7 @@
                             <div class="items-vouchers">
                                 @php $css='vqty'.$vouchers[$i]->Id; @endphp
                                 @foreach($array_exp as $key=>$value)
-                                    <div class="voucher"><span class="{{$css}}" data-title="{{$value}}">{{$value}}</span>  vouchers expire {{$key}}</div>
+                                    <div class="voucher"><span class="{{$css}}" data-title="{{$value}}">{{$value}}</span>  @lang('vouchers_expire') {{$key}}</div>
                                     @php $css='' @endphp
                                 @endforeach
 

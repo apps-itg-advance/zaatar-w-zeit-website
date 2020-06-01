@@ -178,9 +178,14 @@
   "ex_yara_s_famous":"ex. yara's famous",
   "choose_a_language": "CHOOSE A LANGUAGE",
   "loading":"Loading...",
+  "sub_total":"SubTotal",
   "address_nickname":"Address Nickname",
   "building":"Building",
   "address_type":"Address Type",
   "favourites":"Favourites",
-  "add_favourites":"ADD YOUR FAVOURITES HERE !"
+  "add_favourites":"ADD YOUR FAVOURITES HERE !",
+  "you_have":"YOU HAVE",
+  "vouchers_expire":"vouchers expire",
+  "credit_cards":"Credit Cards",
+  "quantity": "quantity"
 }

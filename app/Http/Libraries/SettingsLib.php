@@ -403,7 +403,7 @@ class SettingsLib
         //die;
         $loyalty_id=session()->get('loyalty_id');
         $token=session()->get('token');
-        $lang=session()->get('locale');
+        $lang= session()->get('locale');
         $url=env('BASE_URL').'geo/GetCities?token='.$token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id.'&lang='.$lang;
       //  echo $url;
        // die;

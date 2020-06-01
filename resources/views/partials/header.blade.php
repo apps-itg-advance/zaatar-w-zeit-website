@@ -1,3 +1,4 @@
+
 <header class="header-wrapper bg-4D4D4D" >
     <div class="container">
 
@@ -15,22 +16,24 @@
                             <img src="{{$s_org->country_flag}}" class="flag img-fluid logo-image" />
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
                             @if(count($orgs)>1)
                                 @foreach($orgs as $org)
                                     @if($org->display==1)
 {{--                                                                    <a class="dropdown-item mb-2" href="{{route('switch.organization',['id'=>$org->id])}}">--}}
 {{--                                                                        <img src="{{$org->country_flag}}" onclick="return LangTranslate()"/> {{$org->country}}--}}
 {{--                                                                    </a>--}}
-                                        @if($org->country_code === 'SA')
-                                            <a class="dropdown-item mb-2" onclick="return LangTranslate()" >
-                                                <img src="{{$org->country_flag}}" /> {{$org->country}}
-                                            </a>
-                                        @else
-                                            <a class="dropdown-item mb-2" href="{{route('switch.organization',['id'=>$org->id,'lang'=>'en'])}}">
-                                                <img src="{{$org->country_flag}}" /> {{$org->country}}
-                                            </a>
-                                        @endif
+                                        <a class="dropdown-item mb-2" onclick="return LangTranslate({{$org->id}})" >
+                                            <img src="{{$org->country_flag}}" /> {{$org->country}}
+                                        </a>
+{{--                                        @if($org->country_code === 'SA')--}}
+{{--                                            <a class="dropdown-item mb-2" onclick="return LangTranslate()" >--}}
+{{--                                                <img src="{{$org->country_flag}}" /> {{$org->country}}--}}
+{{--                                            </a>--}}
+{{--                                        @else--}}
+{{--                                            <a class="dropdown-item mb-2" href="{{route('switch.organization',['id'=>$org->id,'lang'=>'en'])}}">--}}
+{{--                                                <img src="{{$org->country_flag}}" /> {{$org->country}}--}}
+{{--                                            </a>--}}
+{{--                                        @endif--}}
                                     @endif
 
                                 @endforeach
@@ -96,10 +99,10 @@
                 <h6 class="modal-title" id="modelHeading"><b>@lang('choose_a_language')</b></h6>
             </div>
             <div class="modal-body">
-
+                   <input type="hidden" id="flagorgid" value="" name="flagorgid"/>
                 <div class="lang-detail">
                     <div class="lang">
-                        <a href="{{route('switch.organization',['id'=>$org->id,'lang'=>'ar'])}}">
+                        <a id="arlang">
                             <svg fill="#747474" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
 <g>
@@ -145,7 +148,7 @@
                         </a>
                     </div>
                     <div class="lang">
-                        <a href="{{route('switch.organization',['id'=>$org->id,'lang'=>'en'])}}">
+                        <a id="enlang">
                             <svg fill="#747474" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
 <g>
@@ -198,8 +201,17 @@
 </div>
 {{--      End  Modal for choose the lang--}}
 <script type="text/javascript">
-    function LangTranslate() {
+    function LangTranslate(orgid) {
         $('#LangTranModal').modal();
+        $('#flagorgid').val(orgid);
+        {{--$('#arlang').attr('href', `{{route('switch.organization',['id'=>method_field('flagorgid'),'lang'=>'ar'])}}`);--}}
+        var url = "{{route('switch.organization',['id'=>':orgid','lang'=>'ar'])}}";
+        url = url.replace(':orgid',orgid);
+        $('#arlang').attr('href',url);
+
+        var enurl = "{{route('switch.organization',['id'=>':orgenid','lang'=>'en'])}}";
+        enurl = enurl.replace(':orgenid',orgid);
+        $('#enlang').attr('href',enurl);
     }
 </script>
 <style>

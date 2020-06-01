@@ -172,7 +172,7 @@
 										<div class="float-right"></div>
 									</div>
 									<div class="item-discount text-uppercase" >
-										YOU HAVE <span class="wallet-balance">{{number_format($wallet_balance)}}</span> {{$currency}}
+										@lang('you_have') <span class="wallet-balance">{{number_format($wallet_balance)}}</span> {{$currency}}
 									</div>
 
 									<p><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
@@ -189,7 +189,7 @@
 							<div class="slide-shadow item "  style="background-color: {{$bg_color}}" id="voucher-b{{$vouchers[$i]->Id}}">
 								<div class="item-div text-white p-3" id="voucher-b1{{$vouchers[$i]->Id}}">
 									<div class="py-4 item-quantity text-right float-right">
-										<div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> quantity</div>
+										<div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> @lang('quantity')</div>
 									</div>
 									<div class="item-discount text-uppercase title-{{$vouchers[$i]->Id}}" data-title="{{$vouchers[$i]->Title}}">
 										{{$vouchers[$i]->Title}}
@@ -212,7 +212,7 @@
 									<div class="items-vouchers">
 										@php $css='vqty'.$vouchers[$i]->Id; @endphp
 										@foreach($array_exp as $key=>$value)
-											<div class="voucher"><span class="{{$css}}" data-title="{{$value}}">{{$value}}</span>  vouchers expire {{$key}}</div>
+											<div class="voucher"><span class="{{$css}}" data-title="{{$value}}">{{$value}}</span>  @lang('vouchers_expire') {{$key}}</div>
 											@php $css='' @endphp
 										@endforeach
 

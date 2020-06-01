@@ -180,9 +180,14 @@
   "ex_yara_s_famous":"على سبيل المثال يارا الشهيرة",
   "choose_a_language": "اختر لغة",
   "loading":"جار التحميل...",
+  "sub_total":"المجموع الفرعي",
   "address_nickname":"عنوان الإسم المستعار",
   "building":"بناء ",
   "address_type":"نوع العنوان",
   "favourites":"المفضلة",
-  "add_favourites":"أضف مفضلاتك هنا!"
+  "add_favourites":"أضف مفضلاتك هنا!",
+  "you_have":"عندك",
+  "vouchers_expire":"تنتهي صلاحية القسائم",
+  "credit_cards":"بطاقات الائتمان",
+  "quantity": "كمية"
 }

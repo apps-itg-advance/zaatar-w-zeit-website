@@ -11,12 +11,12 @@
 
     <div class="col-xl-10 col-lg-11 col-md-11 col-sm-12 float-none p-0 mx-auto">
         <div class="title-div text-center mb-4">
-            <h2 class="title">Online Credit Card Payment</h2>
+            <h2 class="title">@lang('online_credit_card_payment')</h2>
         </div>
         @include('partials.checkout_bread')
         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-10 float-none p-0 mx-auto item-summary wallet-wrapper">
             <div class="title-div">
-                <h2 class="title">Credit Cards</h2>
+                <h2 class="title">@lang('credit_cards')</h2>
             </div>
 
 
@@ -43,7 +43,7 @@
                             <div class="clearfix"></div>
                             <div class="card-date">Valid Thru<br>{{$month.' / '.$year}}</div>
                             <div class="buttons text-center mt-3">
-                                <a href="javascript:void(0)" onclick="SelectCard('{{$card->Token}}')" class="btn btn-redeem active text-uppercase">Pay with this card</a>
+                                <a href="javascript:void(0)" onclick="SelectCard('{{$card->Token}}')" class="btn btn-redeem active text-uppercase">@lang('pay_with_this_card')</a>
                             </div>
                         </div>
                     </div>
