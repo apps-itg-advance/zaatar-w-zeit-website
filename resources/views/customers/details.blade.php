@@ -140,7 +140,7 @@
 						<div  class="col-md-6">
 							<div class="c100 p{{$per}} big green">
 								<img src="/assets/images/arrow-down.png"  class="{{($query->details->Threshold> $query->details->TierBalance) ? '':'d-none'}}" alt="zwz profile arrow">
-								<span><div style="font-size: 68px !important;">{{$query->details->LevelName}} <br> <small>{{number_format($query->details->TierBalance)}} points</small></div></span>
+								<span><div style="font-size: 68px !important;">{{$query->details->LevelName}} <br> <small>{{number_format($query->details->TierBalance)}} @lang('points_lower')</small></div></span>
 								<div class="slice">
 									<div class="bar"></div>
 									<div class="fill"></div>
@@ -246,6 +246,7 @@
 @section('javascript')
 	<script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
 	<script>
+		var countrylang = $('html').attr('lang');
 		@php
 			if($type=='register')
         {
@@ -264,6 +265,7 @@
 		});
 		$(document).ready(function(){
 			$('.owl-carousel').owlCarousel({
+				rtl:countrylang === 'ar'? true: false,
 				loop : false,
 				navText : ['', ''],
 				margin : 35,

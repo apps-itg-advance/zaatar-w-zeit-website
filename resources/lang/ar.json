@@ -156,7 +156,7 @@
   "debit_or_credit_card":	"بطاقة الائتمان",
   "cash": "نقداً",
   "rules_and_regulations":	"الأحكام والشروط",
-  "want_to_personalize?": "أضف طابع شخصي",
+  "want_to_personalize?": "هل تريد التخصيص؟",
   "favorite_your_customized_item_and_add_a_special_name_to_it!":  "أضف أكلتك المعدلة وأطلق عليها إسم",
   "header_menu":"قائمة طعام",
   "header_favourites":"المفضلة",
@@ -189,5 +189,11 @@
   "you_have":"عندك",
   "vouchers_expire":"تنتهي صلاحية القسائم",
   "credit_cards":"بطاقات الائتمان",
-  "quantity": "كمية"
+  "quantity": "كمية",
+  "gender":"جنس",
+  "dob":"دوب",
+  "select_gender":"حدد نوع الجنس",
+  "male":"الذكر",
+  "female":"أنثى",
+  "favourite_addeded_sucess_msg":"تمت إضافة العنصر المفضل لديك بنجاح."
 }

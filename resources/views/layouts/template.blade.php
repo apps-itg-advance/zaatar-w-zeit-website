@@ -243,7 +243,7 @@
 				Swal.fire({
 					// position: 'top-end',
 					icon: 'success',
-					title: 'Your favourite item was added successfully.',
+					title: '<?php echo app('translator')->get('favourite_addeded_sucess_msg'); ?>',
 					showConfirmButton: false,
 					timer: 1200
 				});

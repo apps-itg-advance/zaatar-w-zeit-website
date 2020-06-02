@@ -154,7 +154,7 @@
   "debit_or_credit_card":	"Debit or credit card",
   "cash": "Cash",
   "rules_and_regulations":	"Rules & Regulations",
-  "want_to_personalize?": "أضف طابع شخصي",
+  "want_to_personalize?": "Want to Personalize?",
   "favorite_your_customized_item_and_add_a_special_name_to_it!":  "Favorite your customized item and add a special name to it!",
   "header_menu":"Menu",
   "header_favourites":"Favourites",
@@ -187,5 +187,11 @@
   "you_have":"YOU HAVE",
   "vouchers_expire":"vouchers expire",
   "credit_cards":"Credit Cards",
-  "quantity": "quantity"
+  "quantity": "quantity",
+  "gender":"Gender",
+  "dob":"DOB",
+  "select_gender":"Select Gender",
+  "male":"Male",
+  "female":"Female",
+  "favourite_addeded_sucess_msg":"Your favourite item was added successfully."
 }

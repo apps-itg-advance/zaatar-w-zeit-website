@@ -45,7 +45,7 @@
 
                 <p class=" float-left"><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
                 <div class="buttons  float-right "  style="margin: 10px !important;">
-                    <a href="javascript:void(0)" style="cursor: pointer" class="btn btn-redeem text-uppercase redeem-wallet">Redeem</a>
+                    <a href="javascript:void(0)" style="cursor: pointer" class="btn btn-redeem text-uppercase redeem-wallet">@lang('redeem')</a>
                 </div>
             </div>
 
@@ -90,7 +90,7 @@
                 </div>
                 <p class=" float-left"><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
                 <div class="buttons float-right" style="margin: 10px !important;">
-                    <a href="javascript:void(0)" style="cursor: pointer" onclick="SelectRedeem('{{$vouchers[$i]->Id}}')" class="btn btn-redeem text-uppercase redeem-{{$vouchers[$i]->Id}}">Redeem</a>
+                    <a href="javascript:void(0)" style="cursor: pointer" onclick="SelectRedeem('{{$vouchers[$i]->Id}}')" class="btn btn-redeem text-uppercase redeem-{{$vouchers[$i]->Id}}">@lang('redeem')</a>
                 </div>
             </div>
 
@@ -171,15 +171,15 @@
         var x=$(".w-amount").val();
         if(x>0)
         {
-        if($(this).text()=='Redeemed')
+        if($(this).text()=='<?php echo app('translator')->get('redeemed'); ?>')
         {
-            $(this).text('Redeem');
+            $(this).text('<?php echo app('translator')->get('redeem'); ?>');
             $(".w-amount").val('');
             $("#wallet-b").removeClass("border-green");
             $("#wallet-b-1").removeClass("border-white");
         }
         else{
-            $(this).text('Redeemed');
+            $(this).text('<?php echo app('translator')->get('redeemed'); ?>');
             $("#wallet-b").addClass("border-green");
             $("#wallet-b-1").addClass("border-white");
             $(".wallet-balance").html(formatNumber({{$wallet_balance}}));
@@ -200,7 +200,7 @@
         var title_v=$('.title-'+val).data('title');
         var old_value=$("#voucher").val();
         var tlt= $('.redeem-' + val).text();
-        if(tlt=='Redeem')
+        if(tlt=='<?php echo app('translator')->get('redeem'); ?>')
         {
             if(val!=old_value) {
                 if (old_value != '') {
@@ -210,7 +210,7 @@
                     $('.vqty' + old_value).html((old_qty));
                     $("#voucher-b"+old_value).removeClass("border-green");
                     $("#voucher-b1"+old_value).removeClass("border-white");
-                    $('.redeem-' + old_value).text('Redeem');
+                    $('.redeem-' + old_value).text('<?php echo app('translator')->get('redeem'); ?>');
                 }
 
                 var qty_all = $('.qty' + val).data('title');
@@ -220,7 +220,7 @@
                 $("#voucher").val(val);
                 $("#voucher-b"+val).addClass("border-green");
                 $("#voucher-b1"+val).addClass("border-white");
-                $('.redeem-' + val).text('Redeemed');
+                $('.redeem-' + val).text('<?php echo app('translator')->get('redeemed'); ?>');
             }
         }
         else{
@@ -231,7 +231,7 @@
             $("#voucher").val('');
             $("#voucher-b"+val).removeClass("border-green");
             $("#voucher-b1"+val).removeClass("border-white");
-            $('.redeem-' + val).text('Redeem');
+            $('.redeem-' + val).text('<?php echo app('translator')->get('redeem'); ?>');
         }
 
 
@@ -247,7 +247,7 @@
         var walletValue =   $("#WalletAmount").val();
         var txtWallet=$(".redeem-wallet").text();
 
-        if(radioValue!='' || (walletValue!='' && walletValue>0 && txtWallet=='Redeemed'))
+        if(radioValue!='' || (walletValue!='' && walletValue>0 && txtWallet=='<?php echo app('translator')->get('redeemed'); ?>'))
         {
             $.ajax({
                 headers: {

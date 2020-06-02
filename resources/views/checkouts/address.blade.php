@@ -88,7 +88,7 @@
                 <div class="col-md-9 hidden-input" >
                     <div class="row">
                         <div class="col-sm-4">
-                            <label class="label-l">
+                            <label class="{{(App::isLocale('ar') ? 'ar-custom-label' : 'label-l')}}">
                             <select class="select-l" name="schedule_day"  onchange="RefreshCalander()" id="schedule-day">
                                 <option value="today" {{(isset($schedule_day) and $schedule_day=='today') ?'selected':''}}  >Today</option>
                                 <option value="tomorrow" {{(isset($schedule_day) and $schedule_day=='tomorrow') ? 'selected':''}} >Tomorrow</option>

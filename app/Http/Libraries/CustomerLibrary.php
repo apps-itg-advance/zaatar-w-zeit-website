@@ -86,7 +86,8 @@ class CustomerLibrary
         $Skey=session()->get('skey');
         $s_org=session()->get('_org');
         $token=session()->get('token');
-        $url=env('BASE_URL').'addresses/get?token='.$token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+        $lang=session()->get('locale');
+        $url=env('BASE_URL').'addresses/get?token='.$token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id.'&lang='.$lang;
             $query=Helper::getApi($url);
             $res=array();
             if(isset($query->data))
@@ -114,7 +115,8 @@ class CustomerLibrary
         {
             $extra.='&favorite=1';
         }
-        $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id.$extra;
+        $lang = session()->get('locale');
+        $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id.$extra.'&lang='.$lang;
         $query=Helper::getApi($url);
         $res=$query->data;
         return array('rows'=>$res,'total'=>$query->total);
@@ -124,7 +126,8 @@ class CustomerLibrary
         $Skey=session()->get('skey');
         $s_org=session()->get('_org');
         $token=session()->get('token');
-        $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+        $lang = session()->get('locale');
+        $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$token.'&organization_id='.$s_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id.'&lang='.$lang;
         $query=Helper::getApi($url);
         $res=$query->data;
         return $res;
@@ -136,7 +139,8 @@ class CustomerLibrary
         $array['token']=$token;
         $array['organization_id']=$s_org->id;
         $array['channel_id']=1;
-        $url=env('BASE_URL').'LoyaltiesApi/GetVouchers';
+        $lang=session()->get('locale');
+        $url=env('BASE_URL').'LoyaltiesApi/GetVouchers?lang='.$lang;
         $query=Helper::postApi($url,$array);
         $res=$query->data;
         return $res;

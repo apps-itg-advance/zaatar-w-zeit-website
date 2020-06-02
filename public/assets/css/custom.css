@@ -209,7 +209,8 @@
     height: 30px;
 }
 .food-icon{
-
+    display: flex;
+    padding: 0;
     margin-right: auto;
     margin-left: auto;
     list-style: none;
@@ -219,6 +220,10 @@
 .food-icon img{
     height: 18px;
     margin-right: 5px;
+}
+.ar-lang .food-icon img {
+    margin-left: 5px;
+    margin-right: 0;
 }
 .food-icon li{
     display: inline-block;

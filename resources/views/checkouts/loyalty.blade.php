@@ -36,7 +36,7 @@
 
                             <p><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
                             <div class="buttons  text-center mt-3">
-                                <a href="javascript:void(0)" style="cursor: pointer" onclick="WalletAmount()" class="btn btn-redeem text-uppercase">Redeem</a>
+                                <a href="javascript:void(0)" style="cursor: pointer" onclick="WalletAmount()" class="btn btn-redeem text-uppercase">@lang('redeem')</a>
                             </div>
                         </div>
 
@@ -80,7 +80,7 @@
                             </div>
                             <p><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
                             <div class="buttons text-center mt-3">
-                                <a href="javascript:void(0)" style="cursor: pointer" onclick="SelectRedeem('{{$vouchers[$i]->Id}}')" class="btn btn-redeem text-uppercase">Redeem</a>
+                                <a href="javascript:void(0)" style="cursor: pointer" onclick="SelectRedeem('{{$vouchers[$i]->Id}}')" class="btn btn-redeem text-uppercase">@lang('redeem')</a>
                             </div>
                         </div>
 

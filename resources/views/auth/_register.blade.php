@@ -28,16 +28,16 @@
                         <input type="hidden" readonly="readonly" class="form-control" name="email{{$sKey}}" id="R_Email{{$sKey}}" />
 
                         <div class="form-group">
-                            <label>Gender</label>
+                            <label>@lang('gender')</label>
                             <select name="gender{{$sKey}}" id="R_Gender{{$sKey}}" class="form-control">
-                                <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="">@lang('select_gender')</option>
+                                <option value="male">@lang('male')</option>
+                                <option value="female">@lang('female')</option>
                             </select>
                             <div class="required" id="R_Gender"></div>
                         </div>
                         <div class="form-group">
-                            <label>DOB</label>
+                            <label>@lang('dob')</label>
                             {{--<div class="input-group date " data-provide="datepicker" data-date-format="yyyy-mm-dd" >--}}
                             <div class="input-group">
                                 {{--<div class="flatpickr">--}}

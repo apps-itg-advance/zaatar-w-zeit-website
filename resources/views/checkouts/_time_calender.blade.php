@@ -47,7 +47,7 @@
           }
         }
 @endphp
-<label class="label-l">
+<label class="{{(App::isLocale('ar') ? 'ar-custom-label' : 'label-l')}}">
     <select class="select-l" id="ScheduleDate" name="schedule_date">
         {!! $output !!}
     </select>

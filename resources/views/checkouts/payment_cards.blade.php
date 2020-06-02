@@ -68,13 +68,15 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
     <script type="text/javascript">
-
+        var countrylang = $('html').attr('lang');
 	    $('.variable-width').slick({
+            rtl:countrylang === 'ar'? true: false,
 		    autoplay: false,
 		    dots: false,
 		    infinite: false,
 		    speed: 300,
-		    slidesToShow: 1,
+            // slidesToShow:countrylang === 'ar'? -1: 1,
+            // slidesToShow: 1,
 		    centerMode: false,
 		    variableWidth: true,
 		    responsive: [

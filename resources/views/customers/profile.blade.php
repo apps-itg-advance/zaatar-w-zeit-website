@@ -160,7 +160,7 @@
                         <div  class="col-md-6">
                             <div class="c100 p{{$per}} big green">
                                 <img src="/assets/images/arrow-down.png"  class="{{($query->details->Threshold> $query->details->TierBalance) ? '':'d-none'}}" alt="zwz profile arrow">
-                                <span><div style="font-size: 68px !important;">{{$query->details->LevelName}} <br> <small>{{number_format($query->details->TierBalance)}} points</small></div></span>
+                                <span><div style="font-size: 68px !important;">{{$query->details->LevelName}} <br> <small>{{number_format($query->details->TierBalance)}} @lang('points_lower')</small></div></span>
                                 <div class="slice">
                                     <div class="bar"></div>
                                     <div class="fill"></div>

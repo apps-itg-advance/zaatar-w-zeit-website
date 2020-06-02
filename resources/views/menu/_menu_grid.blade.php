@@ -81,7 +81,7 @@
                                         {
                                             if(isset($row->$key) and $row->$key=="1")
                                             {
-                                                echo '<li><img src="'.$val['URL'].'" /> '.$val['Label'].'</li>';
+                                                echo '<li><img src="'.$val['URL'].'" /></li>';
                                             }
                                         }
                                 ?>
@@ -102,7 +102,7 @@
                             @endphp
                             @if(!$display_favourite)
                                 @if(session('is_login'))
-                                    <a onclick="SetFavourite({{$row->ID}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite mr-3 {{$active_f}}"><span>Favourite</span></a>
+                                    <a onclick="SetFavourite({{$row->ID}})" id="Favourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite mr-3 {{$active_f}}"><span>@lang('favourite')</span></a>
                                 @else
                                     <a onclick="loginAlert()" class="effect-underline link-favourite mr-3 cursor-pointer"><span>@lang('favourite')</span></a>
                                 @endif

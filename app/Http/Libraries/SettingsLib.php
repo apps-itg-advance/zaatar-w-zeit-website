@@ -446,7 +446,8 @@ class SettingsLib
         $_org=self::GetSelectedCompany();
         $loyalty_id=session()->get('loyalty_id');
         $token=session()->get('token');
-        $url=env('BASE_URL').'LoyaltiesApi/GetLoyaltyLevel?token='.$token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+        $lang=session()->get('locale');
+        $url=env('BASE_URL').'LoyaltiesApi/GetLoyaltyLevel?token='.$token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id.'&lang='.$lang;
       //  echo $url;
         $query=Helper::getApi($url);
 

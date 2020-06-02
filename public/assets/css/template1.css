@@ -1111,9 +1111,9 @@ a.effect-underline:hover:after {
 .ar-lang .content-wrapper .favourite-box .media .media-body a {
     float: right!important;
 }
-.ar-lang .content-wrapper .favourite-box .content {
-    float: right;
-}
+/*.ar-lang .content-wrapper .favourite-box .content {*/
+/*    float: right;*/
+/*}*/
 
 .ar-lang .content-wrapper .favourite-box .input-group.item-plus-minus{
     /*float: left;*/
@@ -1139,6 +1139,7 @@ a.effect-underline:hover:after {
 .ar-lang .cartbox-wrapper .cart-items .name .name-value{
      float: right!important;
      text-align: right;
+    font-weight: bold;
  }
 .ar-lang .cartbox-wrapper .cart-items .name .price {
     margin-left: 6rem!important;
@@ -1245,11 +1246,18 @@ justify-content: center;
 .ar-lang .checkout-wrapper .item-summary .title-div .title {
     margin-right: 35px;
 }
+.ar-lang .checkout-wrapper .item-summary .title-div h2.title {
+    margin-right: 0;
+}
 .ar-lang .checkout-wrapper .summary-items .custom-control {
     text-align: right;
 }
 .ar-lang .checkout-wrapper .summary-items .custom-control .custom-control-input {
     right: -1.5rem;
+    top: -10px;
+}
+.ar-lang .checkout-wrapper .item-summary .summary-items .summary-item .custom-control-label {
+    padding-right: 10px;
 }
 .ar-lang .checkout-wrapper .summary-items .custom-control .custom-control-label::before,
 .ar-lang .checkout-wrapper .summary-items .custom-control .custom-control-label::after {
@@ -1299,6 +1307,7 @@ margin-left: 1rem !important;
 .ar-lang .checkout-wrapper .custom-control {
     text-align: right!important;
     padding-right: 1.5rem;
+    padding-left: 0;
 }
 .ar-lang .checkout-wrapper .custom-control .custom-control-input {
     right: 0;
@@ -1432,5 +1441,133 @@ margin-left: 1rem !important;
 }
 
 .ar-lang .slick-slider .slick-track, .slick-slider .slick-list {
-    transform: translate3d(0, 0, 0) !important;
+    /*transform: translate3d(0, 0, 0) !important;*/
+}
+.ar-lang .wallet-wrapper .item-div .item-quantity div{
+    display: flex;
+    flex-direction: column;
+}
+
+.ar-lang .login-modal .modal-content .form-group label {
+    width: 100%;
+    margin-right: 2px;
+    text-align: right;
+}
+.ar-lang .profile-wrapper .col-favourite-items .loyaltygraph-wrapper .favourite-box h4.title {
+    text-align: right;
+}
+
+.ar-lang .loyaltygraph-wrapper .order-box .order-info .order-history-details .row .col-md-8 h5 {
+    text-align: right;
+}
+
+.login-modal .modal-content .form-group .pincode-input-container .form-control {
+    text-align: center;
+}
+
+.ar-lang .content-wrapper .favourite-box .media .media-body .icon {
+    float: right;
+}
+.header-wrapper .dropdown-menu .dropdown-item:hover {
+    cursor: pointer;
+}
+.ar-lang .cartbig-modal .item-col {
+    border-left: 1px solid #808080;
+    border-right: none;
+}
+.ar-lang .cartbig-modal .item-col:last-child {
+    border: none;
+}
+.ar-lang  .cartbig-modal h5{
+    text-align: right;
+}
+.ar-lang  .cartbig-modal h5 span {
+    float: left;
+}
+
+.ar-lang  .cartbig-modal .info {
+    text-align: right;
+}
+.ar-lang .cartbig-modal .item-col .custom-control {
+    padding-left: 0;
+    padding-right: 25px;
+}
+.ar-lang .items-favourite .col-lg-12 {
+    text-align: right;
+    margin-right: -10px !important;
+}
+.ar-lang .items-favourite .col-lg-12 .link-favourite-u {
+    padding-left: 0;
+    padding-right: 18px;
+    margin-right: 0!important;
+    margin-left: 1rem;
+}
+.ar-lang .items-favourite .col-lg-12 .txt-favourite {
+    margin-right: 10px;
+}
+.ar-lang .cartbig-modal .close {
+    right: 0;
+    width: 98%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ar-lang .cartbig-modal .item-col .custom-control-label div {
+    float: right !important;
+    margin-right: 1.5rem;
+}
+.ar-lang .cartbig-modal .item-col .custom-control-label span {
+    float: left;
+}
+
+.ar-lang .custom-control-label::before {
+    left: 0;
+    right: -1.5rem;
+}
+.ar-lang .custom-control-label::after {
+    left: 0;
+    right: -1.5rem;
+}
+.ar-lang  .custom-control-input {
+    right: 0;
+}
+.ar-lang  .cartbig-modal h4.title1 {
+    text-align: right;
+}
+.ar-lang .cartbig-modal .item-col .custom-control-label {
+    text-align: right;
+}
+.ar-lang .cartbig-modal .items-meal-row .col-12 {
+    text-align: right;
+}
+.ar-lang .cartbig-modal .items-meal-row .custom-control-inline {
+    padding-right: 1.5rem;
+    margin-right: 0;
+}
+
+.ar-lang .ar-custom-label:after {
+    content:'<>';
+    font: 11px "Consolas", monospace;
+    color: #666;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    left: 18px;
+    top:2px;
+    padding: 0 0 2px;
+    border-top: 1px solid #ddd;
+    position: absolute;
+    pointer-events: none;
+}
+.ar-lang .ar-custom-label:before {
+    content: '';
+    left: 15px;
+    top:0px;
+    width: 20px;
+    height: 20px;
+    background: #eee;
+    position: absolute;
+    pointer-events: none;
+    display: block;
 }
