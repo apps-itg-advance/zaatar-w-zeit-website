@@ -153,8 +153,8 @@ class CheckoutController extends Controller
             'XLocation'=>$_data->XLocation,
             'YLocation'=>$_data->YLocation,
             'AddressType'=>$_data->TypeID,
-            'City'=>$_data->CityName,
-            'Province'=>$_data->ProvinceName,
+            'City'=>$_data->CityCode,
+            'Province'=>$_data->ProvinceCode,
             'Company'=>$_data->CompanyName
         );
 
@@ -304,6 +304,7 @@ class CheckoutController extends Controller
                 break;
             }
         }
+
         if(is_object($v) and count((array)$v)>0)
         {
             $_v_cards=$v->Vouchers;
@@ -328,7 +329,7 @@ class CheckoutController extends Controller
                     {
                         foreach ($_v_cards as $vcard)
                         {
-                            if(count($vcard->FreeItems)>0)
+                            if(!is_null($vcard->FreeItems) and count($vcard->FreeItems)>0)
                             {
                                 $free_items=$vcard->FreeItems;
                                 foreach ($free_items as $free_item)
