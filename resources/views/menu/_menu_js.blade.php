@@ -38,7 +38,7 @@
         if(ItemMCount>0)
         {
             $('#CustomizedLink'+item_id).addClass("active");
-            $('#Customize'+item_id).html("Customized");
+            $('#Customize'+item_id).html("<?= app('translator')->get('customized'); ?>");
         }
 
 
@@ -170,11 +170,11 @@
                 if(res[1]>0)
                 {
                     $('#CustomizedLink'+id).addClass("active");
-                    $('#Customize'+id).html("Customized");
+                    $('#Customize'+id).html("<?= app('translator')->get('customized'); ?>");
                 }
                 else{
                     $('#CustomizedLink'+id).removeClass("active");
-                    $('#Customize'+id).html("Customize");
+                    $('#Customize'+id).html("<?= app('translator')->get('customized'); ?>");
                 }
                 spinner('hide', spinnerContainerElement);
             }
@@ -204,11 +204,11 @@
                 if(res[1]>0 || x>0)
                 {
                     $('#CustomizedLink'+id).addClass("active");
-                    $('#Customize'+id).html("Customized");
+                    $('#Customize'+id).html("<?= app('translator')->get('customized'); ?>");
                 }
                 else{
                     $('#CustomizedLink'+id).removeClass("active");
-                    $('#Customize'+id).html("Customize");
+                    $('#Customize'+id).html("<?= app('translator')->get('customized'); ?>");
                 }
                 var currentQty=parseInt($("#"+id).val());
                 var newQty=currentQty+1;

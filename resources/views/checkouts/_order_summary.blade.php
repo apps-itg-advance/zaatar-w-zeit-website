@@ -16,14 +16,14 @@ $discount=0;
             <div class="modal-body py-0 col-xl-12 orders-wrapper float-none mx-auto">
                 <div class="row">
                     <div class="col-md-6 offset-2">
-                        <h2 class="futura-medium">Order Summary</h2>
+                        <h2 class="futura-medium">@lang("order_summary")</h2>
                     </div>
                 </div>
                 <div class="order-box">
                     <div class="order-info pt-2 pt-md-4">
                         <div class="row">
                             <div class="col-sm-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Address
+                                @lang('address')
                             </div>
                             <div class="col-sm-6 text-808080 mb-3 futura-book">
                                 {{implode(', ',$_address)}}
@@ -31,7 +31,7 @@ $discount=0;
                         </div>
                         <div class="row">
                             <div class="col-sm-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Order
+                                @lang('order')
                             </div>
                             <div class="col-sm-6">
                                 @foreach($cart as $key=>$values)
@@ -78,7 +78,7 @@ $discount=0;
                                                 @endif
                                             @endif
                                         </div>
-                                        <div class="col-md-4"> <h5 class="mb-0" style="text-align: right !important;">{{number_format($price)}}</h5></div>
+                                        <div class="col-md-4"> <h5 class="mb-0" style="text-align: right;">{{number_format($price)}}</h5></div>
                                     </div>
                               @endforeach
                             </div>
@@ -103,25 +103,27 @@ $discount=0;
                         <div class="col-md-8 offset-2">
                             <hr/>
                             <div class="total-block text-right">
-                                Delivery fee <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($delivery_charge)}} {{$currency}}</span>
+                                @lang('delivery_fee') <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($delivery_charge)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
-                                SubTotal <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($_total)}} {{$currency}}</span>
+                                @lang('sub_total') <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($_total)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
-                                Discount <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($discount)}} {{$currency}}</span>
+                                @lang('discount_large')
+                                <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($discount)}} {{$currency}}</span>
                             </div>
                             @if(isset($LEVEL_ID) and $LEVEL_ID!='')
                             <div class="total-block text-right">
-                                Wallet <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($cart_wallet)}} {{$currency}}</span>
+                                @lang('wallet') <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($cart_wallet)}} {{$currency}}</span>
                             </div>
                             @endif
                             <div class="total-block text-right">
-                                Payment <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($payment)}} {{$currency}}</span>
+                                @lang('payment')
+                                <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($payment)}} {{$currency}}</span>
                             </div>
                             <hr/>
                             <div class="total-block text-right">
-                                Total <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($_total-$cart_wallet-$discount-$payment)}} {{$currency}}</span>
+                                @lang('total') <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($_total-$cart_wallet-$discount-$payment)}} {{$currency}}</span>
                             </div>
                         </div>
                     </div>
@@ -129,9 +131,9 @@ $discount=0;
                         @if(isset($LEVEL_ID) and $LEVEL_ID!='')
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Wallet
+                                @lang('wallet')
                             </div>
-                            <div class="col-6 text-808080 mb-3 futura-book">{{$cart_wallet >0 ? 'Yes':'No'}}
+                            <div class="col-6 text-808080 mb-3 futura-book">{{$cart_wallet >0 ? 'Yes':app('translator')->get('no')}}
                                 @php
                                    /* if(isset($cart_vouchers['Id']) and $cart_vouchers['Id']!='')
                                     {
@@ -155,7 +157,7 @@ $discount=0;
                         @endif
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Gift
+                                @lang('gift')
                             </div>
                             <div class="col-6 text-808080 mb-3 futura-book">
                                 @php
@@ -165,14 +167,14 @@ $discount=0;
                                        //  echo ' From : '.$cart_gift->GiftFrom.'<br> To : '.$cart_gift->GiftTo.'<br> Message : '.$cart_gift->GiftOpenItem;
                                     }
                                     else{
-                                        echo 'No';
+                                        echo app('translator')->get('no');
                                     }
                                 @endphp
                             </div>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Go Green
+                                @lang('go_green')
                             </div>
                             <div class="col-6 text-808080 mb-3 futura-book">
                                 @php
@@ -182,14 +184,14 @@ $discount=0;
                                        //  echo ' From : '.$cart_gift->GiftFrom.'<br> To : '.$cart_gift->GiftTo.'<br> Message : '.$cart_gift->GiftOpenItem;
                                     }
                                     else{
-                                        echo 'No';
+                                        echo app('translator')->get('no');
                                     }
                                 @endphp
                             </div>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Method
+                                @lang('method')
                             </div>
                             <div class="col-6 text-808080 mb-3 futura-book">
                                 @php
@@ -206,7 +208,7 @@ $discount=0;
                         </div>
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Special Instructions
+                                @lang('special_instructions')
                             </div>
                             <div class="col-6 text-808080 mb-3 futura-book">
                                 @php
@@ -228,15 +230,15 @@ $discount=0;
                         @if(isset($order_schedule) and $order_schedule=='schedule')
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Scheduled
+                                @lang('scheduled')
                             </div>
                             <div class="col-6 text-808080 mb-3 futura-book">{{$schedule_date}}</div>
                         </div>
                       @endif
                     </div>
                 </div>
-                <a class="btn btn-8DBF43 mb-3 text-uppercase confirm float-right futura-book btn-confirm">Confirm</a>
-                <button type="button" style="margin-right: 10px" class="btn btn-B3B3B3 mb-3 text-uppercase float-right futura-book btn-confirm cancel" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-8DBF43 mb-3 text-uppercase confirm float-right futura-book btn-confirm">@lang('confirm')</a>
+                <button type="button" style="margin-right: 10px" class="btn btn-B3B3B3 mb-3 text-uppercase float-right futura-book btn-confirm cancel" data-dismiss="modal">@lang('cancel')</button>
 
             </div>
         </div>

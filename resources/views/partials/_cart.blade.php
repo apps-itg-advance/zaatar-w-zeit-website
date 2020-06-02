@@ -7,9 +7,9 @@
         }
 @endphp
 
-<h4 class="title text-center">Order Summary</h4>
+<h4 class="title text-center">@lang("order_summary")</h4>
 @if($fav==1 and $cart==null)
-    <h4 class="text-center" style="margin-top: 2px !important; font-weight: normal !important; font-size: 30px !important; line-height: 0px;">ADD YOUR FAVOURITES HERE !</h4>
+    <h4 class="text-center" style="margin-top: 2px !important; font-weight: normal !important; font-size: 30px !important; line-height: 0px;">@lang('add_favourites')</h4>
 @endif
 <?php /* <h5 class="user">{{$full_name}}</h5> */ ?>
 <div class="cart-items my-3">
@@ -20,8 +20,8 @@
         @foreach($cart as $key=>$values)
             <div class="cart-item mb-4">
 
-                <h5 class="name text-4D4D4D"><span style="float: left; width: 45%;">{{htmlspecialchars_decode($values['name'])}}</span>
-                    <span class="price d-inline-block ml-3" style=" width: 18%;text-align: right !important; float: right !important; margin-right: 6rem !important;">{{number_format($values['price'])}}</span></h5>
+                <h5 class="name text-4D4D4D"><span class="name-value" style="float: left; width: 45%;">{{htmlspecialchars_decode($values['name'])}}</span>
+                    <span class="price d-inline-block ml-3" style=" width: 18%;text-align: right; float: right; margin-right: 6rem;">{{number_format($values['price'])}}</span></h5>
                 <div class="info text-808080">
                     <div class="clearfix"></div>
                     @php
@@ -61,19 +61,18 @@
 
 </div>
     <div class="carttotal-block mt-3">
-        <div class="delivery-fee text-right"><span class="float-left">Delivery fee</span> @if($cart!=null){{number_format($delivery_fees).' '.$currency}}  @endif &nbsp;</div>
+        <div class="delivery-fee text-right"><span class="float-left">@lang('delivery_fee')</span> @if($cart!=null){{number_format($delivery_fees).' '.$currency}}  @endif &nbsp;</div>
         <hr/>
-        <div class="total-fee text-right"><span class="float-left">Total</span>  @if($cart!=null){{number_format(($_total+$delivery_fees)).' '.$currency}} @else <span style="color: white">&nbsp; </span>  @endif </div>
+        <div class="total-fee text-right"><span class="float-left">@lang('total')</span>  @if($cart!=null){{number_format(($_total+$delivery_fees)).' '.$currency}} @else <span style="color: white">&nbsp; </span>  @endif </div>
 
     </div>
     <div class="action-buttons text-center mt-5 mb-3">
-        <button @if($cart!=null) class="btn btn-B3B3B3 text-uppercase" @else class="btn btn-B3B3B3 text-uppercase btn-B3B3B3-non-hover" @endif onclick="_destroyCart()" id="DestroyBtn">Clear All</button>
-        <a id="CheckOutBtn" @if($cart!=null) href="{{route('checkout.address')}}" class="btn btn-8DBF43 text-uppercase " @else href="javascript:void(0)" class="btn btn-B3B3B3 text-uppercase btn-B3B3B3-non-hover" @endif >Checkout</a>
+        <button @if($cart!=null) class="btn btn-B3B3B3 text-uppercase" @else class="btn btn-B3B3B3 text-uppercase btn-B3B3B3-non-hover" @endif onclick="_destroyCart()" id="DestroyBtn">@lang('clear_all')</button>
+        <a id="CheckOutBtn" @if($cart!=null) href="{{route('checkout.address')}}" class="btn btn-8DBF43 text-uppercase " @else href="javascript:void(0)" class="btn btn-B3B3B3 text-uppercase btn-B3B3B3-non-hover" @endif >@lang('checkout')</a>
     </div>
-
 <script>
 	$( document ).ready(function() {
-	
+
 		function adjustScrolling(){
 			var scroll = $(window).scrollTop();
 			if(scroll>75){

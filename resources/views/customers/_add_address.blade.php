@@ -11,13 +11,13 @@
                 <div class="modal-body col-xl-10 float-none mx-auto pt-0">
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 class="futura-medium">Add Address</h2>
+                            <h2 class="futura-medium">@lang('add_Address')</h2>
                         </div>
                     </div>
                     <div class="row">
                         <input type="hidden" name="LoyaltyId" value="{{@$query->LoyaltyId}}">
                         <div class="col-md-12">
-                            <label>Address Type</label>
+                            <label>@lang('address_type')</label>
                             <div class="row">
                                 @foreach($addresses_types as $add_type)
                                     <div class="col-sm-4">
@@ -31,13 +31,13 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Address Nickname</label>
+                                <label>@lang('address_nickname')</label>
                                 <input type="text" class="form-control" name="name{{$skey}}" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>City</label>
+                                <label>@lang('city')</label>
                                 <select class="form-control" name="geo{{$skey}}">
                                     @if (count($cities)>0)
                                         @foreach($cities as $city)
@@ -49,13 +49,13 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Street</label>
+                                <label>@lang('street')</label>
                                 <input type="text" class="form-control" name="line1{{$skey}}" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Building Name</label>
+                                <label>@lang('building_name')</label>
                                 <input type="text" class="form-control" name="building_name{{$skey}}" value="{{@$building_name}}" />
                             </div>
                         </div>
@@ -63,13 +63,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Building Number</label>
+                                        <label>@lang('building_number')</label>
                                         <input type="text" class="form-control"  name="building_nbr{{$skey}}"  />
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Floor</label>
+                                        <label>@lang('floor')</label>
                                         <input type="text" class="form-control" name="floor{{$skey}}" />
                                     </div>
                                 </div>
@@ -79,13 +79,13 @@
                             <div class="row">
                                 <div class="col-sm-8">
                                     <div class="form-group">
-                                        <label>Phone Number</label>
+                                        <label>@lang('phone_number')</label>
                                         <input type="text" class="form-control"  name="phone{{$skey}}" readonly value="{{$query->FullMobile}}" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Ext.</label>
+                                        <label>@lang('ext').</label>
                                         <input type="text" class="form-control" name="ext{{$skey}}" />
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                         </div>
 
                         <div class="col-md-12 text-right">
-                            <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation('')">My Location</button>
+                            <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation('')">@lang('my_location')</button>
                         </div>
 
                         <div class="col-md-12">
@@ -138,7 +138,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase futura-book btn-confirm">Confirm</button>
+                    <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase futura-book btn-confirm">@lang('confirm')</button>
                 </div>
         </div>
     </div>

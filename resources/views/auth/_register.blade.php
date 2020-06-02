@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-md modal-dialog-centered" role="document">
             <div class="modal-content float-none p-0 mx-auto">
                 <div class="modal-body">
-                    <h3 class="text-white text-center futura-book">Create an account</h3>
+                    <h3 class="text-white text-center futura-book">@lang('create_an_account')</h3>
 
                     <div class="form-container">
 
@@ -12,12 +12,12 @@
                             <label id="RegisterMsg" style="color: rgb(217, 83, 79) !important;"></label>
                         </div>
                         <div class="form-group">
-                            <label>Name</label>
+                            <label>@lang('name')</label>
                             <input type="text"  name="first_name{{$sKey}}" maxlength="70" id="R_FirstName{{$sKey}}" class="form-control" required />
                             <div class="required" id="R_FirstName"></div>
                         </div>
                         <div class="form-group">
-                            <label>Family Name</label>
+                            <label>@lang('family_name')</label>
                             <input type="text"  name="family_name{{$sKey}}" maxlength="70" id="R_FamilyName{{$sKey}}" class="form-control"  required />
                             <div class="required" id="R_FamilyName"></div>
                         </div>
@@ -52,8 +52,8 @@
                             <div class="required" id="R_dob"></div>
                         </div>
                         <div class="mt-3">
-                            <button type="button" id="Registerbtn"  class="btn btn-submit btn-login btn-block text-uppercase">Register</button>
-                            <button type="button" id="BackToPinBtn" class="btn btn-submit btn-login btn-block text-uppercase">Back</button>
+                            <button type="button" id="Registerbtn"  class="btn btn-submit btn-login btn-block text-uppercase">@lang('register')</button>
+                            <button type="button" id="BackToPinBtn" class="btn btn-submit btn-login btn-block text-uppercase">@lang('back')</button>
                         </div>
 
                     </div>

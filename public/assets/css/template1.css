@@ -1044,3 +1044,393 @@ a.effect-underline:hover:after {
 .btn-1-anim:hover a{
     color: white !important;
 }
+
+/*confirmation mail*/
+.pincode-input-container {
+    display: inline-flex;
+    width: 100%;
+}
+.pincode-input-text, .form-control.pincode-input-text {
+    flex-grow: 1;
+    width: 40px;
+    height: 34px;
+    background-color: rgba(255,255,255,0.20) !important;
+    border: none !important;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0 !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    border-right: solid thin #000000 !important;
+}
+.pincode-input-text:last-of-type {
+    -webkit-border-bottom-left-radius: 10% !important;
+    border-bottom-left-radius: 10% !important;
+    -webkit-border-top-left-radius: 10% !important;
+    border-top-left-radius: 10% !important;
+}
+.pincode-input-text:first-of-type {
+    -webkit-border-bottom-right-radius: 10% !important;
+    border-bottom-right-radius: 10% !important;
+    -webkit-border-top-right-radius: 10% !important;
+    border-top-right-radius: 10% !important;
+}
+/*aribric language*/
+.ar-lang .header-wrapper .cart-col .cart-link {
+    float: left;
+}
+
+.ar-lang .header-wrapper .header-container .logo-a {
+    margin-left: 3rem!important;
+    margin-right: 0 !important;
+}
+
+.ar-lang .header-wrapper .header-container .logo-col {
+    display: flex;
+}
+
+.ar-lang .cartbox-wrapper .cart-dropdown .action-buttons .btn:first-child {
+    margin-left: 15px;
+    margin-right: 0;
+}
+
+.ar-lang .aside-menu .items-container {
+    padding-left: 5px;
+    padding-right: 0;
+}
+
+.ar-lang .content-wrapper .favourite-box .media .img-thum {
+    margin-right: 0!important;
+    margin-left: 1rem!important;
+}
+
+.ar-lang .content-wrapper .favourite-box .media .media-body .price {
+    float: left!important;
+}
+
+.ar-lang .content-wrapper .favourite-box .media .media-body a {
+    float: right!important;
+}
+.ar-lang .content-wrapper .favourite-box .content {
+    float: right;
+}
+
+.ar-lang .content-wrapper .favourite-box .input-group.item-plus-minus{
+    /*float: left;*/
+    left: 15px;
+    right: 0;
+}
+.ar-lang .cartbox-wrapper .cart-dropdown .carttotal-block .delivery-fee {
+     display: flex;
+    justify-content: space-between;
+ }
+.ar-lang .cartbox-wrapper .total-fee {
+    display: flex;
+    justify-content: space-between;
+}
+.ar-lang .header-wrapper .dropdown-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+}
+.ar-lang .header-wrapper .dropdown-menu .dropdown-item img {
+    margin-left: 10px;
+    margin-right: 0;
+}
+.ar-lang .cartbox-wrapper .cart-items .name .name-value{
+     float: right!important;
+     text-align: right;
+ }
+.ar-lang .cartbox-wrapper .cart-items .name .price {
+    margin-left: 6rem!important;
+    float: left!important;
+    margin-right: 0!important;
+    text-align: left !important;
+}
+.ar-lang .cartbox-wrapper .cart-dropdown .cart-item .cart-btns {
+    left: 0;
+}
+.ar-lang .content-wrapper .col-favourite {
+    float: right;
+    text-align: right;
+}
+.ar-lang .content-wrapper .favourite-box .link-customize {
+    margin-right: 1rem;
+}
+.ar-lang .content-wrapper .favourite-box .link-favourite{
+    margin-right: 0 !important;
+}
+.ar-lang .content-wrapper .favourite-box .col-sm-7 {
+    display: flex;
+}
+
+.ar-lang .favourites-wrapper .favourite-box .col-sm-7 {
+    display: flex;
+    justify-content: flex-end;
+}
+.ar-lang #login-modal .form-group label,
+.ar-lang #login-modal .form-container p{
+    float: right;
+}
+
+.ar-lang .iti--allow-dropdown .iti__flag-container,
+.ar-lang .iti--separate-dial-code .iti__flag-container {
+    right: 0;
+    left: auto;
+}
+.ar-lang .phone-css {
+    padding-right: 95px !important;
+    padding-left: 0 !important;
+}
+
+.ar-lang .iti__country {
+    display: flex;
+    align-items: center;
+}
+/*R..*/
+.ar-lang .wallet-wrapper .title {
+    text-align: right;
+}
+.ar-lang .order-history-details .row .col-md-8.offset-2 {
+    margin-right: 16.666667%;
+}
+.ar-lang .order-history-details .row .col-md-8.offset-2 .total-block {
+    text-align: left !important;
+}
+
+.ar-lang .order-box .order-info .col-sm-4 {
+    text-align: left !important;
+}
+
+.ar-lang .order-box .order-info .col-4 {
+     text-align: left !important;
+ }
+.ar-lang .order-box .order-info .col-6 {
+    text-align: right !important;
+}
+.ar-lang .order-box .action-div {
+    text-align: left !important;
+}
+
+.ar-lang .order-box .action-div .btn-orderrepeat img {
+    margin-left: .25rem!important;
+    margin-right: 0!important;
+}
+.ar-lang  #ProfileForm .form-group label {
+    text-align: right;
+    width: 100%;
+    margin-right: 3px;
+}
+.ar-lang #ProfileForm .form-group h4,
+.ar-lang #ProfileForm h2{
+    text-align: right ;
+}
+.ar-lang #ProfileForm .col-md-12 .form-group .col-md-12 {
+    text-align: left !important;
+}
+.ar-lang .order-history-details .col-sm-6 .row .col-md-4 .mb-0{
+    text-align: left !important;
+    margin-left: 1.5rem!important;
+}
+.ar-lang .checkout-navblock .checkout-nav {
+display: flex;
+justify-content: center;
+}
+.ar-lang .checkout-wrapper .item-summary .title {
+    text-align: right;
+    margin-right: 35px;
+}
+.ar-lang .checkout-wrapper .item-summary .title a {
+   margin-right: 3rem;
+}
+.ar-lang .checkout-wrapper .item-summary .title-div .title {
+    margin-right: 35px;
+}
+.ar-lang .checkout-wrapper .summary-items .custom-control {
+    text-align: right;
+}
+.ar-lang .checkout-wrapper .summary-items .custom-control .custom-control-input {
+    right: -1.5rem;
+}
+.ar-lang .checkout-wrapper .summary-items .custom-control .custom-control-label::before,
+.ar-lang .checkout-wrapper .summary-items .custom-control .custom-control-label::after {
+    right: -1.5rem;
+}
+.ar-lang .checkout-wrapper .item-summary .summary-items .summary-item .buttons {
+    left: 0;
+}
+.ar-lang .checkout-wrapper .item-summary .summary-items .summary-item .buttons a.mr-3 {
+margin-left: 1rem !important;
+}
+.ar-lang .checkout-wrapper  .delivery-eta {
+    margin-right: 20px;
+}
+.ar-lang  .edit-address .col-md-6 .form-group label {
+    text-align: right;
+    width: 100%;
+}
+.ar-lang  .edit-address .row .col-md-12.text-right {
+    text-align: left !important;
+}
+.ar-lang  .edit-address .modal-body .row .col-sm-4 .form-group {
+    text-align: right;
+}
+.ar-lang  .edit-address .row .col-md-12 h2 {
+    text-align: right!important;
+}
+.ar-lang  .edit-address .row .col-md-12 > label {
+    text-align: right!important;
+    width: 100%;
+}
+
+.ar-lang  .add-address .col-md-6 .form-group label {
+    text-align: right;
+    width: 100%;
+}
+.ar-lang  .add-address .row .col-md-12.text-right {
+    text-align: left !important;
+}
+.ar-lang  .add-address .row .col-md-12 h2 {
+    text-align: right!important;
+}
+.ar-lang  .add-address .row .col-md-12 > label {
+    text-align: right!important;
+    width: 100%;
+}
+.ar-lang .checkout-wrapper .custom-control {
+    text-align: right!important;
+    padding-right: 1.5rem;
+}
+.ar-lang .checkout-wrapper .custom-control .custom-control-input {
+    right: 0;
+}
+.ar-lang  .checkout-wrapper .item-summary .col-form-label {
+    text-align: right;
+}
+.ar-lang .checkout-wrapper .custom-control .custom-control-label::before,
+.ar-lang .checkout-wrapper .custom-control .custom-control-label::after {
+    right: -1.5rem;
+}
+.ar-lang .checkout-wrapper .item-summary .greeninfo {
+    text-align: right!important;
+}
+
+.ar-lang .checkout-navblock .checkout-nav li:after {
+    border-top: 22px solid transparent;
+    border-bottom: 22px solid transparent;
+    border-right: 22px solid #FFFFFF;
+    border-left: none !important;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 0;
+}
+.ar-lang .checkout-navblock .checkout-nav li:before {
+    border-top: 22px solid transparent;
+    border-bottom: 22px solid transparent;
+    border-right: 22px solid #999999;
+    border-left: none !important;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -22px;
+    z-index: 9;
+}
+.ar-lang  .checkout-navblock .checkout-nav li.current:before {
+    border-right: 22px solid rgb(230,230,230);
+}
+.ar-lang .checkout-navblock .checkout-nav li.active:before {
+    border-right-color: #8DBF43;
+}
+.ar-lang .checkout-navblock .checkout-nav li a {
+    padding: 10px 35px 10px 5px;
+}
+.ar-lang .checkout-wrapper .item-summary .action-buttons .btn {
+    margin-left: 1.5rem !important;
+}
+.ar-lang .col-favourite-items .title-div .btn {
+    margin-left: .5rem !important;
+    margin-right: 0 !important;
+}
+.ar-lang .content-wrapper .favourite-box .link-close {
+    left: -12px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ar-lang .OrderSummary .modal-header .close {
+    margin: -1rem auto -1rem 0;
+}
+
+
+.ar-lang .orders-wrapper .row .col-md-6 {
+    margin-right: 16.666667% !important;
+    margin-left: 0 !important;
+    text-align: right;
+}
+
+.ar-lang  #OrderSummaryDisplay .order-box .total-block .price {
+    text-align: left !important;
+    margin-right: 1.5rem!important;
+    margin-left: 0!important;
+}
+
+.ar-lang  #OrderSummaryDisplay .order-box .offset-2 {
+    margin-right: 16.666667%;
+    margin-left: 0;
+}
+
+.ar-lang  #OrderSummaryDisplay .btn {
+    float: left !important;
+}
+.ar-lang  #OrderSummaryDisplay .orders-wrapper .order-box .total-block {
+    text-align: left !important;
+}
+.ar-lang  #OrderSummaryDisplay .btn.cancel {
+    margin-left: 10px;
+}
+.ar-lang  #OrderSummaryDisplay .orders-wrapper .order-box .order-info .col-md-8 h5 {
+    text-align: right!important;
+}
+.ar-lang  #OrderSummaryDisplay .orders-wrapper .order-box .order-info h5 {
+    text-align: left !important;
+}
+
+.ar-lang .checkout-wrapper .wallet-wrapper .wallet-carousel .owl-item.active {
+    margin-left: 40px;
+    margin-right: 0 !important;
+}
+
+.ar-lang .wallet-carousel .item-quantity {
+    float: left !important;
+}
+.ar-lang .wallet-carousel .item-discount {
+    text-align: right!important;
+}
+.ar-lang .wallet-carousel .items-vouchers {
+    text-align: right!important;
+}
+.ar-lang .wallet-carousel .item-div p.float-left{
+    float: right!important;
+}
+.ar-lang  .wallet-wrapper .wallet-carousel .buttons {
+    float: left !important;
+}
+
+.ar-lang .card-date {
+    float: left;
+    margin-left: 30px;
+    margin-right: 0;
+}
+.ar-lang .card-code {
+    text-align: right;
+    padding-right: 50px;
+}
+.ar-lang .item-div a.d-inline-block {
+    width: 100%;
+}
+
+.ar-lang .slick-slider .slick-track, .slick-slider .slick-list {
+    transform: translate3d(0, 0, 0) !important;
+}

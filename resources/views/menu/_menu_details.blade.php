@@ -50,10 +50,10 @@
                 </div>
                 <div class="items-row items-favourite row align-items-center mt-3">
                     <div class="col-lg-12 col-md-12 item-col" style="margin-left: -10px !important;">
-                        <h5 class="favourite-title futura-b">Want to Personalize?</h5>
+                        <h5 class="favourite-title futura-b">@lang('want_to_personalize?')</h5>
                         <div class="col-lg-12 col-md-12"  style="margin-left: -10px !important;">
                             @php
-                                $txtF='Favourite your customized item and add as special name to it!';
+                                $txtF=app('translator')->get('favourite_customizes_item_name');
                                 $active_f='';
                             if($row->IsFavorite=='1')
                             {
@@ -66,7 +66,7 @@
                                     <a onclick="loginAlert()" class="effect-underline link-favourite-u mr-3 cursor-pointer"></a>
                                 @endif
                             @php echo $txtF @endphp
-                            <input type="text" name="favourite_name" id="favourite_name{{$row->ID}}" placeholder="ex. yara's famous" class="txt-favourite" value="{{$row->fav_name}}">
+                            <input type="text" name="favourite_name" id="favourite_name{{$row->ID}}" placeholder=<?= app('translator')->get('ex_yara_s_famous'); ?> class="txt-favourite" value="{{$row->fav_name}}">
                         </div>
                     </div>
                 </div>
@@ -105,10 +105,10 @@
                 @endif
             </div>
             <div class="modal-footer pt-0">
-                <span class="title d-inline-block">Total</span>
+                <span class="title d-inline-block">@lang('total')</span>
                 <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{number_format($row->Price)}} {{$currency}}</span>
                 <input type="hidden" id="TotalAmount{{$row->ID}}" name="TotalAmount[{{$row->ID}}]" value="{{str_replace(',','',$row->Price)}}">
-                <a class="btn btn-8DBF43 text-uppercase btn-a" onclick="AddToCart({{$row->ID}},0)">Confirm</a>
+                <a class="btn btn-8DBF43 text-uppercase btn-a" onclick="AddToCart({{$row->ID}},0)">@lang('confirm')</a>
             </div>
         </div>
     </div>

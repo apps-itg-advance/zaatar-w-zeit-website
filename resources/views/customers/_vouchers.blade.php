@@ -14,7 +14,7 @@
     }
 </style>
 <div class="title-div mb-4">
-    <h2 class="title">Wallet</h2>
+    <h2 class="title">@lang('wallet')</h2>
 </div>
 @php
     $array_colors=array('#AFD27C','#9DBFC1','#808080','#8DBF43');
@@ -22,7 +22,7 @@
     $cart_wallet=isset($cart_wallet) ? $cart_wallet :'';
     $cart_voucher_id=isset($cart_vouchers['VParentId']) ? $cart_vouchers['VParentId'] :'';
 @endphp
-<div id="wallet-carousel" class="owl-carousel wallet-carousel">
+<div id="wallet-carousel" class="owl-carousel wallet-carousel ">
     @php
         $rand = array_rand($array_colors, 1);
     @endphp
@@ -33,11 +33,11 @@
                     <div class="float-right"></div>
                 </div>
                 <div class="item-discount text-uppercase" >
-                    YOU HAVE <span class="wallet-balance">{{number_format($wallet_balance)}}</span> {{$currency}}
+                     @lang('you_have') <span class="wallet-balance">{{number_format($wallet_balance)}}</span> {{$currency}}
                 </div>
                 <div class="items-vouchers">
                     <div class="row">
-                        <div class="col-md-12">How much would you like to use?</div>
+                        <div class="col-md-12">@lang('how_much_would_you_like_to_use?')</div>
                         <div class="col-md-9"><input name="wallet_amount" value="{{$cart_wallet}}" id="WalletAmount" class="form-control w-amount"></div>
                         <div class="col-md-3" style="font-size: 20px !important;"> {{$currency}}</div>
                     </div>
@@ -60,7 +60,7 @@
         <div class="slide-shadow item " style="background-color: {{$bg_color}}"  id="voucher-b{{$vouchers[$i]->Id}}" data-mh="matchHeight">
             <div class="item-div text-white p-3" id="voucher-b1{{$vouchers[$i]->Id}}">
                 <div class="py-4 item-quantity  float-right">
-                    <div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> quantity</div>
+                    <div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> @lang('quantity')</div>
                 </div>
                 <div class="item-discount text-uppercase title-{{$vouchers[$i]->Id}}" data-title="{{$vouchers[$i]->Title}}">
                     {{$vouchers[$i]->Title}}
@@ -83,7 +83,7 @@
                 <div class="items-vouchers">
                     @php $css='vqty'.$vouchers[$i]->Id; @endphp
                     @foreach($array_exp as $key=>$value)
-                        <div class="voucher"><span class="{{$css}}" data-title="{{$value}}">{{$value}}</span>  vouchers expire {{$key}}</div>
+                        <div class="voucher"><span class="{{$css}}" data-title="{{$value}}">{{$value}}</span>  @lang('vouchers_expire') {{$key}}</div>
                         @php $css='' @endphp
                     @endforeach
 
@@ -102,9 +102,9 @@
 @if($checkout)
     <input type="hidden" name="Voucher" id="voucher">
     <div class="action-buttons text-center pt-4">
-        <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">Confirm</button>
+        <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">@lang('confirm')</button>
         @if(isset($settings->Required) and !$settings->Required)
-            <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('wallet')">Skip</button>
+            <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('wallet')">@lang('skip')</button>
         @endif
     </div>
 @endif
@@ -112,15 +112,20 @@
 @section('javascript')
 <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
 <script type="text/javascript">
+    var countrylang = $('html').attr('lang');
     $(document).ready(function() {
+
         @if($cart_wallet!='')
         $(".redeem-wallet").click();
         @endif
         @if($cart_voucher_id!='')
         SelectRedeem({{$cart_voucher_id}});
         @endif
+
+
     });
     jQuery('.wallet-carousel').owlCarousel({
+        rtl:countrylang === 'ar'? true: false,
         loop : false,
         navText : ['', ''],
         margin : 40,
@@ -147,6 +152,7 @@
             }
         }
     });
+
     $(".w-amount").keyup(function() {
         var val_amount=$(this).val();
         var balance={{$wallet_balance}};

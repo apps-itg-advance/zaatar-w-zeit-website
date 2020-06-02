@@ -6,11 +6,13 @@
  * Time: 3:31 PM
  */
 
+
 namespace App\Http\Libraries;
 use App\Http\Helpers\Helper;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
+use App;
 
 
 class SettingsLib
@@ -401,7 +403,8 @@ class SettingsLib
         //die;
         $loyalty_id=session()->get('loyalty_id');
         $token=session()->get('token');
-        $url=env('BASE_URL').'geo/GetCities?token='.$token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+        $lang= session()->get('locale');
+        $url=env('BASE_URL').'geo/GetCities?token='.$token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id.'&lang='.$lang;
       //  echo $url;
        // die;
         //die;
@@ -426,8 +429,8 @@ class SettingsLib
             $loyalty_id=session()->get('loyalty_id');
             $token=session()->get('token');
            // dump(session()->all());
-
-            $url=env('BASE_URL').'settings/GetDeliveryScreenDataSteps?token='.$token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+            $lang=session()->get('locale');
+            $url=env('BASE_URL').'settings/GetDeliveryScreenDataSteps?token='.$token.'&organization_id='.$_org->id.'&channel_id=1&LoyaltyId='.$loyalty_id.'&lang='.$lang;
             $query=Helper::getApi($url);
            // dump($query);
            // die;

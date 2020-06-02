@@ -13,13 +13,13 @@
     @endif
     <div class="order-box p-3 favourite-box data-row">
         <h4 class="title">
-            ORDER {{$row->OrderId}}
+            @lang('order') {{$row->OrderId}}
             <span>{{\Carbon\Carbon::parse($row->OrderDate)->format('d/m/Y - H:i')}}</span>
         </h4>
         <div class="order-info py-2 py-md-4 cursor-pointer" data-toggle="collapse" data-target=".order-history-{{$row->OrderId}}">
             <div class="row align-items-center mb-3">
                 <div class="col-sm-4 text-left text-sm-right text-label text-uppercase text-666666">
-                    Address
+                   @lang('address');
                 </div>
                 <div class="col-sm-8 text-808080 futura-medium font-size-14">
                     {{implode(', ',$adderss_array)}}
@@ -28,7 +28,7 @@
             <div class="order-history-details order-history-{{$row->OrderId}} collapse">
                 <div class="row">
                     <div class="col-sm-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                        Order
+                        @lang('order')
                     </div>
                     <div class="col-sm-6 mt-1">
                         <?php
@@ -103,28 +103,28 @@
                 <div class="row mt-3">
                     <div class="col-md-8 offset-2">
                         <div class="total-block text-right">
-                            Delivery fee <span class="price d-inline-block ml-4" style="width: 30% !important;">
+                            @lang('delivery_fee')<span class="price d-inline-block ml-4" style="width: 30% !important;">
                                             {{number_format($row->DeliveryCharge). ' '.$currency}}
                                 </span>
                         </div>
                         <div class="total-block text-right">
-                            SubTotal <span class="price d-inline-block ml-4" style="width: 30% !important;">
+                            @lang('sub_total') <span class="price d-inline-block ml-4" style="width: 30% !important;">
                                             {{number_format($row->GrossAmount). ' '.$currency}}
                                 </span>
                         </div>
 
                         <div class="total-block text-right">
-                            Discount <span class="price d-inline-block ml-4" style="width: 30% !important;">
+                            @lang('discount_large') <span class="price d-inline-block ml-4" style="width: 30% !important;">
                                             {{number_format($discount ?? 0). ' '.$currency}}
                                 </span>
                         </div>
                         <div class="total-block text-right">
-                            Wallet <span class="price d-inline-block ml-4" style="width: 30% !important;">
+                            @lang('wallet') <span class="price d-inline-block ml-4" style="width: 30% !important;">
                                             {{number_format($wallet ?? 0). ' '.$currency}}
                                 </span>
                         </div>
                         <div class="total-block text-right">
-                            Payment <span class="price d-inline-block ml-4" style="width: 30% !important;">
+                            @lang('payment') <span class="price d-inline-block ml-4" style="width: 30% !important;">
                                             {{number_format($pay_online ?? 0 ). ' '.$currency}}
                                 </span>
                         </div>
@@ -132,7 +132,7 @@
                         <hr/>
 
                         <div class="total-block text-right futura-b">
-                            Total <span class="price d-inline-block ml-4" style="width: 30% !important;">
+                            @lang('total') <span class="price d-inline-block ml-4" style="width: 30% !important;">
                                              {{number_format($total ?? 0 ). ' '.$currency}}
                                         </span>
                         </div>
@@ -140,8 +140,8 @@
                 </div>
                 @php
                     $open_items=(isset($row->OpenItems) and is_array($row->OpenItems)) ? $row->OpenItems : array();
-                    $go_green='No';
-                    $gift='No';
+                    $go_green=app('translator')->get('no');
+                    $gift=app('translator')->get('no');
                     foreach ($open_items as $open_i)
                     {
                         if(isset($open_i->Label))
@@ -156,7 +156,7 @@
                                     $go_green.=$i_info->ItemName.' ';
                                 }
                             }
-                            elseif($open_i->Label=='Gift')
+                            elseif($open_i->Label==app('translator')->get('gift'))
                             {
                                 $gift=$open_i->Value;
                             }
@@ -166,16 +166,16 @@
                 <div class="order-info">
                     <div class="row align-items-center">
                         <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                            Wallet
+                            @lang('wallet')
                         </div>
                         <div class="col-6 text-808080 mb-3 futura-book">
-                            {{$wallet>0? 'Yes':'No'}}
+                            {{$wallet>0? 'Yes':app('translator')->get('no')}}
                         </div>
                     </div>
 
                     <div class="row align-items-center">
                         <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                            Gift
+                            @lang('gift')
                         </div>
                         <div class="col-6 text-808080 mb-3 futura-book">
                             {{$gift}}
@@ -183,7 +183,7 @@
                     </div>
                     <div class="row align-items-center">
                         <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                            Go Green
+                            @lang('go_green')
                         </div>
                         <div class="col-6 text-808080 mb-3 futura-book">
                             {{$go_green}}
@@ -191,7 +191,7 @@
                     </div>
                     <div class="row align-items-center">
                         <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                            Method
+                            @lang('method')
                         </div>
                         <div class="col-6 text-808080 mb-3 futura-book">
                             {{$method ?? ''}}
@@ -200,7 +200,7 @@
 
                     <div class="row align-items-center">
                         <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                            Special Instructions
+                            @lang('special_instructions')
                         </div>
                         <div class="col-6 text-808080 mb-3 futura-book">
                             {{isset($specials)? implode(' , ',$specials):''}}
@@ -209,7 +209,7 @@
                     @if($row->ScheduleTime!='0000-00-00 00:00:00')
                     <div class="row align-items-center">
                         <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                            Scheduled
+                            @lang('scheduled')
                         </div>
                         <div class="col-6 text-808080 mb-3 futura-book">
                             {{$row->ScheduleTime}}
@@ -231,9 +231,9 @@
             }
             ?>
             @if(!$favourite)
-                <a onclick="SetFavouriteOrder({{$row->OrderId}})" id="Favourite{{$row->OrderId}}" href="javascript:void(0)" class="effect-underline link-favourite {{$active_f}}">Favourite</a>
+                <a onclick="SetFavouriteOrder({{$row->OrderId}})" id="Favourite{{$row->OrderId}}" href="javascript:void(0)" class="effect-underline link-favourite {{$active_f}}">@lang('favourite')</a>
             @endif
-                <a class="btn btn-orderrepeat" onclick="RepeatOrder({{$row->OrderId}})"><img src="{{asset('assets/images/icon-refresh.png')}}" height="15" class="mr-1"/> Repeat Order</a>
+                <a class="btn btn-orderrepeat" onclick="RepeatOrder({{$row->OrderId}})"><img src="{{asset('assets/images/icon-refresh.png')}}" height="15" class="mr-1"/>@lang('repeat_order')</a>
         </div>
         @if($favourite)
             <a href="#" onclick="RemoveFavouriteOrder({{$row->OrderId}})" id="Favourite{{$row->OrderId}}" class="link-close"><img src="{{asset('assets/svg/icon-close.svg')}}" width="24"></a>

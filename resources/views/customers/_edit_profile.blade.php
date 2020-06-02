@@ -12,7 +12,7 @@
             <div class="modal-body col-xl-10 float-none mx-auto">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2 class="futura-medium">Edit Profile</h2>
+                        <h2 class="futura-medium">@lang('edit_profile')</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -20,31 +20,31 @@
                     <input type="hidden" name="is_default{{$Skey}}" value="1">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Name</label>
+                            <label>@lang('name')</label>
                             <input type="text" class="form-control" maxlength="70" id="FirstName" name="first_name{{$Skey}}" value="{{@$details->FirstName}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Family Name</label>
+                            <label>@lang('family_name')</label>
                             <input type="text" class="form-control" maxlength="70" id="LastName" name="last_name{{$Skey}}" value="{{@$details->LastName}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Phone Number</label>
+                            <label>@lang('phone_number')</label>
                             <input type="text" class="form-control" readonly="readonly" name="mobile{{$Skey}}" value="{{@$details->FullMobile}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Email</label>
+                            <label><?php echo app('translator')->get('email'); ?></label>
                             <input type="text" class="form-control" readonly="readonly" name="email{{$Skey}}" value="{{@$details->Email}}" />
                         </div>
                     </div>
                     <div class="col-md-12 mt-2">
                         <div class="form-group">
-                            <h4 class="m-0">Main Address</h4>
+                            <h4 class="m-0">@lang('main_Address')</h4>
                         </div>
                     </div>
                     @php
@@ -100,13 +100,13 @@
  */?>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Address Nickname</label>
+                            <label>@lang('address_nickname')</label>
                             <input type="text" class="form-control" name="name{{$Skey}}" value="{{@$main_address->Name}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>City</label>
+                            <label>@lang('city')</label>
                             <select class="form-control" id="Geo" name="geo{{$Skey}}">
                                 @if (count($cities)>0)
                                     @foreach($cities as $city)
@@ -118,13 +118,13 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Street</label>
+                            <label>@lang('street')</label>
                             <input type="text" class="form-control" id="Line1" name="line1{{$Skey}}" value="{{@$main_address->Line1}}" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Building Name</label>
+                            <label>@lang('building_name')</label>
                             <input type="text" class="form-control" name="building_name{{$Skey}}" value="{{@$building_name}}" />
                         </div>
                     </div>
@@ -132,13 +132,13 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Building #</label>
+                                    <label>@lang('building') #</label>
                                     <input type="text" class="form-control"  name="building_nbr{{$Skey}}" value="{{@$building_nbr}}"  />
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Floor</label>
+                                    <label>@lang('floor')</label>
                                     <input type="text" class="form-control" name="floor{{$Skey}}" value="{{@$floor}}" />
                                 </div>
                             </div>
@@ -146,7 +146,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Phone Number</label>
+                            <label>@lang('phone_number')</label>
                             <input type="text" class="form-control"  name="phone{{$Skey}}" readonly="readonly"  value="{{@$details->FullMobile}}" />
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Ext.</label>
+                                    <label>@lang('ext').</label>
                                     <input type="text" class="form-control" name="ext{{$Skey}}" value="{{@$ext}}" />
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 text-right">
-                                    <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation(0)">My Location</button>
+                                    <button type="button" class="btn btn-sm btn-primary futura-book" onclick="currentLocation(0)">@lang('my_location')</button>
                                 </div>
                             </div>
 
@@ -205,7 +205,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase">Confirm</button>
+                <button type="submit" class="btn btn-8DBF43 mb-3 text-uppercase">@lang('confirm')</button>
             </div>
             </form>
         </div>

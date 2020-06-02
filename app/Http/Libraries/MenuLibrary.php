@@ -7,6 +7,7 @@
  */
 
 namespace App\Http\Libraries;
+use App;
 use App\Http\Helpers\Helper;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +16,8 @@ class MenuLibrary
 {
     public static function GetCategories($organization_id,$token)
     {
-        $url=env('BASE_URL').'menu/GetCategories?token='.$token.'&organization_id='.$organization_id.'&channel_id=1';
+        $lang = session()->get('locale');
+        $url=env('BASE_URL').'menu/GetCategories?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&lang='.$lang;
         $query=Helper::getApi($url);
         return $query;
     }
@@ -63,7 +65,8 @@ class MenuLibrary
         $organization_id=$s_org->id;
 
         $url_img='';
-        $url=env('BASE_URL').'menu/GetMenuItems?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&category_id='.$cat_id.$extra;
+        $lang = session()->get('locale');
+        $url=env('BASE_URL').'menu/GetMenuItems?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&category_id='.$cat_id.$extra.'&lang='.$lang;
        // echo $url;
 
         $query=Helper::getApi($url);
@@ -121,8 +124,8 @@ class MenuLibrary
 
         $organization_id=$s_org->id;
 
-
-        $url=env('BASE_URL').'menu/GetMenuItemByPlu?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&Plu='.$plu.$extra;
+        $lang = session()->get('locale');
+        $url=env('BASE_URL').'menu/GetMenuItemByPlu?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&Plu='.$plu.$extra.'&lang='.$lang;
         $query=Helper::getApi($url);
         return $query;
     }
@@ -143,8 +146,8 @@ class MenuLibrary
 
         $organization_id=$s_org->id;
 
-
-        $url=env('BASE_URL').'menu/GetMenuItemsByPlu?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&Plu='.$plu.$extra;
+        $lang = session()->get('locale');
+        $url=env('BASE_URL').'menu/GetMenuItemsByPlu?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&Plu='.$plu.$extra.'&lang='.$lang;
         $query=Helper::getApi($url);
         return $query;
     }
@@ -155,7 +158,7 @@ public static function CompareOrder($a, $b)
     public static function RemoveFavoriteItem($itemId){
 	    $s_org=session()->get('_org');
 
-	    $post_array['token']=session()->get('token');;
+	    $post_array['token']=session()->get('token');
 	    $post_array['organization_id']=$s_org->id;
 	    $post_array['channel_id']=1;
 	    $post_array['LoyaltyId']=session()->get('loyalty_id');
@@ -218,7 +221,8 @@ public static function CompareOrder($a, $b)
         $token=session()->get('token');
         $organization_id=$s_org->id;
 
-        $url=env('BASE_URL').'items/GetMenuFavorite?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+        $lang = session()->get('locale');
+        $url=env('BASE_URL').'items/GetMenuFavorite?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&LoyaltyId='.$loyalty_id.'&lang='.$lang;
         $query=Helper::getApi($url);
         foreach ($query->data as $item)
         {
@@ -258,8 +262,8 @@ public static function CompareOrder($a, $b)
         $loyalty_id=session()->get('loyalty_id');
         $token=session()->get('token');
         $organization_id=$s_org->id;
-
-        $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&LoyaltyId='.$loyalty_id;
+        $lang = session()->get('locale');
+        $url=env('BASE_URL').'orders/GetOrdersHistory?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&LoyaltyId='.$loyalty_id.'&lang='.$lang;
         $query=Helper::getApi($url);
         return $query;
     }
