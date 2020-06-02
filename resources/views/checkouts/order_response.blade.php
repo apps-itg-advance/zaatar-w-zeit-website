@@ -8,7 +8,7 @@
     <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 float-none p-0 mx-auto">
 
     <div class="title-div text-center mb-4">
-        <h2 class="title">Checkout</h2>
+        <h2 class="title">@lang('checkout')</h2>
     </div>
     @include('partials.checkout_bread')
         <div class="orders-wrapper">
@@ -17,7 +17,7 @@
                     <div class="order-info pt-2 pt-md-4">
                         <div class="row">
                             <div class="col-sm-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Address
+                                @lang('address')
                             </div>
                             <div class="col-sm-8 text-808080 mb-3 futura-book">
                                 {{implode(', ',$_address)}}
@@ -25,7 +25,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Order
+                                @lang('order')
                             </div>
                             <div class="col-sm-8">
                                 @foreach($cart as $key=>$values)
@@ -49,16 +49,16 @@
                         </div>
                     </div>
                     <div class="delivery-block text-right">
-                        Delivery fee <span class="price d-inline-block ml-4">{{$delivery_charge}} {{$currency}}</span>
+                        @lang('delivery_fee') <span class="price d-inline-block ml-4">{{$delivery_charge}} {{$currency}}</span>
                     </div>
                     <hr/>
                     <div class="total-block text-right">
-                        Total <span class="price d-inline-block ml-4">{{$_total}}</span>
+                        @lang('total') <span class="price d-inline-block ml-4">{{$_total}}</span>
                     </div>
                     <div class="order-info">
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Wallet
+                                @lang('wallet')
                             </div>
                             <div class="col-8 text-808080 mb-3 futura-book">{{}}
                                 @php /*
@@ -85,7 +85,7 @@
                         </div>
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Gift
+                                @lang('gift')
                             </div>
                             <div class="col-8 text-808080 mb-3 futura-book">
                                 @php
@@ -95,14 +95,14 @@
                                        //  echo ' From : '.$cart_gift->GiftFrom.'<br> To : '.$cart_gift->GiftTo.'<br> Message : '.$cart_gift->GiftOpenItem;
                                     }
                                     else{
-                                        echo 'No';
+                                        echo app('translator')->get('no');
                                     }
                                 @endphp
                             </div>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Go Green
+                                @lang('go_green')
                             </div>
                             <div class="col-8 text-808080 mb-3 futura-book">
                                 @php
@@ -112,14 +112,14 @@
                                        //  echo ' From : '.$cart_gift->GiftFrom.'<br> To : '.$cart_gift->GiftTo.'<br> Message : '.$cart_gift->GiftOpenItem;
                                     }
                                     else{
-                                        echo 'No';
+                                        echo app('translator')->get('no');
                                     }
                                 @endphp
                             </div>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
-                                Method
+                                @lang('method')
                             </div>
                             <div class="col-8 text-808080 mb-3 futura-book">
                                 @php
@@ -148,7 +148,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-8DBF43 mb-3 text-uppercase confirm">OK</button>
+                    <button type="button" class="btn btn-8DBF43 mb-3 text-uppercase confirm">@lang('ok')</button>
                 </div>
             </div>
         </div>

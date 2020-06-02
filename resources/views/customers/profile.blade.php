@@ -115,7 +115,8 @@
 
         <div class="col-xl-12 float-none p-0 mx-auto">
             <div class="title-div mb-4 pb-2">
-                <h2 class="title">Loyalty</h2>
+{{--                <h2 class="title">Loyalty</h2>--}}
+				<h2 class="title">@lang("loyalty")</h2>
             </div>
             <div class="loyaltygraph-wrapper">
                 <div class="user-div">
@@ -127,11 +128,11 @@
                         }
                     @endphp
                     <h4>{{@$details->FirstName.' '.@$details->LastName}}</h4>
-                    <button type="button" id="edit-profile" class="btn btn-8DBF43 text-uppercase bg-white text-8DBF43 btn-1-anim">Edit Profile</button>
+                    <button type="button" id="edit-profile" class="btn btn-8DBF43 text-uppercase bg-white text-8DBF43 btn-1-anim">@lang('edit_profile')</button>
                     <br>
-                    <button type="button" class="btn btn-8DBF43 bg-white text-uppercase mt-2 btn-1-anim"><a class="text-8DBF43" href="{{route('customer.order-history')}}">Order History</a></button>
+                    <button type="button" class="btn btn-8DBF43 bg-white text-uppercase mt-2 btn-1-anim"><a class="text-8DBF43" href="{{route('customer.order-history')}}">@lang('order_history')</a></button>
                     <br>
-                    <button type="button" class="btn btn-8DBF43 text-uppercase mt-2"><a href="{{route('logout')}}" class="cursor-pointer text-white">Logout</a></button>
+                    <button type="button" class="btn btn-8DBF43 text-uppercase mt-2"><a href="{{route('logout')}}" class="cursor-pointer text-white">@lang('logout')</a></button>
                 </div>
 
                 <div class="col-xl-8 col-lg-10 float-none p-0 mx-auto loyaltygraph-div pt-4 mb-5 pb-3">

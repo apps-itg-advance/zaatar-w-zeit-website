@@ -21,12 +21,12 @@
     <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 float-none p-0 mx-auto">
 
     <div class="title-div text-center mb-4">
-        <h2 class="title">Checkout</h2>
+        <h2 class="title">@lang('checkout')</h2>
     </div>
     @include('partials.checkout_bread')
     <div class="col-xl-6 col-lg-8 col-md-9 col-sm-12 item-summary float-none p-0 mx-auto">
         <div class="title-div mb-4">
-            <h4 class="title">Address
+            <h4 class="title">@lang('address')
                 @if(count($addresses)<3)
                     <a href="javascript:void(0)" onclick="AddAddress()" class="d-inline-block ml-5"><img src="{{asset('assets/images/icon-checkout-plus.png')}}" /></a>
                 @endif
@@ -43,7 +43,7 @@
                         if($address->ID==$select_id)
                         {
                             $checked='checked="checked"';
-                            $eta='<span class="delivery-txt">Delivery around </span>'.$address->DeliveryEta.' Min';
+                            $eta='<span class="delivery-txt">'.app('translator')->get('delivery_around').'</span>'.$address->DeliveryEta.' Min';
                         }
                     else{
                         $eta='';
@@ -75,13 +75,13 @@
                 <div class="col-sm-2">
                     <div class="custom-control custom-radio mb-1">
                         <input type="radio" id="order_now" {{$check_new}} required name="order_schedule"  onclick="ShowCalender()" value="now" class="custom-control-input">
-                        <label class="custom-control-label" for="order_now"><p class="text-uppercase m-0">Now</p></label>
+                        <label class="custom-control-label" for="order_now"><p class="text-uppercase m-0">@lang('now')</p></label>
                     </div>
                 </div>
                 <div class="col-sm-5">
                     <div class="custom-control custom-radio mb-1">
                         <input type="radio" id="order_schedule" {{$check_schedule}} required name="order_schedule" onclick="ShowCalender()" value="schedule" class="custom-control-input">
-                        <label class="custom-control-label" for="order_schedule"><p class="text-uppercase m-0">Scheduled</p></label>
+                        <label class="custom-control-label" for="order_schedule"><p class="text-uppercase m-0">@lang('scheduled')</p></label>
                     </div>
                 </div>
                 <div class="clearfix" style="height: 50px"></div>
@@ -114,9 +114,9 @@
 
         </div>
         <div class="action-buttons text-center">
-            <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">Confirm</button>
+            <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">@lang('confirm')</button>
             @if(isset($settings->Required) and !$settings->Required)
-                <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('address')">Skip</button>
+                <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('address')">@lang('skip')</button>
             @endif
         </div>
     </div>
@@ -225,7 +225,7 @@
         function ShowETA(id){
             var x=$("#customRadio"+id).data('eta');
             $('.delivery-eta').html('');
-            $('#eta-'+id).html('<span class="delivery-txt">Delivery around </span>'+x+' Min');
+            $('#eta-'+id).html('<span class="delivery-txt">@lang('delivery_around')</span>'+x+' Min');
             InitCalander(id);
         }
         function DeleteAddress(address_id) {

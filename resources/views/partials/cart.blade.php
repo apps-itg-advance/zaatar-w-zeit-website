@@ -40,11 +40,11 @@ $fav_flag=(isset($favourite) and $favourite=true) ? 1:0;
 						if(res[2]>0)
 						{
 							$('#CustomizedLink'+res[1]).addClass("active");
-							$('#Customize'+res[1]).html("Customized");
+							$('#Customize'+res[1]).html("<?= app('translator')->get('customized'); ?>");
 						}
 						else{
 							$('#CustomizedLink'+res[1]).removeClass("active");
-							$('#Customize'+res[1]).html("Customize");
+							$('#Customize'+res[1]).html("<?= app('translator')->get('customized'); ?>");
 						}
 					}
 					return false;
@@ -92,7 +92,7 @@ $fav_flag=(isset($favourite) and $favourite=true) ? 1:0;
 					$(".qty_all").val(0);
 					if($('.link-customize').length > 0) {
 						$('.link-customize').removeClass("active");
-						$('.customize-label').html("Customize");
+						$('.customize-label').html("<?= app('translator')->get('customized'); ?>");
 					}
 					//$(".col-cartitems").html(data);
 				}

@@ -112,8 +112,8 @@
 
 
 					<div class="col-md-9">
-						<button type="button" id="edit-profile" class="btn btn-8DBF43 btn-1-anim btn-user">Edit Profile</button>&nbsp;&nbsp;
-						<a href="{{route('logout')}}" class="btn btn-808080 btn-1-anim btn-user">&nbsp;&nbsp;Logout&nbsp;&nbsp;</a>
+						<button type="button" id="edit-profile" class="btn btn-8DBF43 btn-1-anim btn-user">@lang('edit_profile')</button>&nbsp;&nbsp;
+						<a href="{{route('logout')}}" class="btn btn-808080 btn-1-anim btn-user">&nbsp;&nbsp;<?php echo app('translator')->get('logout'); ?>&nbsp;&nbsp;</a>
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -159,7 +159,7 @@
 				</div>
 				<div class="col-xl-11 col-lg-10 float-none p-0 mx-auto wallet-wrapper">
 					<div class="title-div mb-4">
-						<h2 class="title">Wallet</h2>
+						<h2 class="title">@lang('wallet')</h2>
 					</div>
 					<div id="wallet-carousel" class="owl-carousel wallet-carousel">
 						@php
@@ -172,7 +172,7 @@
 										<div class="float-right"></div>
 									</div>
 									<div class="item-discount text-uppercase" >
-										YOU HAVE <span class="wallet-balance">{{number_format($wallet_balance)}}</span> {{$currency}}
+										@lang('you_have') <span class="wallet-balance">{{number_format($wallet_balance)}}</span> {{$currency}}
 									</div>
 
 									<p><img src="{{asset('assets/images/icon-logowhite.png')}}" class="w-auto logo-img"></p>
@@ -189,7 +189,7 @@
 							<div class="slide-shadow item "  style="background-color: {{$bg_color}}" id="voucher-b{{$vouchers[$i]->Id}}">
 								<div class="item-div text-white p-3" id="voucher-b1{{$vouchers[$i]->Id}}">
 									<div class="py-4 item-quantity text-right float-right">
-										<div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> quantity</div>
+										<div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> @lang('quantity')</div>
 									</div>
 									<div class="item-discount text-uppercase title-{{$vouchers[$i]->Id}}" data-title="{{$vouchers[$i]->Title}}">
 										{{$vouchers[$i]->Title}}
@@ -212,7 +212,7 @@
 									<div class="items-vouchers">
 										@php $css='vqty'.$vouchers[$i]->Id; @endphp
 										@foreach($array_exp as $key=>$value)
-											<div class="voucher"><span class="{{$css}}" data-title="{{$value}}">{{$value}}</span>  vouchers expire {{$key}}</div>
+											<div class="voucher"><span class="{{$css}}" data-title="{{$value}}">{{$value}}</span>  @lang('vouchers_expire') {{$key}}</div>
 											@php $css='' @endphp
 										@endforeach
 
@@ -229,7 +229,7 @@
 				<div class="clearfix" style="margin-bottom: 30px !important;"></div>
 				<div class="col-xl-11 col-lg-10 float-none p-0 mx-auto wallet-wrapper">
 				<div class="title-div mb-4">
-					<h3 class="title">Order History</h3>
+					<h3 class="title">@lang('order_history')</h3>
 				</div>
 				</div>
 				@include('customers._order_grid',array('query'=>$orders,'favourite'=>false,'page_title'=>'Orders History','row_total'=>$total_orders))

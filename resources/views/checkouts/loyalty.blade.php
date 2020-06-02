@@ -5,12 +5,12 @@
 @section('content')
     <div class="col-xl-10 float-none p-0 mx-auto">
         <div class="title-div text-center mb-4">
-            <h2 class="title">Checkout</h2>
+            <h2 class="title">@lang('checkout')</h2>
         </div>
         @include('partials.checkout_bread')
         <div class="col-xl-9 col-lg-10 float-none p-0 mx-auto item-summary wallet-wrapper">
             <div class="title-div">
-                <h2 class="title">Wallet</h2>
+                <h2 class="title">@lang('wallet')</h2>
             </div>
             <div id="wallet-carousel" class="owl-carousel wallet-carousel mb-3">
                 @php
@@ -28,7 +28,7 @@
                             </div>
                             <div class="items-vouchers">
                                 <div class="row">
-                                    <div class="col-md-12">How much would you like to use?</div>
+                                    <div class="col-md-12">@lang('how_much_would_you_like_to_use?')</div>
                                     <div class="col-md-9"><input name="wallet_amount" id="WalletAmount" class="form-control w-amount"></div>
                                     <div class="col-md-3" style="font-size: 20px !important;"> {{$currency}}</div>
                                 </div>
@@ -50,7 +50,7 @@
                     <div class="item {{$array_colors[$rand]}}" data-mh="matchHeight">
                         <div class="item-div text-white p-3">
                             <div class="py-4 item-quantity text-right">
-                                <div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> quantity</div>
+                                <div class="float-right" ><span class="qty{{$vouchers[$i]->Id}}" data-title="{{count($vouchers[$i]->Vouchers)}}">{{count($vouchers[$i]->Vouchers)}}</span> @lang('quantity')</div>
                             </div>
                             <div class="item-discount text-uppercase title-{{$vouchers[$i]->Id}}" data-title="{{$vouchers[$i]->Title}}">
                                 {{$vouchers[$i]->Title}}
@@ -73,7 +73,7 @@
                             <div class="items-vouchers">
                                 @php $css='vqty'.$vouchers[$i]->Id; @endphp
                                 @foreach($array_exp as $key=>$value)
-                                    <div class="voucher"><span class="{{$css}}" data-title="{{$value}}">{{$value}}</span>  vouchers expire {{$key}}</div>
+                                    <div class="voucher"><span class="{{$css}}" data-title="{{$value}}">{{$value}}</span>  @lang('vouchers_expire') {{$key}}</div>
                                     @php $css='' @endphp
                                 @endforeach
 
@@ -91,9 +91,9 @@
             </div>
             <input type="hidden" name="Voucher" id="voucher">
             <div class="action-buttons text-center pt-4">
-                <button type="button" class="btn btn-8DBF43 mr-sm-4 text-uppercase">Cofirm</button>
+                <button type="button" class="btn btn-8DBF43 mr-sm-4 text-uppercase">@lang('confirm')</button>
                 @if(isset($settings->Required) and !$settings->Required)
-                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('wallet')">Skip</button>
+                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('wallet')">@lang('skip')</button>
                 @endif
             </div>
         </div>

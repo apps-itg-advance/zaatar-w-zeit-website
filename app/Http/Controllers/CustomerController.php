@@ -264,7 +264,7 @@ class CustomerController extends Controller
         $class_css='orders-wrapper';
         $flag=true;
         $sub_active='orders';
-        $page_title='Order History';
+        $page_title=app('translator')->get('order_history');;
         return view('customers.order_history',compact('query','class_css','flag','sub_active','page_title','row_total'));
 //	        'cart','cart_info','cart_gift','cart_payment','cart_sp_instructions','cart_green','cart_vouchers','cart_wallet','delivery_charge','currency'));  //
     }
