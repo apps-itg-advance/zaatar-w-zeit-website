@@ -153,8 +153,8 @@ class CheckoutController extends Controller
             'XLocation'=>$_data->XLocation,
             'YLocation'=>$_data->YLocation,
             'AddressType'=>$_data->TypeID,
-            'City'=>$_data->CityName,
-            'Province'=>$_data->ProvinceName,
+            'City'=>$_data->CityCode,
+            'Province'=>$_data->ProvinceCode,
             'Company'=>$_data->CompanyName
         );
 
