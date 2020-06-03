@@ -105,20 +105,20 @@
 			var currency = $("input[name='payment_currency"+id+"']:checked").val();
 			if(!radioValue || radioValue==undefined){
 				Swal.fire({
-					title: 'Warning!',
-					text: 'You must choose an option!',
+					title: '<?php echo app('translator')->get('warning!'); ?>',
+					text: '<?php echo app('translator')->get('you_must_choose_option!'); ?>',
 					icon: 'warning',
-					confirmButtonText: 'Close'
+					confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
 				});
 				spinnerButtons('hide', $(this));
 				return null;
 			}
 			if((!currency || currency==undefined) && pname=='credit'){
 				Swal.fire({
-					title: 'Warning!',
-					text: 'You must choose a currency!',
+					title: '<?php echo app('translator')->get('warning!'); ?>',
+					text: '<?php echo app('translator')->get('you_must_choose_currency!'); ?>',
 					icon: 'warning',
-					confirmButtonText: 'Close'
+					confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
 				});
 				spinnerButtons('hide', $(this));
 				return null;
@@ -134,10 +134,10 @@
 			 if(data=='error_empty_item')
 					{
 						Swal.fire({
-							title: 'Error!',
-							text: 'You must select an item!',
+							title: '<?php echo app('translator')->get('error!'); ?>',
+							text: '<?php echo app('translator')->get('you_must_select_an_item!'); ?>',
 							icon: 'danger',
-							confirmButtonText: 'Close'
+							confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
 						});
 						spinnerButtons('hide', $(that));
 						return null;

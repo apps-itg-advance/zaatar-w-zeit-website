@@ -14,9 +14,9 @@
                         <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                     </div>
                     <div class="col-lg-6 text-col pt-4">
-                        <h4 class="futura-b title1">MAKE IT A MEAL ! </h4>
+                        <h4 class="futura-b title1">@lang('make_a_meal')</h4>
                         <div class="info title2">
-                            {{htmlspecialchars_decode($row->ItemName)}}  {{number_format($row->Price)}}
+                                <span>{{htmlspecialchars_decode($row->ItemName)}}</span> <span class="mx-1"> {{number_format($row->Price)}}</span>
                         </div>
                         <div class="items-row items-meal-row row align-items-center mt-4">
                             <div class="col-12 item-col">

@@ -73,7 +73,7 @@ $discount=0;
                                                 @endphp
                                                 @if($meal!=null)
                                                     <div class="speacial-meal">
-                                                        MEAL <span class="d-inline-block mx-3">{{$meal['name']}}</span><span class="d-inline-block">{{number_format($meal['price'])}}</span>
+                                                        @lang('meal') <span class="d-inline-block mx-3">{{$meal['name']}}</span><span class="d-inline-block">{{number_format($meal['price'])}}</span>
                                                     </div>
                                                 @endif
                                             @endif
@@ -263,7 +263,7 @@ $discount=0;
                 {
                     if(res.status=='success')
                     {
-                        msg_title='Order Submitted successfully.';
+                        msg_title='<?php echo app('translator')->get('order_submitted_successfully.'); ?>';
                         msg_icon='success';
                         xurl='{{route('customer.index')}}'+'#'+res.OrderId;
                     }
@@ -288,7 +288,7 @@ $discount=0;
                    Swal.fire({
                        // position: 'top-end',
                        icon: 'success',
-                       title: 'Please wait ...',
+                       title: '<?php echo app('translator')->get('please_wait...'); ?>',
                        showConfirmButton: false,
                        timer: 3200
                    });

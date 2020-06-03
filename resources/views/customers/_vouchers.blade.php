@@ -189,8 +189,8 @@
             Swal.fire({
                 // position: 'top-end',
                 icon: 'warning',
-                title: 'You must select an amount',
-                showConfirmButton: 'close'
+                title: '<?php echo app('translator')->get('you_must_select_an_amount'); ?>',
+                showConfirmButton: '<?php echo app('translator')->get('close'); ?>'
             });
         }
     });
@@ -267,8 +267,8 @@
             Swal.fire({
                 // position: 'top-end',
                 icon: 'warning',
-                title: 'You must select an amount or a voucher',
-                showConfirmButton: 'close'
+                title: '<?php echo app('translator')->get('you_must_select_an_amount_voucher'); ?>',
+                showConfirmButton: '<?php echo app('translator')->get('close'); ?>'
             });
         }
 

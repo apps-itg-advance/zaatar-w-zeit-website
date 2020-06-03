@@ -61,10 +61,10 @@
             var radioValue = $("input[name='sp_i[]']:checked").val();
             if(!radioValue || radioValue==undefined){
                 Swal.fire({
-                    title: 'Warning!',
-                    text: 'You must choose an option!',
+                    title: '<?php echo app('translator')->get('warning!'); ?>',
+                    text: '<?php echo app('translator')->get('you_must_choose_option!'); ?>',
                     icon: 'warning',
-                    confirmButtonText: 'Close'
+                    confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
                 });
                 spinnerButtons('hide', $(this));
                 return null;

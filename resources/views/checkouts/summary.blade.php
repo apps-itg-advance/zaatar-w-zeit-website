@@ -30,7 +30,7 @@
                         @endphp
                         {{implode(', ',$md_array )}}
 
-                        {!! isset($meal['name'])? '<br>Make meal : '.$meal['name'].' '.$meal['price']:'' !!}
+                        {!! isset($meal['name'])? '<br>Make meal : '.$meal['name'].' '.number_format($meal['price']):'' !!}
                     </div>
                     <div class="buttons">
                         <a href="javascript:void(0)" onclick="_copyItem({{$key}})" class="d-inline-block mx-1"><img src="{{asset('assets/images/icon-checkout-plus.png')}}" /></a>

@@ -412,10 +412,10 @@
                 validated=ValidateIntMobile($('.iti__selected-dial-code').text(),mobile);
                 if(!validated){
 	                Swal.fire({
-		                title: 'Warning!',
-		                text: 'Some fields are invalid!',
+		                title: '<?php echo app('translator')->get('warning!'); ?>',
+		                text: '<?php echo app('translator')->get('some_fields_are_invalid!'); ?>',
 		                icon: 'warning',
-		                confirmButtonText: 'Close'
+		                confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
 	                });
 	                spinnerButtons('hide', $(this));
 	                return null;
@@ -446,10 +446,10 @@
                         }
                         else{
                             Swal.fire({
-                                title: 'Warning!',
+                                title: '<?php echo app('translator')->get('warning!'); ?>',
                                 text: result.message,
                                 icon: 'warning',
-                                confirmButtonText: 'Close'
+                                confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
                             });
                             spinnerButtons('hide',  $(that));
                             return false;
@@ -498,10 +498,10 @@
                         }
                         else{
 	                        Swal.fire({
-		                        title: 'Warning!',
-		                        text: 'Pin Code is invalid!',
+		                        title: '<?php echo app('translator')->get('warning!'); ?>',
+		                        text: '<?php echo app('translator')->get('pin_code_invalid!'); ?>',
 		                        icon: 'warning',
-		                        confirmButtonText: 'Close'
+		                        confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
 	                        });
                             jQuery('#PinMsg').html(result.message);
                         }
@@ -553,10 +553,10 @@
 
 	            if(!validated){
 		            Swal.fire({
-			            title: 'Warning!',
-			            text: 'Some fields are required!',
+			            title: '<?php echo app('translator')->get('warning!'); ?>',
+			            text: '<?php echo app('translator')->get('some_fields_are_required!'); ?>',
 			            icon: 'warning',
-			            confirmButtonText: 'Close'
+			            confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
 		            });
 		            spinnerButtons('hide', $(this));
 		            return null;
@@ -605,10 +605,10 @@
 	                    spinnerButtons('hide', $(that));
                         // jQuery('#PinMsg').html(data.message);
 	                    Swal.fire({
-		                    title: 'Resend Pin Code!',
-		                    text: 'New Pin Code was sent to your mobile number.',
+		                    title: '<?php echo app('translator')->get('resend_pin_code'); ?>',
+		                    text: '<?php echo app('translator')->get('new_pin_code_sent_to_mobile_number.'); ?>',
 		                    icon: 'success',
-		                    confirmButtonText: 'Close'
+		                    confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
 	                    });
                     }
                 });

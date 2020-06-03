@@ -97,7 +97,7 @@
 			Swal.fire({
 				// position: 'top-end',
 				icon: 'warning',
-				title: 'Please allow geolocation service from your browser.',
+				title: '<?php echo app('translator')->get('please_allow_geolocation_service_browser.'); ?>',
 				showConfirmButton: false,
 				timer: 1200
 			});
@@ -105,7 +105,7 @@
 			Swal.fire({
 				// position: 'top-end',
 				icon: 'warning',
-				title: 'Your browser dons\'t support geolocation.',
+				title: '<?php echo app('translator')->get('your_browser_dont_support_geolocation.'); ?>',
 				showConfirmButton: false,
 				timer: 1200
 			});

@@ -30,7 +30,7 @@
                             <div class="col-sm-8">
                                 @foreach($cart as $key=>$values)
                                     <div class="mb-3">
-                                        <h5 class="mb-0">{{$values['name']}} (x{{$values['quantity']}}) <span class="d-inline-block ml-3">{{$values['price']}}</span></h5>
+                                        <h5 class="mb-0">{{$values['name']}} (x{{$values['quantity']}}) <span class="d-inline-block ml-3">{{number_format($values['price'])}}</span></h5>
                                         <div class="text-808080">
                                             @php
                                                 $modifiers=$values['modifiers'];

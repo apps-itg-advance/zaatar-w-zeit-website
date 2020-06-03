@@ -168,7 +168,7 @@
                 Swal.fire({
                     // position: 'top-end',
                     icon: 'success',
-                    title: title_v + ' voucher was selected',
+                    title: title_v + '<?php echo app('translator')->get('voucher_was_selected'); ?>',
                     showConfirmButton: 'Close',
                 });
             }
@@ -176,8 +176,8 @@
                 Swal.fire({
                     // position: 'top-end',
                     icon: 'warning',
-                    title: 'Voucher previously selected',
-                    showConfirmButton: 'Close',
+                    title: '<?php echo app('translator')->get('voucher_previously_selected'); ?>',
+                    showConfirmButton: '<?php echo app('translator')->get('close'); ?>',
                 });
             }
         }

@@ -42,7 +42,7 @@
 							Swal.fire({
 								// position: 'top-end',
 								icon: 'success',
-								title: 'Your favourite item was removed successfully.',
+								title: '<?php echo app('translator')->get('your_favourite_item_removed_successfully.'); ?>',
 								showConfirmButton: false,
 								timer: 1200
 							});

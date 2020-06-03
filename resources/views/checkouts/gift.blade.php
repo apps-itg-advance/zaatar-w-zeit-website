@@ -87,10 +87,10 @@
 			}
 			else{
 				Swal.fire({
-					title: 'Warning!',
-					text: 'Some fields are required!',
+					title: '<?php echo app('translator')->get('warning!'); ?>',
+					text: '<?php echo app('translator')->get('some_fields_are_required!'); ?>',
 					icon: 'warning',
-					confirmButtonText: 'Close'
+					confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
 				});
 				spinnerButtons('hide', $(this));
 				return null;

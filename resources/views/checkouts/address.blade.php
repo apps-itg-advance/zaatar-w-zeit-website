@@ -147,8 +147,8 @@
                 {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'You must select an order type (now or scheduled).',
-                        showConfirmButton: 'close'
+                        title: '<?php echo app('translator')->get('you_must_select_an_ordertype_(now_scheduled).'); ?>',
+                        showConfirmButton: '<?php echo app('translator')->get('close'); ?>'
                     });
                     spinnerButtons('hide', that);
                     return false;
@@ -156,8 +156,8 @@
                 else if(order_schedulev=='schedule' && schedule_datev=='') {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'You must select schedule date.',
-                        showConfirmButton: 'close'
+                        title: '<?php echo app('translator')->get('you_must_select_schedule_date'); ?>',
+                        showConfirmButton: '<?php echo app('translator')->get('close'); ?>'
                     });
                     spinnerButtons('hide', that);
                     return false;
@@ -173,10 +173,10 @@
                         {
 
                             Swal.fire({
-                                title: 'Warning!',
-                                text: 'Sorry, the outlet is already closed',
+                                title: '<?php echo app('translator')->get('warning!'); ?>',
+                                text: '<?php echo app('translator')->get('sorry_outlet_already_closed'); ?>',
                                 icon: 'warning',
-                                confirmButtonText: 'Close'
+                                confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
                             });
                             spinnerButtons('hide', that);
                             return false;
@@ -201,10 +201,10 @@
             }
             else{
 	            Swal.fire({
-		            title: 'Warning!',
-		            text: 'You must choose an option!',
+		            title: '<?php echo app('translator')->get('wraning!'); ?>',
+		            text: '<?php echo app('translator')->get('you_must_choose_option!'); ?>',
 		            icon: 'warning',
-		            confirmButtonText: 'Close'
+		            confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
 	            });
 	            spinnerButtons('hide', $(this));
 	            return null;
@@ -230,13 +230,13 @@
         }
         function DeleteAddress(address_id) {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: '<?php echo app('translator')->get('are_you_sure?'); ?>',
+                text: '<?php echo app('translator')->get('you_wont_be_able_revert_this!'); ?>',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: '<?php echo app('translator')->get('yes_delete_it!'); ?>'
             }).then((result) => {
                 if (result.value) {
                     window.location = '{{route('customer.address.delete')}}'+'/'+address_id;

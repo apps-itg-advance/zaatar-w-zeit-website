@@ -83,7 +83,7 @@
                         <div class="custom-control custom-radio mb-1">
                             <input type="checkbox" {{$h_checked}} value="{{$make_meal->ID.'-'.$make_meal->Price.'-'.$make_meal->Details}}"  onclick="CalculateMakeMealTotalE({{$make_meal->ID}},{{$row->ID}})"  id="makeMealE{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]"  class="custom-control-input">
                             <label class="custom-control-label text-uppercase" for="makeMealE{{$make_meal->ID}}">
-                                MAKE IT A MEAL
+                                @lang('make_a_meal')
                                 <span class="price">{{$make_meal->Price}}</span>
                             </label>
                         </div>
@@ -119,7 +119,11 @@
         </div>
         <div class="modal-footer pt-0">
             <span class="title d-inline-block">@lang('total')</span>
+<<<<<<< Updated upstream
             <span class="amount d-inline-block mx-5" id="DisplayTotalE{{$row->ID}}">{{$item['price']}} {{$currency}}</span>
+=======
+            <span class="amount d-inline-block mx-5" id="DisplayTotalE{{$row->ID}}">{{number_format($item['price'])}} {{$currency}}</span>
+>>>>>>> Stashed changes
             <input type="hidden" id="TotalAmountE{{$row->ID}}" name="TotalAmount" value="{{$item['price']}}">
             <button type="submit" class="btn btn-8DBF43 text-uppercase">@lang('confirm')</button>
         </div>
@@ -143,7 +147,7 @@
             Swal.fire({
                 // position: 'top-end',
                 icon: 'warning',
-                title: 'You can\'t select more than '+max_qty+' option',
+                title: '<?php echo app('translator')->get('you_cant_select_more_than'); ?>'+max_qty+' <?php echo app('translator')->get('option'); ?>',
                 showConfirmButton: false,
                 timer: 1200
             });

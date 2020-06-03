@@ -1,7 +1,7 @@
 @php
 $active='btn-8DBF43 ';
 @endphp
-<div class="title-div mb-4 pb-2">
+<div class="title-div mb-5 pb-2">
     <div class="row-favourite mx-auto" style="box-shadow: none !important;">
         <div class="col-favourite">
             <div class="favourite-box" style="-webkit-box-shadow:none !important;">

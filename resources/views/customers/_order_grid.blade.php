@@ -298,7 +298,7 @@
                     Swal.fire({
                         // position: 'top-end',
                         icon: 'success',
-                        title: 'Your favourite order was added successfully.',
+                        title: '<?php echo app('translator')->get('your_favourite_order_added_successfully.'); ?>',
                         showConfirmButton: false,
                         timer: 1200
 
@@ -320,7 +320,7 @@
                     Swal.fire({
                         // position: 'top-end',
                         icon: 'success',
-                        title: 'Your favourite order was removed successfully.',
+                        title: '<?php echo app('translator')->get('your_favourite_order_removed_successfully.'); ?>',
                         showConfirmButton: false,
                         timer: 1200
                     });
@@ -374,7 +374,7 @@
                                     $('.load-more').hide();
                                    // $('.load-more').css("background","darkorchid");
                                 }else{
-                                    $(".load-more").text('<?= app('translator')->get('load_more')?>');
+                                    $(".load-more").text(<?= app('translator')->get('load_more')?>);
                                 }
                             }, 2000);
 
@@ -394,7 +394,7 @@
                         $("#row").val(0);
 
                         // Change the text and background
-                        $('.load-more').text('<?= app('translator')->get('load_more')?>');
+                        $('.load-more').text(<?= app('translator')->get('load_more')?>);
                        // $('.load-more').css("background","#15a9ce");
 
                     }, 2000);

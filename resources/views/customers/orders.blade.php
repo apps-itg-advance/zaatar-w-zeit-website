@@ -248,7 +248,7 @@
 					Swal.fire({
 						// position: 'top-end',
 						icon: 'success',
-						title: 'Your favourite order was removed successfully.',
+						title: '<?php echo app('translator')->get('your_favourite_order_removed_successfully.'); ?>',
 						showConfirmButton: false,
 						timer: 1200
 					});

@@ -155,7 +155,7 @@
                     Swal.fire({
                         // position: 'top-end',
                         icon: 'warning',
-                        title: 'No Customization Available For This Item.',
+                        title: '<?php echo app('translator')->get('no_customization_available_item.'); ?>',
                         showConfirmButton: false,
                         timer: 1200
                     });
@@ -195,14 +195,14 @@
 
 	function loginAlert(){
 		Swal.fire({
-			title: 'Not Logged In!',
-			text: "You need to login first",
+			title: '<?php echo app('translator')->get('not_logged_in!'); ?>',
+			text: '<?php echo app('translator')->get('you_need_login_first'); ?>',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#8DBF43',
 			cancelButtonColor: '#aaa',
-			confirmButtonText: 'Login?',
-			cancelButtonText: 'Close'
+			confirmButtonText: '<?php echo app('translator')->get('login?'); ?>',
+			cancelButtonText: '<?php echo app('translator')->get('close'); ?>'
 		}).then((result) => {
             if (result.value) {
 	            window.location.replace("{{route('auth.login')}}");
@@ -274,8 +274,8 @@
             Swal.fire({
                 // position: 'top-end',
                 icon: 'warning',
-                title: 'This address type is already in use.',
-                showConfirmButton: 'close'
+                title: '<?php echo app('translator')->get('this_address_type_already_use.'); ?>',
+                showConfirmButton: '<?php echo app('translator')->get('close'); ?>'
             });
             return false;
         }

@@ -174,10 +174,10 @@
                     if(data=='error')
                     {
                         Swal.fire({
-                            title: 'Warning!',
-                            text: 'You must choose a card!',
+                            title: '<?php echo app('translator')->get('warning!'); ?>',
+                            text: '<?php echo app('translator')->get('you_must_choose_card!'); ?>',
                             icon: 'warning',
-                            confirmButtonText: 'Close'
+                            confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
                         });
                     }
                     else{
@@ -196,10 +196,10 @@
             if(card=='')
             {
                 Swal.fire({
-                    title: 'Warning!',
-                    text: 'You must choose a card!',
+                    title: '<?php echo app('translator')->get('warning!'); ?>',
+                    text: '<?php echo app('translator')->get('you_must_choose_card!'); ?>',
                     icon: 'warning',
-                    confirmButtonText: 'Close'
+                    confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
                 });
                 spinnerButtons('hide', $(this));
                 return null;
@@ -213,17 +213,16 @@
             spinnerButtons('show', $(this));
             var that = this;
             SubmitData('',that);
-
         });
         function DeleteCards(id) {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: '<?php echo app('translator')->get('are_you_sure?'); ?>',
+                text: '<?php echo app('translator')->get('you_wont_be_able_revert_this!'); ?>',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: '<?php echo app('translator')->get('yes_delete_it!'); ?>'
             }).then((result) => {
                 if (result.value) {
                     window.location = '{{route('credit.cards.delete')}}'+'/'+id;
