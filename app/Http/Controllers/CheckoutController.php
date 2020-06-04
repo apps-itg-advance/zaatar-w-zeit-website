@@ -291,6 +291,19 @@ class CheckoutController extends Controller
     }
     public function loyalty_store(Request $request)
     {
+        $payment_v=0;
+        $payment_w=0;
+        foreach ($this->query->PaymentMethods as $x)
+        {
+            if($x->Name=='voucher')
+            {
+                $payment_v=$x->POSCode;
+            }
+            if($x->Name=='wallet')
+            {
+                $payment_w=$x->POSCode;
+            }
+        }
         $voucher_id=$request->input('vid');
         $wallet_amount=$request->input('wallet_amount');
         $vouchers=session()->get('vouchers');
@@ -354,7 +367,8 @@ class CheckoutController extends Controller
                 'Category' => $s_vouchers->Category,
                 'ItemPlu' => $s_vouchers->PLU,
                 'ExpiryDate' => $s_vouchers->ExpiryDate,
-                'VParentId'=>$voucher_id
+                'VParentId'=>$voucher_id,
+                'PaymentId'=>$payment_v
             );
             session()->forget('cart_vouchers');
             session()->save();
@@ -365,6 +379,7 @@ class CheckoutController extends Controller
             session()->forget('cart_wallet');
             session()->save();
             session()->put('cart_wallet', $wallet_amount);
+            session()->put('cart_wallet_id', $payment_w);
         }
         session()->put('checkout_steps','wallet');
         session()->save();

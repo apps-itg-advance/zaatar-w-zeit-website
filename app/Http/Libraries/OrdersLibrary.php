@@ -213,7 +213,7 @@ class OrdersLibrary{
                 'Settlement'=>$discount,
                 'Currency'=>$currency,
                 'Category'=>'voucher',
-                'PaymentTypeId'=>259,
+                'PaymentTypeId'=>$cart_vouchers['PaymentId'],
                 'ItemPlu'=>$cart_vouchers['ItemPlu'],
                 'ConfirmationCode'=>$cart_vouchers['Id']
             );
@@ -225,7 +225,7 @@ class OrdersLibrary{
             'Settlement'=>$cart_wallet,
             'Currency'=>$currency,
             'Category'=>'wallet',
-            'PaymentTypeId'=>266,
+            'PaymentTypeId'=>session()->get('cart_wallet_id'),
             'ConfirmationCode'=>0
         );
         array_push($array_payments,$_w);
