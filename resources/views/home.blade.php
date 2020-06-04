@@ -162,7 +162,8 @@
                 }
 
                 $("#TotalAmount"+item_id).val(nTotal);
-                $("#DisplayTotal"+item_id).text(nTotal+' LBP');
+                // $("#DisplayTotal"+item_id).text(nTotal+' LBP');
+                $("#DisplayTotal"+item_id).text(nTotal+' {{$currency}}');
             }
         }
         function CalculateMakeMealTotal(id,item_id) {
@@ -179,7 +180,8 @@
                 }
 
                 $("#TotalAmount"+item_id).val(nTotal);
-                $("#DisplayTotal"+item_id).text(nTotal+' LBP');
+                // $("#DisplayTotal"+item_id).text(nTotal+' LBP');
+                $("#DisplayTotal"+item_id).text(nTotal+' {{$currency}}');
             }
     </script>
 @endsection

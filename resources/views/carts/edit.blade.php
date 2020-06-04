@@ -119,11 +119,7 @@
         </div>
         <div class="modal-footer pt-0">
             <span class="title d-inline-block">@lang('total')</span>
-<<<<<<< Updated upstream
-            <span class="amount d-inline-block mx-5" id="DisplayTotalE{{$row->ID}}">{{$item['price']}} {{$currency}}</span>
-=======
             <span class="amount d-inline-block mx-5" id="DisplayTotalE{{$row->ID}}">{{number_format($item['price'])}} {{$currency}}</span>
->>>>>>> Stashed changes
             <input type="hidden" id="TotalAmountE{{$row->ID}}" name="TotalAmount" value="{{$item['price']}}">
             <button type="submit" class="btn btn-8DBF43 text-uppercase">@lang('confirm')</button>
         </div>
@@ -169,7 +165,8 @@
 
             }
             $("#TotalAmountE"+item_id).val(nTotal);
-            $("#DisplayTotalE"+item_id).text(nTotal+' LBP');
+            // $("#DisplayTotalE"+item_id).text(nTotal+' LBP');
+            $("#DisplayTotalE"+item_id).text(nTotal+' {{$currency}}');
         }
     }
     function CalculateMakeMealTotalE(id,item_id) {

@@ -79,7 +79,8 @@
                 var nTotal=parseFloat($("#TotalAmount"+item_id).val())-mPrice;
             }
             $("#TotalAmount"+item_id).val(nTotal);
-            $("#DisplayTotal"+item_id).text(formatNumber(nTotal)+' LBP');
+            // $("#DisplayTotal"+item_id).text(formatNumber(nTotal)+' LBP');
+            $("#DisplayTotal"+item_id).text(formatNumber(nTotal)+' {{$currency}}');
         }
     }
     function CalculateMakeMealTotal(id,item_id) {
@@ -136,7 +137,8 @@
         var newTotal=currentTotal;
         // $("#TotalAmount"+id).val(newTotal);
         $("#QuickOrder").val('1');
-        $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
+        // $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
+        $("#DisplayTotal"+id).text(formatNumber(newTotal)+' {{$currency}}');
         MakeMealModel(id);
     }
     function SubQty(id,plu) {
@@ -154,7 +156,8 @@
             $("#"+ItemId).val(newQty);
             var newTotal=currentTotal*newQty;
             //  $("#TotalAmount"+id).val(newTotal);
-            $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
+            // $("#DisplayTotal"+id).text(formatNumber(newTotal)+' LBP');
+            $("#DisplayTotal"+id).text(formatNumber(newTotal)+' {{$currency}}');
         }
         $.ajax({
             headers: {

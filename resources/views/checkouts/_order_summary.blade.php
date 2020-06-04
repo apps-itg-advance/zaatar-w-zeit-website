@@ -263,7 +263,7 @@ $discount=0;
                 {
                     if(res.status=='success')
                     {
-                        msg_title='<?php echo app('translator')->get('order_submitted_successfully.'); ?>';
+                        msg_title="<?php echo app('translator')->get('order_submitted_successfully.'); ?>";
                         msg_icon='success';
                         xurl='{{route('customer.index')}}'+'#'+res.OrderId;
                     }
@@ -288,7 +288,7 @@ $discount=0;
                    Swal.fire({
                        // position: 'top-end',
                        icon: 'success',
-                       title: '<?php echo app('translator')->get('please_wait...'); ?>',
+                       title: "<?php echo app('translator')->get('please_wait...'); ?>",
                        showConfirmButton: false,
                        timer: 3200
                    });

@@ -1112,11 +1112,11 @@ a.effect-underline:hover:after {
     float: right!important;
 }
 
-.ar-lang .content-wrapper .favourite-box .input-group.item-plus-minus{
-    /*float: left;*/
-    left: 15px;
-    right: 0;
-}
+/*.ar-lang .content-wrapper .favourite-box .input-group.item-plus-minus{*/
+/*    float: left;*/
+/*    left: 15px;*/
+/*    right: 0;*/
+/*}*/
 .ar-lang .cartbox-wrapper .cart-dropdown .carttotal-block .delivery-fee {
      display: flex;
     justify-content: space-between;
@@ -1197,10 +1197,12 @@ a.effect-underline:hover:after {
 
 .ar-lang .order-box .order-info .col-sm-4 {
     text-align: left !important;
+    font-weight: bold;
 }
 
 .ar-lang .order-box .order-info .col-4 {
      text-align: left !important;
+     font-weight: bold;
  }
 .ar-lang .order-box .order-info .col-6 {
     text-align: right !important;
@@ -1363,7 +1365,7 @@ margin-left: 1rem !important;
     left: -12px;
     display: flex;
     justify-content: flex-end;
-    z-index: -1;
+    background: transparent;
 }
 
 .ar-lang .OrderSummary .modal-header .close {
@@ -1466,15 +1468,16 @@ margin-left: 1rem !important;
 .ar-lang .content-wrapper .favourite-box .media .media-body .icon {
     display: flex;
     flex-wrap: wrap;
+    float: right;
 }
 .header-wrapper .dropdown-menu .dropdown-item:hover {
     cursor: pointer;
 }
-.ar-lang .cartbig-modal .item-col {
-    border-left: 1px solid #808080;
+.ar-lang .cartbig-modal .items-row.mt-4 .item-col {
+    border-left: 1px solid #808080 ;
     border-right: none;
 }
-.ar-lang .cartbig-modal .item-col:last-child {
+.ar-lang .cartbig-modal .items-row.mt-4 .item-col:last-child {
     border: none;
 }
 .ar-lang  .cartbig-modal h5{
@@ -1490,6 +1493,7 @@ margin-left: 1rem !important;
 
 .ar-lang  .cartbig-modal .info {
     display: flex;
+    text-align: right;
 }
 .ar-lang .cartbig-modal .item-col .custom-control {
     padding-left: 0;
@@ -1539,6 +1543,7 @@ margin-left: 1rem !important;
 }
 .ar-lang .cartbig-modal .item-col .custom-control-label {
     text-align: right;
+    font-weight: bold;
 }
 .ar-lang .cartbig-modal .items-meal-row .col-12 {
     text-align: right;
@@ -1586,4 +1591,27 @@ margin-left: 1rem !important;
 }
 .ar-lang .OrderSummary #PlaceOrder .orders-wrapper .order-box .order-info .col-md-8 div.text-808080 {
     text-align: right;
+}
+/**/
+.cartbox-wrapper .cart-items .name .name-value {
+    font-weight: bold;
+}
+.ar-lang .order-box .order-info .col-sm-6{
+    text-align: right;
+}
+
+.ar-lang .orders-wrapper .order-box .title {
+    display: flex;
+    justify-content: space-between;
+}
+.ar-lang .orders-wrapper .order-info .row .col-sm-8.futura-medium {
+    text-align: right;
+}
+.ar-lang .add-address .modal-body .row .col-sm-4 .form-group {
+    text-align: right;
+}
+
+.ar-lang .add-address .modal-header .close,
+.ar-lang .edit-address .modal-header .close {
+    margin: -1rem auto -1rem -1rem ;
 }

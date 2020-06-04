@@ -23,7 +23,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
-    <script src="/assets/sweetalert2-9.10.0/package/dist/sweetalert2.all.js"></script>
+{{--    <script src="/assets/sweetalert2-9.10.0/package/dist/sweetalert2.all.js"></script>--}}
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.0"></script>
     <script>
 		//paste this code under head tag or in a seperate js file.
 		// Wait for window load

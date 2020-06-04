@@ -201,7 +201,7 @@
             }
             else{
 	            Swal.fire({
-		            title: '<?php echo app('translator')->get('wraning!'); ?>',
+		            title: '<?php echo app('translator')->get('warning!'); ?>',
 		            text: '<?php echo app('translator')->get('you_must_choose_option!'); ?>',
 		            icon: 'warning',
 		            confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
@@ -231,7 +231,7 @@
         function DeleteAddress(address_id) {
             Swal.fire({
                 title: '<?php echo app('translator')->get('are_you_sure?'); ?>',
-                text: '<?php echo app('translator')->get('you_wont_be_able_revert_this!'); ?>',
+                text: "<?php echo app('translator')->get('you_wont_be_able_revert_this!'); ?>",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

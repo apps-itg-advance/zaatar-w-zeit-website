@@ -169,7 +169,7 @@
                     // position: 'top-end',
                     icon: 'success',
                     title: title_v + '<?php echo app('translator')->get('voucher_was_selected'); ?>',
-                    showConfirmButton: 'Close',
+                    showConfirmButton: '<?php echo app('translator')->get('close'); ?>',
                 });
             }
             else{

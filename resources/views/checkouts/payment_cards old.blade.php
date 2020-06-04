@@ -158,7 +158,7 @@
             if(card=='')
             {
                 Swal.fire({
-                    title: '<?php echo app('translator')->get('wraning!'); ?>',
+                    title: '<?php echo app('translator')->get('warning!'); ?>',
                     text: '<?php echo app('translator')->get('you_must_choose_card!'); ?>',
                     icon: 'warning',
                     confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
