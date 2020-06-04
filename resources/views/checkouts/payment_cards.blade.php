@@ -217,7 +217,7 @@
         function DeleteCards(id) {
             Swal.fire({
                 title: '<?php echo app('translator')->get('are_you_sure?'); ?>',
-                text: '<?php echo app('translator')->get('you_wont_be_able_revert_this!'); ?>',
+                text: "<?php echo app('translator')->get('you_wont_be_able_revert_this!'); ?>",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
