@@ -205,8 +205,6 @@ class OrdersLibrary{
             {
               foreach ($array_items as $it)
               {
-                  dump($it);
-                  die;
                   if($it['ItemPlu']==$cart_vouchers['ItemPlu'])
                   {
                       $v_price=$it['UnitPrice'];
