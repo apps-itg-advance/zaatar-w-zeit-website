@@ -143,7 +143,7 @@
             Swal.fire({
                 // position: 'top-end',
                 icon: 'warning',
-                title: '<?php echo app('translator')->get('you_cant_select_more_than'); ?>'+max_qty+' <?php echo app('translator')->get('option'); ?>',
+                title: "<?php echo app('translator')->get('you_cant_select_more_than'); ?>"+max_qty+" <?php echo app('translator')->get('option'); ?>",
                 showConfirmButton: false,
                 timer: 1200
             });

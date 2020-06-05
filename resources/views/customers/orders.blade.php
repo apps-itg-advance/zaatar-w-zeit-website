@@ -116,7 +116,7 @@
                                 </span>
                                     </div>
                                     <div class="total-block text-right">
-                                        @lang('sub_total') <span class="price d-inline-block ml-4" style="width: 30% !important;">
+                                        @lang('sub_total') <span class="price d-inline-block ml-4" style="width: 30%;">
                                             {{number_format($row->GrossAmount). ' '.$currency}}
                                 </span>
                                     </div>
@@ -160,7 +160,7 @@
                                         {
                                             $go_green=$open_i->Value;
                                         }
-                                        elseif($open_i->Label==app('translator')->get('gift'))
+                                        elseif($open_i->Label=='Gift')
                                         {
                                             $gift=$open_i->Value;
                                         }
@@ -173,7 +173,7 @@
                                         @lang('wallet')
                                     </div>
                                     <div class="col-6 text-808080 mb-3 futura-book">
-                                        {{$wallet>0? 'Yes':app('translator')->get('no')}}
+                                        {{$wallet>0? app('translator')->get('yes'):app('translator')->get('no')}}
                                     </div>
                                 </div>
 

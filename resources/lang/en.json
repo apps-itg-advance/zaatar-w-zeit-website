@@ -212,7 +212,7 @@
   "option":"option",
   "some_fields_are_required!":"Some fields are required!",
   "please_allow_geolocation_service_browser.":"Please allow geolocation service from your browser.",
-  "your_browser_dont_support_geolocation.":"Your browser dons't support geolocation.",
+  "your_browser_dont_support_geolocation.":"Your browser doesn't support geolocation.",
   "no_customization_available_item.":"No Customization Available For This Item.",
   "not_logged_in!":"Not Logged In!",
   "you_need_login_first":"You need to login first",

@@ -859,8 +859,33 @@ button {
     .content-wrapper .favourite-box .input-group .form-control { max-width: 60px;}
 
     .cartbox-wrapper .cart-dropdown .action-buttons .btn { padding: 6px 15px;}
-    .editprofileModal .modal-dialog .modal-content{margin:120px 32px;}
+    .editprofileModal .modal-dialog .modal-content{
+        /*margin:120px 32px;*/
+        margin: 0;
+    }
+    #editprofileModal,
+    #OrderSummary{
+        padding-left: 0 !important;
+    }
+    #add-address,
+    #edit-address{
+        padding-right: 0 !important;
+    }
+    .summary-items .sch .hidden-input .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    .summary-items .sch .hidden-input .row .col-sm-1{
+        text-align: center;
+    }
+    .checkout-wrapper .item-summary {
+        padding-left: 15px !important;
+    }
 
+    #PlaceOrder .orders-wrapper .order-box .total-block .price {
+        width: 35% !important;
+    }
 }
 
 
@@ -1614,4 +1639,12 @@ margin-left: 1rem !important;
 .ar-lang .add-address .modal-header .close,
 .ar-lang .edit-address .modal-header .close {
     margin: -1rem auto -1rem -1rem ;
+}
+.ar-lang .favourites-wrapper.content-wrapper .items-container .media img {
+    margin-left: 1rem!important;
+    margin-right: 0!important;
+}
+
+.ar-lang .favourites-wrapper.content-wrapper .items-container .media h5 {
+    text-align: right;
 }

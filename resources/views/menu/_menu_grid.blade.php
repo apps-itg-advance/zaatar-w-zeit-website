@@ -54,7 +54,7 @@
                                 }
                            }
                         }
-                        $item_name=($fav_name!='') ? $fav_name:htmlspecialchars_decode($row->ItemName);
+                        $item_name= ($display_favourite && $fav_name!='') ? $fav_name:htmlspecialchars_decode($row->ItemName);
                         $row->fav_name=$fav_name;
                         $row->item_name=$item_name;
                         $row->fav_selected_array=$fav_selected_array;
@@ -72,7 +72,7 @@
                         <img  alt="loading.." data-src="{{asset(isset($row->LocalThumbnailImg) ? $row->LocalThumbnailImg : $row->ThumbnailImg)}}" @if($has_modifier==1) style="cursor: pointer" onclick="OpenModel({{$row->ID}})" @endif class="mr-3 img-thum b-lazy"  alt="...">
                         <div class="media-body">
                             <h5 class="mt-0">
-                                <a id="ItemName{{$row->ID}}" href="javascript:void(0)" @if($has_modifier==1) onclick="OpenModel({{$row->ID}})" @endif style="max-width: 60% !important; float: left">{{$row->item_name}}</a>
+                                <a id="ItemName{{$row->ID}}" href="javascript:void(0)" @if($has_modifier==1) onclick="OpenModel({{$row->ID}})" @endif style="max-width: 60% !important; float: left">{{$item_name}}</a>
                                 <span class="price" style="max-width: 38% !important; float:right; vertical-align: text-top">{{number_format($row->Price)}} {{$currency}}</span>
                                 <div class="clearfix"></div>
                                 <ul class="icon">

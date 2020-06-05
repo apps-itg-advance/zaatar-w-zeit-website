@@ -66,7 +66,7 @@
                                     <a onclick="loginAlert()" class="effect-underline link-favourite-u mr-3 cursor-pointer"></a>
                                 @endif
                             @php echo $txtF @endphp
-                            <input type="text" name="favourite_name" id="favourite_name{{$row->ID}}" placeholder=<?= app('translator')->get('ex_yara_s_famous'); ?> class="txt-favourite" value="{{$row->fav_name}}">
+                            <input type="text" name="favourite_name" id="favourite_name{{$row->ID}}" placeholder="<?= app('translator')->get('ex_yara_s_famous'); ?>" class="txt-favourite" value="{{$row->fav_name}}">
                         </div>
                     </div>
                 </div>
