@@ -203,8 +203,10 @@ class OrdersLibrary{
             $v_price=0;
             if($cart_vouchers['Category']=='free_item')
             {
-              foreach ($_items as $it)
+              foreach ($array_items as $it)
               {
+                  dump($it);
+                  die;
                   if($it['ItemPlu']==$cart_vouchers['ItemPlu'])
                   {
                       $v_price=$it['UnitPrice'];
