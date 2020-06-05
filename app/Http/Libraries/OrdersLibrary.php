@@ -200,9 +200,24 @@ class OrdersLibrary{
         }
         if(isset($cart_vouchers['Id']) and $cart_vouchers['Id']!=null)
         {
+            $v_price=0;
+            if($cart_vouchers['Category']=='free_item')
+            {
+              foreach ($_items as $it)
+              {
+                  if($it['ItemPlu']==$cart_vouchers['ItemPlu'])
+                  {
+                      $v_price=$it['UnitPrice'];
+                      break;
+                  }
+              }
+            }
+            else{
+                $v_price=$_total-$cart_wallet;
+            }
             if($cart_vouchers['ValueType']=='percentage')
             {
-                $discount=($_total-$cart_wallet)*$cart_vouchers['Value']/100;
+                $discount=$v_price*$cart_vouchers['Value']/100;
             }
             elseif($cart_vouchers['ValueType']=='flat_rate')
             {
