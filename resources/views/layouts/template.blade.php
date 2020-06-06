@@ -213,8 +213,11 @@
 
 	function SetFavourite(itemId,flag='')
 	{
-		// console.log(item.ID);
-        if(flag==1)
+		var favID = $('.favUnfav'+itemId).attr('data-favid');
+		if(favID === ''){
+			flag = 1;
+		}
+		if(flag==1)
         {
             var x=$('#CFavourite'+itemId);
         }
@@ -223,7 +226,34 @@
         }
         if(flag!=1)
         {
-            if(x.hasClass('href-disabled') || x.hasClass('active')){
+			// $('#Favourite'+itemId).removeClass('active');
+			// return null;
+            if(x.hasClass('active')){
+
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					type:'POST',
+					url:'{{route('customer.remove.favourite')}}',
+					data:{item_id:favID},
+					success:function(data){
+						// $(that).closest('.col-favourite').remove();
+						//$('#cartbig-modal-'+itemId).remove();
+						//_getCountCartItems();
+						//LoadCart();
+						Swal.fire({
+							// position: 'top-end',
+							icon: 'success',
+							title: '<?php echo app('translator')->get('your_favourite_item_removed_successfully.'); ?>',
+							showConfirmButton: false,
+							timer: 1200
+						});
+						$('.favUnfav'+itemId).removeClass('active');
+						$('.favUnfav'+itemId).attr('data-favid',"");
+					}
+				});
+
                 return null;
             }
         }
@@ -231,7 +261,7 @@
             spinner('show', x);
         }
 
-        x.addClass('href-disabled');
+        //x.addClass('href-disabled');
 
 		$.ajax({
 			headers: {
@@ -241,6 +271,8 @@
 			data:$('#Form'+itemId).serialize(),
 			url:'{{route('customer.set.favourite')}}',
 			success:function(data){
+				let res = JSON.parse(data);
+				let resFavId = res['data']['id'];
 				Swal.fire({
 					// position: 'top-end',
 					icon: 'success',
@@ -257,10 +289,12 @@
                         $('#ItemName'+itemId).text(fav_name);
                         $('#ItemNameDetails'+itemId).text(fav_name);
                         $('#Favourite'+itemId).addClass('active');
-                    }
+					}
 
                 }
-                x.removeClass('href-disabled').addClass('active');
+				x.addClass('active');
+				$('.favUnfav'+itemId).attr('data-favid',resFavId);
+				$('.favUnfav'+itemId).addClass('active');
 			}
 		});
 	}

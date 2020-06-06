@@ -373,7 +373,7 @@ class CustomerController extends Controller
             }
         }
         $query=MenuLibrary::SetFavoriteItem($item_id,$favourite_name,json_encode($data));
-        echo $query->message;
+        echo json_encode($query);
     }
 
 	public function remove_favourite(Request $request)
