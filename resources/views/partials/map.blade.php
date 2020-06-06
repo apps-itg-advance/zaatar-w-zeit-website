@@ -105,7 +105,7 @@
 			Swal.fire({
 				// position: 'top-end',
 				icon: 'warning',
-				title: '<?php echo app('translator')->get('your_browser_dont_support_geolocation.'); ?>',
+				title: "<?php echo app('translator')->get('your_browser_dont_support_geolocation.'); ?>",
 				showConfirmButton: false,
 				timer: 1200
 			});

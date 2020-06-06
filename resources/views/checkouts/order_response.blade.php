@@ -91,7 +91,7 @@
                                 @php
                                     if(isset($cart_gift->GiftOpenItem) and $cart_gift->GiftOpenItem!='')
                                     {
-                                        echo 'Yes';
+                                        echo app('translator')->get('yes');
                                        //  echo ' From : '.$cart_gift->GiftFrom.'<br> To : '.$cart_gift->GiftTo.'<br> Message : '.$cart_gift->GiftOpenItem;
                                     }
                                     else{

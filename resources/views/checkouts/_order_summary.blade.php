@@ -103,27 +103,27 @@ $discount=0;
                         <div class="col-md-8 offset-2">
                             <hr/>
                             <div class="total-block text-right">
-                                @lang('delivery_fee') <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($delivery_charge)}} {{$currency}}</span>
+                                @lang('delivery_fee') <span class="price d-inline-block ml-4" style="width: 30%">{{number_format($delivery_charge)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
-                                @lang('sub_total') <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($_total)}} {{$currency}}</span>
+                                @lang('sub_total') <span class="price d-inline-block ml-4" style="width: 30%">{{number_format($_total)}} {{$currency}}</span>
                             </div>
                             <div class="total-block text-right">
                                 @lang('discount_large')
-                                <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($discount)}} {{$currency}}</span>
+                                <span class="price d-inline-block ml-4" style="width: 30%">{{number_format($discount)}} {{$currency}}</span>
                             </div>
                             @if(isset($LEVEL_ID) and $LEVEL_ID!='')
                             <div class="total-block text-right">
-                                @lang('wallet') <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($cart_wallet)}} {{$currency}}</span>
+                                @lang('wallet') <span class="price d-inline-block ml-4" style="width: 30%">{{number_format($cart_wallet)}} {{$currency}}</span>
                             </div>
                             @endif
                             <div class="total-block text-right">
                                 @lang('payment')
-                                <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($payment)}} {{$currency}}</span>
+                                <span class="price d-inline-block ml-4" style="width: 30%">{{number_format($payment)}} {{$currency}}</span>
                             </div>
                             <hr/>
                             <div class="total-block text-right">
-                                @lang('total') <span class="price d-inline-block ml-4" style="width: 30% !important;">{{number_format($_total-$cart_wallet-$discount-$payment)}} {{$currency}}</span>
+                                @lang('total') <span class="price d-inline-block ml-4" style="width: 30%">{{number_format($_total-$cart_wallet-$discount-$payment)}} {{$currency}}</span>
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@ $discount=0;
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                                 @lang('wallet')
                             </div>
-                            <div class="col-6 text-808080 mb-3 futura-book">{{$cart_wallet >0 ? 'Yes':app('translator')->get('no')}}
+                            <div class="col-6 text-808080 mb-3 futura-book">{{$cart_wallet >0 ? app('translator')->get('yes'):app('translator')->get('no')}}
                                 @php
                                    /* if(isset($cart_vouchers['Id']) and $cart_vouchers['Id']!='')
                                     {
@@ -163,7 +163,7 @@ $discount=0;
                                 @php
                                     if(isset($cart_gift->GiftOpenItem) and $cart_gift->GiftOpenItem!='')
                                     {
-                                        echo 'Yes';
+                                        echo app('translator')->get('yes');
                                        //  echo ' From : '.$cart_gift->GiftFrom.'<br> To : '.$cart_gift->GiftTo.'<br> Message : '.$cart_gift->GiftOpenItem;
                                     }
                                     else{
