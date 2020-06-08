@@ -283,13 +283,13 @@
 				if(flag==1)
                 {
                     spinner('hide', x);
-                    var fav_name=$('#favourite_name'+itemId).val();
+                    /*var fav_name=$('#favourite_name'+itemId).val();
                     if(fav_name!='')
                     {
                         $('#ItemName'+itemId).text(fav_name);
                         $('#ItemNameDetails'+itemId).text(fav_name);
                         $('#Favourite'+itemId).addClass('active');
-					}
+					}*/
 
                 }
 				x.addClass('active');

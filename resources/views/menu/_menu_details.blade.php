@@ -60,8 +60,11 @@
                             $active_f='link-favourite-u active';
                             }
                             @endphp
+
                                 @if(session('is_login'))
-                                    <a onclick="SetFavourite({{$row->ID}},1)" id="CFavourite{{$row->ID}}" href="javascript:void(0)" class="effect-underline link-favourite-u mr-3 {{$active_f}}"></a>
+                                   @if(!$display_fv)
+                                      <a onclick="SetFavourite({{$row->ID}})" data-favid="{{($row->FavoriteId !== null) ? $row->FavoriteId : ''}}" id="CFavourite{{$row->ID}}" href="javascript:void(0)" class="favUnfav{{$row->ID}} effect-underline link-favourite-u mr-3 {{$active_f}}"></a>
+                                   @endif
                                 @else
                                     <a onclick="loginAlert()" class="effect-underline link-favourite-u mr-3 cursor-pointer"></a>
                                 @endif
@@ -113,3 +116,4 @@
         </div>
     </div>
 </div>
+

@@ -49,7 +49,7 @@
                                         }
                                         elseif($item[$j]->MenuType=='5')
                                             {
-                                              $meal_display='<div class="speacial-meal">MEAL <span class="d-inline-block mx-3">'.$item[$j]->ItemName.'</span><span class="d-inline-block">'.number_format($item[$j]->GrossPrice).'</span></div>';
+                                              $meal_display='<div class="speacial-meal">{{app('translator')->get('meal')}}<span class="d-inline-block mx-3">'.$item[$j]->ItemName.'</span><span class="d-inline-block">'.number_format($item[$j]->GrossPrice).'</span></div>';
                                             }
                                         $amount+=$item[$j]->GrossPrice;
                                     }

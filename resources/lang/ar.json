@@ -231,5 +231,6 @@
   "you_must_select_an_item!":"يجب عليك تحديد عنصر!",
   "voucher_was_selected":"تم اختيار القسيمة",
   "new_pin_code_sent_to_mobile_number.":"تم إرسال رمز PIN الجديد إلى رقم هاتفك المحمول.",
-  "meal":"وجبة"
+  "meal":"وجبة",
+  "select_one_drink":"حدد مشروب!"
 }

@@ -126,7 +126,7 @@
                             @endphp
                             @if($has_modifier==1)
 {{--                            <a onclick="OpenModel({{$row->ID}})" id="CustomizedLink{{$row->ID}}"  class="link-customize pointer effect-underline {{$cust_css}}"><span class="customize-label" id="Customize{{$row->ID}}">{{$customize}}</span></a>--}}
-                            <a onclick="OpenModel({{$row->ID}})" id="CustomizedLink{{$row->ID}}"  class="link-customize pointer effect-underline {{$cust_css}}"><span class="customize-label" id="Customize{{$row->ID}}">@lang('customized')</span></a>
+                            <a onclick="OpenModel({{$row->ID}})"  id="CustomizedLink{{$row->ID}}"  class="link-customize pointer effect-underline {{$cust_css}}"><span class="customize-label" id="Customize{{$row->ID}}">@lang('customized')</span></a>
                             @endif
                         </div>
                         <div class="col-sm-5 text-center">

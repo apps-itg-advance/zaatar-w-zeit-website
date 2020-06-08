@@ -10,7 +10,7 @@
          $selected='';
             $date=$current_date->format('Y-m-d');
 
-          for( $i=strtotime('00:00:00'); $i<=$close_time; $i+=900) {
+          for( $i=strtotime('00:00:00'); $i<=$close_time+$eta; $i+=900) {
           if($schedule_date==$date." ".date("H:i",$i))
             {
                 $selected='selected';
@@ -25,14 +25,13 @@
           elseif($i>$open_time+$eta and $now < $open_time){
           $output .= "<option ".$selected." value='".$date." ".date("H:i",$i)."' >".date("H:i",$i)."</option>";
           }
-
           }
         }
         elseif($date_selected=='tomorrow')
         {
           $selected='';
             $date = date('Y-m-d',strtotime($current_date->format('Y-m-d')."+1 days"));
-          for( $i=strtotime('00:00:00')+$eta; $i<=$close_time; $i+=900) {
+          for( $i=strtotime('00:00:00')+$eta; $i<=$close_time+$eta; $i+=900) {
           if($schedule_date==$date." ".date("H:i",$i))
             {
                 $selected='selected';
@@ -40,7 +39,7 @@
             else{
             $selected='';
             }
-          if($i>=$open_time)
+          if($i>=$open_time+$eta)
           {
              $output .= "<option  ".$selected." value='".$date." ".date("H:i",$i)."' >".date("H:i",$i)."</option>";
           }

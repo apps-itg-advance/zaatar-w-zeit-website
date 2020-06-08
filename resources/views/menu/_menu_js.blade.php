@@ -103,6 +103,10 @@
         $("#DisplayTotal"+item_id).text(formatNumber(nTotal)+' {{$currency}}');
     }
     function CalculateMakeMealTotalQ(id,item_id) {
+
+        var val = $('#checkMakeMeal'+item_id).val();
+        $('#checkMakeMeal'+item_id).val(val === 'true' ? 'false' : 'true');
+
         var CheckId='makeMealL'+id;
 
         var mVal=$("#"+CheckId).val();
@@ -186,40 +190,76 @@
     }
     function AddToCart(id,quick)
     {
-        var spinnerContainerElement = $("button[data-code='" + id + "']").closest('.item-plus-minus');
-        $("#QuickOrder"+id).val(quick);
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type:'POST',
-            url:'{{route('carts.store')}}',
-            data:$("#Form"+id).serialize(),
-            success:function(data){
-                _getCountCartItems();
-                LoadCart();
-                jQuery('.cartbig-modal').modal('hide');
-                $("button[data-code='" + id + "']").prop('disabled',false);
-                // loader('hide');
-                var res = data.split("-");
-                $('#qty_'+id).val(res[0]);
-               var x=$('#MCust'+id).val();
-                if(res[1]>0 || x>0)
-                {
-                    $('#CustomizedLink'+id).addClass("active");
-                    $('#Customize'+id).html("<?= app('translator')->get('customized'); ?>");
-                }
-                else{
-                    $('#CustomizedLink'+id).removeClass("active");
-                    $('#Customize'+id).html("<?= app('translator')->get('customized'); ?>");
-                }
-                var currentQty=parseInt($("#"+id).val());
-                var newQty=currentQty+1;
-                $("#"+id).val(newQty);
-                spinner('hide', spinnerContainerElement);
-            }
-        });
+        console.log("ID "+id);
+        console.log($("#Form"+id).serializeArray());
+        let formData = $("#Form"+id).serializeArray();
+        let isProcced = false;
+        let isMakeMeal = false;
+        var drinksArray = [];
 
+        formData.map((item) => {
+            if((item.name === 'checkMakeMeal'+id) && (item.value === "true")){
+                isMakeMeal = true;
+            }
+        })
+
+        $("#makeItMealSubOption"+id+" :checked").each(function() {
+            drinksArray.push($(this).val());
+        });
+        console.log("DL : "+drinksArray.length)
+        if(isMakeMeal === false) {
+            isProcced = true
+        } else {
+            if(isMakeMeal === true && drinksArray.length <= 0) {
+
+                Swal.fire({
+                    // position: 'top-end',
+                    icon: 'warning',
+                    title: "<?php echo app('translator')->get('select_one_drink'); ?>",
+                    showConfirmButton: false,
+                    timer: 1200
+                });
+
+                isProcced = false;
+            } else {
+                isProcced = true;
+            }
+        }
+        if(isProcced === true){
+            var spinnerContainerElement = $("button[data-code='" + id + "']").closest('.item-plus-minus');
+            $("#QuickOrder"+id).val(quick);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'POST',
+                url:'{{route('carts.store')}}',
+                data:$("#Form"+id).serialize(),
+                success:function(data){
+                    _getCountCartItems();
+                    LoadCart();
+                    jQuery('.cartbig-modal').modal('hide');
+                    $("button[data-code='" + id + "']").prop('disabled',false);
+                    // loader('hide');
+                    var res = data.split("-");
+                    $('#qty_'+id).val(res[0]);
+                    var x=$('#MCust'+id).val();
+                    if(res[1]>0 || x>0)
+                    {
+                        $('#CustomizedLink'+id).addClass("active");
+                        $('#Customize'+id).html("<?= app('translator')->get('customized'); ?>");
+                    }
+                    else{
+                        $('#CustomizedLink'+id).removeClass("active");
+                        $('#Customize'+id).html("<?= app('translator')->get('customized'); ?>");
+                    }
+                    var currentQty=parseInt($("#"+id).val());
+                    var newQty=currentQty+1;
+                    $("#"+id).val(newQty);
+                    spinner('hide', spinnerContainerElement);
+                }
+            });
+        }
     }
     $('#Form').on('submit', function(event){
         // event.preventDefault();

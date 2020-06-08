@@ -74,6 +74,12 @@
                 <div class="col-sm-12"></div>
                 <div class="col-sm-2">
                     <div class="custom-control custom-radio mb-1">
+                        @php
+                        if($address->OpenHours)
+                        {
+
+                        }
+                        @endphp
                         <input type="radio" id="order_now" {{$check_new}} required name="order_schedule"  onclick="ShowCalender()" value="now" class="custom-control-input">
                         <label class="custom-control-label" for="order_now"><p class="text-uppercase m-0">@lang('now')</p></label>
                     </div>
@@ -169,27 +175,51 @@
                     type:'get',
                     url:'{{route('checkout.datetime')}}',
                     success:function(current_date){
-                        if(current_date <open_time || current_date > close_time)
+                        var date_selected=$("#schedule-day").val();
+                        if(date_selected == "today")
                         {
+                            if (current_date < open_time || current_date > close_time) {
 
-                            Swal.fire({
-                                title: '<?php echo app('translator')->get('warning!'); ?>',
-                                text: '<?php echo app('translator')->get('sorry_outlet_already_closed'); ?>',
-                                icon: 'warning',
-                                confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
-                            });
-                            spinnerButtons('hide', that);
-                            return false;
-                        }
-                        else{
+                                Swal.fire({
+                                    title: '<?php echo app('translator')->get('warning!'); ?>',
+                                    text: '<?php echo app('translator')->get('sorry_outlet_already_closed'); ?>',
+                                    icon: 'warning',
+                                    confirmButtonText: '<?php echo app('translator')->get('close'); ?>'
+                                });
+                                spinnerButtons('hide', that);
+                                return false;
+                            } else {
+                                $.ajax({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    },
+                                    type: 'POST',
+                                    data: {
+                                        data: address,
+                                        order_schedule: order_schedulev,
+                                        schedule_date: schedule_datev,
+                                        schedule_day: schedule_day
+                                    },
+                                    url: '{{route('checkout.address.store')}}',
+                                    success: function (data) {
+                                        window.location = '{{route('checkout.wallet')}}';
+                                    }
+                                });
+                            }
+                        } else {
                             $.ajax({
                                 headers: {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                 },
-                                type:'POST',
-                                data:{data:address,order_schedule:order_schedulev,schedule_date:schedule_datev,schedule_day:schedule_day},
-                                url:'{{route('checkout.address.store')}}',
-                                success:function(data){
+                                type: 'POST',
+                                data: {
+                                    data: address,
+                                    order_schedule: order_schedulev,
+                                    schedule_date: schedule_datev,
+                                    schedule_day: schedule_day
+                                },
+                                url: '{{route('checkout.address.store')}}',
+                                success: function (data) {
                                     window.location = '{{route('checkout.wallet')}}';
                                 }
                             });
@@ -223,6 +253,34 @@
                 $(".hidden-input").hide();
         }
         function ShowETA(id){
+
+            var radioValue = $("input[name='AddressId']:checked").val();
+            if(radioValue)
+            {
+                var open_time=$("#customRadio"+radioValue).data('open');
+                var close_time=$("#customRadio"+radioValue).data('close');
+                console.log("Op :"+open_time+" Clos "+close_time);
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type:'get',
+                    url:'{{route('checkout.datetime')}}',
+                    success:function(current_date){
+                        if(current_date <open_time || current_date > close_time) {
+                            $("#order_now").attr('disabled',true);
+                            $("#order_now").prop("checked", false);
+                        }
+                        else
+                        {
+                            $("#order_now").attr('disabled',false);
+                        }
+                    }
+                });
+
+            }
+
             var x=$("#customRadio"+id).data('eta');
             $('.delivery-eta').html('');
             $('#eta-'+id).html('<span class="delivery-txt">@lang('delivery_around')</span>'+x+' Min');
@@ -283,7 +341,6 @@
             //jQuery('#editprofileModal').modal();
         }
         function RefreshCalander() {
-
             var AddressId = $("input[name='AddressId']:checked").val();
             InitCalander(AddressId);
         }
@@ -295,6 +352,7 @@
             var close_time=$("#customRadio"+id).data('close');
             var date_selected=$("#schedule-day").val();
             var x=$("#customRadio"+id).data('eta');
+            console.log("C "+close_time +"X "+x);
             var _close=close_time.split(':');
             $.ajax({
                 headers: {

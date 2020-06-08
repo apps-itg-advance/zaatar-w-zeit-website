@@ -1648,3 +1648,9 @@ margin-left: 1rem !important;
 .ar-lang .favourites-wrapper.content-wrapper .items-container .media h5 {
     text-align: right;
 }
+
+.ar-lang .profile-wrapper.content-wrapper .items-container .media h5{
+    text-align: right;
+    margin-right: 1rem !important;
+    margin-left: 0 !important;
+}
