@@ -365,6 +365,7 @@ class CartController extends BaseController
 
         $modifiers=$request->input('modifiers');
         $make_meal=$request->input('make_meal');
+
       //  echo $key_item;
         $_modifiers=array();
 

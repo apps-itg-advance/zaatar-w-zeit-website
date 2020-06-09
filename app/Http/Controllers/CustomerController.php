@@ -289,6 +289,7 @@ class CustomerController extends Controller
         $class_css='favourites-wrapper';
         $flag=true;
         $query=MenuLibrary::GetFavouriteItems();
+        //print_r($query);
         $cart=session()->get('cart');
         $item_qty=array();
         if(isset($cart))
@@ -314,6 +315,36 @@ class CustomerController extends Controller
             }
         }
         $page_title='Favourites Items';
+        foreach ($query->data as $item) {
+            $favItemTotal = 0;
+            if ($item->FavoriteData) {
+                $favData = json_decode($item->FavoriteData);
+                if (isset($favData->Modifiers)) {
+                    foreach ($favData->Modifiers as $ModItem) {
+                        if (isset($ModItem->details)) {
+                            $ModItemDetail = $ModItem->details;
+                            if (isset($ModItemDetail->items)) {
+                                foreach ($ModItemDetail->items as $ModItemDetailItem)
+                                    if (isset($ModItemDetailItem)) {
+                                        if (isset($ModItemDetailItem->isSelected)) {
+                                            $isSelected = $ModItemDetailItem->isSelected;
+                                            if ($isSelected === true) {
+                                                $ModPrice = $ModItemDetailItem->Price;
+                                                $favItemTotal += $ModPrice;
+                                            }
+                                        }
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
+            $item->FavItemTotalPrice = $favItemTotal + $item->Price;
+            //$item->Price = $favItemTotal + $item->Price;
+        }
+
+//        print_r($query);
+//        die();
         return view('menu.favourites',compact('query','class_css','flag','item_qty','items_customized','page_title'));  //
     }
     public function set_favourite(Request $request)

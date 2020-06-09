@@ -260,7 +260,8 @@
         else{
             spinner('show', x);
         }
-
+        let gg = $('#Form'+itemId).serializeArray();
+		console.log(gg);
         //x.addClass('href-disabled');
 
 		$.ajax({

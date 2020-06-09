@@ -156,7 +156,6 @@ public static function CompareOrder($a, $b)
         return strnatcmp($a->details->MOrder, $b->details->MOrder);
     }
     public static function RemoveFavoriteItem($itemId){
-        $ItemID = $itemId;
 	    $s_org=session()->get('_org');
 
 	    $post_array['token']=session()->get('token');
@@ -167,9 +166,6 @@ public static function CompareOrder($a, $b)
 //	    $post_array['item_data']=json_encode($array);
 
 	    $url=env('BASE_URL').'items/DeleteFavoriteItem';
-//	    echo("ItemID ".$ItemID);
-//	    echo ("URL :".$url);
-//	    die();
 	    $query=Helper::postApi($url,$post_array);
 	    return $query;
     }
@@ -226,6 +222,7 @@ public static function CompareOrder($a, $b)
         $organization_id=$s_org->id;
 
         $lang = session()->get('locale');
+
         $url=env('BASE_URL').'items/GetMenuFavorite?token='.$token.'&organization_id='.$organization_id.'&channel_id=1&LoyaltyId='.$loyalty_id.'&lang='.$lang;
         $query=Helper::getApi($url);
         foreach ($query->data as $item)

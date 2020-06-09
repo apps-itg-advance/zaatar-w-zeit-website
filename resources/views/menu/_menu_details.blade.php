@@ -17,8 +17,7 @@
                 </div>
                 @php
                         $display_fv=isset($display_favourite) ? $display_favourite:false;
-                        $modifiers=$row->Modifiers;
-
+                        $modifiers = $row->Modifiers;
                 @endphp
 
                 <div class="items-row row mt-4">
@@ -63,7 +62,7 @@
 
                                 @if(session('is_login'))
                                    @if(!$display_fv)
-                                      <a onclick="SetFavourite({{$row->ID}})" data-favid="{{($row->FavoriteId !== null) ? $row->FavoriteId : ''}}" id="CFavourite{{$row->ID}}" href="javascript:void(0)" class="favUnfav{{$row->ID}} effect-underline link-favourite-u mr-3 {{$active_f}}"></a>
+                                      <a onclick="SetFavourite({{$row->ID}})" data-favid="{{($row->FavoriteId !== null) ? $row->FavoriteId : ''}}" id="CFFavourite{{$row->ID}}" href="javascript:void(0)" class="favUnfav{{$row->ID}} effect-underline link-favourite-u mr-3 {{$active_f}}"></a>
                                    @endif
                                 @else
                                     <a onclick="loginAlert()" class="effect-underline link-favourite-u mr-3 cursor-pointer"></a>
@@ -82,6 +81,7 @@
                         <div class="col-lg-4 col-md-12 item-col">
                             <div class="custom-control custom-radio mb-1">
                                 <input type="checkbox"  value="{{$make_meal->ID.'-'.str_replace(',','',$make_meal->Price).'-'.$make_meal->Details.'-'.$make_meal->PLU}}"  onclick="CalculateMakeMealTotal({{$make_meal->ID}},{{$row->ID}})"  id="makeMealH{{$make_meal->ID}}" name="make_meal_d[{{$row->ID}}][Title]" class="custom-control-input">
+                                <input type="hidden" id="checkMakeMealD{{$row->ID}}" name="checkMakeMealD{{$row->ID}}" value="false">
                                 <label class="custom-control-label text-uppercase futura-b" for="makeMealH{{$make_meal->ID}}">
                                     {{$make_meal->Title}}
                                     <span class="price">{{number_format($make_meal->Price)}}</span>
@@ -97,7 +97,7 @@
                             @endphp
                             @if(is_array($meal_items) and count($meal_items)>0)
                             @foreach($meal_items as $meal_item)
-                                <div class="custom-control custom-radio custom-control-inline">
+                                <div class="custom-control custom-radio custom-control-inline" id="makeItMealSubOptionD{{$row->ID}}">
                                     <input type="radio" value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal{{$meal_item->ID.'-'.$make_meal->ID}}" name="make_meal_d[{{$row->ID}}][Items][{{$make_meal->ID}}]" class="custom-control-input Subd{{$make_meal->ID}}" disabled>
                                     <label class="custom-control-label list-i" for="makeMeal{{$meal_item->ID.'-'.$make_meal->ID}}">{{$meal_item->Name}}</label>
                                 </div>
@@ -109,8 +109,13 @@
             </div>
             <div class="modal-footer pt-0">
                 <span class="title d-inline-block">@lang('total')</span>
-                <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{number_format($row->Price)}} {{$currency}}</span>
-                <input type="hidden" id="TotalAmount{{$row->ID}}" name="TotalAmount[{{$row->ID}}]" value="{{str_replace(',','',$row->Price)}}">
+                @if($display_fv)
+                    <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{number_format($row->FavItemTotalPrice)}} {{$currency}}</span>
+                    <input type="hidden" id="TotalAmount{{$row->ID}}" name="TotalAmount[{{$row->ID}}]" value="{{str_replace(',','',$row->FavItemTotalPrice)}}">
+                @else
+                    <span class="amount d-inline-block mx-5" id="DisplayTotal{{$row->ID}}">{{number_format($row->Price)}} {{$currency}}</span>
+                    <input type="hidden" id="TotalAmount{{$row->ID}}" name="TotalAmount[{{$row->ID}}]" value="{{str_replace(',','',$row->Price)}}">
+                @endif
                 <a class="btn btn-8DBF43 text-uppercase btn-a" onclick="AddToCart({{$row->ID}},0)">@lang('confirm')</a>
             </div>
         </div>

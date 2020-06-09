@@ -24,7 +24,7 @@
                         $fv_array=array();
                         $fav_selected_array=array();
 
-                        if($row->IsFavorite=='1'){
+                        if($display_favourite  && $row->IsFavorite=='1'){
                            if(isset($row->FavoriteData) and $row->FavoriteData!='')
                            {
                                 $fv_array=json_decode($row->FavoriteData);

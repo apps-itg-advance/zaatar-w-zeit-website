@@ -75,13 +75,17 @@
                            if(isset($_meal['id']) and $_meal['id']==$make_meal->ID)
                            {
                                $h_checked='checked="checked"';
-                           }
+                               $isMakeMeal ='true';
+                           } else {
+                              $isMakeMeal ='false';
+                            }
 
                 @endphp
                 <div class="items-row items-meal-row row align-items-center mt-3">
                     <div class="col-lg-4 col-md-12 item-col">
                         <div class="custom-control custom-radio mb-1">
                             <input type="checkbox" {{$h_checked}} value="{{$make_meal->ID.'-'.$make_meal->Price.'-'.$make_meal->Details}}"  onclick="CalculateMakeMealTotalE({{$make_meal->ID}},{{$row->ID}})"  id="makeMealE{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]"  class="custom-control-input">
+                            <input type="hidden" id="checkMakeMealE{{$row->ID}}" name="checkMakeMealE{{$row->ID}}" value="{{$isMakeMeal}}">
                             <label class="custom-control-label text-uppercase" for="makeMealE{{$make_meal->ID}}">
                                 @lang('make_a_meal')
                                 <span class="price">{{$make_meal->Price}}</span>
@@ -93,8 +97,11 @@
                     </div>
                     <div class="col-lg-5 col-md-12">
                         @if(is_array($meal_items) and count($meal_items)>0)
-                        @foreach($meal_items as $meal_item)
                             @php
+                                $isSubOptionSelected = "false";
+                            @endphp
+                        @foreach($meal_items as $meal_item)
+                            <?php
                                 $b_checked='';
                                     $_m_meal=isset($_meal['items']) ? $_meal['items']:array();
                                     foreach($_m_meal as $ml)
@@ -106,12 +113,13 @@
                                     }
 
 
-                            @endphp
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" {{$b_checked}} value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal_{{$meal_item->ID}}" name="make_meal[{{$row->ID}}][Items][{{$make_meal->ID}}]" class="custom-control-input mealItem">
+                            ?>
+                            <div class="custom-control custom-radio custom-control-inline" id="makeItMealSubOptionE{{$row->ID}}">
+                                <input type="radio" {{$b_checked}} value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal_{{$meal_item->ID}}" name="make_meal[{{$row->ID}}][Items][{{$make_meal->ID}}]" class="custom-control-input mealItem SubE{{$make_meal->ID}}" disabled>
                                 <label class="custom-control-label" for="makeMeal_{{$meal_item->ID}}">{{$meal_item->Name}}</label>
                             </div>
                         @endforeach
+                            <input type="hidden" name="isDrink{{$row->ID}}" id="isDrink{{$row->ID}}" value="{{$isSubOptionSelected}}">
                         @endif
                     </div>
                 </div>
@@ -170,15 +178,21 @@
         }
     }
     function CalculateMakeMealTotalE(id,item_id) {
+        var val = $('#checkMakeMealE'+item_id).val();
+        $('#checkMakeMealE'+item_id).val(val === 'true' ? 'false' : 'true');
+
         var CheckId='makeMealE'+id;
 
         var mVal=$("#"+CheckId).val();
         var res = mVal.split("-");
         if($("#"+CheckId).is(':checked'))
         {
+            $(".SubE"+id).removeAttr("disabled");
             var nTotal=parseFloat($("#TotalAmountE"+item_id).val())+parseFloat(res[1]);
         }
         else{
+            $(".SubE"+id).prop("checked", false);
+            $(".SubE"+id).attr("disabled", true);
             $(".mealItem").prop('checked', false);
             var nTotal=parseFloat($("#TotalAmountE"+item_id).val())-parseFloat(res[1]);
         }

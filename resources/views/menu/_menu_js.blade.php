@@ -79,11 +79,14 @@
                 var nTotal=parseFloat($("#TotalAmount"+item_id).val())-mPrice;
             }
             $("#TotalAmount"+item_id).val(nTotal);
-            // $("#DisplayTotal"+item_id).text(formatNumber(nTotal)+' LBP');
             $("#DisplayTotal"+item_id).text(formatNumber(nTotal)+' {{$currency}}');
         }
     }
     function CalculateMakeMealTotal(id,item_id) {
+
+        var val = $('#checkMakeMealD'+item_id).val();
+        $('#checkMakeMealD'+item_id).val(val === 'true' ? 'false' : 'true');
+
         var CheckId='makeMealH'+id;
 
         var mVal=$("#"+CheckId).val();
@@ -104,8 +107,8 @@
     }
     function CalculateMakeMealTotalQ(id,item_id) {
 
-        var val = $('#checkMakeMeal'+item_id).val();
-        $('#checkMakeMeal'+item_id).val(val === 'true' ? 'false' : 'true');
+        var val = $('#checkMakeMealQ'+item_id).val();
+        $('#checkMakeMealQ'+item_id).val(val === 'true' ? 'false' : 'true');
 
         var CheckId='makeMealL'+id;
 
@@ -190,23 +193,32 @@
     }
     function AddToCart(id,quick)
     {
-        console.log("ID "+id);
+        let cVar,subVar;
+        if(quick == 0){
+            cVar = 'checkMakeMealD'
+            subVar = 'makeItMealSubOptionD'
+        }
+        else
+        {
+            subVar = 'makeItMealSubOptionQ'
+            cVar = 'checkMakeMealQ'
+        }
+        console.log("ID "+id+ "Quike  :"+quick);
         console.log($("#Form"+id).serializeArray());
         let formData = $("#Form"+id).serializeArray();
         let isProcced = false;
         let isMakeMeal = false;
         var drinksArray = [];
-
+        console.log("cVar id "+cVar+id);
         formData.map((item) => {
-            if((item.name === 'checkMakeMeal'+id) && (item.value === "true")){
+            if((item.name === cVar+id) && (item.value === "true")){
                 isMakeMeal = true;
             }
         })
 
-        $("#makeItMealSubOption"+id+" :checked").each(function() {
+        $("#"+subVar+id+" :checked").each(function() {
             drinksArray.push($(this).val());
         });
-        console.log("DL : "+drinksArray.length)
         if(isMakeMeal === false) {
             isProcced = true
         } else {

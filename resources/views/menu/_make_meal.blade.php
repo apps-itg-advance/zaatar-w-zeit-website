@@ -20,9 +20,9 @@
                         </div>
                         <div class="items-row items-meal-row row align-items-center mt-4">
                             <div class="col-12 item-col">
-                                <div class="custom-control custom-radio mb-3" id="makemealcustomID">
+                                <div class="custom-control custom-radio mb-3">
                                     <input type="checkbox"  value="{{$make_meal->ID.'-'.str_replace(',','',$make_meal->Price).'-'.$make_meal->Details.'-'.$make_meal->PLU}}"  onclick="CalculateMakeMealTotalQ({{$make_meal->ID}},{{$row->ID}})"  id="makeMealL{{$make_meal->ID}}" name="make_meal[{{$row->ID}}][Title]"  class="custom-control-input">
-                                    <input type="hidden" id="checkMakeMeal{{$row->ID}}" name="checkMakeMeal{{$row->ID}}" value="false">
+                                    <input type="hidden" id="checkMakeMealQ{{$row->ID}}" name="checkMakeMealQ{{$row->ID}}" value="false">
                                     <label class="custom-control-label text-uppercase  title3" for="makeMealL{{$make_meal->ID}}">
                                         {{$make_meal->Details}}
                                     </label>
@@ -35,7 +35,7 @@
                                 @if(is_array($meal_items) and count($meal_items)>0)
 
                                 @foreach($meal_items as $meal_item)
-                                    <div class="custom-control custom-radio custom-control-inline" id="makeItMealSubOption{{$row->ID}}">
+                                    <div class="custom-control custom-radio custom-control-inline" id="makeItMealSubOptionQ{{$row->ID}}">
                                         <input type="radio" value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMealQ{{$meal_item->ID.'-'.$make_meal->ID}}" name="make_meal[{{$row->ID}}][Items][{{$make_meal->ID}}]" class="custom-control-input Sub{{$make_meal->ID}}" disabled>
                                         <label class="custom-control-label list-i" for="makeMealQ{{$meal_item->ID.'-'.$make_meal->ID}}">{{$meal_item->Name}}</label>
                                     </div>
