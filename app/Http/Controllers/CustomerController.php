@@ -343,8 +343,6 @@ class CustomerController extends Controller
             //$item->Price = $favItemTotal + $item->Price;
         }
 
-//        print_r($query);
-//        die();
         return view('menu.favourites',compact('query','class_css','flag','item_qty','items_customized','page_title'));  //
     }
     public function set_favourite(Request $request)

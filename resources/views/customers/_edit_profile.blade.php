@@ -170,17 +170,17 @@
                         <div class="form-group mb-0">
 
                             <div class="form-group row d-none">
-                                <input type="hidden" class="form-control" id="modal_latitude" name="y_location{{$Skey}}" value="{{isset($main_address->YLocation)?$main_address->YLocation:''}}">
-                                <input type="hidden" class="form-control" id="modal_longitude" name="x_location{{$Skey}}" value="{{isset($main_address->XLocation)?$main_address->XLocation:''}}">
+                                <input type="hidden" class="form-control" id="modal_latitude0" name="y_location{{$Skey}}" value="{{isset($main_address->YLocation)?$main_address->YLocation:''}}">
+                                <input type="hidden" class="form-control" id="modal_longitude0" name="x_location{{$Skey}}" value="{{isset($main_address->XLocation)?$main_address->XLocation:''}}">
 
                                 <label class="form-control-label col-md-12">Latitude & Longitude</label>
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <input class="form-control" type="number" id="manual_latitude0" placeholder="Latitude" value="{{isset($main_address->YLocation)?$main_address->YLocation:''}}" >
+                                            <input class="form-control" type="text" id="manual_latitude0" placeholder="Latitude" value="{{isset($main_address->YLocation)?$main_address->YLocation:''}}" >
                                         </div>
                                         <div class="col-md-5">
-                                            <input class="form-control" type="number" id="manual_longitude0" placeholder="Longitude" value="{{isset($main_address->XLocation)?$main_address->XLocation:''}}">
+                                            <input class="form-control" type="text" id="manual_longitude0" placeholder="Longitude" value="{{isset($main_address->XLocation)?$main_address->XLocation:''}}">
                                         </div>
                                     </div>
                                 </div>

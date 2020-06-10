@@ -282,7 +282,6 @@
         }
         function SetFavouriteOrder(orderId)
         {
-            // console.log(item.ID);
             if($("#Favourite" + orderId).hasClass('href-disabled') || $("#Favourite" + orderId).hasClass('active')){
                 return null;
             }

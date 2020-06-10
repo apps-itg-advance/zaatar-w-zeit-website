@@ -12,7 +12,7 @@
         @include('partials.checkout_bread')
         <div class="col-xl-6 col-lg-10 col-md-12 col-sm-12 float-none p-0 mx-auto item-summary">
             <div class="title-div mb-4">
-                <h2 class="title">@lang('gift')</h2>
+                <h2 class="title">{{$settings->Label}}</h2>
             </div>
             <div class="row">
                 <div class="col-sm-6">
@@ -56,7 +56,7 @@
             <div class="action-buttons text-center mt-3 pt-4">
                 <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">@lang('confirm')</button>
                 @if(isset($settings->Required) and !$settings->Required)
-                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('gift')">@lang('skip')</button>
+                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('{{$settings->LocalStepName}}')">@lang('skip')</button>
                 @endif
             </div>
         </div>

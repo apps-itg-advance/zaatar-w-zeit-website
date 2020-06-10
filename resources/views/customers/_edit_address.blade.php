@@ -126,8 +126,8 @@
 
 
                         <div class="form-group row d-none">
-                            <input type="hidden" class="form-control" id="modal_latitude" name="y_location{{$skey}}" value="{{$address->YLocation}}">
-                            <input type="hidden" class="form-control" id="modal_longitude" name="x_location{{$skey}}" value="{{$address->XLocation}}">
+                            <input type="hidden" class="form-control" id="modal_latitude{{$address->ID}}" name="y_location{{$skey}}" value="{{$address->YLocation}}">
+                            <input type="hidden" class="form-control" id="modal_longitude{{$address->ID}}" name="x_location{{$skey}}" value="{{$address->XLocation}}">
 
                             <label class="form-control-label col-md-12">Latitude & Longitude</label>
                             <div class="col-md-12">

@@ -356,36 +356,34 @@ class CartController extends BaseController
      */
     public function update(Request $request)
     {
-        $item_id=$request->input('item_id');
-        $key_item=$request->input('key');
-        $qty=$request->input('qty');
-        $_name=$request->input('item_name');
-        $_plu=$request->input('plu');
-        $_amounts=str_replace(',','',$request->input('TotalAmount'));
+            $item_id=$request->input('item_id');
+            $key_item=$request->input('key');
+            $qty=$request->input('qty');
+            $_name=$request->input('item_name');
+            $_plu=$request->input('plu');
+            $_amounts=str_replace(',','',$request->input('TotalAmount'));
 
-        $modifiers=$request->input('modifiers');
-        $make_meal=$request->input('make_meal');
+            $modifiers=$request->input('modifiers');
+            $make_meal=$request->input('make_meal');
 
-      //  echo $key_item;
-        $_modifiers=array();
+            //  echo $key_item;
+            $_modifiers=array();
 
-        $qty=1;
-        if($modifiers!=null) {
-            foreach ($modifiers as $key => $value) {
-                for ($i = 0; $i < count($value); $i++) {
-                    $modifier_array = explode('-', $value[$i]);
-                    array_push($_modifiers, ['id' => $modifier_array[0], 'plu' => $modifier_array[1], 'name' => $modifier_array[3], 'price' => $modifier_array[2]]);
+            $qty=1;
+            if($modifiers!=null) {
+                foreach ($modifiers as $key => $value) {
+                    for ($i = 0; $i < count($value); $i++) {
+                        $modifier_array = explode('-', $value[$i]);
+                        array_push($_modifiers, ['id' => $modifier_array[0], 'plu' => $modifier_array[1], 'name' => $modifier_array[3], 'price' => $modifier_array[2]]);
 
+                    }
                 }
             }
-        }
-        $_make_meal=array();
+            $_make_meal=array();
 
-
-
-        if(isset($make_meal[$item_id])) {
-            $value1=$make_meal[$item_id];
-           // foreach ($make_meal as $key1 => $value1) {
+            if(isset($make_meal[$item_id])) {
+                $value1=$make_meal[$item_id];
+                // foreach ($make_meal as $key1 => $value1) {
                 $_mk2=$value1['Title'];
 
                 $_mk=isset($value1['Items'])? $value1['Items']: array();
@@ -403,33 +401,33 @@ class CartController extends BaseController
 
                 }
                 $_make_meal['items']=$_itm;
-          //  }
-        }
+                //  }
+            }
 
-        $cart = session()->get('cart');
-       // dump($cart);
-      //  dump($cart[$key_item]);
-        unset($cart[$key_item]);
-        $origin_amount=$_amounts;
-        $cart[$key_item]=[
-            'id'=>$item_id,
-            'name' => $_name,
-            'quantity' => $qty,
-            'price' => $_amounts,
-            'origin_price'=>$origin_amount,
-            'plu' => $_plu,
-            'modifiers'=>$_modifiers,
-            'meal'=>$_make_meal
-        ];
+            $cart = session()->get('cart');
+            // dump($cart);
+            //  dump($cart[$key_item]);
+            unset($cart[$key_item]);
+            $origin_amount=$_amounts;
+            $cart[$key_item]=[
+                'id'=>$item_id,
+                'name' => $_name,
+                'quantity' => $qty,
+                'price' => $_amounts,
+                'origin_price'=>$origin_amount,
+                'plu' => $_plu,
+                'modifiers'=>$_modifiers,
+                'meal'=>$_make_meal
+            ];
 
-        ksort($cart);
-        
-      //  dump( $cart[$key_item]);
-        //die;
-        session()->forget('items_customized');
-        session()->forget('cart');
-        session()->save();
-        session()->put('cart', $cart);
+            ksort($cart);
+
+            //  dump( $cart[$key_item]);
+            //die;
+            session()->forget('items_customized');
+            session()->forget('cart');
+            session()->save();
+            session()->put('cart', $cart);
        // dump(session()->get('cart'));
         return back();
     }

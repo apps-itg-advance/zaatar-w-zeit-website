@@ -1,5 +1,5 @@
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <form action="{{route('carts.update')}}" method="post" >
+    <form method="post" id="EditCustomiseForm{{$row->ID}}" action="{{route('carts.update')}}">
         {{csrf_field()}}
         <input type="hidden" id="qty" name="qty" value="{{$item['quantity']}}">
         <input type="hidden" id="item_id" name="item_id" value="{{$row->ID}}">
@@ -54,7 +54,7 @@
 
                             @endphp
                             <div class="custom-control custom-radio mb-1">
-                                <input type="checkbox" {{ $checked }} onclick="CalculateTotal({{$category_id}},{{$max_qty}},{{$m_item->RowId}},{{$row->ID}})" id="ModifierE{{$m_item->RowId}}"  name="modifiers[{{$category_id}}][]" value="{{$m_item->ID.'-'.$m_item->PLU.'-'.$m_item->Price.'-'.$category_name.' '.$m_item->ModifierName}}" class="custom-control-input m-{{$category_id}}-{{$row->ID}}">
+                                <input type="checkbox" {{ $checked }} onclick="CalculateTotal({{$category_id}},{{$max_qty}},{{$m_item->RowId}},{{$row->ID}})" id="ModifierE{{$m_item->RowId}}"  name="modifiers[{{$category_id}}][]" value="{{$m_item->ID.'-'.$m_item->PLU.'-'.$m_item->Price.'-'.$category_name.' '.$m_item->ModifierName}}" class="custom-control-input mE-{{$category_id}}-{{$row->ID}}">
                                 <label class="custom-control-label" for="ModifierE{{$m_item->RowId}}">
                                     {{$m_item->ModifierName}}
                                     <span class="price">{{$m_item->Price>0 ?  number_format($m_item->Price):''}}</span>
@@ -97,9 +97,6 @@
                     </div>
                     <div class="col-lg-5 col-md-12">
                         @if(is_array($meal_items) and count($meal_items)>0)
-                            @php
-                                $isSubOptionSelected = "false";
-                            @endphp
                         @foreach($meal_items as $meal_item)
                             <?php
                                 $b_checked='';
@@ -119,7 +116,6 @@
                                 <label class="custom-control-label" for="makeMeal_{{$meal_item->ID}}">{{$meal_item->Name}}</label>
                             </div>
                         @endforeach
-                            <input type="hidden" name="isDrink{{$row->ID}}" id="isDrink{{$row->ID}}" value="{{$isSubOptionSelected}}">
                         @endif
                     </div>
                 </div>
@@ -129,13 +125,65 @@
             <span class="title d-inline-block">@lang('total')</span>
             <span class="amount d-inline-block mx-5" id="DisplayTotalE{{$row->ID}}">{{number_format($item['price'])}} {{$currency}}</span>
             <input type="hidden" id="TotalAmountE{{$row->ID}}" name="TotalAmount" value="{{$item['price']}}">
-            <button type="submit" class="btn btn-8DBF43 text-uppercase">@lang('confirm')</button>
+            <button type="button" class="btn btn-8DBF43 text-uppercase" onclick="onCartUpdate({{$row->ID}})">@lang('confirm')</button>
         </div>
     </div>
     </form>
 </div>
 <script>
+    function onCartUpdate(id) {
+        let formData = $("#EditCustomiseForm"+id).serializeArray()
+        let isProcced = false;
+        let isMakeMeal = false;
+        var drinksArray = [];
+        formData.map((item) => {
+            if((item.name === 'checkMakeMealE'+id) && (item.value === "true")){
+                isMakeMeal = true;
+            }
+        })
 
+        $("#makeItMealSubOptionE"+id+" :checked").each(function() {
+            drinksArray.push($(this).val());
+        });
+        if(isMakeMeal === false) {
+            isProcced = true
+        }
+        else {
+            if(isMakeMeal === true && drinksArray.length <= 0) {
+
+                Swal.fire({
+                    // position: 'top-end',
+                    icon: 'warning',
+                    title: "<?php echo app('translator')->get('select_one_drink'); ?>",
+                    showConfirmButton: false,
+                    timer: 1200
+                });
+
+                isProcced = false;
+            } else {
+                isProcced = true;
+            }
+        }
+        if(isProcced == true)
+        {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'POST',
+                url:'{{route('carts.update')}}',
+                data: $("#EditCustomiseForm"+id).serialize(),
+                success:function(res){
+                   if(res)
+                   {
+                       _getCountCartItems();
+                       LoadCart();
+                       jQuery('.cartbig-modal').modal('hide');
+                   }
+                }
+            });
+        }
+    }
     function CalculateTotal(cat_id,max_qty,id,item_id) {
         var ItemId="qty";
         var currentQty=parseInt($("#"+ItemId).val());
@@ -144,14 +192,14 @@
             currentQty=1;
         }
         var CheckId='ModifierE'+id;
-        var GroupCss='m-'+cat_id+'-'+item_id;
+        var GroupCss='mE-'+cat_id+'-'+item_id;
         var GCount=parseInt($('.'+GroupCss+':checked').length);
         if(max_qty >0 && GCount>max_qty)
         {
             Swal.fire({
                 // position: 'top-end',
                 icon: 'warning',
-                title: "<?php echo app('translator')->get('you_cant_select_more_than'); ?>"+max_qty+" <?php echo app('translator')->get('option'); ?>",
+                title: "<?php echo app('translator')->get('you_cant_select_more_than'); ?>"+max_qty+"<?php echo app('translator')->get('option'); ?>",
                 showConfirmButton: false,
                 timer: 1200
             });
@@ -161,8 +209,8 @@
         else{
             var mVal=$("#"+CheckId).val();
             var res = mVal.split("-");
-            var mPrice=parseFloat(res[2])*currentQty;
-
+            // var mPrice=parseFloat(res[2])*currentQty;
+            var mPrice=parseFloat(res[2]);
             if($("#"+CheckId).is(':checked'))
             {
 
@@ -170,11 +218,9 @@
             }
             else{
                 var nTotal=parseFloat($("#TotalAmountE"+item_id).val())-mPrice;
-
             }
             $("#TotalAmountE"+item_id).val(nTotal);
-            // $("#DisplayTotalE"+item_id).text(nTotal+' LBP');
-            $("#DisplayTotalE"+item_id).text(nTotal+' {{$currency}}');
+            $("#DisplayTotalE"+item_id).text(formatNumber(nTotal)+' {{$currency}}');
         }
     }
     function CalculateMakeMealTotalE(id,item_id) {

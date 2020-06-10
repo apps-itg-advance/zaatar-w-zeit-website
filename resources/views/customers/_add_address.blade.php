@@ -100,17 +100,17 @@
                         </div>
 
                         <div class="form-group row d-none">
-                            <input type="hidden" class="form-control" id="modal_latitude" name="y_location{{$skey}}">
-                            <input type="hidden" class="form-control" id="modal_longitude" name="x_location{{$skey}}">
+                            <input type="hidden" class="form-control" id="modal_latitude" value="" name="y_location{{$skey}}">
+                            <input type="hidden" class="form-control" id="modal_longitude" value=""  name="x_location{{$skey}}">
 
                             <label class="form-control-label col-md-12">Latitude & Longitude</label>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-5">
-                                        <input class="form-control" type="text" id="manual_latitude" placeholder="Latitude">
+                                        <input class="form-control" type="text" id="manual_latitude" value="" placeholder="Latitude">
                                     </div>
                                     <div class="col-md-5">
-                                        <input class="form-control" type="text" id="manual_longitude" placeholder="Longitude">
+                                        <input class="form-control" type="text" id="manual_longitude" value="" placeholder="Longitude">
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@
             }
         });
 
-        $('#AddAddress').validate({ // initialize the plugin
+            $('#AddAddress').validate({ // initialize the plugin
             rules: {
                 address_type{{$skey}}: {
                     required: true

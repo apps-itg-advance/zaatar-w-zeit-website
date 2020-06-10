@@ -30,10 +30,45 @@ class CheckoutController extends Controller
         foreach ($this->query->Steps as $row)
         {
             $this->Steps[$i]=$row;
+            $this->Steps[$i]->step = $i;
+            $stepVar = '';
+            $cssClass = '';
+            if($row->ArrayName==="Addresses"){
+                $stepVar = 'address';
+                $cssClass = '_css_address_active';
+            } else if($row->ArrayName==="Wallet"){
+                $stepVar = 'wallet';
+                $cssClass = '_css_wallet_active';
+            } else if($row->ArrayName==="Gift"){
+                $stepVar = 'gift';
+                $cssClass = '_css_gift_active';
+            } else if($row->ArrayName==="RealGreen"){
+                $stepVar = 'green';
+                $cssClass = '_css_green_active';
+            } else if($row->ArrayName==="SpecialInstructions"){
+                $stepVar = 'special_instructions';
+                $cssClass = '_css_special_ins_active';
+            } else if($row->ArrayName==="PaymentMethods"){
+                $stepVar = 'payment';
+                $cssClass = '_css_payment_active';
+            }
+            $this->Steps[$i]->LocalStepName = $stepVar;
+            $this->Steps[$i]->CssClass= $cssClass;
             $i++;
         }
+        $i = 1;
+        foreach ($this->query->Steps as $row){
+            $nextRoute = '';
+            if($i !== count($this->query->Steps)){
+                $nextRoute = $this->Steps[$i+1]->LocalStepName;
+            }
+            $this->Steps[$i]->NextRoute = $nextRoute;
+            $i++;
+        }
+
         $this->level_id='';
 
+        session()->put('checkoutSteps',$this->Steps);
         $this->skey = session()->get('skey');
         if($this->skey!='')
         {
@@ -100,6 +135,11 @@ class CheckoutController extends Controller
     {
         $this->query=SettingsLib::GetDeliveryScreenDataSteps(true);
         $step=1;
+        foreach ($this->Steps as $myStep){
+            if($myStep->LocalStepName === 'address'){
+                $step =  $myStep->step;
+            }
+        }
         $settings=$this->Steps[$step];
         $skey = session()->get('skey');
         $cart = Session::get('cart');
@@ -170,6 +210,11 @@ class CheckoutController extends Controller
     public function loyalty()
     {
         $step=2;
+        foreach ($this->Steps as $myStep){
+            if($myStep->LocalStepName === 'wallet'){
+                $step =  $myStep->step;
+            }
+        }
         $settings=$this->Steps[$step];
         $skey=session()->get('skey');
         $user=session()->get('user'.$skey);
@@ -189,6 +234,11 @@ class CheckoutController extends Controller
     public function gift()
     {
         $step=3;
+        foreach ($this->Steps as $myStep){
+            if($myStep->LocalStepName === 'gift'){
+                $step =  $myStep->step;
+            }
+        }
         $settings=$this->Steps[$step];
         $cart = session()->get('cart');
 	    $_active_css='wallet';
@@ -222,50 +272,53 @@ class CheckoutController extends Controller
         return 'true';
 
     }
-    public function delete($step)
+    public function delete($stepName)
     {
-        switch ($step) {
+        foreach ($this->Steps as $myStep){
+            if($myStep->LocalStepName === $stepName){
+                $step =  $myStep->step;
+            }
+        }
+        $myData = $this->Steps[$step];
+        $currentRoute = $myData->LocalStepName;
+        $nextRoute= $myData->NextRoute;
+        session()->put('checkout_steps',$currentRoute);
+        switch ($stepName) {
             case 'address':
-                session()->put('checkout_steps','address');
                 session()->forget('cart_info');
-                $redirect=route('checkout.wallet');
                 break;
             case 'wallet':
-                session()->put('checkout_steps','wallet');
                 session()->forget('cart_wallet');
                 session()->forget('cart_vouchers');
-                $redirect=route('checkout.gift');
                 break;
             case 'gift':
-                session()->put('checkout_steps','gift');
                 session()->forget('cart_gift');
-                $redirect=route('checkout.green');
                 break;
             case 'green':
-                session()->put('checkout_steps','green');
                 session()->forget('cart_green');
-                $redirect=route('checkout.special_instructions');
+                break;
+            case 'special_instructions':
+                session()->forget('cart_sp_instructions');
                 break;
             case 'payment':
-                session()->put('checkout_steps','payment');
                 session()->forget('cart_payment');
                 session()->forget('cart_payment_currency');
-                $redirect=route('checkout.special_instructions');
-                break;
-            case 'special_inst':
-                session()->put('checkout_steps','special_instructions');
-                session()->forget('cart_sp_instructions');
-                $redirect=route('checkout.payment');
                 break;
 
         }
+        $redirect=route('checkout.'.$nextRoute);
         session()->save();
         return $redirect;
 
     }
     public function wallet()
     {
-        $step=2;
+        $step = 2;
+        foreach ($this->Steps as $myStep){
+            if($myStep->LocalStepName === 'wallet'){
+                $step =  $myStep->step;
+            }
+        }
         $settings=$this->Steps[$step];
         $skey=session()->get('skey');
         $user=session()->get('user'.$skey);
@@ -389,6 +442,11 @@ class CheckoutController extends Controller
     public function green()
     {
         $step=4;
+        foreach ($this->Steps as $myStep){
+            if($myStep->LocalStepName === 'green'){
+                $step =  $myStep->step;
+            }
+        }
         $settings=$this->Steps[$step];
         $cart = Session::get('cart');
 	    $_active_css='gift';
@@ -418,6 +476,11 @@ class CheckoutController extends Controller
     public function payment()
     {
         $step=6;
+        foreach ($this->Steps as $myStep){
+            if($myStep->LocalStepName === 'payment'){
+                $step =  $myStep->step;
+            }
+        }
         $settings=$this->Steps[$step];
         $cart = Session::get('cart');
 	    $_active_css='special_instructions';
@@ -471,6 +534,11 @@ class CheckoutController extends Controller
     public function payment_cards()
     {
         $step=6;
+        foreach ($this->Steps as $myStep){
+            if($myStep->LocalStepName === 'payment'){
+                $step =  $myStep->step;
+            }
+        }
         $settings=$this->Steps[$step];
         $cart = Session::get('cart');
         $_active_css='payment';
@@ -529,6 +597,11 @@ class CheckoutController extends Controller
     public function special_instructions()
     {
         $step=5;
+        foreach ($this->Steps as $myStep){
+            if($myStep->LocalStepName === 'special_instructions'){
+                $step =  $myStep->step;
+            }
+        }
         $settings=$this->Steps[$step];
         $cart = Session::get('cart');
 	    $_active_css='green';

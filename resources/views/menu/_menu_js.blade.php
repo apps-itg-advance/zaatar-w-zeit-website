@@ -203,13 +203,10 @@
             subVar = 'makeItMealSubOptionQ'
             cVar = 'checkMakeMealQ'
         }
-        console.log("ID "+id+ "Quike  :"+quick);
-        console.log($("#Form"+id).serializeArray());
         let formData = $("#Form"+id).serializeArray();
         let isProcced = false;
         let isMakeMeal = false;
         var drinksArray = [];
-        console.log("cVar id "+cVar+id);
         formData.map((item) => {
             if((item.name === cVar+id) && (item.value === "true")){
                 isMakeMeal = true;

@@ -11,7 +11,7 @@
         @include('partials.checkout_bread')
         <div class="col-xl-6 col-lg-10 float-none p-0 mx-auto item-summary">
             <div class="title-div mb-4">
-                <h2 class="title ml-0">@lang('the_real_green')</h2>
+                <h2 class="title ml-0">{{$settings->Label}}</h2>
             </div>
             <div class="greeninfo mb-5">
                 <div class="line-1">@lang('our_aim')</div>
@@ -40,7 +40,7 @@
             <div class="action-buttons text-center">
                 <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">@lang('confirm')</button>
                 @if(isset($settings->Required) and !$settings->Required)
-                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('green')">@lang('skip')</button>
+                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('{{$settings->LocalStepName}}')">@lang('skip')</button>
                 @endif
             </div>
         </div>
@@ -71,7 +71,7 @@
                 data: {query: radioValue},
                 url: '{{route('checkout.green.store')}}',
                 success: function (data) {
-                    window.location = '{{route('checkout.special_instructions')}}';
+                    window.location = '{{route('checkout.'.$settings->NextRoute)}}';
 
                 }
             });

@@ -97,9 +97,10 @@
 
     function SkipBtn(step) {
         spinnerButtons('show', $('.skip'));
+		let url = '{{route('checkout.delete')}}/'+step;
         $.ajax({
             type: 'get',
-            url: '{{route('checkout.delete')}}/'+step,
+            url: url,
             success: function (data) {
                window.location = data;
             }
@@ -261,7 +262,6 @@
             spinner('show', x);
         }
         let gg = $('#Form'+itemId).serializeArray();
-		console.log(gg);
         //x.addClass('href-disabled');
 
 		$.ajax({

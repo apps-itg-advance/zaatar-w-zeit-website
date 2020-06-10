@@ -93,7 +93,7 @@
             <div class="action-buttons text-center pt-4">
                 <button type="button" class="btn btn-8DBF43 mr-sm-4 text-uppercase">@lang('confirm')</button>
                 @if(isset($settings->Required) and !$settings->Required)
-                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('wallet')">@lang('skip')</button>
+                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('{{$settings->LocalStepName}}')">@lang('skip')</button>
                 @endif
             </div>
         </div>
@@ -200,12 +200,12 @@
                     data: {vid: radioValue,wallet_amount:walletValue},
                     url: '{{route('checkout.loyalty.store')}}',
                     success: function (data) {
-                        window.location = '{{route('checkout.gift')}}';
+                        window.location = '{{route('checkout.'.$settings->NextRoute)}}';
                     }
                 });
             }
             else{
-                window.location = '{{route('checkout.gift')}}';
+                window.location = '{{route('checkout.'.$settings->NextRoute)}}';
             }
         });
     </script>

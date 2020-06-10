@@ -13,7 +13,7 @@
         <div class="col-xl-6 col-lg-10 float-none p-0 mx-auto item-summary">
             <form id="FormSp" method="post">
             <div class="title-div mb-5">
-                <h2 class="title ml-0">@lang('special_instructions')</h2>
+                <h2 class="title ml-0">{{$settings->Label}}</h2>
             </div>
             <div class="radios-green mb-5">
                 @foreach($query as $row)
@@ -44,7 +44,7 @@
             <div class="action-buttons text-center">
                 <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">@lang('confirm')</button>
                 @if(isset($settings->Required) and !$settings->Required)
-                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('special_inst')">@lang('skip')</button>
+                    <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('{{$settings->LocalStepName}}')">@lang('skip')</button>
                 @endif
             </div>
             </form>
@@ -77,7 +77,7 @@
                 data: $("#FormSp").serialize(),
                 url: '{{route('checkout.special.instructions.store')}}',
                 success: function (data) {
-                    window.location = '{{route('checkout.payment')}}';
+                    window.location = '{{route('checkout.'.$settings->NextRoute)}}';
                 }
             });
 

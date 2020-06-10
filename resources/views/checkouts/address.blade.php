@@ -122,7 +122,7 @@
         <div class="action-buttons text-center">
             <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm">@lang('confirm')</button>
             @if(isset($settings->Required) and !$settings->Required)
-                <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('address')">@lang('skip')</button>
+                <button type="button" class="btn btn-B3B3B3 text-uppercase skip" onclick="SkipBtn('{{$settings->LocalStepName}}')">@lang('skip')</button>
             @endif
         </div>
     </div>
@@ -202,7 +202,7 @@
                                     },
                                     url: '{{route('checkout.address.store')}}',
                                     success: function (data) {
-                                        window.location = '{{route('checkout.wallet')}}';
+                                        window.location = '{{route('checkout.'.$settings->NextRoute)}}';
                                     }
                                 });
                             }
@@ -220,7 +220,7 @@
                                 },
                                 url: '{{route('checkout.address.store')}}',
                                 success: function (data) {
-                                    window.location = '{{route('checkout.wallet')}}';
+                                    window.location = '{{route('checkout.'.$settings->NextRoute)}}';
                                 }
                             });
                         }
@@ -259,7 +259,6 @@
             {
                 var open_time=$("#customRadio"+radioValue).data('open');
                 var close_time=$("#customRadio"+radioValue).data('close');
-                console.log("Op :"+open_time+" Clos "+close_time);
 
                 $.ajax({
                     headers: {
@@ -352,7 +351,6 @@
             var close_time=$("#customRadio"+id).data('close');
             var date_selected=$("#schedule-day").val();
             var x=$("#customRadio"+id).data('eta');
-            console.log("C "+close_time +"X "+x);
             var _close=close_time.split(':');
             $.ajax({
                 headers: {
