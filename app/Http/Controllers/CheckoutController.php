@@ -193,8 +193,8 @@ class CheckoutController extends Controller
             'XLocation'=>$_data->XLocation,
             'YLocation'=>$_data->YLocation,
             'AddressType'=>$_data->TypeID,
-            'City'=>$_data->CityCode,
-            'Province'=>$_data->ProvinceCode,
+            'City'=>$_data->CityName,
+            'Province'=>$_data->ProvinceName,
             'Company'=>$_data->CompanyName
         );
 
@@ -344,19 +344,6 @@ class CheckoutController extends Controller
     }
     public function loyalty_store(Request $request)
     {
-        $payment_v=0;
-        $payment_w=0;
-        foreach ($this->query->PaymentMethods as $x)
-        {
-            if($x->Name=='voucher')
-            {
-                $payment_v=$x->POSCode;
-            }
-            if($x->Name=='wallet')
-            {
-                $payment_w=$x->POSCode;
-            }
-        }
         $voucher_id=$request->input('vid');
         $wallet_amount=$request->input('wallet_amount');
         $vouchers=session()->get('vouchers');
@@ -370,7 +357,6 @@ class CheckoutController extends Controller
                 break;
             }
         }
-
         if(is_object($v) and count((array)$v)>0)
         {
             $_v_cards=$v->Vouchers;
@@ -395,7 +381,7 @@ class CheckoutController extends Controller
                     {
                         foreach ($_v_cards as $vcard)
                         {
-                            if(!is_null($vcard->FreeItems) and count($vcard->FreeItems)>0)
+                            if(count($vcard->FreeItems)>0)
                             {
                                 $free_items=$vcard->FreeItems;
                                 foreach ($free_items as $free_item)
@@ -420,8 +406,7 @@ class CheckoutController extends Controller
                 'Category' => $s_vouchers->Category,
                 'ItemPlu' => $s_vouchers->PLU,
                 'ExpiryDate' => $s_vouchers->ExpiryDate,
-                'VParentId'=>$voucher_id,
-                'PaymentId'=>$payment_v
+                'VParentId'=>$voucher_id
             );
             session()->forget('cart_vouchers');
             session()->save();
@@ -432,7 +417,6 @@ class CheckoutController extends Controller
             session()->forget('cart_wallet');
             session()->save();
             session()->put('cart_wallet', $wallet_amount);
-            session()->put('cart_wallet_id', $payment_w);
         }
         session()->put('checkout_steps','wallet');
         session()->save();

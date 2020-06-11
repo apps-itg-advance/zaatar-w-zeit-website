@@ -47,6 +47,7 @@
                         </div>
                     @endforeach
                 </div>
+                @if(!$display_fv)
                 <div class="items-row items-favourite row align-items-center mt-3">
                     <div class="col-lg-12 col-md-12 item-col" style="margin-left: -10px !important;">
                         <h5 class="favourite-title futura-b">@lang('want_to_personalize?')</h5>
@@ -72,6 +73,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 @php
                     $make_meal=$row->MakeMeal;
                 @endphp
