@@ -319,6 +319,7 @@ class CheckoutController extends Controller
                 $step =  $myStep->step;
             }
         }
+        $nextRoute = $this->Steps[$step]->NextRoute;
         $settings=$this->Steps[$step];
         $skey=session()->get('skey');
         $user=session()->get('user'.$skey);
@@ -329,7 +330,7 @@ class CheckoutController extends Controller
         $vouchers=CustomerLibrary::GetVouchers(['LoyaltyId'=>$loyalty_id]);
         if($wallet_balance==0 and count($vouchers)==0)
         {
-            return redirect(route('checkout.gift'));
+            return redirect(route('checkout.'.$nextRoute));
         }
         session()->put('vouchers',$vouchers);
         $cart = Session::get('cart');

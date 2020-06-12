@@ -157,6 +157,4 @@
 
 </script>
 
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDKj9Yaoy4JVcFoj455Kz9IFeuHHyxMwM4"></script>
-
-{{--<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initAutocomplete" async defer></script>--}}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKj9Yaoy4JVcFoj455Kz9IFeuHHyxMwM4"></script>
