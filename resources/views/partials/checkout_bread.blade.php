@@ -90,8 +90,14 @@ $_css_wallet_active=(isset($LEVEL_ID) and $LEVEL_ID=='')? 'disabled':$_css_walle
                 foreach ($CO_STEPS as $c_steps) {
                     $stepName = $c_steps->LocalStepName;
                     $cssName = $c_steps->CssClass;
+                    if($stepName === 'special_instructions'){
+                        $currentRoute = 'special-instructions';
+                    } else {
+                        $currentRoute = $c_steps->LocalStepName;
+                    }
+
         @endphp
-                <li class="{{$$cssName}} {{request()->segment(2)==$stepName?'current':''}}"><a href="{{$$cssName=='active'?route('checkout.'.$stepName):'#'}}">{{$c_steps->Label}}</a></li>
+                <li class="{{$$cssName}} {{request()->segment(2)==$currentRoute ?'current':''}}"><a href="{{$$cssName=='active'?route('checkout.'.$stepName):'#'}}">{{$c_steps->Label}}</a></li>
 
         @php
                 }
