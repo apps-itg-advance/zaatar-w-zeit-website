@@ -74,12 +74,6 @@
                 <div class="col-sm-12"></div>
                 <div class="col-sm-2">
                     <div class="custom-control custom-radio mb-1">
-                        @php
-                        if($address->OpenHours)
-                        {
-
-                        }
-                        @endphp
                         <input type="radio" id="order_now" {{$check_new}} required name="order_schedule"  onclick="ShowCalender()" value="now" class="custom-control-input">
                         <label class="custom-control-label" for="order_now"><p class="text-uppercase m-0">@lang('now')</p></label>
                     </div>
