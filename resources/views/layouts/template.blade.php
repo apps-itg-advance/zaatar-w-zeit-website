@@ -116,12 +116,14 @@
                 {
                     $("#ShoppingCart").attr("href", "#");
                     $("#ShoppingCart").removeClass("active-cart");
+                    $("#dropdownMenuButton2").removeClass("active-cart");
                     $("#DestroyBtn").addClass("btn-B3B3B3-non-hover");
                     $("#CheckOutBtn").addClass("btn-B3B3B3-non-hover");
                 }
 				else{
                     $("#ShoppingCart").attr("href", "{{route('checkout.address')}}");
                     $("#ShoppingCart").addClass("active-cart");
+                    $("#dropdownMenuButton2").addClass("active-cart");
                     $("#DestroyBtn").removeClass("btn-B3B3B3-non-hover");
                     $("#CheckOutBtn").removeClass("btn-B3B3B3-non-hover");
                 }
@@ -227,8 +229,6 @@
         }
         if(flag!=1)
         {
-			// $('#Favourite'+itemId).removeClass('active');
-			// return null;
             if(x.hasClass('active')){
 
 				$.ajax({
@@ -263,7 +263,6 @@
         }
         let gg = $('#Form'+itemId).serializeArray();
         //x.addClass('href-disabled');
-
 		$.ajax({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -43,7 +43,7 @@
                         if($address->ID==$select_id)
                         {
                             $checked='checked="checked"';
-                            $eta='<span class="delivery-txt">'.app('translator')->get('delivery_around').'</span>'.$address->DeliveryEta.' Min';
+                            $eta='<span class="delivery-txt">'.app('translator')->get('delivery_around').'</span>  '.$address->DeliveryEta.' Min';
                         }
                     else{
                         $eta='';
@@ -276,7 +276,7 @@
 
             var x=$("#customRadio"+id).data('eta');
             $('.delivery-eta').html('');
-            $('#eta-'+id).html('<span class="delivery-txt">@lang('delivery_around')</span>'+x+' Min');
+            $('#eta-'+id).html('<span class="delivery-txt">@lang('delivery_around')</span>  '+x+' Min');
             InitCalander(id);
         }
         function DeleteAddress(address_id) {

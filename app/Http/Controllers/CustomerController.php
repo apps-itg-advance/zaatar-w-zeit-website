@@ -338,9 +338,11 @@ class CustomerController extends Controller
                         }
                     }
                 }
+                if(@$favData->meal){
+                    $favItemTotal+=$favData->meal->price;
+                }
             }
             $item->FavItemTotalPrice = $favItemTotal + $item->Price;
-            //$item->Price = $favItemTotal + $item->Price;
         }
 
         return view('menu.favourites',compact('query','class_css','flag','item_qty','items_customized','page_title'));  //
@@ -351,10 +353,36 @@ class CustomerController extends Controller
         $item_id=$request->input('ItemId');
         $favourite_name=$request->input('favourite_name');
         $item_id=$request->input('ItemId');
+        $make_meal=$request->input('make_meal_d');
         $query=MenuLibrary::GetMenuItemByPlu($plu);
         //$m_item->ID.'-'.$m_item->PLU.'-'.str_replace(',','',$m_item->Price).'-'.$category_name.' '.$m_item->ModifierName
         $array_modifiers=$request->input('modifiers'.$item_id);
         $array_s_modifiers=array();
+        $_make_meal=array();
+
+        if(isset($make_meal[$item_id])) {
+            $value1=$make_meal[$item_id];
+            // foreach ($make_meal as $key1 => $value1) {
+            $_mk2=$value1['Title'];
+
+            $_mk=isset($value1['Items'])? $value1['Items']: array();
+
+            $_mk2_array=explode('-',$_mk2);
+            //$_amounts=$_amounts+$_mk2_array[1];
+            $_make_meal['id']=$_mk2_array[0];
+            $_make_meal['price']=$_mk2_array[1];
+            $_make_meal['name']=$_mk2_array[2];
+            $_itm=array();
+            foreach ($_mk as $ky=>$vl) {
+
+                $meal_array = explode('-', $vl);
+                array_push($_itm, ['id' => $meal_array[0], 'plu' => $meal_array[1], 'name' => $meal_array[3], 'details' => $meal_array[2], 'price' => 0]);
+
+            }
+            $_make_meal['items']=$_itm;
+            //  }
+        }
+
         if(is_array($array_modifiers))
         {
             foreach ($array_modifiers as $key=>$value)
@@ -400,6 +428,7 @@ class CustomerController extends Controller
 
                 }
             }
+            $data->meal = $_make_meal;
         }
         $query=MenuLibrary::SetFavoriteItem($item_id,$favourite_name,json_encode($data));
         echo json_encode($query);

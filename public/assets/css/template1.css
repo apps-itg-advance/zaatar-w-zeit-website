@@ -761,6 +761,7 @@ button {
         margin-top: 15px;
         height: auto;
         position: relative;
+        margin-top: -30px !important;
     }
     .content-wrapper .aside-menu .items-container::-webkit-scrollbar {
         display: block;
@@ -1655,4 +1656,17 @@ margin-left: 1rem !important;
     text-align: right;
     margin-right: 1rem !important;
     margin-left: 0 !important;
+}
+@media screen and (max-width:767px){
+    .content-wrapper .action-buttons{
+        padding-bottom: 1.5rem;
+    }
+}
+@media screen and (max-width:520px){
+    .food-icon{
+        justify-content: center;
+    }
+    .food-icon span {
+        display: none;
+    }
 }

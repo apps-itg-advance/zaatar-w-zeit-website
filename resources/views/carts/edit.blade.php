@@ -17,7 +17,7 @@
                     <img src="{{$row->DetailsImg}}" class="img-fluid d-block mx-auto" />
                 </div>
                 <div class="col-lg-6 text-col py-4">
-                    <h5>{{htmlspecialchars_decode($row->ItemName)}}<span>{{number_format($row->Price)}}</span></h5>
+                    <h5>{{htmlspecialchars_decode($row->ItemName)}}<span>{{number_format($row->Price)}} {{$currency}}</span></h5>
                     <div class="info">{{$row->Details}}</div>
                 </div>
             </div>
@@ -69,16 +69,19 @@
             @endphp
             @if(is_object($make_meal))
                 @php
+                    $mmi_disable= '';
+                    $h_checked='';
                     $_meal=isset($item['meal']) ? $item['meal'] :array();
-                       $h_checked='';
-                           $meal_items=$make_meal->Items;
-                           if(isset($_meal['id']) and $_meal['id']==$make_meal->ID)
-                           {
-                               $h_checked='checked="checked"';
-                               $isMakeMeal ='true';
-                           } else {
-                              $isMakeMeal ='false';
-                            }
+                   $meal_items=$make_meal->Items;
+                   if(isset($_meal['id']) and $_meal['id']==$make_meal->ID)
+                   {
+                       $h_checked='checked="checked"';
+                       $mmi_disable= '';
+                       $isMakeMeal ='true';
+                   } else {
+                        $mmi_disable= 'disabled';
+                      $isMakeMeal ='false';
+                    }
 
                 @endphp
                 <div class="items-row items-meal-row row align-items-center mt-3">
@@ -112,7 +115,7 @@
 
                             ?>
                             <div class="custom-control custom-radio custom-control-inline" id="makeItMealSubOptionE{{$row->ID}}">
-                                <input type="radio" {{$b_checked}} value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal_{{$meal_item->ID}}" name="make_meal[{{$row->ID}}][Items][{{$make_meal->ID}}]" class="custom-control-input mealItem SubE{{$make_meal->ID}}" disabled>
+                                <input type="radio" {{$b_checked}} value="{{$meal_item->ID.'-'.$meal_item->PLU.'-'.$make_meal->ID.'-'.$meal_item->Name}}" id="makeMeal_{{$meal_item->ID}}" name="make_meal[{{$row->ID}}][Items][{{$make_meal->ID}}]" class="custom-control-input mealItem SubE{{$make_meal->ID}}" {{$mmi_disable}}>
                                 <label class="custom-control-label" for="makeMeal_{{$meal_item->ID}}">{{$meal_item->Name}}</label>
                             </div>
                         @endforeach

@@ -81,7 +81,7 @@
 					data: {gift_to: to, gift_from: from, gift_value: radioValue},
 					url: '{{route('checkout.gift.store')}}',
 					success: function (data) {
-						window.location = '{{route('checkout.green')}}';
+						window.location = '{{route('checkout.'.$settings->NextRoute)}}';
 					}
 				});
 			}

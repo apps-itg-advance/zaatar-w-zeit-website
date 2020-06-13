@@ -159,7 +159,7 @@
     <div class="food-icon-container">
         <ul class="food-icon">
             @foreach($icons as $icn)
-                <li><img src="{{$icn->IconUrl}}" />{{$icn->IconLabel}}</li>
+                <li><img src="{{$icn->IconUrl}}" /><span>{{$icn->IconLabel}}</span></li>
             @endforeach
         </ul>
     </div>

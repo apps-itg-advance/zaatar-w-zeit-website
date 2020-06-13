@@ -146,7 +146,6 @@
             var GCount=parseInt($('.'+GroupCss+':checked').length);
             if(max_qty >0 && GCount>max_qty)
             {
-                alert('Max Qty :'+max_qty);
                 $("#"+CheckId).prop('checked', false);
                 return false;
             }
