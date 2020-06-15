@@ -60,7 +60,7 @@
                     <nav class="nav main-nav justify-content-center">
                         <a class="nav-link {{ (\Request::route()->getName() == 'home.menu') ? 'active' : '' }}" href="{{route('home.menu')}}">@lang('header_menu')</a>
                         {{--<a class="nav-link {{@$this->favourite_active}}" href="{{route('customer.favourites')}}">Favourites</a>--}}
-                        <a class="nav-link {{\Request::segment(2)=='favourites'?'active':''}}" href="{{route('customer.favourite.items')}}">@lang('header_favourites')</a>
+                        <a class="nav-link {{\Request::segment(2)=='favourite'?'active':''}}" href="{{route('customer.favourite.items')}}">@lang('header_favourites')</a>
                         @php if(session()->get('is_login')){
                         //echo '<a class="nav-link '.@$this->profile_active.'" href="'.route('customer.index').'">Profile</a>';
                         echo '<a class="nav-link '.(\Request::segment(2)=='profile'?'active':'').'" href="'.route('customer.index').'">'.$full_name.'</a>';

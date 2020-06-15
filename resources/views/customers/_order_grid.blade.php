@@ -34,7 +34,7 @@
                     <div class="col-sm-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">
                         @lang('order')
                     </div>
-                    <div class="col-sm-6 mt-1">
+                    <div class="col-sm-6 order-price-info  mt-1">
                         <?php
                         $item=isset($row->Items) ? $row->Items : array();
                         $specials=array();

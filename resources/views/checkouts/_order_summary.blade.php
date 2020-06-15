@@ -127,7 +127,7 @@ $discount=0;
                             </div>
                         </div>
                     </div>
-                    <div class="order-info">
+                    <div class="order-info extra-order-info">
                         @if(isset($LEVEL_ID) and $LEVEL_ID!='')
                         <div class="row align-items-center">
                             <div class="col-4 text-left text-sm-right text-label text-uppercase text-666666 mb-3">

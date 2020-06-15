@@ -1661,6 +1661,12 @@ margin-left: 1rem !important;
     .content-wrapper .action-buttons{
         padding-bottom: 1.5rem;
     }
+    .order-history-details .order-price-info .row {
+        flex-wrap: nowrap;
+    }
+    .left-menu-hide-mobile {
+        display: none;
+    }
 }
 @media screen and (max-width:520px){
     .food-icon{
@@ -1668,5 +1674,11 @@ margin-left: 1rem !important;
     }
     .food-icon span {
         display: none;
+    }
+}
+@media screen and (max-width:420px){
+    .orders-wrapper .order-box .order-info.extra-order-info .col-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
     }
 }

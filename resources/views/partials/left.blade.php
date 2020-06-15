@@ -1,4 +1,4 @@
-<div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-items aside-menu">
+<div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-items aside-menu left-menu-hide-mobile">
     <div class="items-container" id="items-container">
 @php
     $this->_org=session()->get('_org');
