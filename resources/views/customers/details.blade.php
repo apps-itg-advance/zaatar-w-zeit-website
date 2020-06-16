@@ -95,7 +95,7 @@
 @section('content')
 	<div class="col-xl-7 col-lg-5 col-md-12 col-sm-12 col-favourite-items">
 		<div class="col-xl-11 float-none p-0 mx-auto">
-			<div class="loyaltygraph-wrapper">
+			<div class="loyaltygraph-wrapper accordion" id="orderexpanded">
 				<div class="row profile-btn">
 					<div class="col-md-3"><div class="user-div">
 

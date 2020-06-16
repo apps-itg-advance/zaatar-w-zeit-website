@@ -230,5 +230,6 @@
   "voucher_was_selected":"voucher was selected",
   "new_pin_code_sent_to_mobile_number.":"New Pin Code was sent to your mobile number.",
   "meal":"MEAL",
-  "select_one_drink":"Select a Drink!"
+  "select_one_drink":"Select a Drink!",
+  "order_added_to_cart":"Order added to cart"
 }

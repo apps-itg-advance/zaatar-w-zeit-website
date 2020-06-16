@@ -115,6 +115,7 @@
 				if(data=='0')
                 {
                     $("#ShoppingCart").attr("href", "#");
+					$("#dropdownMenuButton2").attr("href", "#");
                     $("#ShoppingCart").removeClass("active-cart");
                     $("#dropdownMenuButton2").removeClass("active-cart");
                     $("#DestroyBtn").addClass("btn-B3B3B3-non-hover");

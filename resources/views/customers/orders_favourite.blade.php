@@ -8,7 +8,9 @@
 
         <div class="col-xl-11 float-none mx-auto p-0">
             @include('customers._favourite_menu')
+            <div class="fav-orders accordion" id="orderexpanded">
             @include('customers._order_grid',array('query'=>$favouriteOrders,'favourite'=>true))
+            </div>
         </div>
 
     </div>

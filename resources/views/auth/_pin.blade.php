@@ -31,5 +31,12 @@
 				$('#Pinbtn').click();
 			}
 		});
+        $(".pincode-input-text").prop("pattern","[0-9]*");
+        $(".pincode-input-text").prop("type","number");
+        $(".pincode-input-text").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
 	});
 </script>

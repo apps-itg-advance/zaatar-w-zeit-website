@@ -1661,11 +1661,13 @@ margin-left: 1rem !important;
 .ar-lang .header-wrapper .header-container .cart-col {
     flex: 1;
 }
-
-@media screen and (max-width:767px){
-    .content-wrapper .action-buttons{
+@media screen and (max-width:1024px) {
+    .content-wrapper .action-buttons {
         padding-bottom: 1.5rem;
     }
+}
+
+@media screen and (max-width:767px){
     .order-history-details .order-price-info .row {
         flex-wrap: nowrap;
     }
@@ -1686,4 +1688,7 @@ margin-left: 1rem !important;
         flex: 0 0 50%;
         max-width: 50%;
     }
+}
+.fav-orders{
+    padding-top: .5rem!important;
 }

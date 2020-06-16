@@ -232,5 +232,6 @@
   "voucher_was_selected":"تم اختيار القسيمة",
   "new_pin_code_sent_to_mobile_number.":"تم إرسال رمز PIN الجديد إلى رقم هاتفك المحمول.",
   "meal":"وجبة",
-  "select_one_drink":"حدد مشروب!"
+  "select_one_drink":"حدد مشروب!",
+  "order_added_to_cart":"تمت إضافة الطلب إلى سلة التسوق"
 }
