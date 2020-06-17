@@ -140,8 +140,8 @@
 
                             <hr/>
 
-                            <div class="total-block text-right futura-b">
-                                @lang('total') <span class="price d-inline-block ml-4" style="width: 30% !important;">
+                            <div class="total-block text-right futura-b total-price">
+                                @lang('total') <span class="price d-inline-block ml-4" style="width: 30%;">
                                              {{number_format($total ?? 0 ). ' '.$currency}}
                                         </span>
                             </div>

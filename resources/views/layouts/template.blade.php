@@ -6,8 +6,8 @@
 {{--<html lang="{{App::getLocale()}}" dir="{{(App::isLocale('ar') ? 'rtl' : 'ltr')}}">--}}
 <head>
     <meta charset="utf-8">
-	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"> -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
@@ -124,6 +124,7 @@
 				else{
                     $("#ShoppingCart").attr("href", "{{route('checkout.address')}}");
                     $("#ShoppingCart").addClass("active-cart");
+					$("#dropdownMenuButton2").attr("href", "{{route('carts.show')}}");
                     $("#dropdownMenuButton2").addClass("active-cart");
                     $("#DestroyBtn").removeClass("btn-B3B3B3-non-hover");
                     $("#CheckOutBtn").removeClass("btn-B3B3B3-non-hover");

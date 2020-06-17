@@ -52,7 +52,7 @@ $discount=0;
                                             }
                                     }
                                     @endphp
-                                    <div class="row">
+                                    <div class="row m-order-summary-details">
                                         <div class="col-md-8"><h5 class="mb-0"> {{htmlspecialchars_decode($values['name'])}}</h5>
                                             <div class="text-808080">
                                                 @php

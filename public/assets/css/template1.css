@@ -1666,7 +1666,11 @@ margin-left: 1rem !important;
         padding-bottom: 1.5rem;
     }
 }
-
+@media screen and (min-width:993px) and (max-width: 1199px){
+    .total-price .price {
+        width:43% !important;
+    }
+}
 @media screen and (max-width:767px){
     .order-history-details .order-price-info .row {
         flex-wrap: nowrap;
@@ -1674,6 +1678,10 @@ margin-left: 1rem !important;
     .content-wrapper.profile-wrapper .left-menu-hide-mobile {
         display: none;
     }
+    .m-order-summary-details {
+        flex-wrap: nowrap;
+    }
+
 }
 @media screen and (max-width:520px){
     .food-icon{
@@ -1683,6 +1691,12 @@ margin-left: 1rem !important;
         display: none;
     }
 }
+@media screen and (max-width:440px){
+    .total-price .price {
+        width:45% !important;
+    }
+}
+
 @media screen and (max-width:420px){
     .orders-wrapper .order-box .order-info.extra-order-info .col-4 {
         flex: 0 0 50%;
@@ -1691,4 +1705,13 @@ margin-left: 1rem !important;
 }
 .fav-orders{
     padding-top: .5rem!important;
+}
+.pincode-input-text::-webkit-inner-spin-button,
+.pincode-input-text::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
