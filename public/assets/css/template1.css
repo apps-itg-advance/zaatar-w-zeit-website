@@ -1715,3 +1715,22 @@ margin-left: 1rem !important;
 input[type=number] {
     -moz-appearance: textfield;
 }
+.slice .bar:after {
+    content: "";
+    position: absolute;
+    left: 116px;
+    top: -30px;
+    width: 24px;
+    height: 24px;
+    border-bottom: 10px solid #cccccc;
+    border-left: 10px solid #ccc;
+    z-index: 99999;
+    transform: rotate(226deg) !important;
+    transition: all 0.5s ease 0s;
+}
+.c100:hover .slice .bar:after{
+    left: 130px;
+    top: -29px;
+    width: 10px;
+    height: 10px;
+}
