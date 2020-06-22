@@ -165,7 +165,7 @@ button {
     border-bottom-color: rgba(0, 0, 0, 0.2);
     content: '';
   }
-  
+
   .dropdown-menu:after {
     position: absolute;
     top: -13px;
@@ -551,7 +551,7 @@ button {
     border-color: #FFFFFF; color: #FFFFFF;
 }
 
-.wallet-wrapper .wallet-carousel .buttons .btn.active {    
+.wallet-wrapper .wallet-carousel .buttons .btn.active {
     background: #FFFFFF; border-color: #FFFFFF; color: #8DBF43;
 }
 
@@ -979,26 +979,26 @@ a.effect-underline:hover:after {
     left: 0;
     margin: 0 auto;
 }
- 
+
 @-webkit-keyframes spin1 {
 0% { transform: scale(1); }
    50% { transform: scale(1.2); }
-   100% { transform: scale(1); } 
+   100% { transform: scale(1); }
 }
 @-moz-keyframes spin1 {
 0% { transform: scale(1); }
    50% { transform: scale(1.2); }
-   100% { transform: scale(1); } 
+   100% { transform: scale(1); }
 }
 @-o-keyframes spin1 {
 0% { transform: scale(1); }
    50% { transform: scale(1.2); }
-   100% { transform: scale(1); } 
+   100% { transform: scale(1); }
 }
 @-ms-keyframes spin1 {
 0% { transform: scale(1); }
    50% { transform: scale(1.2); }
-   100% { transform: scale(1); } 
+   100% { transform: scale(1); }
 }
 
 /*spinner for items*/
@@ -1733,4 +1733,7 @@ input[type=number] {
     top: -29px;
     width: 10px;
     height: 10px;
+}
+.content-container .row-favourite .col-favourite{
+    padding-left: 5px;
 }

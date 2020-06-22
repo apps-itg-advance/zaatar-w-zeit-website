@@ -156,7 +156,7 @@ class CheckoutController extends Controller
         $current_date=Carbon::now($timezone);
         $selected_address=session()->get('cart_info');
         $selected_address_id=session()->get('s_address');
-        session()->put('checkout_steps','');
+        //session()->put('checkout_steps','');
         session()->forget('s_address');
         session()->save();
         return view('checkouts.address',compact('cart','class_css','_active_css','addresses','skey','cities','settings','order_schedule','schedule_date','current_date','selected_address','schedule_day','selected_address_id'));  //
