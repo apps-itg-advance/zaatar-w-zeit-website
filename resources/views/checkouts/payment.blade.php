@@ -38,20 +38,19 @@
                                 {{$row->Label}}
                             </label>
                             @if($row->Name=='credit')
+								@if(count($row->Currencies)>0)
                                 <div class="hide-info" id="currency-{{$row->PaymentId}}">
                                     <div class="row">
                                         <div class="col-md-1"></div>
+										@foreach($row->Currencies as $currency)
                                         <div class="col-md-3">
-                                            <input type="radio" id="pay-lbp-{{$row->PaymentId}}" name="payment_currency{{$row->PaymentId}}" value="LBP" class="custom-control-input curr req{{$row->PaymentId}}">
-                                            <label class="custom-control-label text-uppercase" for="pay-lbp-{{$row->PaymentId}}">LBP</label>
+                                            <input type="radio" id="pay-{{$currency->Currency}}-{{$row->PaymentId}}" name="payment_currency{{$row->PaymentId}}" value="{{$currency->Currency}}" class="custom-control-input curr req{{$row->PaymentId}}">
+                                            <label class="custom-control-label text-uppercase" for="pay-{{$currency->Currency}}-{{$row->PaymentId}}">{{$currency->Currency}}</label>
                                         </div>
-                                        <div class="col-md-3">
-                                            <input type="radio" id="pay-usd-{{$row->PaymentId}}"  name="payment_currency{{$row->PaymentId}}" value="USD" class="custom-control-input curr req{{$row->PaymentId}}">
-                                            <label class="custom-control-label text-uppercase" for="pay-usd-{{$row->PaymentId}}">USD</label>
-                                        </div>
-
+										@endforeach
                                     </div>
                                 </div>
+								@endif
                             @endif
 
                         </div>
@@ -82,12 +81,16 @@
 		function ShowCurrency(id)
 		{
 			$('.hide-info').hide();
+			$("#pay-{{$cart_payment_currency}}-"+id).prop("checked", true);
+
+<?php /*
             @if($cart_payment_currency=='USD')
 			$("#pay-usd-"+id).prop("checked", true);
             @endif
             @if($cart_payment_currency=='LBP')
 			$("#pay-lbp-"+id).prop("checked", true);
             @endif
+ */ ?>
             @if($cart_payment_currency=='')
 			$(".curr").prop("checked", false);
             @endif

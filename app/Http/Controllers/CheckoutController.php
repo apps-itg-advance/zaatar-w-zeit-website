@@ -626,7 +626,6 @@ class CheckoutController extends Controller
     {
 
       $query=OrdersLibrary::SaveOrders();
-
         $cart_info=session()->get('cart_info');
         $cart_gift=session()->get('cart_gift');
         $cart_payment=session()->get('cart_payment');
