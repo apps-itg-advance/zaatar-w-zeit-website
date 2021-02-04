@@ -315,7 +315,7 @@ class OrdersLibrary
             $post_array['ScheduleOrder'] = $addressInfo['scheduled_on'];
             $post_array['OrderDate'] = $addressInfo['scheduled_at'];
         }
-        return $post_array;
+//        return $post_array;
         $url = env('BASE_URL') . 'orders/Save';
         $query = Helper::postApi($url, $post_array);
         return $query;
