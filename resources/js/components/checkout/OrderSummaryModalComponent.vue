@@ -38,9 +38,10 @@
                                             <div class="row mb-2" v-for="item in checkoutInfo.cart_items">
                                                 <div class="col-md-10">
                                                     <h6 v-if="item.hasOwnProperty('Components')" class="mb-1">
-                                                        {{item.ComboName}} <span class="text-right">{{numberFormat(item.TotalPrice)}}</span>
+                                                        {{item.ComboName}} <span class="pl-2 text-right">{{numberFormat(item.TotalPrice)}}</span>
                                                     </h6>
-                                                    <h6 v-else class="mb-1">{{item.ItemName}}<span class="text-right">{{item.Price}}</span>
+                                                    <h6 v-else class="mb-1">{{item.ItemName}}<span
+                                                        class="pl-2 text-right">{{numberFormat(item.TotalPrice)}}</span>
                                                     </h6>
                                                     <p v-if="item.hasOwnProperty('Components')"
                                                        class="text-808080 modifiers-text">
@@ -88,7 +89,7 @@
                                                 </h5>
                                             </div>
                                             <div class="col-6 text-808080 mb-3 futura-book">
-
+                                                {{parseOpenItem('Gift')}}
                                             </div>
                                         </div>
                                         <div class="row align-items-center">
@@ -98,7 +99,7 @@
                                                 </h5>
                                             </div>
                                             <div class="col-6 text-808080 mb-3 futura-book">
-
+                                                {{parseOpenItem('RealGreen')}}
                                             </div>
                                         </div>
                                         <div class="row align-items-center">
@@ -108,7 +109,7 @@
                                                 </h5>
                                             </div>
                                             <div class="col-6 text-808080 mb-3 futura-book">
-
+                                                {{parseOpenItem('PaymentMethods')}}
                                             </div>
                                         </div>
 
@@ -173,9 +174,9 @@
         methods: {
             getCheckoutInfo() {
                 axios.get('/checkout/info').then((response) => {
-                    console.log("info", response);
                     this.checkoutInfo = response.data
                     this.calculateTotal();
+                    console.log("Checkout", response.data)
                 }).catch((error) => {
                     console.log(error);
                 });
@@ -183,7 +184,7 @@
             confirm() {
                 this.loading = true
                 axios.post('/checkout/order/submit').then((response) => {
-                    console.log(response);
+                    console.log("Submit Order Info", response);
                     if (response.data.status === 'success') {
                         $('#order-summary-modal').modal('hide');
                         if (response.data.url === 'home') {
@@ -205,13 +206,15 @@
                 }).join(", ");
             },
             parseAppliedItems(cartItem) {
-                console.log(cartItem.Components);
                 let appliedItems = "";
                 cartItem.Components.map(function (component) {
-                    appliedItems += appliedItems = component.AppliedItems.map(function (item) {
+                    appliedItems += component.AppliedItems.map(function (item) {
                         return item.Name;
                     }).join(", ");
                 });
+                appliedItems += cartItem.AppliedModifiers.map(function (elem) {
+                    return elem.ModifierDetails;
+                }).join(", ");
                 return appliedItems;
             },
             calculateTotal() {
@@ -225,6 +228,20 @@
                     }
                 });
             },
+            parseOpenItem(label) {
+                let value = this.trans('no');
+                this.checkoutInfo.checkout_info.forEach((info) => {
+                    if (label === 'Gift' && info.key === 'Gift') {
+                        value = this.trans('yes');
+                    } else if (label === 'RealGreen' && info.key === 'RealGreen') {
+                        value = this.trans('yes');
+                    } else if (label === 'PaymentMethods' && info.key === 'PaymentMethods') {
+                        value = info.payment_method.Label;
+                    } else {
+                    }
+                });
+                return value;
+            }
         },
         computed: {
             orderAddress() {

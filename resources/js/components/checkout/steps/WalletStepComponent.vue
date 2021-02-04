@@ -49,11 +49,11 @@
 <!--                </div>-->
             </div>
             <div class="action-buttons text-center" v-if="parseInt(checkoutData.Wallet.RedeemableAmountBalance) > 0">
-                <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm"
-                        @click="confirm()" :disabled="loading">
-                    <span v-if="!loading">{{trans('confirm')}}</span>
-                    <i v-else class="fas fa-circle-notch fa-spin"></i>
-                </button>
+<!--                <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm"-->
+<!--                        @click="confirm()" :disabled="loading">-->
+<!--                    <span v-if="!loading">{{trans('confirm')}}</span>-->
+<!--                    <i v-else class="fas fa-circle-notch fa-spin"></i>-->
+<!--                </button>-->
                 <button v-if="currentStep.Required === false" type="button" class="btn btn-B3B3B3 text-uppercase skip"
                         @click="skip()">
                     <span v-if="!skipLoading">{{trans('skip')}}</span>

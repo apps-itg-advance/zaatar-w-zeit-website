@@ -244,6 +244,9 @@
                         return item.Name;
                     }).join(", ");
                 });
+                appliedItems += cartItem.AppliedModifiers.map(function (elem) {
+                    return elem.ModifierDetails;
+                }).join(", ");
                 return appliedItems;
             },
             calculateTotal() {

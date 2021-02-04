@@ -111,6 +111,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::prefix('checkout')->group(function () {
         Route::get('/', 'CheckoutController@index')->name('checkout.index');
         Route::post('/confirm-step', 'CheckoutController@confirmStep')->name('checkout.confirm-step');
+        Route::post('/skip-step', 'CheckoutController@skipStep')->name('checkout.skip-step');
         Route::get('/info', 'CheckoutController@info')->name('checkout.info');
         Route::post('/order/submit', 'CheckoutController@submitOrder')->name('checkout.submit.order');
         Route::get('/payment-cards', 'CheckoutController@getPaymentCards')->name('checkout.payment.cards');

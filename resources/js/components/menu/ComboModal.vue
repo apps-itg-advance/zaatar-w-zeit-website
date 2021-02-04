@@ -142,7 +142,7 @@
                     });
 
                     item.Modifiers.forEach((modifier) => {
-                        item.AppliedModifires = [];
+                        item.AppliedModifiers = [];
                         modifier.details.items.forEach((i) => {
                             i.Quantity = 0;
                         });
@@ -177,8 +177,8 @@
                 } else {
                     if (item.Quantity > 0) {
                         item.Quantity -= 1;
-                        const index = this.getIndex(this.customizedItem.AppliedModifires, i => i.ID === item.ID)
-                        this.customizedItem.AppliedModifires.splice(index, 1);
+                        const index = this.getIndex(this.customizedItem.AppliedModifiers, i => i.ID === item.ID)
+                        this.customizedItem.AppliedModifiers.splice(index, 1);
                     }
                 }
             },
@@ -195,7 +195,7 @@
                 } else {
                     if (item.Quantity < item.MaxQuantity) {
                         item.Quantity += 1;
-                        this.customizedItem.AppliedModifires.push(item);
+                        this.customizedItem.AppliedModifiers.push(item);
                     } else {
                         this.fireAlert(`You can select max ${item.MaxQuantity}`, ``,false);
                     }

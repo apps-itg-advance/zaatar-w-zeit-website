@@ -4,6 +4,10 @@ export default {
     },
     methods: {
         nextStep(nextStep, item, skip = false) {
+            let url = "/checkout/confirm-step";
+            if (skip) {
+                url = "/checkout/skip-step";
+            }
             const urlParams = new URLSearchParams(window.location.search);
             item.key = urlParams.get('step');
             let formData = new FormData();
@@ -22,15 +26,17 @@ export default {
                     }
                 }
             }
-            axios.post('/checkout/confirm-step', formData).then((response) => {
-                console.log(response);
+            axios.post(url, formData).then((response) => {
                 if (nextStep !== null) {
                     window.location.href = `/checkout?step=${nextStep.ArrayName}`;
                 }
-                Bus.$emit('step-confirmed', response);
+                if (!skip) {
+                    Bus.$emit('step-confirmed', response);
+                }
             }).catch((error) => {
                 console.log(error);
             });
+
         },
     }
 }

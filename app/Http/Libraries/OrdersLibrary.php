@@ -57,21 +57,22 @@ class OrdersLibrary
         $discount = 0;
         foreach ($cartItems as $cartItem) {
             if (isset($cartItem->Components)) {
-
                 foreach ($cartItem->Components as $component) {
-                    foreach ($component->AppliedItems as $appliedItem) {
-                        $item = array(
-                            'ItemPlu' => $appliedItem->PLU,
-                            'GrossPrice' => $cartItem->Price,
-                            'OrderItemId' => $appliedItem->ID,
-                            'OpenName' => 0,
-                            'ParentPLU' => 0,
-                            'UnitPrice' => $cartItem->Price,
-                            'Quantity' => 1,
-                            'ItemName' => $appliedItem->Name,
-                            'ItemType' => 1
-                        );
-                        array_push($arrayItems, $item);
+                    if ($component->IsMain == "1") {
+                        foreach ($component->AppliedItems as $appliedItem) {
+                            $item = array(
+                                'ItemPlu' => $appliedItem->PLU,
+                                'GrossPrice' => $cartItem->Price,
+                                'OrderItemId' => $appliedItem->ID,
+                                'OpenName' => 0,
+                                'ParentPLU' => 0,
+                                'UnitPrice' => $cartItem->Price,
+                                'Quantity' => 1,
+                                'ItemName' => $appliedItem->Name,
+                                'ItemType' => 1
+                            );
+                            array_push($arrayItems, $item);
+                        }
                     }
                 }
 
@@ -91,6 +92,25 @@ class OrdersLibrary
                     array_push($arrayItems, $appliedModifiers);
                 }
 
+
+                foreach ($cartItem->Components as $component) {
+                    if ($component->IsMain == "0") {
+                        foreach ($component->AppliedItems as $appliedItem) {
+                            $item = array(
+                                'ItemPlu' => $appliedItem->PLU,
+                                'GrossPrice' => $cartItem->Price,
+                                'OrderItemId' => $appliedItem->ID,
+                                'OpenName' => 0,
+                                'ParentPLU' => 0,
+                                'UnitPrice' => $cartItem->Price,
+                                'Quantity' => 1,
+                                'ItemName' => $appliedItem->Name,
+                                'ItemType' => 1
+                            );
+                            array_push($arrayItems, $item);
+                        }
+                    }
+                }
                 $total += $cartItem->Price;
             } else {
                 $item = array(
@@ -295,7 +315,7 @@ class OrdersLibrary
             $post_array['ScheduleOrder'] = $addressInfo['scheduled_on'];
             $post_array['OrderDate'] = $addressInfo['scheduled_at'];
         }
-//        return $post_array;
+        return $post_array;
         $url = env('BASE_URL') . 'orders/Save';
         $query = Helper::postApi($url, $post_array);
         return $query;

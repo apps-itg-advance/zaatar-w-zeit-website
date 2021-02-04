@@ -2207,6 +2207,9 @@ __webpack_require__.r(__webpack_exports__);
           return item.Name;
         }).join(", ");
       });
+      appliedItems += cartItem.AppliedModifiers.map(function (elem) {
+        return elem.ModifierDetails;
+      }).join(", ");
       return appliedItems;
     },
     calculateTotal: function calculateTotal() {
@@ -2388,6 +2391,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2418,10 +2422,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.get('/checkout/info').then(function (response) {
-        console.log("info", response);
         _this2.checkoutInfo = response.data;
 
         _this2.calculateTotal();
+
+        console.log("Checkout", response.data);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2431,7 +2436,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       axios.post('/checkout/order/submit').then(function (response) {
-        console.log(response);
+        console.log("Submit Order Info", response);
 
         if (response.data.status === 'success') {
           $('#order-summary-modal').modal('hide');
@@ -2456,13 +2461,15 @@ __webpack_require__.r(__webpack_exports__);
       }).join(", ");
     },
     parseAppliedItems: function parseAppliedItems(cartItem) {
-      console.log(cartItem.Components);
       var appliedItems = "";
       cartItem.Components.map(function (component) {
-        appliedItems += appliedItems = component.AppliedItems.map(function (item) {
+        appliedItems += component.AppliedItems.map(function (item) {
           return item.Name;
         }).join(", ");
       });
+      appliedItems += cartItem.AppliedModifiers.map(function (elem) {
+        return elem.ModifierDetails;
+      }).join(", ");
       return appliedItems;
     },
     calculateTotal: function calculateTotal() {
@@ -2478,6 +2485,21 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    },
+    parseOpenItem: function parseOpenItem(label) {
+      var _this5 = this;
+
+      var value = this.trans('no');
+      this.checkoutInfo.checkout_info.forEach(function (info) {
+        if (label === 'Gift' && info.key === 'Gift') {
+          value = _this5.trans('yes');
+        } else if (label === 'RealGreen' && info.key === 'RealGreen') {
+          value = _this5.trans('yes');
+        } else if (label === 'PaymentMethods' && info.key === 'PaymentMethods') {
+          value = info.payment_method.Label;
+        } else {}
+      });
+      return value;
     }
   },
   computed: {
@@ -4234,7 +4256,7 @@ __webpack_require__.r(__webpack_exports__);
           item.MinTotalQuantity += parseInt(component.MinChoose);
         });
         item.Modifiers.forEach(function (modifier) {
-          item.AppliedModifires = [];
+          item.AppliedModifiers = [];
           modifier.details.items.forEach(function (i) {
             i.Quantity = 0;
           });
@@ -4276,11 +4298,11 @@ __webpack_require__.r(__webpack_exports__);
         if (item.Quantity > 0) {
           item.Quantity -= 1;
 
-          var _index = this.getIndex(this.customizedItem.AppliedModifires, function (i) {
+          var _index = this.getIndex(this.customizedItem.AppliedModifiers, function (i) {
             return i.ID === item.ID;
           });
 
-          this.customizedItem.AppliedModifires.splice(_index, 1);
+          this.customizedItem.AppliedModifiers.splice(_index, 1);
         }
       }
     },
@@ -4299,7 +4321,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         if (item.Quantity < item.MaxQuantity) {
           item.Quantity += 1;
-          this.customizedItem.AppliedModifires.push(item);
+          this.customizedItem.AppliedModifiers.push(item);
         } else {
           this.fireAlert("You can select max ".concat(item.MaxQuantity), "", false);
         }
@@ -5230,6 +5252,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrderListComponent",
@@ -5599,6 +5629,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         };
         _this.coordinates.lng = JSON.parse(item.XLocation);
         _this.coordinates.lat = JSON.parse(item.YLocation);
+      }
+
+      if (_this.addresses.length === 0) {
+        _this.item.is_default = "1";
       }
 
       $('#address-modal').modal('show');
@@ -6072,6 +6106,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_GlobalMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/GlobalMixin */ "./resources/js/mixins/GlobalMixin.js");
+//
 //
 //
 //
@@ -44324,7 +44359,7 @@ var render = function() {
                                                           "span",
                                                           {
                                                             staticClass:
-                                                              "text-right"
+                                                              "pl-2 text-right"
                                                           },
                                                           [
                                                             _vm._v(
@@ -44349,11 +44384,15 @@ var render = function() {
                                                           "span",
                                                           {
                                                             staticClass:
-                                                              "text-right"
+                                                              "pl-2 text-right"
                                                           },
                                                           [
                                                             _vm._v(
-                                                              _vm._s(item.Price)
+                                                              _vm._s(
+                                                                _vm.numberFormat(
+                                                                  item.TotalPrice
+                                                                )
+                                                              )
                                                             )
                                                           ]
                                                         )
@@ -44554,10 +44593,22 @@ var render = function() {
                                         ]
                                       ),
                                       _vm._v(" "),
-                                      _c("div", {
-                                        staticClass:
-                                          "col-6 text-808080 mb-3 futura-book"
-                                      })
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "col-6 text-808080 mb-3 futura-book"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(
+                                                _vm.parseOpenItem("Gift")
+                                              ) +
+                                              "\n                                        "
+                                          )
+                                        ]
+                                      )
                                     ]
                                   ),
                                   _vm._v(" "),
@@ -44591,10 +44642,22 @@ var render = function() {
                                         ]
                                       ),
                                       _vm._v(" "),
-                                      _c("div", {
-                                        staticClass:
-                                          "col-6 text-808080 mb-3 futura-book"
-                                      })
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "col-6 text-808080 mb-3 futura-book"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(
+                                                _vm.parseOpenItem("RealGreen")
+                                              ) +
+                                              "\n                                        "
+                                          )
+                                        ]
+                                      )
                                     ]
                                   ),
                                   _vm._v(" "),
@@ -44626,10 +44689,24 @@ var render = function() {
                                         ]
                                       ),
                                       _vm._v(" "),
-                                      _c("div", {
-                                        staticClass:
-                                          "col-6 text-808080 mb-3 futura-book"
-                                      })
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "col-6 text-808080 mb-3 futura-book"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(
+                                                _vm.parseOpenItem(
+                                                  "PaymentMethods"
+                                                )
+                                              ) +
+                                              "\n                                        "
+                                          )
+                                        ]
+                                      )
                                     ]
                                   )
                                 ])
@@ -46337,24 +46414,6 @@ var render = function() {
         _vm._v(" "),
         parseInt(_vm.checkoutData.Wallet.RedeemableAmountBalance) > 0
           ? _c("div", { staticClass: "action-buttons text-center" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-8DBF43 text-uppercase mr-sm-4 confirm",
-                  attrs: { type: "button", disabled: _vm.loading },
-                  on: {
-                    click: function($event) {
-                      return _vm.confirm()
-                    }
-                  }
-                },
-                [
-                  !_vm.loading
-                    ? _c("span", [_vm._v(_vm._s(_vm.trans("confirm")))])
-                    : _c("i", { staticClass: "fas fa-circle-notch fa-spin" })
-                ]
-              ),
-              _vm._v(" "),
               _vm.currentStep.Required === false
                 ? _c(
                     "button",
@@ -48576,6 +48635,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "accordion" } }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("h4", { staticClass: "font-weight-bold" }, [
+          _vm._v(_vm._s(_vm.trans("order_history")))
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _vm.orders.rows.length === 0
+      ? _c("div", { staticClass: "empty-parent" }, [
+          _c("h2", [_vm._v(_vm._s(_vm.trans("no_order_history")))])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _vm.loading
       ? _c("div", { staticClass: "parent" }, [_vm._m(0)])
       : _c(
@@ -49713,7 +49786,9 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("profile-modal-component")
+      _c("profile-modal-component"),
+      _vm._v(" "),
+      _c("geo-tagging-component")
     ],
     1
   )
@@ -67679,6 +67754,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   methods: {
     nextStep: function nextStep(_nextStep, item) {
       var skip = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      var url = "/checkout/confirm-step";
+
+      if (skip) {
+        url = "/checkout/skip-step";
+      }
+
       var urlParams = new URLSearchParams(window.location.search);
       item.key = urlParams.get('step');
       var formData = new FormData();
@@ -67710,14 +67791,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       }
 
-      axios.post('/checkout/confirm-step', formData).then(function (response) {
-        console.log(response);
-
+      axios.post(url, formData).then(function (response) {
         if (_nextStep !== null) {
           window.location.href = "/checkout?step=".concat(_nextStep.ArrayName);
         }
 
-        Bus.$emit('step-confirmed', response);
+        if (!skip) {
+          Bus.$emit('step-confirmed', response);
+        }
       })["catch"](function (error) {
         console.log(error);
       });

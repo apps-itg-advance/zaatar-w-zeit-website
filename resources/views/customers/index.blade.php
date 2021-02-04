@@ -5,7 +5,7 @@
         <!--Loyalty Component-->
         <loyalty-component></loyalty-component>
 
-        <div class="title-div mb-4 pb-2 mt-4">
+        <div class="title-div mt-4">
             @php
                 $details=array();
                 if(isset($query->details))
@@ -13,10 +13,12 @@
                  $details=$query->details;
                 }
             @endphp
-            <h2 class="title text-8DBF43 text-uppercase">{{@$details->FirstName.' '.@$details->LastName}}</h2>
+            <h3 class="text-8DBF43 text-uppercase font-weight-bold">{{@$details->FirstName.' '.@$details->LastName}}</h3>
         </div>
 
         <!--Wallet Component-->
+
+        <hr/>
 
         <!--Orders List Component-->
         <orders-list-component></orders-list-component>

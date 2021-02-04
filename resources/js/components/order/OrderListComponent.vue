@@ -1,5 +1,13 @@
 <template>
     <div id="accordion">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="font-weight-bold">{{trans('order_history')}}</h4>
+            </div>
+        </div>
+        <div class="empty-parent" v-if="orders.rows.length === 0">
+            <h2>{{trans('no_order_history')}}</h2>
+        </div>
         <div class="parent" v-if="loading">
             <div class="child">
                 <i class="fas fa-circle-notch fa-spin fa-5x"></i>

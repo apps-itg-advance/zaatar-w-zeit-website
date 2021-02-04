@@ -246,5 +246,6 @@
     "customize": "Customize",
     "add_to_favourites": "Favorite",
     "no_fav_items": "No Favourite Items",
-    "no_fav_orders": "No Favourite Orders"
+    "no_fav_orders": "No Favourite Orders",
+    "no_order_history": "No Order History"
 }

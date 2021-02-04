@@ -12,6 +12,7 @@
             </div>
         </div>
         <profile-modal-component/>
+        <geo-tagging-component/>
     </div>
 </template>
 

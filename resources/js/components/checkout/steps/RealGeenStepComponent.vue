@@ -80,7 +80,7 @@
             confirm() {
                 this.loading = true;
                 if (Object.keys(this.item.green_option).length === 0) {
-                    this.fireAlert("Select option first", "",false);
+                    this.fireAlert("Select option first", "", false);
                     this.loading = false;
                     return;
                 }

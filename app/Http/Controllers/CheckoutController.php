@@ -136,6 +136,15 @@ class CheckoutController extends Controller
         return response()->json(session()->get('checkout_info_' . $key));
     }
 
+    public function skipStep(Request $request)
+    {
+        $key = $request->key;
+        if (session()->has('checkout_info_' . $key)) {
+            session()->forget('checkout_info_' . $key);
+        }
+        return response()->json("Step successfully skipped");
+    }
+
     public function info()
     {
         $cartItems = session()->get('cart');
@@ -161,7 +170,7 @@ class CheckoutController extends Controller
             }
         }
         $response = OrdersLibrary::SaveOrders($checkoutInfo);
-//        return response()->json($response);
+        return response()->json($response);
 
         $status = 'error';
         $msg = 'Error while submitting the order';

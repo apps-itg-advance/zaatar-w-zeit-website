@@ -194,7 +194,6 @@
             }
         },
         mounted() {
-
             this.$refs.map.$mapPromise.then(map => {
                 this.map = map;
             });
@@ -246,6 +245,11 @@
                     this.coordinates.lng = JSON.parse(item.XLocation);
                     this.coordinates.lat = JSON.parse(item.YLocation);
                 }
+
+                if (this.addresses.length === 0) {
+                    this.item.is_default = "1";
+                }
+
                 $('#address-modal').modal('show');
             });
         },
