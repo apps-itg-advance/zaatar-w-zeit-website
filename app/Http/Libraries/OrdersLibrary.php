@@ -57,16 +57,30 @@ class OrdersLibrary
         $discount = 0;
         foreach ($cartItems as $cartItem) {
             if (isset($cartItem->Components)) {
+
+                $item = array(
+                    'ItemPlu' => $cartItem->PLU,
+                    'GrossPrice' => $cartItem->Price,
+                    'OrderItemId' => $cartItem->ID,
+                    'OpenName' => 0,
+                    'ParentPLU' => 0,
+                    'UnitPrice' => $cartItem->Price,
+                    'Quantity' => 1,
+                    'ItemName' => $cartItem->ComboName,
+                    'ItemType' => 1
+                );
+                array_push($arrayItems, $item);
+
                 foreach ($cartItem->Components as $component) {
                     if ($component->IsMain == "1") {
                         foreach ($component->AppliedItems as $appliedItem) {
                             $item = array(
                                 'ItemPlu' => $appliedItem->PLU,
-                                'GrossPrice' => $cartItem->Price,
+                                'GrossPrice' => 0,
                                 'OrderItemId' => $appliedItem->ID,
                                 'OpenName' => 0,
-                                'ParentPLU' => 0,
-                                'UnitPrice' => $cartItem->Price,
+                                'ParentPLU' => $cartItem->PLU,
+                                'UnitPrice' => 0,
                                 'Quantity' => 1,
                                 'ItemName' => $appliedItem->Name,
                                 'ItemType' => 1
@@ -98,11 +112,11 @@ class OrdersLibrary
                         foreach ($component->AppliedItems as $appliedItem) {
                             $item = array(
                                 'ItemPlu' => $appliedItem->PLU,
-                                'GrossPrice' => $cartItem->Price,
+                                'GrossPrice' => 0,
                                 'OrderItemId' => $appliedItem->ID,
                                 'OpenName' => 0,
-                                'ParentPLU' => 0,
-                                'UnitPrice' => $cartItem->Price,
+                                'ParentPLU' => $cartItem->PLU,
+                                'UnitPrice' => 0,
                                 'Quantity' => 1,
                                 'ItemName' => $appliedItem->Name,
                                 'ItemType' => 1
@@ -111,6 +125,7 @@ class OrdersLibrary
                         }
                     }
                 }
+
                 $total += $cartItem->Price;
             } else {
                 $item = array(
@@ -141,38 +156,40 @@ class OrdersLibrary
                     $total += $modifier->Price;
                     array_push($arrayItems, $appliedModifiers);
                 }
-            }
 
-            if (isset($cartItem->AppliedMeal->AppliedItems) && count($cartItem->AppliedMeal->AppliedItems) > 0) {
-                $mealHeader = array(
-                    'ItemPlu' => $cartItem->AppliedMeal->PLU,
-                    'GrossPrice' => $cartItem->AppliedMeal->Price,
-                    'OrderItemId' => $cartItem->AppliedMeal->ID,
-                    'OpenName' => 0,
-                    'ParentPLU' => $cartItem->AppliedMeal->PLU,
-                    'UnitPrice' => $cartItem->AppliedMeal->Price,
-                    'Quantity' => 1,
-                    'ItemName' => $cartItem->AppliedMeal->Title,
-                    'ItemType' => 5,
-                );
-                array_push($arrayItems, $mealHeader);
-                foreach ($cartItem->AppliedMeal->AppliedItems as $appliedItem) {
-                    $mealItem = array(
-                        'ItemPlu' => $appliedItem->PLU,
-                        'GrossPrice' => $appliedItem->Price,
-                        'OrderItemId' => $appliedItem->ID,
+                if (isset($cartItem->AppliedMeal->AppliedItems) && count($cartItem->AppliedMeal->AppliedItems) > 0) {
+                    $mealHeader = array(
+                        'ItemPlu' => $cartItem->AppliedMeal->PLU,
+                        'GrossPrice' => $cartItem->AppliedMeal->Price,
+                        'OrderItemId' => $cartItem->AppliedMeal->ID,
                         'OpenName' => 0,
                         'ParentPLU' => $cartItem->AppliedMeal->PLU,
-                        'UnitPrice' => $appliedItem->Price,
+                        'UnitPrice' => $cartItem->AppliedMeal->Price,
                         'Quantity' => 1,
-                        'ItemName' => $appliedItem->Name,
+                        'ItemName' => $cartItem->AppliedMeal->Title,
                         'ItemType' => 5,
                     );
-                    array_push($arrayItems, $mealItem);
+                    array_push($arrayItems, $mealHeader);
+                    foreach ($cartItem->AppliedMeal->AppliedItems as $appliedItem) {
+                        $mealItem = array(
+                            'ItemPlu' => $appliedItem->PLU,
+                            'GrossPrice' => $appliedItem->Price,
+                            'OrderItemId' => $appliedItem->ID,
+                            'OpenName' => 0,
+                            'ParentPLU' => $cartItem->AppliedMeal->PLU,
+                            'UnitPrice' => $appliedItem->Price,
+                            'Quantity' => 1,
+                            'ItemName' => $appliedItem->Name,
+                            'ItemType' => 5,
+                        );
+                        array_push($arrayItems, $mealItem);
+                    }
+                    $total += $cartItem->AppliedMeal->Price;
                 }
-                $total += $cartItem->AppliedMeal->Price;
             }
         }
+
+//        return $arrayItems;
 
         if (count($greenInfo) > 0 && count(get_object_vars($greenInfo['green_option'])) > 0) {
             $greenData = array(

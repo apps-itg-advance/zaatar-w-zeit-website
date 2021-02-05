@@ -1,7 +1,6 @@
 <template>
     <div>
-
-        <div class="cartbig-modal modal fade" id="address-modal" tabindex="-1" role="dialog"
+        <div class="cartbig-modal modal fade" id="address-modal" tabindex="1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -145,7 +144,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="full-map-modal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        <div class="modal fade" id="full-map-modal" tabindex="999" role="dialog" aria-labelledby="myExtraLargeModalLabel"
              aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">

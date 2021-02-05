@@ -43,11 +43,9 @@
             getAllOrders() {
                 this.loading = true;
                 axios.get('/orders/all').then((response) => {
-                    console.log("orders", response);
-                    // return
                     let items = [];
                     let mainPlus = [];
-                    let parsedItem = {AppliedModifiers: [], AppliedMeal: {}};
+                    let parsedItem = {AppliedComboItems:[], AppliedModifiers: [], AppliedMeal: {}};
                     let append = false;
                     let newPLU = null;
                     let netAmount = 0;
@@ -62,7 +60,7 @@
                             }
                             if (append) {
                                 items.push(parsedItem);
-                                parsedItem = {AppliedModifiers: [], AppliedMeal: {}};
+                                parsedItem = {AppliedComboItems:[], AppliedModifiers: [], AppliedMeal: {}};
                                 append = false;
                                 newPLU = null;
                             }
@@ -70,9 +68,13 @@
                             if (item.OpenItem !== '1') {
                                 if (item.MenuType === '1') {
                                     parsedItem.MainItem = item;
-                                    newPLU = item.PLU;
-                                    mainPlus.push(item.PLU);
-                                } else if (item.MenuType === '2') {
+                                    if(parseInt(item.GrossPrice) > 0){
+                                        newPLU = item.PLU;
+                                        mainPlus.push(item.PLU);
+                                    }else{
+                                        parsedItem.AppliedComboItems.push(item)
+                                    }
+                                } else if (item.MenuType === '3') {
                                     parsedItem.AppliedModifiers.push(item);
                                 } else if (item.MenuType === '5') {
                                     if (Object.keys(parsedItem.AppliedMeal).length === 0) {
@@ -120,7 +122,6 @@
                     });
 
                     this.orders = response.data
-                    console.log("Parsed Orders",this.orders)
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => {

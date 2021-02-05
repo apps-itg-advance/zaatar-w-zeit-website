@@ -2088,7 +2088,9 @@ __webpack_require__.r(__webpack_exports__);
 
     this.calculateTotal();
     Bus.$on('add-edit-to-cart-item', function (item) {
-      _this.addEditToCart(item);
+      var splice = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      _this.addEditToCart(item, splice);
 
       $('#customization-modal').modal('hide');
       $('#combo-modal').modal('hide');
@@ -2162,6 +2164,8 @@ __webpack_require__.r(__webpack_exports__);
       this.saveCart();
     },
     addEditToCart: function addEditToCart(item) {
+      var splice = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
       if (this.cartItems === null) {
         this.cartItems = [];
       }
@@ -2174,10 +2178,20 @@ __webpack_require__.r(__webpack_exports__);
         item.AppliedMeal = [];
       }
 
-      if (this.cartItems.length === 0 || !this.isEdit) {
-        this.cartItems.push(item);
+      if (!splice) {
+        if (this.cartItems.length === 0 || !this.isEdit) {
+          this.cartItems.push(item);
+        } else {
+          this.cartItems[this.editedIndex] = item;
+        }
       } else {
-        this.cartItems[this.editedIndex] = item;
+        var index = this.getIndex(this.cartItems, function (i) {
+          return i.PLU === item.PLU;
+        });
+
+        if (index >= 0) {
+          this.cartItems.splice(index, 1);
+        }
       }
 
       this.saveCart();
@@ -2231,7 +2245,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.total = 0;
       this.cartItems.forEach(function (cartItem) {
-        console.log("Calculation", cartItem);
         _this4.total += parseInt(cartItem.Price);
 
         if (cartItem.hasOwnProperty('AppliedModifiers') && cartItem.AppliedModifiers.length > 0) {
@@ -4507,8 +4520,6 @@ __webpack_require__.r(__webpack_exports__);
 
     Bus.$on('open-customization-modal', function (item) {
       var edit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      //todo if edit add params instead of adding them from php side AppliedModifiers,Quantity....
-      console.log("open-customization-modal", item);
 
       if (!edit) {
         item.Modifiers.forEach(function (modifier) {
@@ -4525,6 +4536,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
+      console.log("open-customization-modal", item);
       _this.customizedItem = JSON.parse(JSON.stringify(item));
       $('#customization-modal').modal('show');
     });
@@ -4755,9 +4767,7 @@ __webpack_require__.r(__webpack_exports__);
         this.item.Quantity = 0;
       }
 
-      if (this.item.Quantity > 0) {
-        Bus.$emit('add-edit-to-cart-item', this.item);
-      }
+      Bus.$emit('add-edit-to-cart-item', this.item, true);
     },
     AddQty: function AddQty() {
       var _this2 = this;
@@ -5225,9 +5235,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      axios.post('/favorite/set-favourite-order', formData).then(function (response) {
-        console.log(response);
-      })["catch"](function (error) {
+      axios.post('/favorite/set-favourite-order', formData).then(function (response) {})["catch"](function (error) {
         console.log(error);
       });
     },
@@ -5263,7 +5271,6 @@ __webpack_require__.r(__webpack_exports__);
           plus: JSON.stringify(this.order.MainPlus)
         }
       }).then(function (response) {
-        console.log("By PLU", response);
         _this2.menuItems = response.data;
 
         _this2.repeatOrder();
@@ -5294,7 +5301,6 @@ __webpack_require__.r(__webpack_exports__);
     repeatOrder: function repeatOrder() {
       var _this4 = this;
 
-      //todo parse order items to be same as cart object
       var parsedOrders = [];
       this.order.Items.forEach(function (item) {
         var parsedItem = {
@@ -5319,6 +5325,7 @@ __webpack_require__.r(__webpack_exports__);
                 modifier.details.items.forEach(function (modifierItem) {
                   if (appliedModifier.PLU === modifierItem.PLU) {
                     parsedItem.TotalPrice += parseInt(modifierItem.Price);
+                    modifierItem.Quantity = 1;
                     parsedItem.AppliedModifiers.push(modifierItem);
                   }
                 });
@@ -5416,11 +5423,10 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       axios.get('/orders/all').then(function (response) {
-        console.log("orders", response); // return
-
         var items = [];
         var mainPlus = [];
         var parsedItem = {
+          AppliedComboItems: [],
           AppliedModifiers: [],
           AppliedMeal: {}
         };
@@ -5439,6 +5445,7 @@ __webpack_require__.r(__webpack_exports__);
             if (append) {
               items.push(parsedItem);
               parsedItem = {
+                AppliedComboItems: [],
                 AppliedModifiers: [],
                 AppliedMeal: {}
               };
@@ -5449,9 +5456,14 @@ __webpack_require__.r(__webpack_exports__);
             if (item.OpenItem !== '1') {
               if (item.MenuType === '1') {
                 parsedItem.MainItem = item;
-                newPLU = item.PLU;
-                mainPlus.push(item.PLU);
-              } else if (item.MenuType === '2') {
+
+                if (parseInt(item.GrossPrice) > 0) {
+                  newPLU = item.PLU;
+                  mainPlus.push(item.PLU);
+                } else {
+                  parsedItem.AppliedComboItems.push(item);
+                }
+              } else if (item.MenuType === '3') {
                 parsedItem.AppliedModifiers.push(item);
               } else if (item.MenuType === '5') {
                 if (Object.keys(parsedItem.AppliedMeal).length === 0) {
@@ -5497,7 +5509,6 @@ __webpack_require__.r(__webpack_exports__);
           voucher = null;
         });
         _this.orders = response.data;
-        console.log("Parsed Orders", _this.orders);
       })["catch"](function (error) {
         console.log(error);
       })["finally"](function () {
@@ -5529,7 +5540,6 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-//
 //
 //
 //
@@ -6708,7 +6718,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         lng: this.coordinates.lng
       }).then(function (response) {
         $('#full-map-modal').modal('hide');
-        $('#address-modal').modal('show');
+        $('#address-profile-modal').modal('show');
       })["catch"](function (error) {
         _this5.fireAlert(error.response.data.message, 'Choose another location', false);
       })["finally"](function () {
@@ -49195,7 +49205,7 @@ var render = function() {
         staticClass: "cartbig-modal modal fade",
         attrs: {
           id: "address-modal",
-          tabindex: "-1",
+          tabindex: "1",
           role: "dialog",
           "aria-labelledby": "exampleModalCenterTitle",
           "aria-hidden": "true"
@@ -49711,7 +49721,7 @@ var render = function() {
         staticClass: "modal fade",
         attrs: {
           id: "full-map-modal",
-          tabindex: "-1",
+          tabindex: "999",
           role: "dialog",
           "aria-labelledby": "myExtraLargeModalLabel",
           "aria-hidden": "true"
@@ -50570,9 +50580,9 @@ var render = function() {
                                     { domProps: { value: city.CityId } },
                                     [
                                       _vm._v(
-                                        "\n                                            " +
+                                        "\n                                                " +
                                           _vm._s(city.CityName) +
-                                          "\n                                        "
+                                          "\n                                            "
                                       )
                                     ]
                                   )
@@ -50786,9 +50796,9 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                    " +
+                              "\n                                        " +
                                 _vm._s(_vm.trans("my_location")) +
-                                "\n                                "
+                                "\n                                    "
                             )
                           ]
                         )
@@ -50849,9 +50859,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                            " +
+                            "\n                                " +
                               _vm._s(_vm.trans("confirm")) +
-                              "\n                        "
+                              "\n                            "
                           )
                         ]
                       )
@@ -50861,80 +50871,6 @@ var render = function() {
             ])
           ]
         )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "full-map-modal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "myExtraLargeModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c("div", { staticClass: "modal-dialog modal-xl" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c(
-              "div",
-              { staticClass: "modal-body" },
-              [
-                _c(
-                  "GmapMap",
-                  {
-                    ref: "fullMap",
-                    staticStyle: { height: "700px" },
-                    attrs: {
-                      center: _vm.coordinates,
-                      zoom: 17,
-                      "map-type-id": "terrain"
-                    }
-                  },
-                  [
-                    _c("GmapMarker", {
-                      attrs: {
-                        position: _vm.coordinates,
-                        clickable: true,
-                        draggable: true
-                      },
-                      on: { drag: _vm.updateCoordinates }
-                    })
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-footer" }, [
-              !_vm.loading
-                ? _c(
-                    "button",
-                    {
-                      staticClass:
-                        "btn btn-8DBF43 mb-3 text-uppercase futura-book btn-confirm",
-                      on: {
-                        click: function($event) {
-                          return _vm.confirmCurrentLocation()
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(_vm.trans("confirm")) +
-                          "\n                    "
-                      )
-                    ]
-                  )
-                : _c("div", { staticClass: "sp sp-circle" })
-            ])
-          ])
-        ])
       ]
     )
   ])
@@ -68076,7 +68012,6 @@ __webpack_require__.r(__webpack_exports__);
     this.org = Vue.prototype.$org;
     this.user = Vue.prototype.$user;
     this.addresses = Vue.prototype.$addresses;
-    console.log(this.user);
     this.addresses.forEach(function (address) {
       if (address.IsDefault === "1") {
         _this.defaultAddress = address;

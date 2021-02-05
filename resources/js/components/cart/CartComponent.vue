@@ -138,8 +138,8 @@
         },
         mounted() {
             this.calculateTotal();
-            Bus.$on('add-edit-to-cart-item', (item) => {
-                this.addEditToCart(item);
+            Bus.$on('add-edit-to-cart-item', (item, splice = false) => {
+                this.addEditToCart(item, splice);
                 $('#customization-modal').modal('hide');
                 $('#combo-modal').modal('hide');
                 if (!item.hasOwnProperty('Components') && Object.keys(item.MakeMeal).length > 0 && Object.keys(item.AppliedMeal).length === 0) {
@@ -204,7 +204,7 @@
                 cartItem.AppliedMeal = {};
                 this.saveCart();
             },
-            addEditToCart(item) {
+            addEditToCart(item, splice = false) {
                 if (this.cartItems === null) {
                     this.cartItems = [];
                 }
@@ -214,10 +214,18 @@
                 if (!item.hasOwnProperty('AppliedMeal')) {
                     item.AppliedMeal = [];
                 }
-                if (this.cartItems.length === 0 || !this.isEdit) {
-                    this.cartItems.push(item);
+
+                if (!splice) {
+                    if (this.cartItems.length === 0 || !this.isEdit) {
+                        this.cartItems.push(item);
+                    } else {
+                        this.cartItems[this.editedIndex] = item;
+                    }
                 } else {
-                    this.cartItems[this.editedIndex] = item;
+                    const index = this.getIndex(this.cartItems, i => i.PLU === item.PLU)
+                    if(index >= 0){
+                        this.cartItems.splice(index, 1);
+                    }
                 }
                 this.saveCart();
             },
@@ -263,7 +271,6 @@
             calculateTotal() {
                 this.total = 0;
                 this.cartItems.forEach((cartItem) => {
-                    console.log("Calculation", cartItem)
                     this.total += parseInt(cartItem.Price);
                     if (cartItem.hasOwnProperty('AppliedModifiers') && cartItem.AppliedModifiers.length > 0) {
                         cartItem.AppliedModifiers.forEach((modifier) => {

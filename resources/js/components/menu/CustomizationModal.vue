@@ -124,8 +124,6 @@
         props: {},
         mounted() {
             Bus.$on('open-customization-modal', (item, edit = false) => {
-                //todo if edit add params instead of adding them from php side AppliedModifiers,Quantity....
-                console.log("open-customization-modal", item)
                 if (!edit) {
                     item.Modifiers.forEach((modifier) => {
                         modifier.TotalQuantity = 0;
@@ -140,6 +138,7 @@
                         })
                     });
                 }
+                console.log("open-customization-modal", item)
                 this.customizedItem = JSON.parse(JSON.stringify(item));
                 $('#customization-modal').modal('show');
             });
@@ -150,12 +149,12 @@
             }
         },
         methods: {
-            setFav(customizedItem){
+            setFav(customizedItem) {
                 if (!this.isAuthed) {
                     window.location.href = `/login`;
                     return
                 }
-                this.toggleFavorite(customizedItem,true);
+                this.toggleFavorite(customizedItem, true);
             },
             confirmCustomization() {
                 this.customizedItem.Quantity += 1;

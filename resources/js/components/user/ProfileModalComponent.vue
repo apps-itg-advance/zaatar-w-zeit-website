@@ -169,31 +169,31 @@
             </div>
         </div>
 
-        <div class="modal fade" id="full-map-modal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <GmapMap
-                            ref="fullMap"
-                            :center="coordinates"
-                            :zoom="17"
-                            map-type-id="terrain"
-                            style="height: 700px">
-                            <GmapMarker :position="coordinates"
-                                        :clickable="true" :draggable="true" @drag="updateCoordinates"/>
-                        </GmapMap>
-                    </div>
-                    <div class="modal-footer">
-                        <button v-if="!loading" @click="confirmCurrentLocation()"
-                                class="btn btn-8DBF43 mb-3 text-uppercase futura-book btn-confirm">
-                            {{trans('confirm')}}
-                        </button>
-                        <div v-else class="sp sp-circle"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div class="modal fade" id="full-map-modal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"-->
+<!--             aria-hidden="true">-->
+<!--            <div class="modal-dialog modal-xl">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-body">-->
+<!--                        <GmapMap-->
+<!--                            ref="fullMap"-->
+<!--                            :center="coordinates"-->
+<!--                            :zoom="17"-->
+<!--                            map-type-id="terrain"-->
+<!--                            style="height: 700px">-->
+<!--                            <GmapMarker :position="coordinates"-->
+<!--                                        :clickable="true" :draggable="true" @drag="updateCoordinates"/>-->
+<!--                        </GmapMap>-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button v-if="!loading" @click="confirmCurrentLocation()"-->
+<!--                                class="btn btn-8DBF43 mb-3 text-uppercase futura-book btn-confirm">-->
+<!--                            {{trans('confirm')}}-->
+<!--                        </button>-->
+<!--                        <div v-else class="sp sp-circle"></div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
     </div>
 </template>
@@ -375,7 +375,7 @@
                     lng: this.coordinates.lng,
                 }).then((response) => {
                     $('#full-map-modal').modal('hide');
-                    $('#address-modal').modal('show');
+                    $('#address-profile-modal').modal('show');
                 }).catch((error) => {
                     this.fireAlert(error.response.data.message, 'Choose another location', false);
                 }).finally(() => {
@@ -386,7 +386,6 @@
                 console.log("Updating Profile...");
                 console.log(this.item);
                 return;
-
                 this.loading = true;
                 let formData = new FormData();
                 for (let key in this.item) {

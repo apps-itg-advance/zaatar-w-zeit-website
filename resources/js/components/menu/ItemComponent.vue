@@ -119,10 +119,7 @@
                 } else {
                     this.item.Quantity = 0;
                 }
-
-                if (this.item.Quantity > 0) {
-                    Bus.$emit('add-edit-to-cart-item', this.item);
-                }
+                Bus.$emit('add-edit-to-cart-item', this.item,true);
             },
             AddQty() {
                 console.log(this.item.MakeMeal);

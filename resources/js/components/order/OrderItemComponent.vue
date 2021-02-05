@@ -191,7 +191,6 @@
                     }
                 }
                 axios.post('/favorite/set-favourite-order', formData).then((response) => {
-                    console.log(response);
                 }).catch((error) => {
                     console.log(error);
                 });
@@ -222,7 +221,6 @@
                         plus: JSON.stringify(this.order.MainPlus)
                     }
                 }).then((response) => {
-                    console.log("By PLU", response);
                     this.menuItems = response.data;
                     this.repeatOrder();
                 }).catch((error) => {
@@ -248,7 +246,6 @@
                 }).join(",");
             },
             repeatOrder() {
-                //todo parse order items to be same as cart object
                 let parsedOrders = [];
                 this.order.Items.forEach((item) => {
                     let parsedItem = {
@@ -256,7 +253,6 @@
                         AppliedModifiers: []
                     }
                     this.menuItems.forEach((menuItem) => {
-
                         if (menuItem.PLU === item.MainItem.PLU) {
                             for (let key in menuItem) {
                                 if (menuItem.hasOwnProperty(key)) {
@@ -271,12 +267,12 @@
                                     modifier.details.items.forEach((modifierItem) => {
                                         if (appliedModifier.PLU === modifierItem.PLU) {
                                             parsedItem.TotalPrice += parseInt(modifierItem.Price);
+                                            modifierItem.Quantity = 1;
                                             parsedItem.AppliedModifiers.push(modifierItem);
                                         }
                                     });
                                 });
                             })
-
                             if (item.AppliedMeal.hasOwnProperty('AppliedItems') && item.AppliedMeal.AppliedItems.length > 0) {
                                 item.AppliedMeal.AppliedItems.forEach((appliedItem) => {
                                     menuItem.MakeMeal.Items.forEach((mealItem) => {
@@ -290,7 +286,6 @@
                                     });
                                 })
                             }
-
                         }
                     });
                     parsedOrders.push(parsedItem);
