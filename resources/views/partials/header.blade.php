@@ -66,10 +66,17 @@
                         @php
                             $cart=(session()->has('cart') and session()->get('cart')!=null)?session()->get('cart'):null;
                         @endphp
-                        <a @if($cart!=null) href="{{route('checkout.address')}}" @endif id="ShoppingCart"
+                        @if(session()->has('is_login') and session()->get('is_login') == true)
+                        <a @if($cart!=null) href="/checkout?step=Addresses" @endif id="ShoppingCart"
                            class="cart-link d-block checkout-address">
                             <div class="CartItems"></div>
                         </a>
+                        @else
+                            <a @if($cart!=null) href=/login" @endif id="ShoppingCart"
+                               class="cart-link d-block checkout-address">
+                                <div class="CartItems"></div>
+                            </a>
+                        @endif
                     </div>
 
                 </div>
