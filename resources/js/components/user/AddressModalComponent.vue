@@ -33,10 +33,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4" v-for="addressType in addressesTypes" @click="toggleCompanyField(addressType)">
+                                <div class="col-sm-4" v-for="addressType in addressesTypes"
+                                     @click="toggleCompanyField(addressType)">
                                     <div class="form-group">
                                         <input type="radio" class="address_type" :disabled="addressType.used"
-                                               v-model="item.type_id" :value="addressType.ID"/>
+                                               v-model="picked" :value="addressType.ID"/>
                                         <label>{{addressType.Title}} {{addressType.ID}}</label>
                                     </div>
                                 </div>
@@ -75,7 +76,8 @@
                                         <div class="col-sm-8">
                                             <div class="form-group">
                                                 <label>{{trans('phone_number')}}</label>
-                                                <input type="text" class="form-control" readonly :value="user.details.FullMobile"/>
+                                                <input type="text" class="form-control" readonly
+                                                       :value="user.details.FullMobile"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -144,7 +146,8 @@
             </div>
         </div>
 
-        <div class="modal fade" id="full-map-modal" tabindex="999" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        <div class="modal fade" id="full-map-modal" tabindex="999" role="dialog"
+             aria-labelledby="myExtraLargeModalLabel"
              aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -188,7 +191,8 @@
                 addressesTypes: [],
                 map: null,
                 coordinates: {lat: 10, lng: 10},
-                loading: false
+                loading: false,
+                picked: ''
             }
         },
         mounted() {
@@ -243,11 +247,10 @@
                     this.coordinates.lng = JSON.parse(item.XLocation);
                     this.coordinates.lat = JSON.parse(item.YLocation);
                 }
-
                 if (this.addresses.length === 0) {
                     this.item.is_default = "1";
                 }
-                console.log("open-address-modal",this.item);
+                console.log("open-address-modal", this.item);
                 $('#address-modal').modal('show');
             });
         },
@@ -267,20 +270,20 @@
             getAddressesTypes() {
                 axios.get('/address/addresses-types').then((response) => {
                     this.addressesTypes = response.data;
-                    console.log("addressesTypes",response.data)
+                    console.log("addressesTypes", response.data)
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => {
                 });
             },
             toggleCompanyField(addressType) {
-                this.item.type_id = addressType.ID;
+                this.picked = addressType.ID;
+                this.item.type_id = ddressType.ID
                 if (addressType.Title === 'Business') {
                     this.item.show_company = true;
                 } else {
                     this.item.show_company = false;
                 }
-                console.log("Toggle",this.item)
             },
             getCurrentLocation() {
                 navigator.geolocation.getCurrentPosition(

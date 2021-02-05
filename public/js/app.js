@@ -5715,6 +5715,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5731,7 +5734,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         lat: 10,
         lng: 10
       },
-      loading: false
+      loading: false,
+      picked: ''
     };
   },
   mounted: function mounted() {
@@ -5820,15 +5824,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       })["finally"](function () {});
     },
     toggleCompanyField: function toggleCompanyField(addressType) {
-      this.item.type_id = addressType.ID;
+      this.picked = addressType.ID;
+      this.item.type_id = ddressType.ID;
 
       if (addressType.Title === 'Business') {
         this.item.show_company = true;
       } else {
         this.item.show_company = false;
       }
-
-      console.log("Toggle", this.item);
     },
     getCurrentLocation: function getCurrentLocation() {
       var _this4 = this;
@@ -49351,8 +49354,8 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.item.type_id,
-                                    expression: "item.type_id"
+                                    value: _vm.picked,
+                                    expression: "picked"
                                   }
                                 ],
                                 staticClass: "address_type",
@@ -49362,18 +49365,11 @@ var render = function() {
                                 },
                                 domProps: {
                                   value: addressType.ID,
-                                  checked: _vm._q(
-                                    _vm.item.type_id,
-                                    addressType.ID
-                                  )
+                                  checked: _vm._q(_vm.picked, addressType.ID)
                                 },
                                 on: {
                                   change: function($event) {
-                                    return _vm.$set(
-                                      _vm.item,
-                                      "type_id",
-                                      addressType.ID
-                                    )
+                                    _vm.picked = addressType.ID
                                   }
                                 }
                               }),
