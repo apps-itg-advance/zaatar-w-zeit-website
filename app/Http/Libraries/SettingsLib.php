@@ -34,7 +34,7 @@ class SettingsLib
         );
 
         if (!session::has('user_tokens')) {
-            $query = Helper::postApi($url, $array);
+            $query = Helper::postApi($url, $array,false);
             $res = $query->data;
             session::put('user_tokens', $res);
         } else {
