@@ -278,6 +278,7 @@ class OrdersLibrary
             array_push($arrayPayments, $payments);
         }
 
+
         $post_array['token'] = session()->get('token');
         $post_array['OrderId'] = '';
         $post_array['OrderDate'] = $datetime;
@@ -291,8 +292,9 @@ class OrdersLibrary
         $post_array['Mobile'] = $user->details->FullMobile;
         $post_array['Line1'] = $addressInfo['address']->Line1;
         $post_array['Line2'] = $addressInfo['address']->Line2;
-        $post_array['City'] = $addressInfo['address']->CityName;
-        $post_array['Province'] = $addressInfo['address']->ProvinceCountry;
+        $post_array['City'] = $addressInfo['address']->CityCode;
+        $post_array['CityId'] = $addressInfo['address']->CityId;
+        $post_array['Province'] = $addressInfo['address']->ProvinceCode;
         $post_array['Apartment'] = $addressInfo['address']->AptNumber;
         $post_array['XLocation'] = '';
         $post_array['YLocation'] = '';
