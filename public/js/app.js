@@ -68323,7 +68323,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       axios.post(url, formData).then(function (response) {
         if (_nextStep !== null) {
-          window.location.href = "/checkout?step=".concat(_nextStep.ArrayName);
+          if (_nextStep.ArrayName === "Wallet") {
+            window.location.href = "/checkout?step=".concat(_nextStep.NextRouteObj.ArrayName);
+          } else {
+            window.location.href = "/checkout?step=".concat(_nextStep.ArrayName);
+          }
         }
 
         if (!skip) {

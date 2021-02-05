@@ -28,7 +28,11 @@ export default {
             }
             axios.post(url, formData).then((response) => {
                 if (nextStep !== null) {
-                    window.location.href = `/checkout?step=${nextStep.ArrayName}`;
+                    if(nextStep.ArrayName === "Wallet"){
+                        window.location.href = `/checkout?step=${nextStep.NextRouteObj.ArrayName}`;
+                    }else{
+                        window.location.href = `/checkout?step=${nextStep.ArrayName}`;
+                    }
                 }
                 if (!skip) {
                     Bus.$emit('step-confirmed', response);

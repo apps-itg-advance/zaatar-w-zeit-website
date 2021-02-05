@@ -80,10 +80,13 @@ class CheckoutController extends Controller
         $Skey = session()->get('skey');
         $user = session()->has('user' . $Skey) ? session()->get('user' . $Skey) : array();
         $checkoutData = $this->query;
-        $steps = $this->Steps;
+        $steps = [];
         $step = null;
         $requestedStep = $request->has('step') ? $request->input('step') : null;
         foreach ($this->Steps as $myStep) {
+            if($myStep->Label != 'Wallet'){
+                array_push($steps,$myStep);
+            }
             if ($myStep->ArrayName == $requestedStep) {
                 $step = $myStep;
             }
