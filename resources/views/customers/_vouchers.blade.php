@@ -48,7 +48,6 @@
                     <a href="javascript:void(0)" style="cursor: pointer" class="btn btn-redeem text-uppercase redeem-wallet">@lang('redeem')</a>
                 </div>
             </div>
-
         </div>
     @endif
     @for($i=0;$i<count($vouchers);$i++)
