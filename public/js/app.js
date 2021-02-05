@@ -5179,6 +5179,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrderItemComponent",
@@ -44566,7 +44567,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c(
                                   "div",
-                                  { staticClass: "col-sm-8 text-808080" },
+                                  { staticClass: "col-sm-8 text-808080 pb-2" },
                                   [
                                     _vm._v(
                                       "\n                                    " +
@@ -44604,15 +44605,14 @@ var render = function() {
                                   _c(
                                     "div",
                                     {
-                                      staticClass:
-                                        "col-sm-6 order-price-info  mt-1"
+                                      staticClass: "col-sm-6 order-price-info"
                                     },
                                     _vm._l(
                                       _vm.checkoutInfo.cart_items,
                                       function(item) {
                                         return _c(
                                           "div",
-                                          { staticClass: "row mb-2" },
+                                          { staticClass: "row pb-2" },
                                           [
                                             _c(
                                               "div",
@@ -44744,7 +44744,7 @@ var render = function() {
                                             "span",
                                             {
                                               staticClass:
-                                                "price d-inline-block ml-4",
+                                                "price d-inline-block ml-4 ",
                                               staticStyle: {
                                                 width: "30% !important"
                                               }
@@ -44874,7 +44874,7 @@ var render = function() {
                                         "div",
                                         {
                                           staticClass:
-                                            "col-6 text-808080 mb-3 futura-book"
+                                            "col-6 text-808080 mb-3 futura-book  pb-2"
                                         },
                                         [
                                           _vm._v(
@@ -44923,7 +44923,7 @@ var render = function() {
                                         "div",
                                         {
                                           staticClass:
-                                            "col-6 text-808080 mb-3 futura-book"
+                                            "col-6 text-808080 mb-3 futura-book  pb-2"
                                         },
                                         [
                                           _vm._v(
@@ -44970,7 +44970,7 @@ var render = function() {
                                         "div",
                                         {
                                           staticClass:
-                                            "col-6 text-808080 mb-3 futura-book"
+                                            "col-6 text-808080 mb-3 futura-book  pb-2"
                                         },
                                         [
                                           _vm._v(
@@ -48021,7 +48021,7 @@ var render = function() {
                                 _c("div", { staticClass: "pr-2" }, [
                                   _vm._v(
                                     "\n                                " +
-                                      _vm._s(i.Name) +
+                                      _vm._s(_vm.checkLang(i.Name)) +
                                       " "
                                   ),
                                   i.Price > 0
@@ -48617,448 +48617,465 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6 text-left" }, [
-        _c("h5", { staticClass: "title" }, [
-          _vm._v(
-            "\n                " +
-              _vm._s(_vm.trans("order")) +
-              " " +
-              _vm._s(_vm.order.OrderId) +
-              "\n            "
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6 text-right" }, [
-        _c("h5", { staticClass: "title" }, [
-          _vm._v(
-            "\n                " +
-              _vm._s(_vm.order.OrderDate) +
-              "\n            "
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "order-info cursor-pointer",
-        attrs: {
-          "data-toggle": "collapse",
-          "data-target": "#collapse-" + _vm.index,
-          "aria-expanded": "true",
-          "aria-controls": "collapseOne"
-        }
-      },
-      [
-        _c("div", { staticClass: "row align-items-center mb-3" }, [
-          _c("div", { staticClass: "col-sm-4 text-left text-sm-right" }, [
-            _c(
-              "h5",
-              {
-                staticClass:
-                  "text-label text-uppercase text-666666 font-weight-bold"
-              },
-              [_vm._v(_vm._s(_vm.trans("address")))]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-8 text-808080" }, [
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6 text-left" }, [
+          _c("h5", { staticClass: "title" }, [
             _vm._v(
-              "\n                " + _vm._s(_vm.orderAddress) + "\n            "
+              "\n                " +
+                _vm._s(_vm.trans("order")) +
+                " " +
+                _vm._s(_vm.order.OrderId) +
+                "\n            "
             )
           ])
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "order-history-details order-history collapse ",
-            attrs: {
-              id: "collapse-" + _vm.index,
-              "aria-labelledby": "headingOne",
-              "data-parent": "#accordion"
-            }
-          },
-          [
-            _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6 text-right" }, [
+          _c("h5", { staticClass: "title" }, [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.order.OrderDate) +
+                "\n            "
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "order-info cursor-pointer",
+          attrs: {
+            "data-toggle": "collapse",
+            "data-target": "#collapse-" + _vm.index,
+            "aria-expanded": "true",
+            "aria-controls": "collapseOne"
+          }
+        },
+        [
+          _c("div", { staticClass: "row align-items-center mb-3" }, [
+            _c("div", { staticClass: "col-sm-4 text-left text-sm-right" }, [
               _c(
                 "h5",
                 {
                   staticClass:
-                    "col-sm-4 text-left text-sm-right text-label text-uppercase font-weight-bold text-666666 mb-3"
+                    "text-label text-uppercase text-666666 font-weight-bold"
                 },
-                [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(_vm.trans("order")) +
-                      "\n                "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-sm-6 order-price-info  mt-1" },
-                _vm._l(_vm.order.Items, function(item) {
-                  return _c("div", { staticClass: "row mb-2" }, [
-                    _c("div", { staticClass: "col-md-10" }, [
-                      _c("h6", { staticClass: "mb-1" }, [
-                        _vm._v(
-                          "\n                                " +
-                            _vm._s(item.MainItem.ItemName) +
-                            " "
-                        ),
-                        _c("span", { staticClass: "text-right" }, [
-                          _vm._v(
-                            _vm._s(_vm.numberFormat(item.MainItem.NetAmount))
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "text-808080 modifiers-text" }, [
-                        _vm._v(
-                          "\n                                " +
-                            _vm._s(_vm.parseModifiers(item)) +
-                            "\n                            "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      item.AppliedMeal.hasOwnProperty("AppliedItems") &&
-                      item.AppliedMeal.AppliedItems.length > 0
-                        ? _c(
-                            "p",
-                            { staticClass: "text-808080 modifiers-text" },
-                            [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(
-                                    item.AppliedMeal.AppliedItems[0].ItemName
-                                  ) +
-                                  "\n                            "
-                              )
-                            ]
-                          )
-                        : _vm._e()
-                    ])
-                  ])
-                }),
-                0
+                [_vm._v(_vm._s(_vm.trans("address")))]
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "row mt-3" }, [
-              _c("div", { staticClass: "col-md-8 offset-2" }, [
-                _c("div", { staticClass: "total-block text-right" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.trans("sub_total")) +
-                      "\n                        "
-                  ),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "price d-inline-block ml-4",
-                      staticStyle: { width: "30% !important" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                              " +
-                          _vm._s(_vm.numberFormat(_vm.order.NetAmount)) +
-                          " " +
-                          _vm._s(_vm.org.Currency) +
-                          "\n                        "
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "total-block text-right" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.trans("delivery_fee")) +
-                      "\n                        "
-                  ),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "price d-inline-block ml-4",
-                      staticStyle: { width: "30% !important" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(_vm.numberFormat(_vm.order.DeliveryCharge)) +
-                          " " +
-                          _vm._s(_vm.org.Currency) +
-                          "\n                        "
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
+            _c("div", { staticClass: "col-sm-8 text-808080  pb-2" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.orderAddress) +
+                  "\n            "
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "order-history-details order-history collapse ",
+              attrs: {
+                id: "collapse-" + _vm.index,
+                "aria-labelledby": "headingOne",
+                "data-parent": "#accordion"
+              }
+            },
+            [
+              _c("div", { staticClass: "row" }, [
                 _c(
-                  "div",
+                  "h5",
                   {
-                    staticClass: "total-block text-right futura-b total-price"
+                    staticClass:
+                      "col-sm-4 text-left text-sm-right text-label text-uppercase font-weight-bold text-666666 mb-3"
                   },
                   [
                     _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.trans("order")) +
+                        "\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-sm-6 order-price-info pb-2" },
+                  _vm._l(_vm.order.Items, function(item) {
+                    return _c("div", { staticClass: "row mb-2" }, [
+                      _c("div", { staticClass: "col-md-10" }, [
+                        _c("h6", { staticClass: "mb-1" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(item.MainItem.ItemName) +
+                              " "
+                          ),
+                          _c("span", { staticClass: "text-right" }, [
+                            _vm._v(
+                              _vm._s(_vm.numberFormat(item.MainItem.NetAmount))
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "text-808080 modifiers-text" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.parseModifiers(item)) +
+                              "\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        item.AppliedMeal.hasOwnProperty("AppliedItems") &&
+                        item.AppliedMeal.AppliedItems.length > 0
+                          ? _c(
+                              "p",
+                              { staticClass: "text-808080 modifiers-text" },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(
+                                      item.AppliedMeal.AppliedItems[0].ItemName
+                                    ) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-3" }, [
+                _c("div", { staticClass: "col-md-8 offset-2" }, [
+                  _c("div", { staticClass: "total-block text-right" }, [
+                    _vm._v(
                       "\n                        " +
-                        _vm._s(_vm.trans("total")) +
+                        _vm._s(_vm.trans("sub_total")) +
                         "\n                        "
                     ),
                     _c(
                       "span",
                       {
                         staticClass: "price d-inline-block ml-4",
-                        staticStyle: { width: "30%" }
+                        staticStyle: { width: "30% !important" }
                       },
                       [
                         _vm._v(
-                          "\n                            " +
-                            _vm._s(
-                              _vm.numberFormat(
-                                _vm.order.NetAmount +
-                                  parseInt(_vm.order.DeliveryCharge)
-                              )
-                            ) +
+                          "\n                              " +
+                            _vm._s(_vm.numberFormat(_vm.order.NetAmount)) +
                             " " +
                             _vm._s(_vm.org.Currency) +
                             "\n                        "
                         )
                       ]
                     )
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "order-info" }, [
-              _c("div", { staticClass: "row align-items-center" }, [
-                _c(
-                  "div",
-                  { staticClass: "col-4 text-left text-sm-right mb-3" },
-                  [
-                    _c(
-                      "h5",
-                      {
-                        staticClass:
-                          "text-label text-uppercase text-666666 font-weight-bold"
-                      },
-                      [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.trans("gift")) +
-                            "\n                        "
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-6 text-808080 mb-3 futura-book" },
-                  [
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "total-block text-right" }, [
                     _vm._v(
                       "\n                        " +
-                        _vm._s(_vm.parseOpenItem("Gift")) +
-                        "\n                    "
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row align-items-center" }, [
-                _c(
-                  "div",
-                  { staticClass: "col-4 text-left text-sm-right mb-3" },
-                  [
-                    _c(
-                      "h5",
-                      {
-                        staticClass:
-                          "text-label text-uppercase text-666666 font-weight-bold"
-                      },
-                      [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.trans("go_green")) +
-                            "\n                        "
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-6 text-808080 mb-3 futura-book" },
-                  [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.parseOpenItem("Real Green")) +
-                        "\n                    "
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row align-items-center" }, [
-                _c(
-                  "div",
-                  { staticClass: "col-4 text-left text-sm-right mb-3" },
-                  [
-                    _c(
-                      "h5",
-                      {
-                        staticClass:
-                          "text-label text-uppercase text-666666 font-weight-bold"
-                      },
-                      [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.trans("method"))
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _vm.order.PaymentMethod !== null
-                  ? _c(
-                      "div",
-                      { staticClass: "col-6 text-808080 mb-3 futura-book" },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.order.PaymentMethod) +
-                            "\n                    "
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _vm.order.ScheduleTime !== "0000-00-00 00:00:00"
-                ? _c("div", { staticClass: "row align-items-center" }, [
-                    _c(
-                      "div",
-                      { staticClass: "col-4 text-left text-sm-right mb-3" },
-                      [
-                        _c(
-                          "h5",
-                          {
-                            staticClass:
-                              "text-label text-uppercase text-666666 font-weight-bold"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(_vm.trans("scheduled"))
-                            )
-                          ]
-                        )
-                      ]
+                        _vm._s(_vm.trans("delivery_fee")) +
+                        "\n                        "
                     ),
-                    _vm._v(" "),
                     _c(
-                      "div",
-                      { staticClass: "col-6 text-808080 mb-3 futura-book" },
+                      "span",
+                      {
+                        staticClass: "price d-inline-block ml-4",
+                        staticStyle: { width: "30% !important" }
+                      },
                       [
                         _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.order.ScheduleTime) +
-                            "\n                    "
+                          "\n                            " +
+                            _vm._s(_vm.numberFormat(_vm.order.DeliveryCharge)) +
+                            " " +
+                            _vm._s(_vm.org.Currency) +
+                            "\n                        "
                         )
                       ]
                     )
-                  ])
-                : _vm._e()
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }),
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "total-block text-right futura-b total-price"
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.trans("total")) +
+                          "\n                        "
+                      ),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "price d-inline-block ml-4",
+                          staticStyle: { width: "30%" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(
+                                _vm.numberFormat(
+                                  _vm.order.NetAmount +
+                                    parseInt(_vm.order.DeliveryCharge)
+                                )
+                              ) +
+                              " " +
+                              _vm._s(_vm.org.Currency) +
+                              "\n                        "
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "order-info" }, [
+                _c("div", { staticClass: "row align-items-center" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-4 text-left text-sm-right mb-3" },
+                    [
+                      _c(
+                        "h5",
+                        {
+                          staticClass:
+                            "text-label text-uppercase text-666666 font-weight-bold"
+                        },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.trans("gift")) +
+                              "\n                        "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-6 text-808080 mb-3 futura-book  pb-2" },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.parseOpenItem("Gift")) +
+                          "\n                    "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row align-items-center" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-4 text-left text-sm-right mb-3" },
+                    [
+                      _c(
+                        "h5",
+                        {
+                          staticClass:
+                            "text-label text-uppercase text-666666 font-weight-bold"
+                        },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.trans("go_green")) +
+                              "\n                        "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-6 text-808080 mb-3 futura-book  pb-2" },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.parseOpenItem("Real Green")) +
+                          "\n                    "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row align-items-center" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-4 text-left text-sm-right mb-3" },
+                    [
+                      _c(
+                        "h5",
+                        {
+                          staticClass:
+                            "text-label text-uppercase text-666666 font-weight-bold"
+                        },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.trans("method"))
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.order.PaymentMethod !== null
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-6 text-808080 mb-3 futura-book  pb-2"
+                        },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.order.PaymentMethod) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _vm.order.ScheduleTime !== "0000-00-00 00:00:00"
+                  ? _c("div", { staticClass: "row align-items-center" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-4 text-left text-sm-right mb-3  pb-2"
+                        },
+                        [
+                          _c(
+                            "h5",
+                            {
+                              staticClass:
+                                "text-label text-uppercase text-666666 font-weight-bold"
+                            },
+                            [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(_vm.trans("scheduled"))
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-6 text-808080 mb-3 futura-book" },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.order.ScheduleTime) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            ]
+          )
+        ]
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3 text-right pt-2" }, [
-        _vm.btnFav
-          ? _c(
-              "a",
-              {
-                staticClass: "effect-underline link-favourite",
-                class: _vm.order.Favorite === "1" ? "active" : "",
-                attrs: { href: "javascript:void(0)" },
-                on: {
-                  click: function($event) {
-                    return _vm.setFav(_vm.order)
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3 text-right pt-2" }, [
+          _vm.btnFav
+            ? _c(
+                "a",
+                {
+                  staticClass: "effect-underline link-favourite",
+                  class: _vm.order.Favorite === "1" ? "active" : "",
+                  attrs: { href: "javascript:void(0)" },
+                  on: {
+                    click: function($event) {
+                      return _vm.setFav(_vm.order)
+                    }
                   }
+                },
+                [_vm._v(_vm._s(_vm.trans("favourite")))]
+              )
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3 text-right" }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-orderrepeat effect-underline",
+              on: {
+                click: function($event) {
+                  return _vm.getItemsByPlus()
                 }
-              },
-              [_vm._v(_vm._s(_vm.trans("favourite")))]
-            )
-          : _vm._e()
+              }
+            },
+            [
+              !_vm.loading
+                ? _c("img", {
+                    staticClass: "mr-1",
+                    attrs: {
+                      src: "/assets/images/icon-refresh.png",
+                      width: "15"
+                    }
+                  })
+                : _c("i", { staticClass: "fas fa-circle-notch fa-spin" }),
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.trans("repeat_order")) +
+                  "\n            "
+              )
+            ]
+          )
+        ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3 text-right" }, [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-orderrepeat effect-underline",
-            on: {
-              click: function($event) {
-                return _vm.getItemsByPlus()
+      !_vm.btnFav
+        ? _c(
+            "a",
+            {
+              staticClass: "link-close",
+              attrs: { href: "#", id: "Favourite" },
+              on: {
+                click: function($event) {
+                  return _vm.removeFav(_vm.order)
+                }
               }
-            }
-          },
-          [
-            !_vm.loading
-              ? _c("img", {
-                  staticClass: "mr-1",
-                  attrs: { src: "/assets/images/icon-refresh.png", width: "15" }
-                })
-              : _c("i", { staticClass: "fas fa-circle-notch fa-spin" }),
-            _vm._v(
-              "\n                " +
-                _vm._s(_vm.trans("repeat_order")) +
-                "\n            "
-            )
-          ]
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    !_vm.btnFav
-      ? _c(
-          "a",
-          {
-            staticClass: "link-close",
-            attrs: { href: "#", id: "Favourite" },
-            on: {
-              click: function($event) {
-                return _vm.removeFav(_vm.order)
-              }
-            }
-          },
-          [
-            !_vm.removeFavLoading
-              ? _c("img", {
-                  attrs: { src: "/assets/svg/icon-close.svg", width: "24" }
-                })
-              : _c("i", { staticClass: "fas fa-circle-notch fa-spin" })
-          ]
-        )
-      : _vm._e()
-  ])
+            },
+            [
+              !_vm.removeFavLoading
+                ? _c("img", {
+                    attrs: { src: "/assets/svg/icon-close.svg", width: "24" }
+                  })
+                : _c("i", { staticClass: "fas fa-circle-notch fa-spin" })
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("customization-modal")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

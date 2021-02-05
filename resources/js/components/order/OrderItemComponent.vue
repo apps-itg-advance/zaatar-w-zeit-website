@@ -18,7 +18,7 @@
                 <div class="col-sm-4 text-left text-sm-right">
                     <h5 class="text-label text-uppercase text-666666 font-weight-bold">{{trans('address')}}</h5>
                 </div>
-                <div class="col-sm-8 text-808080">
+                <div class="col-sm-8 text-808080  pb-2">
                     {{orderAddress}}
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <h5 class="col-sm-4 text-left text-sm-right text-label text-uppercase font-weight-bold text-666666 mb-3">
                         {{trans('order')}}
                     </h5>
-                    <div class="col-sm-6 order-price-info  mt-1">
+                    <div class="col-sm-6 order-price-info pb-2">
                         <div class="row mb-2" v-for="item in order.Items">
                             <div class="col-md-10">
                                 <h6 class="mb-1">
@@ -88,7 +88,7 @@
                                 {{trans('gift')}}
                             </h5>
                         </div>
-                        <div class="col-6 text-808080 mb-3 futura-book">
+                        <div class="col-6 text-808080 mb-3 futura-book  pb-2">
                             {{parseOpenItem('Gift')}}
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                                 {{trans('go_green')}}
                             </h5>
                         </div>
-                        <div class="col-6 text-808080 mb-3 futura-book">
+                        <div class="col-6 text-808080 mb-3 futura-book  pb-2">
                             {{parseOpenItem('Real Green')}}
                         </div>
                     </div>
@@ -107,13 +107,13 @@
                             <h5 class="text-label text-uppercase text-666666 font-weight-bold">
                                 {{trans('method')}}</h5>
                         </div>
-                        <div class="col-6 text-808080 mb-3 futura-book" v-if="order.PaymentMethod !== null">
+                        <div class="col-6 text-808080 mb-3 futura-book  pb-2" v-if="order.PaymentMethod !== null">
                             {{order.PaymentMethod}}
                         </div>
                     </div>
 
                     <div v-if="order.ScheduleTime !== '0000-00-00 00:00:00'" class="row align-items-center">
-                        <div class="col-4 text-left text-sm-right mb-3">
+                        <div class="col-4 text-left text-sm-right mb-3  pb-2">
                             <h5 class="text-label text-uppercase text-666666 font-weight-bold">
                                 {{trans('scheduled')}}</h5>
                         </div>
@@ -146,6 +146,7 @@
             <img v-if="!removeFavLoading" src="/assets/svg/icon-close.svg" width="24">
             <i v-else class="fas fa-circle-notch fa-spin"></i>
         </a>
+        <customization-modal/>
     </div>
 </template>
 

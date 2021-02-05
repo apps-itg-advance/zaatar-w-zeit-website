@@ -25,7 +25,7 @@
                                         <h5 class="text-label text-uppercase text-666666 font-weight-bold">
                                             {{trans('address')}}</h5>
                                     </div>
-                                    <div class="col-sm-8 text-808080">
+                                    <div class="col-sm-8 text-808080 pb-2">
                                         {{orderAddress}}
                                     </div>
                                 </div>
@@ -34,8 +34,8 @@
                                         <h5 class="col-sm-4 text-left text-sm-right text-label text-uppercase font-weight-bold text-666666 mb-3">
                                             {{trans('order')}}
                                         </h5>
-                                        <div class="col-sm-6 order-price-info  mt-1">
-                                            <div class="row mb-2" v-for="item in checkoutInfo.cart_items">
+                                        <div class="col-sm-6 order-price-info">
+                                            <div class="row pb-2" v-for="item in checkoutInfo.cart_items">
                                                 <div class="col-md-10">
                                                     <h6 v-if="item.hasOwnProperty('Components')" class="mb-1">
                                                         {{item.ComboName}} <span class="pl-2 text-right">{{numberFormat(item.TotalPrice)}}</span>
@@ -57,7 +57,7 @@
                                         <div class="col-md-8 offset-2">
                                             <div class="total-block text-right">
                                                 {{trans('sub_total')}}
-                                                <span class="price d-inline-block ml-4" style="width: 30% !important;">{{numberFormat(total)}} {{org.currency}}</span>
+                                                <span class="price d-inline-block ml-4 " style="width: 30% !important;">{{numberFormat(total)}} {{org.currency}}</span>
                                             </div>
                                             <div class="total-block text-right">
                                                 {{trans('delivery_fee')}}
@@ -88,7 +88,7 @@
                                                     {{trans('gift')}}
                                                 </h5>
                                             </div>
-                                            <div class="col-6 text-808080 mb-3 futura-book">
+                                            <div class="col-6 text-808080 mb-3 futura-book  pb-2">
                                                 {{parseOpenItem('Gift')}}
                                             </div>
                                         </div>
@@ -98,7 +98,7 @@
                                                     {{trans('go_green')}}
                                                 </h5>
                                             </div>
-                                            <div class="col-6 text-808080 mb-3 futura-book">
+                                            <div class="col-6 text-808080 mb-3 futura-book  pb-2">
                                                 {{parseOpenItem('RealGreen')}}
                                             </div>
                                         </div>
@@ -108,7 +108,7 @@
                                                     {{trans('method')}}
                                                 </h5>
                                             </div>
-                                            <div class="col-6 text-808080 mb-3 futura-book">
+                                            <div class="col-6 text-808080 mb-3 futura-book  pb-2">
                                                 {{parseOpenItem('PaymentMethods')}}
                                             </div>
                                         </div>

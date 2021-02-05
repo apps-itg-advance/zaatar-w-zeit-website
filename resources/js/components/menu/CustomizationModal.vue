@@ -95,7 +95,7 @@
                                 class="custom-control-input" :value="i">
                             <label class="custom-control-label" style="vertical-align: bottom;">
                                 <div class="pr-2">
-                                    {{i.Name}} <span
+                                    {{checkLang(i.Name)}} <span
                                     v-if="i.Price > 0">{{numberFormat(i.Price)}} {{org.currency}}</span>
                                 </div>
                             </label>
