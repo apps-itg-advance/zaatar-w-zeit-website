@@ -48753,7 +48753,9 @@ var render = function() {
                               _vm._v(
                                 "\n                                " +
                                   _vm._s(
-                                    item.AppliedMeal.AppliedItems[0].ItemName
+                                    _vm.checkLang(
+                                      item.AppliedMeal.AppliedItems[0].ItemName
+                                    )
                                   ) +
                                   "\n                            "
                               )
@@ -48784,7 +48786,12 @@ var render = function() {
                     [
                       _vm._v(
                         "\n                              " +
-                          _vm._s(_vm.numberFormat(_vm.order.NetAmount)) +
+                          _vm._s(
+                            _vm.numberFormat(
+                              _vm.order.NetAmount -
+                                parseInt(_vm.order.DeliveryCharge)
+                            )
+                          ) +
                           " " +
                           _vm._s(_vm.org.Currency) +
                           "\n                        "
@@ -48839,12 +48846,7 @@ var render = function() {
                       [
                         _vm._v(
                           "\n                            " +
-                            _vm._s(
-                              _vm.numberFormat(
-                                _vm.order.NetAmount +
-                                  parseInt(_vm.order.DeliveryCharge)
-                              )
-                            ) +
+                            _vm._s(_vm.numberFormat(_vm.order.NetAmount)) +
                             " " +
                             _vm._s(_vm.org.Currency) +
                             "\n                        "
@@ -68070,21 +68072,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     checkLang: function checkLang(data) {
-      var parse = JSON.parse(data);
+      if (data.includes("{")) {
+        var parse = JSON.parse(data);
 
-      if (parse.hasOwnProperty('en')) {
-        if (window._locale === 'en') {
-          return parse.en;
+        if (parse.hasOwnProperty('en')) {
+          if (window._locale === 'en') {
+            return parse.en;
+          }
+
+          if (parse.hasOwnProperty('ar')) {
+            return parse.ar;
+          }
+
+          return "-";
         }
-
-        if (parse.hasOwnProperty('ar')) {
-          return parse.ar;
-        }
-
-        return "-";
       }
 
-      return parse;
+      return data;
     },
     getIndex: function getIndex(array, conditionFn) {
       var item = array.find(conditionFn);

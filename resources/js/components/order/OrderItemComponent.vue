@@ -41,7 +41,7 @@
                                 </p>
                                 <p class="text-808080 modifiers-text"
                                    v-if="item.AppliedMeal.hasOwnProperty('AppliedItems') && item.AppliedMeal.AppliedItems.length > 0">
-                                    {{item.AppliedMeal.AppliedItems[0].ItemName}}
+                                    {{checkLang(item.AppliedMeal.AppliedItems[0].ItemName)}}
                                 </p>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                         <div class="total-block text-right">
                             {{trans('sub_total')}}
                             <span class="price d-inline-block ml-4" style="width: 30% !important;">
-                                  {{numberFormat(order.NetAmount)}} {{org.Currency}}
+                                  {{numberFormat(order.NetAmount - parseInt(order.DeliveryCharge))}} {{org.Currency}}
                             </span>
                         </div>
                         <div class="total-block text-right">
@@ -65,7 +65,7 @@
                         <div class="total-block text-right futura-b total-price">
                             {{trans('total')}}
                             <span class="price d-inline-block ml-4" style="width: 30%;">
-                                {{numberFormat(order.NetAmount + parseInt(order.DeliveryCharge))}} {{org.Currency}}
+                                {{numberFormat(order.NetAmount)}} {{org.Currency}}
                             </span>
                         </div>
                     </div>

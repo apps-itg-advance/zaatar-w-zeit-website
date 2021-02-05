@@ -29,17 +29,19 @@ export default {
     },
     methods: {
         checkLang(data) {
-            let parse = JSON.parse(data);
-            if (parse.hasOwnProperty('en')) {
-                if (window._locale === 'en') {
-                    return parse.en;
+            if (data.includes("{")) {
+                let parse = JSON.parse(data);
+                if (parse.hasOwnProperty('en')) {
+                    if (window._locale === 'en') {
+                        return parse.en;
+                    }
+                    if (parse.hasOwnProperty('ar')) {
+                        return parse.ar;
+                    }
+                    return "-";
                 }
-                if (parse.hasOwnProperty('ar')) {
-                    return parse.ar;
-                }
-                return "-";
             }
-            return parse;
+            return data;
         },
         getIndex(array, conditionFn) {
             const item = array.find(conditionFn)
