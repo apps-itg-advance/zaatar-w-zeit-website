@@ -450,19 +450,19 @@
 
                         if (result.message == 'success') {
 
-                            {{--if (result.type == 'register') {--}}
-                            {{--    $('#R_RequestId{{$sKey}}').val(result.data['RequestId']);--}}
-                            {{--    $('#R_MobileNumber{{$sKey}}').val(result.data['MobileNumber']);--}}
-                            {{--    $('#R_Email{{$sKey}}').val(result.data['Email']);--}}
-                            {{--    jQuery('#pin-modal').modal('hide');--}}
-                            {{--    jQuery('#register-modal').modal();--}}
-                            {{--    if (sessionStorage) {--}}
-                            {{--        sessionStorage.setItem("page", "register");--}}
-                            {{--    }--}}
-                            {{--} else {--}}
-                            {{--    sessionStorage.setItem("page", "login");--}}
-                            {{--    location.replace('{{route('customer.index')}}');--}}
-                            {{--}--}}
+                            if (result.type == 'register') {
+                                $('#R_RequestId{{$sKey}}').val(result.data['RequestId']);
+                                $('#R_MobileNumber{{$sKey}}').val(result.data['MobileNumber']);
+                                $('#R_Email{{$sKey}}').val(result.data['Email']);
+                                jQuery('#pin-modal').modal('hide');
+                                jQuery('#register-modal').modal();
+                                if (sessionStorage) {
+                                    sessionStorage.setItem("page", "register");
+                                }
+                            } else {
+                                sessionStorage.setItem("page", "login");
+                                location.replace('{{route('customer.index')}}');
+                            }
 
                             console.log(result)
                         } else {
