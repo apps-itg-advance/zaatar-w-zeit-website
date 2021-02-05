@@ -277,12 +277,14 @@
                 });
             },
             toggleCompanyField(addressType) {
-                this.picked = addressType.ID;
-                this.item.type_id = addressType.ID
-                if (addressType.Title === 'Business') {
-                    this.item.show_company = true;
-                } else {
-                    this.item.show_company = false;
+                if (!addressType.used) {
+                    this.picked = addressType.ID;
+                    this.item.type_id = addressType.ID
+                    if (addressType.Title === 'Business') {
+                        this.item.show_company = true;
+                    } else {
+                        this.item.show_company = false;
+                    }
                 }
             },
             getCurrentLocation() {

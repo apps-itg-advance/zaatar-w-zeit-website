@@ -5824,13 +5824,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       })["finally"](function () {});
     },
     toggleCompanyField: function toggleCompanyField(addressType) {
-      this.picked = addressType.ID;
-      this.item.type_id = addressType.ID;
+      if (!addressType.used) {
+        this.picked = addressType.ID;
+        this.item.type_id = addressType.ID;
 
-      if (addressType.Title === 'Business') {
-        this.item.show_company = true;
-      } else {
-        this.item.show_company = false;
+        if (addressType.Title === 'Business') {
+          this.item.show_company = true;
+        } else {
+          this.item.show_company = false;
+        }
       }
     },
     getCurrentLocation: function getCurrentLocation() {
@@ -5984,6 +5986,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         console.log(error.response.data.message);
       })["finally"](function () {
         _this7.loading = false;
+        _this7.picked = '';
       });
     }
   }
