@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="row">
-             <div class="col-md-6 text-left">
-                 <h5 class="title">
-                     {{trans('order')}} {{order.OrderId}}
-                 </h5>
-             </div>
+            <div class="col-md-6 text-left">
+                <h5 class="title">
+                    {{trans('order')}} {{order.OrderId}}
+                </h5>
+            </div>
             <div class="col-md-6 text-right">
                 <h5 class="title">
                     {{order.OrderDate}}
@@ -38,6 +38,10 @@
                                 </h6>
                                 <p class="text-808080 modifiers-text">
                                     {{parseModifiers(item)}}
+                                </p>
+                                <p class="text-808080 modifiers-text"
+                                   v-if="item.AppliedMeal.hasOwnProperty('AppliedItems') && item.AppliedMeal.AppliedItems.length > 0">
+                                    {{item.AppliedMeal.AppliedItems[0].ItemName}}
                                 </p>
                             </div>
                         </div>
@@ -204,7 +208,6 @@
                     }
                 }
                 axios.post('/favorite/remove-favourite-order', formData).then((response) => {
-                    console.log(response);
                     this.$emit('reload-data', this.index);
                 }).catch((error) => {
                     console.log(error);
@@ -219,7 +222,7 @@
                         plus: JSON.stringify(this.order.MainPlus)
                     }
                 }).then((response) => {
-                    console.log(response);
+                    console.log("By PLU", response);
                     this.menuItems = response.data;
                     this.repeatOrder();
                 }).catch((error) => {
@@ -249,7 +252,7 @@
                 let parsedOrders = [];
                 this.order.Items.forEach((item) => {
                     let parsedItem = {
-                        AppliedMeal: [],
+                        AppliedMeal: {},
                         AppliedModifiers: []
                     }
                     this.menuItems.forEach((menuItem) => {
@@ -273,6 +276,21 @@
                                     });
                                 });
                             })
+
+                            if (item.AppliedMeal.hasOwnProperty('AppliedItems') && item.AppliedMeal.AppliedItems.length > 0) {
+                                item.AppliedMeal.AppliedItems.forEach((appliedItem) => {
+                                    menuItem.MakeMeal.Items.forEach((mealItem) => {
+                                        if (appliedItem.PLU === mealItem.PLU) {
+                                            parsedItem.TotalPrice += parseInt(menuItem.MakeMeal.Price);
+                                            menuItem.MakeMeal.Details = this.checkLang(menuItem.MakeMeal.Details);
+                                            parsedItem.AppliedMeal = menuItem.MakeMeal;
+                                            parsedItem.AppliedMeal.AppliedItems = [];
+                                            parsedItem.AppliedMeal.AppliedItems[0] = mealItem;
+                                        }
+                                    });
+                                })
+                            }
+
                         }
                     });
                     parsedOrders.push(parsedItem);

@@ -5,7 +5,7 @@
                 <h4 class="font-weight-bold">{{trans('order_history')}}</h4>
             </div>
         </div>
-        <div class="empty-parent" v-if="orders.rows.length === 0">
+        <div class="empty-parent" v-if="orders.hasOwnProperty('rows') && orders.rows.length === 0">
             <h2>{{trans('no_order_history')}}</h2>
         </div>
         <div class="parent" v-if="loading">
@@ -74,7 +74,17 @@
                                 } else if (item.MenuType === '2') {
                                     parsedItem.AppliedModifiers.push(item);
                                 } else if (item.MenuType === '5') {
-                                    parsedItem.AppliedMeal = item;
+                                    if (Object.keys(parsedItem.AppliedMeal).length === 0) {
+                                        parsedItem.AppliedMeal = item;
+                                        parsedItem.AppliedMeal.AppliedItems = [];
+                                    } else {
+                                        if(Object.keys( parsedItem.AppliedMeal).length === 0){
+                                            parsedItem.AppliedMeal = item;
+                                            parsedItem.AppliedMeal.AppliedItems = [];
+                                        }else{
+                                            parsedItem.AppliedMeal.AppliedItems[0] = item;
+                                        }
+                                    }
                                 }
                                 parsedItem.MainItem.NetAmount = parseInt(parsedItem.MainItem.NetAmount) + parseInt(item.GrossPrice);
                             }
@@ -109,7 +119,7 @@
                     });
 
                     this.orders = response.data
-                    console.log(this.orders)
+                    console.log("Parsed Orders",this.orders)
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => {

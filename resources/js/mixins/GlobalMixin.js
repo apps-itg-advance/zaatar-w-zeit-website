@@ -28,6 +28,19 @@ export default {
         })
     },
     methods: {
+        checkLang(data) {
+            let parse = JSON.parse(data);
+            if (parse.hasOwnProperty('en')) {
+                if (window._locale === 'en') {
+                    return parse.en;
+                }
+                if (parse.hasOwnProperty('ar')) {
+                    return parse.ar;
+                }
+                return "-";
+            }
+            return parse;
+        },
         getIndex(array, conditionFn) {
             const item = array.find(conditionFn)
             return array.indexOf(item)

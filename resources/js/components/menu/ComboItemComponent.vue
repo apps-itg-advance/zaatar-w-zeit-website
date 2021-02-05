@@ -7,7 +7,7 @@
                 <h5 class="mt-0">
                     <a href="javascript:void(0)" style="max-width: 60% !important; float: left">{{item.ComboName}}</a>
                     <span class="price"
-                          style="max-width: 38% !important; float:right; vertical-align: text-top">{{numberFormat(item.Price)}}</span>
+                          style="max-width: 38% !important; float:right; vertical-align: text-top">{{numberFormat(item.Price)}}  {{org.currency}}</span>
                     <div class="clearfix"></div>
                     <ul class="icon"></ul>
                 </h5>

@@ -88,9 +88,14 @@
                     this.totalPrice -= parseInt(this.item.MakeMeal.Price);
                     this.totalPrice += parseInt(this.item.MakeMeal.Price);
                 }
-                this.appliedMeal.AppliedItems.push(item);
+                // this.appliedMeal.AppliedItems.push(item);
+                this.appliedMeal.AppliedItems[0] = item;
             },
             confirmMeal() {
+                if(!this.appliedMeal.hasOwnProperty('AppliedItems')){
+                    this.fireAlert("Please choose at least one item",'',false);
+                    return;
+                }
                 this.item.TotalPrice = parseInt(this.totalPrice);
                 this.item.AppliedMeal = this.appliedMeal
                 Bus.$emit('confirm-meal', this.item);

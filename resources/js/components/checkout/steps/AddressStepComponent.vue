@@ -104,7 +104,6 @@
                                 <div class="col-md-4">
                                     <select class="form-control" v-model="item.scheduled_on"
                                             @change="loadAvailableDates()">
-                                        <option disabled selected>When</option>
                                         <option value="today">Today</option>
                                         <option value="tomorrow">Tomorrow</option>
                                     </select>
@@ -192,9 +191,14 @@
             if (this.defaultAddress !== null) {
                 this.item.address = this.defaultAddress;
             }
+            if (!this.checkoutInfo.hasOwnProperty('scheduled_on')) {
+                this.item.scheduled_on = 'today';
+                this.getAvailableScheduleDates();
+            }
             console.log("checkoutInfo", this.checkoutInfo);
         },
-        mounted() {},
+        mounted() {
+        },
         methods: {
             openAddressModal() {
                 Bus.$emit('open-address-modal');
@@ -275,6 +279,12 @@
                     this.loading = false;
                     return;
                 }
+
+                if (this.item.scheduled === '0' && this.item.hasOwnProperty('scheduled_at')) {
+                    this.$delete(this.item, 'scheduled_on');
+                    this.$delete(this.item, 'scheduled_at');
+                }
+
                 this.nextStep(this.currentStep.NextRouteObj, this.item);
             }
         },
@@ -282,7 +292,7 @@
             item: {
                 handler(val) {
                     if (val.scheduled === '0' && val.hasOwnProperty('scheduled_at')) {
-                        this.$delete(this.item, 'scheduled_at')
+                        // this.$delete(this.item, 'scheduled_at')
                     }
                     console.log("Watch Result", val)
                 },

@@ -65,37 +65,40 @@
                     </div>
                 </div>
 
-                <!--                <div class="items-row row mt-4 pb-4 pl-4">-->
-                <!--                    <div class="col-lg-4 mt-4 col-md-6 item-col pr-5" data-mh="matchHeight"-->
-                <!--                         v-for="modifier in  customizedItem.Modifiers">-->
-                <!--                        <h5 class="text-uppercase text-center mb-3">{{modifier.details.CategoryName}}</h5>-->
-                <!--                        <div class="custom-control custom-radio mb-1" v-for="(i, index) in  modifier.details.items"-->
-                <!--                             @click="checkModifier(i)">-->
-                <!--                            <input type="checkbox" v-model="customizedItem.AppliedModifiers" :value="i"-->
-                <!--                                   class="custom-control-input">-->
-                <!--                            <label class="custom-control-label" style="vertical-align: bottom;">-->
-                <!--                                <div style="float: left; max-width: 75%; overflow: hidden;">{{i.ModifierName}}</div>-->
-                <!--                                <span class="price" style="vertical-align: bottom; display: inline-block; height: 100%">{{i.Price>0 ? i.Price : ''}}</span>-->
-                <!--                            </label>-->
-                <!--                        </div>-->
-                <!--                        <div class="clearfix"></div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
-
                 <div class="items-row items-favourite row align-items-center mt-3" v-if="isAuthed">
                     <div class="col-lg-12 col-md-12 item-col" style="margin-left: -10px !important;">
                         <h5 class="favourite-title futura-b">{{trans('want_to_personalize')}}</h5>
                         <div class="col-lg-12 col-md-12" style="margin-left: -10px !important;">
-                            <a @click="toggleFavorite(customizedItem,true)"
+                            <a @click="setFav(customizedItem)"
                                href="javascript:void(0)"
                                :class="customizedItem.IsFavorite === '1' ? 'active' : '' "
                                class="effect-underline link-favourite-u mr-3"></a>
                             <span>{{trans('fav_your_customized_item')}}!</span>
-                            <!--                            <a onclick="loginAlert()"-->
-                            <!--                               class="effect-underline link-favourite-u mr-3 cursor-pointer"></a>-->
                             <input type="text" name="favourite_name" class="txt-favourite"
                                    :value="customizedItem.fav_name">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="items-row row align-items-center pl-4"
+                     v-if="customizedItem.hasOwnProperty('MakeMeal') && customizedItem.MakeMeal.hasOwnProperty('Items')">
+                    <div class="col-md-6">
+                        <h4>{{customizedItem.MakeMeal.Details}} {{customizedItem.MakeMeal.Price}}</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-inline-block custom-control custom-radio"
+                             v-for="i in customizedItem.MakeMeal.Items" @click="checkItem(i)">
+                            <input
+                                :checked="customizedItem.AppliedMeal.hasOwnProperty('AppliedItems') && exist(customizedItem.AppliedMeal.AppliedItems, e => e.ID === i.ID)"
+                                type="checkbox"
+                                class="custom-control-input" :value="i">
+                            <label class="custom-control-label" style="vertical-align: bottom;">
+                                <div class="pr-2">
+                                    {{i.Name}} <span
+                                    v-if="i.Price > 0">{{numberFormat(i.Price)}} {{org.currency}}</span>
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -122,6 +125,7 @@
         mounted() {
             Bus.$on('open-customization-modal', (item, edit = false) => {
                 //todo if edit add params instead of adding them from php side AppliedModifiers,Quantity....
+                console.log("open-customization-modal", item)
                 if (!edit) {
                     item.Modifiers.forEach((modifier) => {
                         modifier.TotalQuantity = 0;
@@ -146,6 +150,13 @@
             }
         },
         methods: {
+            setFav(customizedItem){
+                if (!this.isAuthed) {
+                    window.location.href = `/login`;
+                    return
+                }
+                this.toggleFavorite(customizedItem,true);
+            },
             confirmCustomization() {
                 this.customizedItem.Quantity += 1;
                 Bus.$emit('add-edit-to-cart-item', this.customizedItem);
@@ -166,6 +177,18 @@
                 } else {
                     this.fireAlert(`You can select max ${item.MaxQuantity}`, ``, false);
                 }
+            },
+            checkItem(item) {
+                if (Object.keys(this.customizedItem.AppliedMeal).length === 0 && !this.customizedItem.AppliedMeal.hasOwnProperty('AppliedItems')) {
+                    this.customizedItem.TotalPrice += parseInt(this.customizedItem.MakeMeal.Price);
+                    this.customizedItem.AppliedMeal = this.customizedItem.MakeMeal;
+                    this.customizedItem.AppliedMeal.AppliedItems = [];
+                } else {
+                    this.customizedItem.TotalPrice -= parseInt(this.customizedItem.MakeMeal.Price);
+                    this.customizedItem.TotalPrice += parseInt(this.customizedItem.MakeMeal.Price);
+                }
+                this.customizedItem.AppliedMeal.AppliedItems[0] = item;
+                console.log(this.customizedItem)
             },
             checkModifier(modifierItem) {
                 let exist = this.exist(this.customizedItem.AppliedModifiers, item => item.ID === modifierItem.ID)

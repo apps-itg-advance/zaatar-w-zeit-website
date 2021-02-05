@@ -2785,7 +2785,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2826,6 +2825,11 @@ __webpack_require__.r(__webpack_exports__);
 
     if (this.defaultAddress !== null) {
       this.item.address = this.defaultAddress;
+    }
+
+    if (!this.checkoutInfo.hasOwnProperty('scheduled_on')) {
+      this.item.scheduled_on = 'today';
+      this.getAvailableScheduleDates();
     }
 
     console.log("checkoutInfo", this.checkoutInfo);
@@ -2920,14 +2924,18 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
+      if (this.item.scheduled === '0' && this.item.hasOwnProperty('scheduled_at')) {
+        this.$delete(this.item, 'scheduled_on');
+        this.$delete(this.item, 'scheduled_at');
+      }
+
       this.nextStep(this.currentStep.NextRouteObj, this.item);
     }
   },
   watch: {
     item: {
       handler: function handler(val) {
-        if (val.scheduled === '0' && val.hasOwnProperty('scheduled_at')) {
-          this.$delete(this.item, 'scheduled_at');
+        if (val.scheduled === '0' && val.hasOwnProperty('scheduled_at')) {// this.$delete(this.item, 'scheduled_at')
         }
 
         console.log("Watch Result", val);
@@ -4475,6 +4483,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4486,8 +4497,9 @@ __webpack_require__.r(__webpack_exports__);
 
     Bus.$on('open-customization-modal', function (item) {
       var edit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
       //todo if edit add params instead of adding them from php side AppliedModifiers,Quantity....
+      console.log("open-customization-modal", item);
+
       if (!edit) {
         item.Modifiers.forEach(function (modifier) {
           modifier.TotalQuantity = 0;
@@ -4513,6 +4525,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    setFav: function setFav(customizedItem) {
+      if (!this.isAuthed) {
+        window.location.href = "/login";
+        return;
+      }
+
+      this.toggleFavorite(customizedItem, true);
+    },
     confirmCustomization: function confirmCustomization() {
       this.customizedItem.Quantity += 1;
       Bus.$emit('add-edit-to-cart-item', this.customizedItem);
@@ -4535,6 +4555,19 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.fireAlert("You can select max ".concat(item.MaxQuantity), "", false);
       }
+    },
+    checkItem: function checkItem(item) {
+      if (Object.keys(this.customizedItem.AppliedMeal).length === 0 && !this.customizedItem.AppliedMeal.hasOwnProperty('AppliedItems')) {
+        this.customizedItem.TotalPrice += parseInt(this.customizedItem.MakeMeal.Price);
+        this.customizedItem.AppliedMeal = this.customizedItem.MakeMeal;
+        this.customizedItem.AppliedMeal.AppliedItems = [];
+      } else {
+        this.customizedItem.TotalPrice -= parseInt(this.customizedItem.MakeMeal.Price);
+        this.customizedItem.TotalPrice += parseInt(this.customizedItem.MakeMeal.Price);
+      }
+
+      this.customizedItem.AppliedMeal.AppliedItems[0] = item;
+      console.log(this.customizedItem);
     },
     checkModifier: function checkModifier(modifierItem) {
       var exist = this.exist(this.customizedItem.AppliedModifiers, function (item) {
@@ -4954,11 +4987,17 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.totalPrice -= parseInt(this.item.MakeMeal.Price);
         this.totalPrice += parseInt(this.item.MakeMeal.Price);
-      }
+      } // this.appliedMeal.AppliedItems.push(item);
 
-      this.appliedMeal.AppliedItems.push(item);
+
+      this.appliedMeal.AppliedItems[0] = item;
     },
     confirmMeal: function confirmMeal() {
+      if (!this.appliedMeal.hasOwnProperty('AppliedItems')) {
+        this.fireAlert("Please choose at least one item", '', false);
+        return;
+      }
+
       this.item.TotalPrice = parseInt(this.totalPrice);
       this.item.AppliedMeal = this.appliedMeal;
       Bus.$emit('confirm-meal', this.item);
@@ -4979,6 +5018,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_GlobalMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/GlobalMixin */ "./resources/js/mixins/GlobalMixin.js");
+//
+//
+//
+//
 //
 //
 //
@@ -5188,8 +5231,6 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       axios.post('/favorite/remove-favourite-order', formData).then(function (response) {
-        console.log(response);
-
         _this.$emit('reload-data', _this.index);
       })["catch"](function (error) {
         console.log(error);
@@ -5206,7 +5247,7 @@ __webpack_require__.r(__webpack_exports__);
           plus: JSON.stringify(this.order.MainPlus)
         }
       }).then(function (response) {
-        console.log(response);
+        console.log("By PLU", response);
         _this2.menuItems = response.data;
 
         _this2.repeatOrder();
@@ -5241,7 +5282,7 @@ __webpack_require__.r(__webpack_exports__);
       var parsedOrders = [];
       this.order.Items.forEach(function (item) {
         var parsedItem = {
-          AppliedMeal: [],
+          AppliedMeal: {},
           AppliedModifiers: []
         };
 
@@ -5267,6 +5308,20 @@ __webpack_require__.r(__webpack_exports__);
                 });
               });
             });
+
+            if (item.AppliedMeal.hasOwnProperty('AppliedItems') && item.AppliedMeal.AppliedItems.length > 0) {
+              item.AppliedMeal.AppliedItems.forEach(function (appliedItem) {
+                menuItem.MakeMeal.Items.forEach(function (mealItem) {
+                  if (appliedItem.PLU === mealItem.PLU) {
+                    parsedItem.TotalPrice += parseInt(menuItem.MakeMeal.Price);
+                    menuItem.MakeMeal.Details = _this4.checkLang(menuItem.MakeMeal.Details);
+                    parsedItem.AppliedMeal = menuItem.MakeMeal;
+                    parsedItem.AppliedMeal.AppliedItems = [];
+                    parsedItem.AppliedMeal.AppliedItems[0] = mealItem;
+                  }
+                });
+              });
+            }
           }
         });
 
@@ -5382,7 +5437,17 @@ __webpack_require__.r(__webpack_exports__);
               } else if (item.MenuType === '2') {
                 parsedItem.AppliedModifiers.push(item);
               } else if (item.MenuType === '5') {
-                parsedItem.AppliedMeal = item;
+                if (Object.keys(parsedItem.AppliedMeal).length === 0) {
+                  parsedItem.AppliedMeal = item;
+                  parsedItem.AppliedMeal.AppliedItems = [];
+                } else {
+                  if (Object.keys(parsedItem.AppliedMeal).length === 0) {
+                    parsedItem.AppliedMeal = item;
+                    parsedItem.AppliedMeal.AppliedItems = [];
+                  } else {
+                    parsedItem.AppliedMeal.AppliedItems[0] = item;
+                  }
+                }
               }
 
               parsedItem.MainItem.NetAmount = parseInt(parsedItem.MainItem.NetAmount) + parseInt(item.GrossPrice);
@@ -5415,7 +5480,7 @@ __webpack_require__.r(__webpack_exports__);
           voucher = null;
         });
         _this.orders = response.data;
-        console.log(_this.orders);
+        console.log("Parsed Orders", _this.orders);
       })["catch"](function (error) {
         console.log(error);
       })["finally"](function () {
@@ -45456,12 +45521,6 @@ var render = function() {
                               }
                             },
                             [
-                              _c(
-                                "option",
-                                { attrs: { disabled: "", selected: "" } },
-                                [_vm._v("When")]
-                              ),
-                              _vm._v(" "),
                               _c("option", { attrs: { value: "today" } }, [
                                 _vm._v("Today")
                               ]),
@@ -46860,7 +46919,13 @@ var render = function() {
                 "vertical-align": "text-top"
               }
             },
-            [_vm._v(_vm._s(_vm.numberFormat(_vm.item.Price)))]
+            [
+              _vm._v(
+                _vm._s(_vm.numberFormat(_vm.item.Price)) +
+                  "  " +
+                  _vm._s(_vm.org.currency)
+              )
+            ]
           ),
           _vm._v(" "),
           _c("div", { staticClass: "clearfix" }),
@@ -47861,10 +47926,7 @@ var render = function() {
                               attrs: { href: "javascript:void(0)" },
                               on: {
                                 click: function($event) {
-                                  return _vm.toggleFavorite(
-                                    _vm.customizedItem,
-                                    true
-                                  )
+                                  return _vm.setFav(_vm.customizedItem)
                                 }
                               }
                             }),
@@ -47884,6 +47946,90 @@ var render = function() {
                           ]
                         )
                       ]
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.customizedItem.hasOwnProperty("MakeMeal") &&
+            _vm.customizedItem.MakeMeal.hasOwnProperty("Items")
+              ? _c(
+                  "div",
+                  { staticClass: "items-row row align-items-center pl-4" },
+                  [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("h4", [
+                        _vm._v(
+                          _vm._s(_vm.customizedItem.MakeMeal.Details) +
+                            " " +
+                            _vm._s(_vm.customizedItem.MakeMeal.Price)
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-6" },
+                      _vm._l(_vm.customizedItem.MakeMeal.Items, function(i) {
+                        return _c(
+                          "div",
+                          {
+                            staticClass:
+                              "d-inline-block custom-control custom-radio",
+                            on: {
+                              click: function($event) {
+                                return _vm.checkItem(i)
+                              }
+                            }
+                          },
+                          [
+                            _c("input", {
+                              staticClass: "custom-control-input",
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked:
+                                  _vm.customizedItem.AppliedMeal.hasOwnProperty(
+                                    "AppliedItems"
+                                  ) &&
+                                  _vm.exist(
+                                    _vm.customizedItem.AppliedMeal.AppliedItems,
+                                    function(e) {
+                                      return e.ID === i.ID
+                                    }
+                                  ),
+                                value: i
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "custom-control-label",
+                                staticStyle: { "vertical-align": "bottom" }
+                              },
+                              [
+                                _c("div", { staticClass: "pr-2" }, [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(i.Name) +
+                                      " "
+                                  ),
+                                  i.Price > 0
+                                    ? _c("span", [
+                                        _vm._v(
+                                          _vm._s(_vm.numberFormat(i.Price)) +
+                                            " " +
+                                            _vm._s(_vm.org.currency)
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      }),
+                      0
                     )
                   ]
                 )
@@ -48466,11 +48612,11 @@ var render = function() {
       _c("div", { staticClass: "col-md-6 text-left" }, [
         _c("h5", { staticClass: "title" }, [
           _vm._v(
-            "\n                 " +
+            "\n                " +
               _vm._s(_vm.trans("order")) +
               " " +
               _vm._s(_vm.order.OrderId) +
-              "\n             "
+              "\n            "
           )
         ])
       ]),
@@ -48569,7 +48715,24 @@ var render = function() {
                             _vm._s(_vm.parseModifiers(item)) +
                             "\n                            "
                         )
-                      ])
+                      ]),
+                      _vm._v(" "),
+                      item.AppliedMeal.hasOwnProperty("AppliedItems") &&
+                      item.AppliedMeal.AppliedItems.length > 0
+                        ? _c(
+                            "p",
+                            { staticClass: "text-808080 modifiers-text" },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(
+                                    item.AppliedMeal.AppliedItems[0].ItemName
+                                  ) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        : _vm._e()
                     ])
                   ])
                 }),
@@ -48918,7 +49081,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm.orders.rows.length === 0
+    _vm.orders.hasOwnProperty("rows") && _vm.orders.rows.length === 0
       ? _c("div", { staticClass: "empty-parent" }, [
           _c("h2", [_vm._v(_vm._s(_vm.trans("no_order_history")))])
         ])
@@ -67871,6 +68034,23 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    checkLang: function checkLang(data) {
+      var parse = JSON.parse(data);
+
+      if (parse.hasOwnProperty('en')) {
+        if (window._locale === 'en') {
+          return parse.en;
+        }
+
+        if (parse.hasOwnProperty('ar')) {
+          return parse.ar;
+        }
+
+        return "-";
+      }
+
+      return parse;
+    },
     getIndex: function getIndex(array, conditionFn) {
       var item = array.find(conditionFn);
       return array.indexOf(item);
