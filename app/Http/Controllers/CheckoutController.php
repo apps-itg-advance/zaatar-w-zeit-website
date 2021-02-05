@@ -173,7 +173,7 @@ class CheckoutController extends Controller
             }
         }
         $response = OrdersLibrary::SaveOrders($checkoutInfo);
-        return response()->json($response);
+//        return response()->json($response);
 
         $status = 'error';
         $msg = 'Error while submitting the order';
