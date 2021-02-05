@@ -106,7 +106,7 @@ class AuthLibrary
         $post_array['Gender'] = $array['gender' . $Skey];
         $post_array['Birthday'] = $array['dob' . $Skey];
         $url = env('BASE_URL') . 'auth/Register';
-        $query = Helper::postApi($url, $post_array);
+        $query = Helper::postApi($url, $post_array,false);
         return $query;
     }
 }
