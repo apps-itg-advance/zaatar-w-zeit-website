@@ -146,7 +146,6 @@
             <img v-if="!removeFavLoading" src="/assets/svg/icon-close.svg" width="24">
             <i v-else class="fas fa-circle-notch fa-spin"></i>
         </a>
-        <customization-modal/>
     </div>
 </template>
 

@@ -20,6 +20,7 @@
                                       btnFav>
                 </order-item-component>
             </div>
+            <customization-modal/>
         </div>
     </div>
 </template>

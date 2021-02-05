@@ -15,6 +15,7 @@
                                       :index="index">
                 </order-item-component>
             </div>
+            <customization-modal/>
         </div>
     </div>
 </template>
@@ -53,15 +54,15 @@
                     let voucher = null;
                     response.data.rows.forEach((order) => {
                         order.Items.forEach((item) => {
-                                if (item.MenuType === '1' && newPLU !== null) {
-                                    append = true;
-                                }
-                                if (append) {
-                                    items.push(parsedItem);
-                                    parsedItem = {AppliedModifiers: [], AppliedMeal: {}};
-                                    append = false;
-                                    newPLU = null;
-                                }
+                            if (item.MenuType === '1' && newPLU !== null) {
+                                append = true;
+                            }
+                            if (append) {
+                                items.push(parsedItem);
+                                parsedItem = {AppliedModifiers: [], AppliedMeal: {}};
+                                append = false;
+                                newPLU = null;
+                            }
                             if (item.OpenItem !== '1') {
                                 if (item.MenuType === '1') {
                                     parsedItem.MainItem = item;
@@ -74,10 +75,10 @@
                                         parsedItem.AppliedMeal = item;
                                         parsedItem.AppliedMeal.AppliedItems = [];
                                     } else {
-                                        if(Object.keys( parsedItem.AppliedMeal).length === 0){
+                                        if (Object.keys(parsedItem.AppliedMeal).length === 0) {
                                             parsedItem.AppliedMeal = item;
                                             parsedItem.AppliedMeal.AppliedItems = [];
-                                        }else{
+                                        } else {
                                             parsedItem.AppliedMeal.AppliedItems[0] = item;
                                         }
                                     }
@@ -114,7 +115,7 @@
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => {
-                    this.loading =  false;
+                    this.loading = false;
                 });
             }
         },
@@ -128,6 +129,7 @@
         align-items: center;
         justify-content: center;
     }
+
     .child {
         width: 100px;
         height: 100px;
