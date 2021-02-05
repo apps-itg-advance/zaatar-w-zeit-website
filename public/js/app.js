@@ -6587,8 +6587,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         _this.coordinates.lat = JSON.parse(item.YLocation);
       }
 
-      $('#address-modal').modal('show');
-      $('#geo-tagging-modal').modal('hide');
+      $('#address-profile-modal').modal('show');
     });
   },
   computed: {
@@ -50321,7 +50320,7 @@ var render = function() {
       {
         staticClass: "cartbig-modal modal fade",
         attrs: {
-          id: "address-modal",
+          id: "address-profile-modal",
           tabindex: "-1",
           role: "dialog",
           "aria-labelledby": "exampleModalCenterTitle",

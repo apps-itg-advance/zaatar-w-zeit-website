@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="cartbig-modal modal fade" id="address-modal" tabindex="-1" role="dialog"
+        <div class="cartbig-modal modal fade" id="address-profile-modal" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -270,8 +270,7 @@
                     this.coordinates.lng = JSON.parse(item.XLocation);
                     this.coordinates.lat = JSON.parse(item.YLocation);
                 }
-                $('#address-modal').modal('show');
-                $('#geo-tagging-modal').modal('hide')
+                $('#address-profile-modal').modal('show');
             });
         },
         computed: {
