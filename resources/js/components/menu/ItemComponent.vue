@@ -111,11 +111,18 @@
                     }
                 }
                 if (this.item.hasOwnProperty('Quantity')) {
-                    this.item.Quantity -= 1;
+                    if (this.item.Quantity > 0) {
+                        this.item.Quantity -= 1;
+                    } else {
+                        this.item.Quantity = 0;
+                    }
                 } else {
                     this.item.Quantity = 0;
                 }
-                Bus.$emit('add-edit-to-cart-item', this.item);
+
+                if (this.item.Quantity > 0) {
+                    Bus.$emit('add-edit-to-cart-item', this.item);
+                }
             },
             AddQty() {
                 console.log(this.item.MakeMeal);

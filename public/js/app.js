@@ -4746,12 +4746,18 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (this.item.hasOwnProperty('Quantity')) {
-        this.item.Quantity -= 1;
+        if (this.item.Quantity > 0) {
+          this.item.Quantity -= 1;
+        } else {
+          this.item.Quantity = 0;
+        }
       } else {
         this.item.Quantity = 0;
       }
 
-      Bus.$emit('add-edit-to-cart-item', this.item);
+      if (this.item.Quantity > 0) {
+        Bus.$emit('add-edit-to-cart-item', this.item);
+      }
     },
     AddQty: function AddQty() {
       var _this2 = this;
@@ -49317,27 +49323,47 @@ var render = function() {
                       "div",
                       { staticClass: "row" },
                       _vm._l(_vm.addressesTypes, function(addressType) {
-                        return _c("div", { staticClass: "col-sm-4" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "form-group",
-                              on: {
-                                click: function($event) {
-                                  return _vm.toggleCompanyField(addressType)
-                                }
+                        return _c(
+                          "div",
+                          {
+                            staticClass: "col-sm-4",
+                            on: {
+                              click: function($event) {
+                                return _vm.toggleCompanyField(addressType)
                               }
-                            },
-                            [
+                            }
+                          },
+                          [
+                            _c("div", { staticClass: "form-group" }, [
                               _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.item.type_id,
+                                    expression: "item.type_id"
+                                  }
+                                ],
                                 staticClass: "address_type",
                                 attrs: {
                                   type: "radio",
                                   disabled: addressType.used
                                 },
                                 domProps: {
-                                  checked: _vm.item.type_id === addressType.ID,
-                                  value: addressType.ID
+                                  value: addressType.ID,
+                                  checked: _vm._q(
+                                    _vm.item.type_id,
+                                    addressType.ID
+                                  )
+                                },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.$set(
+                                      _vm.item,
+                                      "type_id",
+                                      addressType.ID
+                                    )
+                                  }
                                 }
                               }),
                               _vm._v(" "),
@@ -49348,9 +49374,9 @@ var render = function() {
                                     _vm._s(addressType.ID)
                                 )
                               ])
-                            ]
-                          )
-                        ])
+                            ])
+                          ]
+                        )
                       }),
                       0
                     ),

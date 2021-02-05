@@ -189,6 +189,7 @@ class OrdersLibrary
             array_push($arrayItems, $greenData);
         }
 
+
         if (count($instructionsInfo) > 0 && isset($instructionsInfo['instructions'])) {
             foreach ($instructionsInfo['instructions'] as $instruction) {
                 $instructionData = array(
@@ -205,6 +206,7 @@ class OrdersLibrary
                 array_push($arrayItems, $instructionData);
             }
         }
+
 
         if (count($giftInfo) > 0 && count(get_object_vars($giftInfo['gift_option'])) > 0) {
             $giftData1 = array(
@@ -245,6 +247,7 @@ class OrdersLibrary
             array_push($arrayItems, $giftData3);
         }
 
+
         if (count($walletInfo) > 0 && isset($walletInfo['amount'])) {
             if ($walletInfo['amount'] > 0) {
                 $walletData = array(
@@ -266,7 +269,7 @@ class OrdersLibrary
                 'Settlement' => $total - $discount,
                 'Currency' => $currency,
                 'Category' => $paymentInfo['payment_method']->Name,
-                'SaveCard' => $paymentInfo['new_card'],
+                'SaveCard' => isset($paymentInfo['new_card']) ? $paymentInfo['new_card'] : '0',
                 'PaymentTypeId' => $paymentInfo['payment_method']->POSCode
             ];
             if (isset($paymentInfo['card']) && count(get_object_vars($paymentInfo['card'])) > 0 && $paymentInfo['payment_method']->Name == 'credit') {

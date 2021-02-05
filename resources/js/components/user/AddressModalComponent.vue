@@ -34,10 +34,10 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4" v-for="addressType in addressesTypes">
-                                    <div class="form-group" @click="toggleCompanyField(addressType)">
+                                <div class="col-sm-4" v-for="addressType in addressesTypes" @click="toggleCompanyField(addressType)">
+                                    <div class="form-group">
                                         <input type="radio" class="address_type" :disabled="addressType.used"
-                                               :checked="item.type_id === addressType.ID" :value="addressType.ID"/>
+                                               v-model="item.type_id" :value="addressType.ID"/>
                                         <label>{{addressType.Title}} {{addressType.ID}}</label>
                                     </div>
                                 </div>
