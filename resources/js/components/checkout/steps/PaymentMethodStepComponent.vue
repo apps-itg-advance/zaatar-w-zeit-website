@@ -33,7 +33,7 @@
                         <div class="mt-4"
                              v-if="item.payment_method.Currencies.length > 0 && item.payment_method.Name === 'credit' && paymentMethod.Name === 'credit'">
                             <div class="row mb-2" v-for="(card,index) in cards"
-                                 @click="chooseCard(card)">
+                                 @click="chooseCard(card)" v-if="card.Currency === item.currency.Currency">
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -83,12 +83,6 @@
                     <button type="button" class="btn btn-8DBF43 text-uppercase mr-sm-4 confirm"
                             @click="confirm()" :disabled="loading">
                         <span v-if="!loading">{{trans('confirm')}}</span>
-                        <i v-else class="fas fa-circle-notch fa-spin"></i>
-                    </button>
-                    <button v-if="currentStep.Required === false" type="button"
-                            class="btn btn-B3B3B3 text-uppercase skip"
-                            @click="skip()">
-                        <span v-if="!loading">{{trans('skip')}}</span>
                         <i v-else class="fas fa-circle-notch fa-spin"></i>
                     </button>
                 </div>
@@ -188,6 +182,7 @@
                 }
                 if (this.item.payment_method.Name !== 'credit') {
                     this.item.currency = {};
+                    this.item.card = {}
                 } else {
                     if (!this.item.hasOwnProperty('currency') || Object.keys(this.item.currency).length === 0) {
                         this.fireAlert('Title', 'Choose Currency before');
@@ -195,7 +190,6 @@
                         return;
                     }
                 }
-                this.item.new_card = 0;
                 this.nextStep(this.currentStep.NextRouteObj, this.item);
             },
 

@@ -3290,12 +3290,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3401,6 +3395,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.item.payment_method.Name !== 'credit') {
         this.item.currency = {};
+        this.item.card = {};
       } else {
         if (!this.item.hasOwnProperty('currency') || Object.keys(this.item.currency).length === 0) {
           this.fireAlert('Title', 'Choose Currency before');
@@ -3409,7 +3404,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      this.item.new_card = 0;
       this.nextStep(this.currentStep.NextRouteObj, this.item);
     }
   }
@@ -46173,121 +46167,157 @@ var render = function() {
                               { staticClass: "mt-4" },
                               [
                                 _vm._l(_vm.cards, function(card, index) {
-                                  return _c(
-                                    "div",
-                                    {
-                                      staticClass: "row mb-2",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.chooseCard(card)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("div", { staticClass: "col-md-12" }, [
-                                        _c("div", { staticClass: "row" }, [
-                                          _c(
-                                            "div",
-                                            { staticClass: "col-md-6" },
-                                            [
-                                              _c("input", {
-                                                staticClass:
-                                                  "custom-control-input curr req",
-                                                attrs: { type: "radio" },
-                                                domProps: {
-                                                  checked:
-                                                    card.Token ===
-                                                    _vm.item.card.Token
-                                                }
-                                              }),
-                                              _vm._v(" "),
-                                              _c(
-                                                "label",
-                                                {
-                                                  staticClass:
-                                                    "custom-control-label text-uppercase"
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "Card " + _vm._s(index + 1)
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            { staticClass: "col-md-6" },
-                                            [
-                                              _c(
-                                                "div",
-                                                { staticClass: "d-inline" },
-                                                [
-                                                  _c(
-                                                    "a",
-                                                    {
-                                                      staticClass:
-                                                        "d-inline-block",
-                                                      attrs: {
-                                                        href:
-                                                          "javascript:void(0)"
-                                                      },
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          return _vm.removeCard(
-                                                            card
-                                                          )
-                                                        }
-                                                      }
-                                                    },
-                                                    [
-                                                      !_vm.loadingDeleteCard
-                                                        ? _c("img", {
-                                                            attrs: {
-                                                              width: "30",
-                                                              src:
-                                                                "/assets/images/icon-checkout-close.png"
-                                                            }
-                                                          })
-                                                        : _c("i", {
-                                                            staticClass:
-                                                              "fas fa-circle-notch fa-spin"
-                                                          })
-                                                    ]
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          )
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("div", { staticClass: "row" }, [
+                                  return card.Currency ===
+                                    _vm.item.currency.Currency
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass: "row mb-2",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.chooseCard(card)
+                                            }
+                                          }
+                                        },
+                                        [
                                           _c(
                                             "div",
                                             { staticClass: "col-md-12" },
                                             [
                                               _c(
                                                 "div",
-                                                {
-                                                  staticClass: "d-inline pr-4"
-                                                },
-                                                [_vm._v(_vm._s(card.Brand))]
+                                                { staticClass: "row" },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    { staticClass: "col-md-6" },
+                                                    [
+                                                      _c("input", {
+                                                        staticClass:
+                                                          "custom-control-input curr req",
+                                                        attrs: {
+                                                          type: "radio"
+                                                        },
+                                                        domProps: {
+                                                          checked:
+                                                            card.Token ===
+                                                            _vm.item.card.Token
+                                                        }
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "label",
+                                                        {
+                                                          staticClass:
+                                                            "custom-control-label text-uppercase"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Card " +
+                                                              _vm._s(index + 1)
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    { staticClass: "col-md-6" },
+                                                    [
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "d-inline"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "a",
+                                                            {
+                                                              staticClass:
+                                                                "d-inline-block",
+                                                              attrs: {
+                                                                href:
+                                                                  "javascript:void(0)"
+                                                              },
+                                                              on: {
+                                                                click: function(
+                                                                  $event
+                                                                ) {
+                                                                  return _vm.removeCard(
+                                                                    card
+                                                                  )
+                                                                }
+                                                              }
+                                                            },
+                                                            [
+                                                              !_vm.loadingDeleteCard
+                                                                ? _c("img", {
+                                                                    attrs: {
+                                                                      width:
+                                                                        "30",
+                                                                      src:
+                                                                        "/assets/images/icon-checkout-close.png"
+                                                                    }
+                                                                  })
+                                                                : _c("i", {
+                                                                    staticClass:
+                                                                      "fas fa-circle-notch fa-spin"
+                                                                  })
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
                                               ),
                                               _vm._v(" "),
                                               _c(
                                                 "div",
-                                                { staticClass: "d-inline" },
-                                                [_vm._v(_vm._s(card.Card))]
+                                                { staticClass: "row" },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass: "col-md-12"
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "d-inline pr-4"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(card.Brand)
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "d-inline"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(card.Card)
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
                                               )
                                             ]
                                           )
-                                        ])
-                                      ])
-                                    ]
-                                  )
+                                        ]
+                                      )
+                                    : _vm._e()
                                 }),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "row pt-2" }, [
@@ -46356,29 +46386,7 @@ var render = function() {
                     ? _c("span", [_vm._v(_vm._s(_vm.trans("confirm")))])
                     : _c("i", { staticClass: "fas fa-circle-notch fa-spin" })
                 ]
-              ),
-              _vm._v(" "),
-              _vm.currentStep.Required === false
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-B3B3B3 text-uppercase skip",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          return _vm.skip()
-                        }
-                      }
-                    },
-                    [
-                      !_vm.loading
-                        ? _c("span", [_vm._v(_vm._s(_vm.trans("skip")))])
-                        : _c("i", {
-                            staticClass: "fas fa-circle-notch fa-spin"
-                          })
-                    ]
-                  )
-                : _vm._e()
+              )
             ])
           ]
         )
