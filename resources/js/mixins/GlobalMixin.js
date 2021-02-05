@@ -11,6 +11,7 @@ export default {
         this.org = Vue.prototype.$org
         this.user = Vue.prototype.$user
         this.addresses = Vue.prototype.$addresses
+        console.log(this.user)
         this.addresses.forEach((address) => {
             if (address.IsDefault === "1") {
                 this.defaultAddress = address;

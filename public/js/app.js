@@ -6131,6 +6131,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     openAddressModal: function openAddressModal() {
       Bus.$emit('open-address-modal');
+      $('#geo-tagging-modal').modal('show');
     },
     getAllAddresses: function getAllAddresses() {
       var _this2 = this;
@@ -6587,6 +6588,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       $('#address-modal').modal('show');
+      $('#geo-tagging-modal').modal('hide');
     });
   },
   computed: {
@@ -49529,7 +49531,7 @@ var render = function() {
                               _c("input", {
                                 staticClass: "form-control",
                                 attrs: { type: "text", readonly: "" },
-                                domProps: { value: 4545 }
+                                domProps: { value: _vm.user.details.FullMobile }
                               })
                             ])
                           ]),
@@ -50729,7 +50731,7 @@ var render = function() {
                               _c("input", {
                                 staticClass: "form-control",
                                 attrs: { type: "text", readonly: "" },
-                                domProps: { value: 4545 }
+                                domProps: { value: _vm.user.details.FullMobile }
                               })
                             ])
                           ]),
@@ -68075,6 +68077,7 @@ __webpack_require__.r(__webpack_exports__);
     this.org = Vue.prototype.$org;
     this.user = Vue.prototype.$user;
     this.addresses = Vue.prototype.$addresses;
+    console.log(this.user);
     this.addresses.forEach(function (address) {
       if (address.IsDefault === "1") {
         _this.defaultAddress = address;

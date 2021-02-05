@@ -76,7 +76,7 @@
                                         <div class="col-sm-8">
                                             <div class="form-group">
                                                 <label>{{trans('phone_number')}}</label>
-                                                <input type="text" class="form-control" readonly :value="4545"/>
+                                                <input type="text" class="form-control" readonly :value="user.details.FullMobile"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">

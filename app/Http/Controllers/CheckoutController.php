@@ -16,7 +16,7 @@ class CheckoutController extends Controller
         if (!session()->has('is_login') or session()->get('is_login') == false) {
             return redirect(route('auth.login'));
         }
-        $this->query = SettingsLib::GetDeliveryScreenDataSteps(true);
+        $this->query = SettingsLib::GetDeliveryScreenDataSteps();
         $this->Steps = array();
         $i = 1;
         foreach ($this->query->Steps as $row) {

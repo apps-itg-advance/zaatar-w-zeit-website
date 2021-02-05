@@ -132,6 +132,7 @@
             },
             openAddressModal() {
                 Bus.$emit('open-address-modal');
+                $('#geo-tagging-modal').modal('show');
             },
             getAllAddresses() {
                 axios.get(`/address/all`).then((response) => {

@@ -193,11 +193,11 @@ class OrdersLibrary
         if (count($instructionsInfo) > 0 && isset($instructionsInfo['instructions'])) {
             foreach ($instructionsInfo['instructions'] as $instruction) {
                 $instructionData = array(
-                    'ItemPlu' => $open_plu,
+                    'ItemPlu' => $instruction->PLU,
                     'GrossPrice' => 0,
                     'OrderItemId' => 0,
                     'OpenName' => 1,
-                    'ParentPLU' => 0,
+                    'ParentPLU' => $instruction->PLU,
                     'UnitPrice' => 0,
                     'Quantity' => 1,
                     'ItemName' => $instruction->Title,
@@ -310,7 +310,7 @@ class OrdersLibrary
             $post_array['ScheduleOrder'] = $addressInfo['scheduled_on'];
             $post_array['OrderDate'] = $addressInfo['scheduled_at'];
         }
-//        return $post_array;
+        return $post_array;
         $url = env('BASE_URL') . 'orders/Save';
         $query = Helper::postApi($url, $post_array);
         return $query;
