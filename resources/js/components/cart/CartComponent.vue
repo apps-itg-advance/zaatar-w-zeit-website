@@ -67,20 +67,20 @@
                         <img src="/assets/images/icon-cart-delete.png"/>
                     </a>
                 </div>
+                <div class="col-md-12"
+                     v-if="cartItem.AppliedMeal.hasOwnProperty('AppliedItems') && cartItem.AppliedMeal.AppliedItems.length > 0">
+                    <div class="speacial-meal bg-8DBF43">
+                        <div class="meal-banner">
+                            <span class="text-uppercase">{{trans('meal')}}</span>
+                            <span class="d-inline-block mx-3">{{cartItem.AppliedMeal.Details}}</span>
+                            <span class="d-inline-block">{{numberFormat(cartItem.AppliedMeal.Price)}}</span>
+                        </div>
+                        <a href="javascript:void(0)" class="close" @click="removeMeal(cartItem)">
+                            <img src="/assets/images/icon-close-white.png"/>
+                        </a>
+                    </div>
+                </div>
             </div>
-
-
-            <div class="clearfix"></div>
-            <!--                <div class="speacial-meal bg-8DBF43">-->
-            <!--                    <div>-->
-            <!--                        <span>meal</span>-->
-            <!--                        <span class="d-inline-block mx-3">{{cartItem.ItemName}}</span>-->
-            <!--                        <span class="d-inline-block">{{cartItem.Price}}</span>-->
-            <!--                    </div>-->
-            <!--                    <a href="javascript:void(0)" class="close">-->
-            <!--                        <img src="/assets/images/icon-close-white.png"/>-->
-            <!--                    </a>-->
-            <!--                </div>-->
             <div class="clearfix"></div>
         </div>
 
@@ -137,17 +137,23 @@
             }
         },
         mounted() {
-            this.calculateTotal()
+            this.calculateTotal();
             Bus.$on('add-edit-to-cart-item', (item) => {
                 this.addEditToCart(item);
                 $('#customization-modal').modal('hide');
                 $('#combo-modal').modal('hide');
-                if (!item.hasOwnProperty('Components') && item.MakeMeal.length > 0) {
+                if (!item.hasOwnProperty('Components') && Object.keys(item.MakeMeal).length > 0 && Object.keys(item.AppliedMeal).length === 0) {
                     Bus.$emit('open-meal-modal', item);
                 }
             });
             Bus.$on('confirm-meal', (item) => {
-                //todo update item in cart
+                if (this.editedIndex === null) {
+                    this.cartItems[this.cartItems.length - 1] = item;
+                } else {
+                    this.cartItems[this.editedIndex] = item;
+                }
+                this.editedIndex = null;
+                this.saveCart();
                 $('#meal-modal').modal('hide');
             });
             Bus.$on('cart-save-array', (cartItems) => {
@@ -191,6 +197,11 @@
                 cartItem.Quantity += 1;
                 let parsedCartItem = JSON.parse(JSON.stringify(cartItem));
                 this.cartItems.push(parsedCartItem);
+                this.saveCart();
+            },
+            removeMeal(cartItem) {
+                cartItem.TotalPrice -= parseInt(cartItem.AppliedMeal.Price);
+                cartItem.AppliedMeal = {};
                 this.saveCart();
             },
             addEditToCart(item) {
@@ -252,11 +263,15 @@
             calculateTotal() {
                 this.total = 0;
                 this.cartItems.forEach((cartItem) => {
+                    console.log("Calculation", cartItem)
                     this.total += parseInt(cartItem.Price);
-                    if (cartItem.hasOwnProperty('AppliedModifiers') && Object.keys(cartItem.AppliedModifiers).length > 0) {
+                    if (cartItem.hasOwnProperty('AppliedModifiers') && cartItem.AppliedModifiers.length > 0) {
                         cartItem.AppliedModifiers.forEach((modifier) => {
                             this.total += parseInt(modifier.Price);
                         })
+                    }
+                    if (cartItem.hasOwnProperty('AppliedMeal') && Object.keys(cartItem.AppliedMeal).length > 0) {
+                        this.total += parseInt(cartItem.AppliedMeal.Price);
                     }
                 });
                 Bus.$emit('recalculate-menu-item-quantity', this.cartItems);
@@ -266,5 +281,11 @@
 </script>
 
 <style scoped>
+    .meal-banner span {
+        font-size: 14px;
+    }
 
+    .meal-banner span:first-of-type {
+        font-weight: bold;
+    }
 </style>

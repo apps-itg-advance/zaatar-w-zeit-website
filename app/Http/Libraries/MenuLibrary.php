@@ -74,7 +74,7 @@ class MenuLibrary
         foreach ($query->data as $item) {
             $item->Quantity = 0;
             $item->AppliedModifiers = [];
-            $item->AppliedMeal = [];
+            $item->AppliedMeal = (object)[];
             $item->TotalPrice = floatval($item->Price);
             $id = $item->ID;
             $flag = false;

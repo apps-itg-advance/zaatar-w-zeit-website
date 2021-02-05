@@ -118,6 +118,7 @@
                 Bus.$emit('add-edit-to-cart-item', this.item);
             },
             AddQty() {
+                console.log(this.item.MakeMeal);
                 if (this.isAuthed) {
                     if (this.defaultAddress === null) {
                         Bus.$emit('open-geo-tagging-modal', this.addresses);
