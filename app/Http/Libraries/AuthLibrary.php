@@ -97,11 +97,7 @@ class AuthLibrary
 
     public static function Register($array)
     {
-        $s_org = session()->get('_org');
         $Skey = session()->get('skey');
-        $post_array['token'] = $s_org->token;
-        $post_array['organization_id'] = $s_org->id;
-        $post_array['channel_id'] = 1;
         $post_array['RequestId'] = $array['request_id' . $Skey];
         $post_array['MobileNumber'] = $array['mobile' . $Skey];
         $post_array['Email'] = $array['email' . $Skey];
