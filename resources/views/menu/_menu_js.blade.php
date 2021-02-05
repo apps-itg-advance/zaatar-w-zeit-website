@@ -235,6 +235,7 @@
             }
         }
         if(isProcced === true){
+            console.log("Forms",$("#Form"+id).serialize());
             var spinnerContainerElement = $("button[data-code='" + id + "']").closest('.item-plus-minus');
             $("#QuickOrder"+id).val(quick);
             $.ajax({

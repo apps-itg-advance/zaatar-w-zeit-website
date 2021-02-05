@@ -39,73 +39,65 @@ class LoginController extends Controller
     public function __construct()
     {
         parent::__construct();
-       $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
+
     public function index()
     {
-        if(session()->has('is_login') and session()->get('is_login')==true)
-        {
-          //  return redirect(route('customer.index'));
+        if (session()->has('is_login') and session()->get('is_login') == true) {
+            return redirect(route('customer.index'));
         }
-        $query=array();
-        $body_css='login-bg';
-        $sKey= session()->get('skey');
-        $flag='testnav';
-        $page_title='Login';
-        return view('auth.index',compact('query','body_css','sKey','flag','page_title'));
+        $query = array();
+        $body_css = 'login-bg';
+        $sKey = session()->get('skey');
+        $flag = 'testnav';
+        $page_title = 'Login';
+        return view('auth.index', compact('query', 'body_css', 'sKey', 'flag', 'page_title'));
     }
+
     public function signin(Request $request)
     {
-
-        $Skey=session()->get('skey');
-        $mobile_key='mobile'.$Skey;
-        $email_key='email'.$Skey;
-        $country_code_key='country_code'.$Skey;
-        $mobile=$request->input($mobile_key);
-        $email=$request->input($email_key);
-        $country_code=str_replace('+','',$request->input($country_code_key));
-        $full_mobile=$country_code.$mobile;
-        $res=AuthLibrary::Login(array('mobile'=>$full_mobile,'email'=>$email,'country_code'=>$country_code));
-
-        if($res->status=='success')
-        {
+        $Skey = session()->get('skey');
+        $mobile_key = 'mobile' . $Skey;
+        $email_key = 'email' . $Skey;
+        $country_code_key = 'country_code' . $Skey;
+        $mobile = $request->input($mobile_key);
+        $email = $request->input($email_key);
+        $country_code = str_replace('+', '', $request->input($country_code_key));
+        $full_mobile = $country_code . $mobile;
+        $res = AuthLibrary::Login(array('mobile' => $full_mobile, 'email' => $email, 'country_code' => $country_code));
+        if ($res->status == 'success') {
             AuthLibrary::PinSession($res);
         }
         echo json_encode($res);
-
-
     }
+
     public function pin(Request $request)
     {
-        $Skey=session()->get('skey');
-        $mobile_key='LoginMobile'.$Skey;
-        $country_code_key='LoginCountryCode'.$Skey;
-        $pin_key='pin'.$Skey;
-        $request_id_key='LoginRequestId'.$Skey;
-        $mobile=session()->get($mobile_key);
-        $country_code=session()->get($country_code_key);
-        $request_id=session()->get($request_id_key);
-        $pin=$request->input($pin_key);
-        $res=AuthLibrary::PinConfirmation(array('mobile'=>$mobile,'country_code'=>$country_code,'request_id'=>$request_id,'pin'=>$pin));
-      // dump($res);
-
-        if($res->message=='success')
-        {
-            if($res->type=='login')
-            {
+        $Skey = session()->get('skey');
+        $mobile_key = 'LoginMobile' . $Skey;
+        $country_code_key = 'LoginCountryCode' . $Skey;
+        $pin_key = 'pin' . $Skey;
+        $request_id_key = 'LoginRequestId' . $Skey;
+        $mobile = session()->get($mobile_key);
+        $country_code = session()->get($country_code_key);
+        $request_id = session()->get($request_id_key);
+        $pin = $request->input($pin_key);
+        $res = AuthLibrary::PinConfirmation(array('mobile' => $mobile, 'country_code' => $country_code, 'request_id' => $request_id, 'pin' => $pin));
+        if ($res->message == 'success') {
+            if ($res->type == 'login') {
                 AuthLibrary::LoginSession($res);
             }
-
-
         }
-
         echo json_encode($res);
     }
+
     public function resend_pin()
     {
-        $res=AuthLibrary::ResendPin();
+        $res = AuthLibrary::ResendPin();
         echo json_encode($res);
     }
+
     public function logout()
     {
         AuthLibrary::LogOut();
@@ -114,16 +106,14 @@ class LoginController extends Controller
 
     public function register(Request $request)
     {
-        $_array=$request->input();
-        $res=AuthLibrary::Register($_array);
-
-        if($res->message=='success')
-        {
-           AuthLibrary::RegisterSession($res);
+        $_array = $request->input();
+        $res = AuthLibrary::Register($_array);
+        if ($res->message == 'success') {
+            AuthLibrary::RegisterSession($res);
         }
-
         echo json_encode($res);
     }
+
     public function clear_cache()
     {
         session()->flush();

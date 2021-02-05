@@ -7,310 +7,309 @@
  */
 
 namespace App\Http\Libraries;
+
 use App\Http\Helpers\Helper;
 use Carbon\Carbon;
 
-class OrdersLibrary{
-
-    public static function SaveOrders()
+class OrdersLibrary
+{
+    public static function SaveOrders($checkoutInfo)
     {
-        $_org=session()->get('_org');
-        $timezone=$_org->timezone!=null? $_org->timezone: 'Asia/Beirut';
-        $open_plu=isset($_org->open_plu) and $_org->open_plu!=null? $_org->open_plu: '6969';
-        $datatime=Carbon::now($timezone)->toDateTimeString();
-        $cart=session()->get('cart');
-        $cart_info=session()->get('cart_info');
-        $cart_gift=session()->get('cart_gift');
-        $cart_payment=session()->get('cart_payment');
-        $_currency=session()->get('cart_payment_currency');
-        $cart_payment_token=session()->get('cart_payment_token');
+        $Skey = session()->get('skey');
+        $_org = session()->get('_org');
+        $user = session()->has('user' . $Skey) ? session()->get('user' . $Skey) : array();
+        $timezone = $_org->timezone != null ? $_org->timezone : 'Asia/Beirut';
+        $open_plu = isset($_org->open_plu) and $_org->open_plu != null ? $_org->open_plu : '6969';
+        $datetime = Carbon::now($timezone)->toDateTimeString();
 
-        $cart_sp_instructions=session()->get('cart_sp_instructions');
+        $cartItems = session()->get('cart');
 
-        $cart_green=session()->get('cart_green');
-        $cart_vouchers=session()->get('cart_vouchers');
-        $cart_wallet=session()->get('cart_wallet');
+        $addressInfo = [];
+        $walletInfo = [];
+        $giftInfo = [];
+        $greenInfo = [];
+        $instructionsInfo = [];
+        $paymentInfo = [];
 
-        $order_schedule=session()->get('order_schedule');
-        $schedule_date=session()->get('schedule_date');
-
-        $delivery_charge=$_org->delivery_charge;
-        $currency=$_org->currency;
-
-        $s_org=session()->get('_org');
-
-        $array_items=array();
-        $array_payments=array();
-        $_total=$delivery_charge;
-        $discount=0;
-        foreach($cart as $itm)
-        {
-            $_items=array(
-                'ItemPlu'=>$itm['plu'],
-                'GrossPrice'=>$itm['origin_price'],
-                'OrderItemId'=>$itm['id'],
-                'OpenName'=>0,
-                'ParentPLU'=>0,
-                'UnitPrice'=>$itm['origin_price'],
-                'Quantity'=>1,
-                'ItemName'=>$itm['name'],
-                'ItemType'=>1
-            );
-            $_total+=$itm['origin_price'];
-            array_push($array_items,$_items);
-            $modifiers=$itm['modifiers'];
-
-            $md_array=array();
-            for($i=0;$i<count($modifiers);$i++)
-            {
-                $_mod=array(
-                    'ItemPlu'=>$modifiers[$i]['plu'],
-                    'GrossPrice'=>$modifiers[$i]['price'],
-                    'OrderItemId'=>$modifiers[$i]['id'],
-                    'OpenName'=>0,
-                    'ParentPLU'=>$itm['plu'],
-                    'UnitPrice'=>$modifiers[$i]['price'],
-                    'Quantity'=>1,
-                    'ItemName'=>$modifiers[$i]['name'],
-                    'ItemType'=>2
-                );
-                $_total+=$modifiers[$i]['price'];
-
-                array_push($array_items,$_mod);
+        foreach ($checkoutInfo as $info) {
+            if ($info['key'] == 'Addresses') {
+                $addressInfo = $info;
+            } else if ($info['key'] == 'Wallet') {
+                $walletInfo = $info;
+            } else if ($info['key'] == 'RealGreen') {
+                $greenInfo = $info;
+            } else if ($info['key'] == 'SpecialInstructions') {
+                $instructionsInfo = $info;
+            } else if ($info['key'] == 'PaymentMethods') {
+                $paymentInfo = $info;
+            } else if ($info['key'] == 'Gift') {
+                $giftInfo = $info;
+            } else {
             }
-
-            if(isset($itm['meal']['id']) and is_array($itm['meal']))
-            {
-                $meals=$itm['meal'];
-                    $_meal_h=array(
-                        'ItemPlu'=>isset($meals['plu'])? $meals['plu']:0,
-                        'GrossPrice'=>isset($meals['price'])? $meals['price']:0,
-                        'OrderItemId'=>$meals['id'],
-                        'OpenName'=>0,
-                        'ParentPLU'=>$itm['plu'],
-                        'UnitPrice'=>$meals['price'],
-                        'Quantity'=>1,
-                        'ItemName'=>$meals['name'],
-                        'ItemType'=>5,
-                    );
-                    $_total+=$meals['price'];
+        }
 
 
-                    array_push($array_items,$_meal_h);
-                if(isset($meals['items']) and is_array($meals['items'])) {
-                    $meal_items=$meals['items'];
-                    for ($k = 0; $k < count($meal_items); $k++) {
-                        $_meal_b = array(
-                            'ItemPlu' => isset($meal_items[$k]['plu']) ? $meal_items[$k]['plu'] : 0,
-                            'GrossPrice' => isset($meal_items[$k]['price']) ? $meal_items[$k]['price'] : 0,
-                            'OrderItemId' => $meal_items[$k]['id'],
-                            'OpenName' => 0,
-                            'ParentPLU' => $itm['plu'],
-                            'UnitPrice' => $meal_items[$k]['price'],
-                            'Quantity' => 1,
-                            'ItemName' => $meal_items[$k]['name'],
-                            'ItemType' => 6,
-                        );
-                        $_total += $meal_items[$k]['price'];
-
-
-                        array_push($array_items, $_meal_b);
+        $deliveryCharge = $_org->delivery_charge;
+        $currency = $_org->currency;
+        $arrayItems = [];
+        $arrayPayments = [];
+        $total = $deliveryCharge;
+        $discount = 0;
+        foreach ($cartItems as $cartItem) {
+            if (isset($cartItem->Components)) {
+                foreach ($cartItem->Components as $component) {
+                    if ($component->IsMain == "1") {
+                        foreach ($component->AppliedItems as $appliedItem) {
+                            $item = array(
+                                'ItemPlu' => $appliedItem->PLU,
+                                'GrossPrice' => $cartItem->Price,
+                                'OrderItemId' => $appliedItem->ID,
+                                'OpenName' => 0,
+                                'ParentPLU' => 0,
+                                'UnitPrice' => $cartItem->Price,
+                                'Quantity' => 1,
+                                'ItemName' => $appliedItem->Name,
+                                'ItemType' => 1
+                            );
+                            array_push($arrayItems, $item);
+                        }
                     }
                 }
 
+                foreach ($cartItem->AppliedModifiers as $modifier) {
+                    $appliedModifiers = array(
+                        'ItemPlu' => $modifier->PLU,
+                        'GrossPrice' => $modifier->Price,
+                        'OrderItemId' => $modifier->ID,
+                        'OpenName' => 0,
+                        'ParentPLU' => $cartItem->PLU,
+                        'UnitPrice' => $modifier->Price,
+                        'Quantity' => 1,
+                        'ItemName' => $modifier->ModifierName,
+                        'ItemType' => 3
+                    );
+                    $total += $modifier->Price;
+                    array_push($arrayItems, $appliedModifiers);
+                }
 
-            }
 
-        }
-        if(isset($cart_green['Title']) and $cart_green['Title']!='')
-        {
-            $_green_array=array(
-                'ItemPlu'=>$cart_green['PLU'],
-                'GrossPrice'=>0,
-                'OrderItemId'=>$cart_green['Id'],
-                'OpenName'=>1,
-                'ParentPLU'=>0,
-                'UnitPrice'=>0,
-                'Quantity'=>1,
-                'ItemName'=>$cart_green['Title'],
-                'ItemType'=>1
-            );
-            array_push($array_items,$_green_array);
-        }
-
-        if(isset($cart_sp_instructions[0]['ID']) and $cart_sp_instructions[0]['ID']!=null)
-        {
-            foreach ($cart_sp_instructions as $sp_ins)
-            {
-                $_sp_array=array(
-                    'ItemPlu'=>$open_plu,
-                    'GrossPrice'=>0,
-                    'OrderItemId'=>0,
-                    'OpenName'=>1,
-                    'ParentPLU'=>0,
-                    'UnitPrice'=>0,
-                    'Quantity'=>1,
-                    'ItemName'=>$sp_ins['Title'],
-                    'ItemType'=>1
+                foreach ($cartItem->Components as $component) {
+                    if ($component->IsMain == "0") {
+                        foreach ($component->AppliedItems as $appliedItem) {
+                            $item = array(
+                                'ItemPlu' => $appliedItem->PLU,
+                                'GrossPrice' => $cartItem->Price,
+                                'OrderItemId' => $appliedItem->ID,
+                                'OpenName' => 0,
+                                'ParentPLU' => 0,
+                                'UnitPrice' => $cartItem->Price,
+                                'Quantity' => 1,
+                                'ItemName' => $appliedItem->Name,
+                                'ItemType' => 1
+                            );
+                            array_push($arrayItems, $item);
+                        }
+                    }
+                }
+                $total += $cartItem->Price;
+            } else {
+                $item = array(
+                    'ItemPlu' => $cartItem->PLU,
+                    'GrossPrice' => $cartItem->Price,
+                    'OrderItemId' => $cartItem->ID,
+                    'OpenName' => 0,
+                    'ParentPLU' => 0,
+                    'UnitPrice' => $cartItem->Price,
+                    'Quantity' => 1,
+                    'ItemName' => $cartItem->ItemName,
+                    'ItemType' => 1
                 );
-                array_push($array_items,$_sp_array);
+                $total += $cartItem->Price;
+                array_push($arrayItems, $item);
+                foreach ($cartItem->AppliedModifiers as $modifier) {
+                    $appliedModifiers = array(
+                        'ItemPlu' => $modifier->PLU,
+                        'GrossPrice' => $modifier->Price,
+                        'OrderItemId' => $modifier->ID,
+                        'OpenName' => 0,
+                        'ParentPLU' => $cartItem->PLU,
+                        'UnitPrice' => $modifier->Price,
+                        'Quantity' => 1,
+                        'ItemName' => $modifier->ModifierName,
+                        'ItemType' => 3
+                    );
+                    $total += $modifier->Price;
+                    array_push($arrayItems, $appliedModifiers);
+                }
             }
 
-
-
+            if (isset($cartItem->AppliedMeal->AppliedItems) && count($cartItem->AppliedMeal->AppliedItems) > 0) {
+                $mealHeader = array(
+                    'ItemPlu' => $cartItem->AppliedMeal->PLU,
+                    'GrossPrice' => $cartItem->AppliedMeal->Price,
+                    'OrderItemId' => $cartItem->AppliedMeal->ID,
+                    'OpenName' => 0,
+                    'ParentPLU' => $cartItem->AppliedMeal->PLU,
+                    'UnitPrice' => $cartItem->AppliedMeal->Price,
+                    'Quantity' => 1,
+                    'ItemName' => $cartItem->AppliedMeal->Title,
+                    'ItemType' => 5,
+                );
+                array_push($arrayItems, $mealHeader);
+                foreach ($cartItem->AppliedMeal->AppliedItems as $appliedItem) {
+                    $mealItem = array(
+                        'ItemPlu' => $appliedItem->PLU,
+                        'GrossPrice' => $appliedItem->Price,
+                        'OrderItemId' => $appliedItem->ID,
+                        'OpenName' => 0,
+                        'ParentPLU' => $cartItem->AppliedMeal->PLU,
+                        'UnitPrice' => $appliedItem->Price,
+                        'Quantity' => 1,
+                        'ItemName' => $appliedItem->Name,
+                        'ItemType' => 5,
+                    );
+                    array_push($arrayItems, $mealItem);
+                }
+                $total += $cartItem->AppliedMeal->Price;
+            }
         }
-        if(isset($cart_gift->GiftOpenItem) and $cart_gift->GiftOpenItem!=null)
-        {
-            $_gift_array_1=array(
-                'ItemPlu'=>$cart_gift->OpenItemPlu,
-                'GrossPrice'=>0,
-                'OrderItemId'=>$cart_gift->OpenItemId,
-                'OpenName'=>1,
-                'ParentPLU'=>0,
-                'UnitPrice'=>0,
-                'Quantity'=>1,
-                'ItemName'=>'GiftFrom'.$cart_gift->GiftFrom,
-                'ItemType'=>1
+
+        if (count($greenInfo) > 0 && count(get_object_vars($greenInfo['green_option'])) > 0) {
+            $greenData = array(
+                'ItemPlu' => $greenInfo['green_option']->PLU,
+                'GrossPrice' => 0,
+                'OrderItemId' => $greenInfo['green_option']->ID,
+                'OpenName' => 1,
+                'ParentPLU' => 0,
+                'UnitPrice' => 0,
+                'Quantity' => 1,
+                'ItemName' => $greenInfo['green_option']->Title,
+                'ItemType' => 1
             );
-            $_gift_array_2=array(
-                'ItemPlu'=>$cart_gift->OpenItemPlu,
-                'GrossPrice'=>0,
-                'OrderItemId'=>$cart_gift->OpenItemId,
-                'OpenName'=>1,
-                'ParentPLU'=>0,
-                'UnitPrice'=>0,
-                'Quantity'=>1,
-                'ItemName'=>'GiftTo'.$cart_gift->GiftTo,
-                'ItemType'=>1
+            array_push($arrayItems, $greenData);
+        }
+
+        if (count($instructionsInfo) > 0 && isset($instructionsInfo['instructions'])) {
+            foreach ($instructionsInfo['instructions'] as $instruction) {
+                $instructionData = array(
+                    'ItemPlu' => $open_plu,
+                    'GrossPrice' => 0,
+                    'OrderItemId' => 0,
+                    'OpenName' => 1,
+                    'ParentPLU' => 0,
+                    'UnitPrice' => 0,
+                    'Quantity' => 1,
+                    'ItemName' => $instruction->Title,
+                    'ItemType' => 1
+                );
+                array_push($arrayItems, $instructionData);
+            }
+        }
+
+        if (count($giftInfo) > 0 && count(get_object_vars($giftInfo['gift_option'])) > 0) {
+            $giftData1 = array(
+                'ItemPlu' => $giftInfo['gift_option']->PLU,
+                'GrossPrice' => 0,
+                'OrderItemId' => $giftInfo['gift_option']->ID,
+                'OpenName' => 1,
+                'ParentPLU' => 0,
+                'UnitPrice' => 0,
+                'Quantity' => 1,
+                'ItemName' => 'Gift From ' . $giftInfo['gift_from'],
+                'ItemType' => 1
             );
-            $_gift_array_3=array(
-                'ItemPlu'=>$cart_gift->OpenItemPlu,
-                'GrossPrice'=>0,
-                'OrderItemId'=>$cart_gift->OpenItemId,
-                'OpenName'=>1,
-                'ParentPLU'=>0,
-                'UnitPrice'=>0,
-                'Quantity'=>1,
-                'ItemName'=>$cart_gift->GiftOpenItem,
-                'ItemType'=>1
+            $giftData2 = array(
+                'ItemPlu' => $giftInfo['gift_option']->PLU,
+                'GrossPrice' => 0,
+                'OrderItemId' => $giftInfo['gift_option']->ID,
+                'OpenName' => 1,
+                'ParentPLU' => 0,
+                'UnitPrice' => 0,
+                'Quantity' => 1,
+                'ItemName' => 'Gift To ' . $giftInfo['gift_to'],
+                'ItemType' => 1
             );
-            array_push($array_items,$_gift_array_1);
-            array_push($array_items,$_gift_array_2);
-            array_push($array_items,$_gift_array_3);
-        }
-        if(isset($cart_vouchers['Id']) and $cart_vouchers['Id']!=null)
-        {
-            $v_price=0;
-            if($cart_vouchers['Category']=='free_item')
-            {
-              foreach ($array_items as $it)
-              {
-                  if($it['ItemPlu']==$cart_vouchers['ItemPlu'])
-                  {
-                      $v_price=$it['UnitPrice'];
-                      break;
-                  }
-              }
-            }
-            else{
-                $v_price=$_total-$cart_wallet;
-            }
-            if($cart_vouchers['ValueType']=='percentage')
-            {
-                $discount=$v_price*$cart_vouchers['Value']/100;
-            }
-            elseif($cart_vouchers['ValueType']=='flat_rate')
-            {
-                $discount=$cart_vouchers['Value'];
-            }
-
-            $_v=array(
-                'Settlement'=>$discount,
-                'Currency'=>$currency,
-                'Category'=>'voucher',
-                'PaymentTypeId'=>$cart_vouchers['PaymentId'],
-                'ItemPlu'=>$cart_vouchers['ItemPlu'],
-                'ConfirmationCode'=>$cart_vouchers['Id']
+            $giftData3 = array(
+                'ItemPlu' => $giftInfo['gift_option']->PLU,
+                'GrossPrice' => 0,
+                'OrderItemId' => $giftInfo['gift_option']->ID,
+                'OpenName' => 1,
+                'ParentPLU' => 0,
+                'UnitPrice' => 0,
+                'Quantity' => 1,
+                'ItemName' => $giftInfo['gift_option']->Title,
+                'ItemType' => 1
             );
-            array_push($array_payments,$_v);
+            array_push($arrayItems, $giftData1);
+            array_push($arrayItems, $giftData2);
+            array_push($arrayItems, $giftData3);
         }
-        if($cart_wallet>0)
-          {
-        $_w=array(
-            'Settlement'=>$cart_wallet,
-            'Currency'=>$currency,
-            'Category'=>'wallet',
-            'PaymentTypeId'=>session()->get('cart_wallet_id'),
-            'ConfirmationCode'=>0
-        );
-        array_push($array_payments,$_w);
-          }
-        $x=true;
-        if(isset($cart_payment->PaymentId) and $cart_payment->PaymentId!=null)
-        {
-            if($cart_payment->Name=='credit')
-            {
-                $x=false;
+
+        if (count($walletInfo) > 0 && isset($walletInfo['amount'])) {
+            if ($walletInfo['amount'] > 0) {
+                $walletData = array(
+                    'Settlement' => $walletInfo['amount'],
+                    'Currency' => $currency,
+                    'Category' => 'wallet',
+                    'PaymentTypeId' => session()->get('cart_wallet_id'),
+                    'ConfirmationCode' => 0
+                );
+                array_push($arrayPayments, $walletData);
             }
-            $_payments=array(
-                'Settlement'=>$_total-$discount-$cart_wallet,
-                'Currency'=>$currency,
-                'Category'=>$cart_payment->Name,
-                'PaymentTypeId'=>$cart_payment->POSCode
-            );
-            if(isset($cart_payment_token) and $cart_payment_token!='' and $cart_payment->Name=='credit')
-            {
-                $_payments['CardToken']=$cart_payment_token;
+        }
+
+        if (count($paymentInfo) > 0 && $paymentInfo['payment_method']) {
+            if (isset($paymentInfo['currency']) && count(get_object_vars($paymentInfo['currency'])) > 0) {
+                $currency = $paymentInfo['currency']->Currency;
             }
-            array_push($array_payments,$_payments);
-        }
-        if(isset($cart_payment_token) and $cart_payment_token!='')
-        {
-
-        }
-
-        $post_array['token']=session()->get('token');
-        $post_array['organization_id']=$s_org->id;
-        $post_array['channel_id']=1;
-        $post_array['LoyaltyId']=session()->get('loyalty_id');
-        $post_array['OrderId']='';
-        $post_array['OrderDate']=$datatime;
-        $post_array['CardNumber']='';
-        $post_array['TotalPrice']=$_total;
-        $post_array['DepartmentId']=0;
-        $post_array['DepartmentName']='Default';
-
-
-        $post_array['AddressId']=$cart_info->AddressId;
-        $post_array['FirstName']=$cart_info->FirstName;
-        $post_array['LastName']=$cart_info->LastName;
-        $post_array['Mobile']=$cart_info->Mobile;
-        $post_array['Line1']=$cart_info->Line1;
-        $post_array['Line2']=$cart_info->Line2;
-        $post_array['City']=$cart_info->City;
-        $post_array['Province']=$cart_info->Province;
-        $post_array['Apartment']=$cart_info->Apartment;
-        $post_array['XLocation']=$cart_info->XLocation;
-        $post_array['YLocation']=$cart_info->YLocation;
-        $post_array['AddressType']=$cart_info->AddressType;
-        $post_array['CompanyName']=$cart_info->Company;
-        $post_array['Instructions']='';
-        $post_array['PaymentType']='cash';
-        $post_array['Status']='pending';
-        $post_array['DeliveryCharge']=$delivery_charge;
-        $post_array['paymentParts']=$array_payments;
-        $post_array['Items']=$array_items;
-        $post_array['ReferralSource']='web';
-        $post_array['OnlineCurrency']=$_currency;
-        if($order_schedule=='schedule')
-        {
-            $post_array['ScheduleOrder']=$schedule_date;
+            $payments = [
+                'Settlement' => $total - $discount,
+                'Currency' => $currency,
+                'Category' => $paymentInfo['payment_method']->Name,
+                'SaveCard' => $paymentInfo['new_card'],
+                'PaymentTypeId' => $paymentInfo['payment_method']->POSCode
+            ];
+            if (isset($paymentInfo['card']) && count(get_object_vars($paymentInfo['card'])) > 0 && $paymentInfo['payment_method']->Name == 'credit') {
+                $payments['CardToken'] = $paymentInfo['card']->Token;
+            }
+            array_push($arrayPayments, $payments);
         }
 
-        $url=env('BASE_URL').'orders/Save';
-        $query=Helper::postApi($url,$post_array);
-        $query->Flag=$x;
+        $post_array['token'] = session()->get('token');
+        $post_array['OrderId'] = '';
+        $post_array['OrderDate'] = $datetime;
+        $post_array['CardNumber'] = '';
+        $post_array['TotalPrice'] = $total;
+        $post_array['DepartmentId'] = 0;
+        $post_array['DepartmentName'] = 'Default';
+        $post_array['AddressId'] = $addressInfo['address']->ID;
+        $post_array['FirstName'] = $user->details->FirstName;
+        $post_array['LastName'] = $user->details->LastName;
+        $post_array['Mobile'] = $user->details->FullMobile;
+        $post_array['Line1'] = $addressInfo['address']->Line1;
+        $post_array['Line2'] = $addressInfo['address']->Line2;
+        $post_array['City'] = $addressInfo['address']->CityName;
+        $post_array['Province'] = $addressInfo['address']->ProvinceCountry;
+        $post_array['Apartment'] = $addressInfo['address']->AptNumber;
+        $post_array['XLocation'] = '';
+        $post_array['YLocation'] = '';
+        $post_array['AddressType'] = $addressInfo['address']->TypeID;
+        $post_array['CompanyName'] = $addressInfo['address']->CompanyName;
+        $post_array['Instructions'] = '';
+        $post_array['PaymentType'] = $paymentInfo['payment_method']->Name;
+        $post_array['Status'] = 'pending';
+        $post_array['DeliveryCharge'] = $deliveryCharge;
+        $post_array['paymentParts'] = $arrayPayments;
+        $post_array['Items'] = $arrayItems;
+        $post_array['ReferralSource'] = 'web';
+        $post_array['OnlineCurrency'] = $currency;
+        if ($addressInfo['scheduled'] == '1') {
+            $post_array['ScheduleOrder'] = $addressInfo['scheduled_on'];
+            $post_array['OrderDate'] = $addressInfo['scheduled_at'];
+        }
+//        return $post_array;
+        $url = env('BASE_URL') . 'orders/Save';
+        $query = Helper::postApi($url, $post_array);
         return $query;
     }
-
 }

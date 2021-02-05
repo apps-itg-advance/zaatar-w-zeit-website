@@ -1,5 +1,4 @@
-
-<header class="header-wrapper bg-4D4D4D" >
+<header class="header-wrapper bg-4D4D4D">
     <div class="container">
 
         <div class="header-container">
@@ -8,45 +7,34 @@
                     $orgs=session()->get('organizations');
                     $s_org=session()->get('_org');
                 @endphp
-
                 <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 logo-col pt-3 pb-md-3">
-                    <a href="{{route('home.menu')}}" class="d-inline-block logo-a mr-md-5 mr-3"><img src="{{asset('assets/svg/logo.svg')}}" class="logo img-fluid logo-2" /></a>
+                    <a href="{{route('home.menu')}}" class="d-inline-block logo-a mr-md-5 mr-3"><img
+                            src="{{asset('assets/svg/logo.svg')}}" class="logo img-fluid logo-2"/></a>
                     <div class="dropdown d-inline-block">
-                        <button class="btn lebanon-a btn-link dropdown-toggle p-0 m-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="{{$s_org->country_flag}}" class="flag img-fluid logo-image" />
+                        <button class="btn lebanon-a btn-link dropdown-toggle p-0 m-0" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                            <img src="{{$s_org->country_flag}}" class="flag img-fluid logo-image"/>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             @if(count($orgs)>1)
                                 @foreach($orgs as $org)
                                     @if($org->display==1)
-{{--                                                                    <a class="dropdown-item mb-2" href="{{route('switch.organization',['id'=>$org->id])}}">--}}
-{{--                                                                        <img src="{{$org->country_flag}}" onclick="return LangTranslate()"/> {{$org->country}}--}}
-{{--                                                                    </a>--}}
-                                        <a class="dropdown-item mb-2" onclick="return LangTranslate({{$org->id}})" >
-                                            <img src="{{$org->country_flag}}" /> {{$org->country}}
+                                        <a class="dropdown-item mb-2" onclick="return LangTranslate({{$org->id}})">
+                                            <img src="{{$org->country_flag}}"/> {{$org->country}}
                                         </a>
-{{--                                        @if($org->country_code === 'SA')--}}
-{{--                                            <a class="dropdown-item mb-2" onclick="return LangTranslate()" >--}}
-{{--                                                <img src="{{$org->country_flag}}" /> {{$org->country}}--}}
-{{--                                            </a>--}}
-{{--                                        @else--}}
-{{--                                            <a class="dropdown-item mb-2" href="{{route('switch.organization',['id'=>$org->id,'lang'=>'en'])}}">--}}
-{{--                                                <img src="{{$org->country_flag}}" /> {{$org->country}}--}}
-{{--                                            </a>--}}
-{{--                                        @endif--}}
                                     @endif
-
                                 @endforeach
                             @else
-                                <a class="dropdown-item mb-2" href="#">
-                                    <img src="{{$orgs[0]->country_flag}}" /> {{$orgs[0]->country}}
+                                <a class="dropdown-item mb-2" onclick="">
+                                    <img src="{{$orgs[0]->country_flag}}"/> {{$orgs[0]->country}}
                                 </a>
                             @endif
-
                         </div>
                     </div>
                     <div class="cart-col text-right dropdown d-inline-block float-right d-md-none">
-                        <a href="{{route('carts.show')}}" class="cart-link d-block dropdown-toggle" id="dropdownMenuButton2">
+                        <a href="{{route('carts.show')}}" class="cart-link d-block dropdown-toggle"
+                           id="dropdownMenuButton2">
                             <div class="CartItems"></div>
                         </a>
                     </div>
@@ -56,18 +44,17 @@
                         $Skey=session()->get('skey');
                            $user=session()->get('user'.$Skey);
                            $full_name=@$user->details->FirstName.' '.@$user->details->LastName;
+                           $id=@$user->details->ID;
                     @endphp
                     <nav class="nav main-nav justify-content-center">
-                        <a class="nav-link {{ (\Request::route()->getName() == 'home.menu') ? 'active' : '' }}" href="{{route('home.menu')}}">@lang('header_menu')</a>
-                        {{--<a class="nav-link {{@$this->favourite_active}}" href="{{route('customer.favourites')}}">Favourites</a>--}}
-                        <a class="nav-link {{\Request::segment(2)=='favourite'?'active':''}}" href="{{route('customer.favourite.items')}}">@lang('header_favourites')</a>
+                        <a class="nav-link {{ (\Request::route()->getName() == 'home.menu') ? 'active' : '' }}"
+                           href="{{route('home.menu')}}">@lang('header_menu')</a>
+                        <a class="nav-link {{\Request::segment(1)=='favorite'?'active':''}}"
+                           href="{{route('favorite.items')}}">@lang('header_favourites')</a>
                         @php if(session()->get('is_login')){
-                        //echo '<a class="nav-link '.@$this->profile_active.'" href="'.route('customer.index').'">Profile</a>';
                         echo '<a class="nav-link '.(\Request::segment(2)=='profile'?'active':'').'" href="'.route('customer.index').'">'.$full_name.'</a>';
                         }
                         else{
-                        //echo '<a class="nav-link '.@$this->login_active.'" href="'.route('auth.login').'">Sign In</a>';
-                        // echo app('translator')->get('header_signin');
                         echo '<a class="nav-link '.(\Request::segment(1)=='login'?'active':'').'" href="'.route('auth.login').'">'.app('translator')->get('header_signin').'</a>';
                         }
                         @endphp
@@ -78,10 +65,9 @@
                     <div class="dropdown">
                         @php
                             $cart=(session()->has('cart') and session()->get('cart')!=null)?session()->get('cart'):null;
-                           // dump(session()->all());
-                        //@if($cart!=null) href="{{route('checkout.address')}}"
                         @endphp
-                        <a @if($cart!=null) href="{{route('checkout.address')}}" @endif id="ShoppingCart" class="cart-link d-block checkout-address">
+                        <a @if($cart!=null) href="{{route('checkout.address')}}" @endif id="ShoppingCart"
+                           class="cart-link d-block checkout-address">
                             <div class="CartItems"></div>
                         </a>
                     </div>
@@ -99,11 +85,12 @@
                 <h6 class="modal-title" id="modelHeading"><b>@lang('choose_a_language')</b></h6>
             </div>
             <div class="modal-body">
-                   <input type="hidden" id="flagorgid" value="" name="flagorgid"/>
+                <input type="hidden" id="flagorgid" value="" name="flagorgid"/>
                 <div class="lang-detail">
                     <div class="lang">
                         <a id="arlang">
-                            <svg fill="#747474" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                            <svg fill="#747474" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
 <g>
     <g>
@@ -149,7 +136,8 @@
                     </div>
                     <div class="lang">
                         <a id="enlang">
-                            <svg fill="#747474" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                            <svg fill="#747474" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
 <g>
     <g>
@@ -204,33 +192,36 @@
     function LangTranslate(orgid) {
         $('#LangTranModal').modal();
         $('#flagorgid').val(orgid);
-        {{--$('#arlang').attr('href', `{{route('switch.organization',['id'=>method_field('flagorgid'),'lang'=>'ar'])}}`);--}}
+            {{--$('#arlang').attr('href', `{{route('switch.organization',['id'=>method_field('flagorgid'),'lang'=>'ar'])}}`);--}}
         var url = "{{route('switch.organization',['id'=>':orgid','lang'=>'ar'])}}";
-        url = url.replace(':orgid',orgid);
-        $('#arlang').attr('href',url);
+        url = url.replace(':orgid', orgid);
+        $('#arlang').attr('href', url);
 
         var enurl = "{{route('switch.organization',['id'=>':orgenid','lang'=>'en'])}}";
-        enurl = enurl.replace(':orgenid',orgid);
-        $('#enlang').attr('href',enurl);
+        enurl = enurl.replace(':orgenid', orgid);
+        $('#enlang').attr('href', enurl);
     }
 </script>
 <style>
     #LangTranModal {
         padding-left: 0;
     }
+
     #LangTranModal .lang-dialog {
         height: 100%;
         max-width: 400px;
         margin: 0 auto;
     }
-    #LangTranModal .lang-content{
+
+    #LangTranModal .lang-content {
         top: 50%;
         left: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         background: #f3f3f3;
         padding: 10px;
         border-radius: 0;
     }
+
     #LangTranModal .modal-header {
         display: flex;
         justify-content: center;
@@ -238,29 +229,36 @@
         color: #8dbf43;
         /*padding-bottom: 0*/
     }
+
     .lang-detail .lang:first-child {
         border-top: 1px solid #cccccc;
     }
+
     .lang-detail .lang:last-child {
         margin-bottom: 30px;
     }
+
     .lang-detail .lang {
-        border-bottom: 1px solid  #cccccc;
+        border-bottom: 1px solid #cccccc;
     }
-    .lang-detail .lang  svg{
+
+    .lang-detail .lang svg {
         height: 24px;
         width: 24px;
     }
-    .lang-detail .lang a{
+
+    .lang-detail .lang a {
         color: #808080;
         display: flex;
         align-items: center;
         padding: 15px 0;
     }
-    .lang-detail .lang a span{
+
+    .lang-detail .lang a span {
         margin: 0 15px;
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     }
+
     @media screen and (max-width: 420px) {
         #LangTranModal .lang-dialog {
             max-width: 320px;

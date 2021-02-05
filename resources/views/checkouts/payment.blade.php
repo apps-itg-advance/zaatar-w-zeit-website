@@ -7,11 +7,10 @@
     $lbp_check=(isset($cart_payment_currency) and $cart_payment_currency=='LBP') ? 'checked=checked':'';
     @endphp
     <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 float-none p-0 mx-auto">
-
         <div class="title-div text-center mb-4">
             <h2 class="title">@lang('checkout')</h2>
         </div>
-        @include('partials.checkout_bread')
+{{--        @include('partials.checkout_bread')--}}
         <div class="col-xl-6 col-lg-10 float-none p-0 mx-auto item-summary">
             <div class="title-div mb-5">
                 <h2 class="title ml-0">{{$settings->Label}}
