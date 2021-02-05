@@ -3402,6 +3402,10 @@ __webpack_require__.r(__webpack_exports__);
           this.loading = false;
           return;
         }
+
+        if (Object.keys(this.item.card).length > 0) {
+          this.item.new_card = 0;
+        }
       }
 
       this.nextStep(this.currentStep.NextRouteObj, this.item);
