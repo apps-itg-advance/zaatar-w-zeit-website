@@ -1,6 +1,6 @@
 <template>
     <div id="accordion">
-        <div class="empty-parent" v-if="orders.rows.length === 0">
+        <div class="empty-parent" v-if="orders.hasOwnProperty('rows') &&orders.rows.length === 0">
             <h2>{{trans('no_fav_orders')}}</h2>
         </div>
         <div class="parent" v-if="loading">
@@ -70,7 +70,17 @@
                                 } else if (item.MenuType === '2') {
                                     parsedItem.AppliedModifiers.push(item);
                                 } else if (item.MenuType === '5') {
-                                    parsedItem.AppliedMeal = item;
+                                    if (Object.keys(parsedItem.AppliedMeal).length === 0) {
+                                        parsedItem.AppliedMeal = item;
+                                        parsedItem.AppliedMeal.AppliedItems = [];
+                                    } else {
+                                        if(Object.keys( parsedItem.AppliedMeal).length === 0){
+                                            parsedItem.AppliedMeal = item;
+                                            parsedItem.AppliedMeal.AppliedItems = [];
+                                        }else{
+                                            parsedItem.AppliedMeal.AppliedItems[0] = item;
+                                        }
+                                    }
                                 }
                                 parsedItem.MainItem.NetAmount = parseInt(parsedItem.MainItem.NetAmount) + parseInt(item.GrossPrice);
                             }

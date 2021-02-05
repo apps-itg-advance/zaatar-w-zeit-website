@@ -3897,7 +3897,17 @@ __webpack_require__.r(__webpack_exports__);
               } else if (item.MenuType === '2') {
                 parsedItem.AppliedModifiers.push(item);
               } else if (item.MenuType === '5') {
-                parsedItem.AppliedMeal = item;
+                if (Object.keys(parsedItem.AppliedMeal).length === 0) {
+                  parsedItem.AppliedMeal = item;
+                  parsedItem.AppliedMeal.AppliedItems = [];
+                } else {
+                  if (Object.keys(parsedItem.AppliedMeal).length === 0) {
+                    parsedItem.AppliedMeal = item;
+                    parsedItem.AppliedMeal.AppliedItems = [];
+                  } else {
+                    parsedItem.AppliedMeal.AppliedItems[0] = item;
+                  }
+                }
               }
 
               parsedItem.MainItem.NetAmount = parseInt(parsedItem.MainItem.NetAmount) + parseInt(item.GrossPrice);
@@ -46758,7 +46768,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "accordion" } }, [
-    _vm.orders.rows.length === 0
+    _vm.orders.hasOwnProperty("rows") && _vm.orders.rows.length === 0
       ? _c("div", { staticClass: "empty-parent" }, [
           _c("h2", [_vm._v(_vm._s(_vm.trans("no_fav_orders")))])
         ])
