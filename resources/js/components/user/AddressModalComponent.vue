@@ -406,6 +406,7 @@
                     console.log(error.response.data.message);
                 }).finally(() => {
                     this.loading = false;
+                    this.picked = '';
                 });
             }
         }
