@@ -38,7 +38,7 @@
                                     <div class="form-group">
                                         <input type="radio" class="address_type" :disabled="addressType.used"
                                                v-model="picked" :value="addressType.ID"/>
-                                        <label>{{addressType.Title}} {{addressType.ID}}</label>
+                                        <label>{{addressType.Title}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -278,7 +278,7 @@
             },
             toggleCompanyField(addressType) {
                 this.picked = addressType.ID;
-                this.item.type_id = ddressType.ID
+                this.item.type_id = addressType.ID
                 if (addressType.Title === 'Business') {
                     this.item.show_company = true;
                 } else {

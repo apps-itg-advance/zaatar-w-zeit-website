@@ -5825,7 +5825,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     toggleCompanyField: function toggleCompanyField(addressType) {
       this.picked = addressType.ID;
-      this.item.type_id = ddressType.ID;
+      this.item.type_id = addressType.ID;
 
       if (addressType.Title === 'Business') {
         this.item.show_company = true;
@@ -49374,13 +49374,7 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              _c("label", [
-                                _vm._v(
-                                  _vm._s(addressType.Title) +
-                                    " " +
-                                    _vm._s(addressType.ID)
-                                )
-                              ])
+                              _c("label", [_vm._v(_vm._s(addressType.Title))])
                             ])
                           ]
                         )
