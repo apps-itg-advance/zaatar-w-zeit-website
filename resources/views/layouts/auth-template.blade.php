@@ -158,7 +158,7 @@
                     $("#DestroyBtn").addClass("btn-B3B3B3-non-hover");
                     $("#CheckOutBtn").addClass("btn-B3B3B3-non-hover");
                 } else {
-                    $("#ShoppingCart").attr("href", "{{route('checkout.address')}}");
+                    $("#ShoppingCart").attr("href", "checkout?step=Addresses");
                     $("#ShoppingCart").addClass("active-cart");
                     $("#dropdownMenuButton2").attr("href", "{{route('carts.show')}}");
                     $("#dropdownMenuButton2").addClass("active-cart");

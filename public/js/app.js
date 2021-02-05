@@ -2819,7 +2819,8 @@ __webpack_require__.r(__webpack_exports__);
 
     if (!this.checkoutInfo.hasOwnProperty('address')) {
       this.item = {
-        address: {}
+        address: {},
+        scheduled: "0"
       };
     }
 
@@ -5698,7 +5699,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5775,6 +5775,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         _this.item.is_default = "1";
       }
 
+      console.log("open-address-modal", _this.item);
       $('#address-modal').modal('show');
     });
   },
@@ -5797,6 +5798,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       axios.get('/address/addresses-types').then(function (response) {
         _this3.addressesTypes = response.data;
+        console.log("addressesTypes", response.data);
       })["catch"](function (error) {
         console.log(error);
       })["finally"](function () {});
@@ -5809,6 +5811,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       } else {
         this.item.show_company = false;
       }
+
+      console.log("Toggle", this.item);
     },
     getCurrentLocation: function getCurrentLocation() {
       var _this4 = this;
@@ -45452,9 +45456,8 @@ var render = function() {
                         staticClass: "custom-control-input",
                         attrs: {
                           type: "radio",
-                          id: "order_schedule",
+                          id: "order_schedule1",
                           required: "",
-                          onclick: "ShowCalender()",
                           value: "1"
                         },
                         domProps: { checked: _vm._q(_vm.item.scheduled, "1") },
@@ -45469,7 +45472,7 @@ var render = function() {
                         "label",
                         {
                           staticClass: "custom-control-label",
-                          attrs: { for: "order_schedule" }
+                          attrs: { for: "order_schedule1" }
                         },
                         [
                           _c("p", { staticClass: "text-uppercase m-0" }, [
@@ -49315,44 +49318,38 @@ var render = function() {
                       { staticClass: "row" },
                       _vm._l(_vm.addressesTypes, function(addressType) {
                         return _c("div", { staticClass: "col-sm-4" }, [
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.item.type_id,
-                                  expression: "item.type_id"
-                                }
-                              ],
-                              staticClass: "address_type",
-                              attrs: {
-                                type: "radio",
-                                disabled: addressType.used
-                              },
-                              domProps: {
-                                value: addressType.ID,
-                                checked: _vm._q(
-                                  _vm.item.type_id,
-                                  addressType.ID
-                                )
-                              },
+                          _c(
+                            "div",
+                            {
+                              staticClass: "form-group",
                               on: {
                                 click: function($event) {
                                   return _vm.toggleCompanyField(addressType)
-                                },
-                                change: function($event) {
-                                  return _vm.$set(
-                                    _vm.item,
-                                    "type_id",
-                                    addressType.ID
-                                  )
                                 }
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("label", [_vm._v(_vm._s(addressType.Title))])
-                          ])
+                            },
+                            [
+                              _c("input", {
+                                staticClass: "address_type",
+                                attrs: {
+                                  type: "radio",
+                                  disabled: addressType.used
+                                },
+                                domProps: {
+                                  checked: _vm.item.type_id === addressType.ID,
+                                  value: addressType.ID
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("label", [
+                                _vm._v(
+                                  _vm._s(addressType.Title) +
+                                    " " +
+                                    _vm._s(addressType.ID)
+                                )
+                              ])
+                            ]
+                          )
                         ])
                       }),
                       0

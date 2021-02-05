@@ -35,11 +35,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-4" v-for="addressType in addressesTypes">
-                                    <div class="form-group">
+                                    <div class="form-group" @click="toggleCompanyField(addressType)">
                                         <input type="radio" class="address_type" :disabled="addressType.used"
-                                               v-model="item.type_id" :value="addressType.ID"
-                                               @click="toggleCompanyField(addressType)"/>
-                                        <label>{{addressType.Title}}</label>
+                                               :checked="item.type_id === addressType.ID" :value="addressType.ID"/>
+                                        <label>{{addressType.Title}} {{addressType.ID}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +248,7 @@
                 if (this.addresses.length === 0) {
                     this.item.is_default = "1";
                 }
-
+                console.log("open-address-modal",this.item);
                 $('#address-modal').modal('show');
             });
         },
@@ -269,6 +268,7 @@
             getAddressesTypes() {
                 axios.get('/address/addresses-types').then((response) => {
                     this.addressesTypes = response.data;
+                    console.log("addressesTypes",response.data)
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => {
@@ -281,6 +281,7 @@
                 } else {
                     this.item.show_company = false;
                 }
+                console.log("Toggle",this.item)
             },
             getCurrentLocation() {
                 navigator.geolocation.getCurrentPosition(

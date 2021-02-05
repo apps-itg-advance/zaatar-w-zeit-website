@@ -92,9 +92,9 @@
                         </div>
                         <div class="col-sm-5">
                             <div class="custom-control custom-radio mb-1">
-                                <input type="radio" id="order_schedule" required onclick="ShowCalender()"
+                                <input type="radio" id="order_schedule1" required
                                        v-model="item.scheduled" value="1" class="custom-control-input">
-                                <label class="custom-control-label" for="order_schedule"><p
+                                <label class="custom-control-label" for="order_schedule1"><p
                                     class="text-uppercase m-0">{{trans('scheduled')}}</p></label>
                             </div>
                         </div>
@@ -186,7 +186,7 @@
                 this.getAvailableScheduleDates();
             }
             if (!this.checkoutInfo.hasOwnProperty('address')) {
-                this.item = {address: {}};
+                this.item = {address: {},scheduled:"0"};
             }
             if (this.defaultAddress !== null) {
                 this.item.address = this.defaultAddress;
@@ -197,8 +197,7 @@
             }
             console.log("checkoutInfo", this.checkoutInfo);
         },
-        mounted() {
-        },
+        mounted() {},
         methods: {
             openAddressModal() {
                 Bus.$emit('open-address-modal');
