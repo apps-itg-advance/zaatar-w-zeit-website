@@ -284,7 +284,7 @@ class OrdersLibrary
         $post_array['CardNumber'] = '';
         $post_array['TotalPrice'] = $total;
         $post_array['DepartmentId'] = 0;
-        $post_array['DepartmentName'] = 'Default';
+//        $post_array['DepartmentName'] = 'Default';
         $post_array['AddressId'] = $addressInfo['address']->ID;
         $post_array['FirstName'] = $user->details->FirstName;
         $post_array['LastName'] = $user->details->LastName;
