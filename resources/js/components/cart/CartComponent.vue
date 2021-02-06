@@ -157,6 +157,7 @@
                 $('#meal-modal').modal('hide');
             });
             Bus.$on('cart-save-array', (cartItems) => {
+                console.log("cart-save-array",cartItems)
                 this.cartItems = [];
                 this.cartItems = cartItems;
                 this.saveCart();

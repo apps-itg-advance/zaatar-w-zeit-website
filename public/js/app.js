@@ -2113,6 +2113,7 @@ __webpack_require__.r(__webpack_exports__);
       $('#meal-modal').modal('hide');
     });
     Bus.$on('cart-save-array', function (cartItems) {
+      console.log("cart-save-array", cartItems);
       _this.cartItems = [];
       _this.cartItems = cartItems;
 
@@ -5309,16 +5310,20 @@ __webpack_require__.r(__webpack_exports__);
 
       var parsedOrders = [];
       this.order.Items.forEach(function (item) {
+        var push = false;
         var parsedItem = {
           AppliedMeal: {},
           AppliedModifiers: []
         };
 
         _this4.menuItems.forEach(function (menuItem) {
-          if (menuItem.hasOwnProperty('Components')) {
-            console.log(menuItem);
-          } else {
-            if (menuItem.PLU === item.MainItem.PLU) {
+          if (menuItem.PLU === item.MainItem.PLU) {
+            if (menuItem.hasOwnProperty('Components')) {
+              console.log(menuItem);
+              push = false;
+            } else {
+              push = true;
+
               for (var key in menuItem) {
                 if (menuItem.hasOwnProperty(key)) {
                   if (key === 'Price') {
@@ -5358,7 +5363,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
 
-        parsedOrders.push(parsedItem);
+        if (push) {
+          parsedOrders.push(parsedItem);
+        }
       });
       this.loading = false;
       Bus.$emit('cart-save-array', parsedOrders);

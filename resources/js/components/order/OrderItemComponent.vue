@@ -176,7 +176,8 @@
                 removeFavLoading: false
             }
         },
-        mounted() {},
+        mounted() {
+        },
         methods: {
             setFav(order) {
                 order.Favorite = '1';
@@ -247,15 +248,18 @@
             repeatOrder() {
                 let parsedOrders = [];
                 this.order.Items.forEach((item) => {
+                    let push = false;
                     let parsedItem = {
                         AppliedMeal: {},
                         AppliedModifiers: []
                     }
                     this.menuItems.forEach((menuItem) => {
-                        if (menuItem.hasOwnProperty('Components')) {
-                            console.log(menuItem);
-                        } else {
-                            if (menuItem.PLU === item.MainItem.PLU) {
+                        if (menuItem.PLU === item.MainItem.PLU) {
+                            if (menuItem.hasOwnProperty('Components')) {
+                                console.log(menuItem)
+                                push = false;
+                            } else {
+                                push = true;
                                 for (let key in menuItem) {
                                     if (menuItem.hasOwnProperty(key)) {
                                         if (key === 'Price') {
@@ -291,7 +295,9 @@
                             }
                         }
                     });
-                    parsedOrders.push(parsedItem);
+                    if(push){
+                        parsedOrders.push(parsedItem);
+                    }
                 });
                 this.loading = false
                 Bus.$emit('cart-save-array', parsedOrders);
