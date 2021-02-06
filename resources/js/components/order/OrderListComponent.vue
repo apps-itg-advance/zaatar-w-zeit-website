@@ -43,9 +43,10 @@
             getAllOrders() {
                 this.loading = true;
                 axios.get('/orders/all').then((response) => {
+                    console.log("Orders",response.data)
                     let items = [];
                     let mainPlus = [];
-                    let parsedItem = {AppliedComboItems:[], AppliedModifiers: [], AppliedMeal: {}};
+                    let parsedItem = {AppliedModifiers: [], AppliedMeal: {}};
                     let append = false;
                     let newPLU = null;
                     let netAmount = 0;
@@ -60,19 +61,16 @@
                             }
                             if (append) {
                                 items.push(parsedItem);
-                                parsedItem = {AppliedComboItems:[], AppliedModifiers: [], AppliedMeal: {}};
+                                parsedItem = {AppliedModifiers: [], AppliedMeal: {}};
                                 append = false;
                                 newPLU = null;
                             }
-
                             if (item.OpenItem !== '1') {
                                 if (item.MenuType === '1') {
                                     parsedItem.MainItem = item;
                                     if(parseInt(item.GrossPrice) > 0){
-                                        newPLU = item.PLU;
                                         mainPlus.push(item.PLU);
-                                    }else{
-                                        parsedItem.AppliedComboItems.push(item)
+                                        newPLU = item.PLU;
                                     }
                                 } else if (item.MenuType === '3') {
                                     parsedItem.AppliedModifiers.push(item);

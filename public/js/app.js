@@ -3878,7 +3878,6 @@ __webpack_require__.r(__webpack_exports__);
         var items = [];
         var mainPlus = [];
         var parsedItem = {
-          AppliedComboItems: [],
           AppliedModifiers: [],
           AppliedMeal: {}
         };
@@ -3897,7 +3896,6 @@ __webpack_require__.r(__webpack_exports__);
             if (append) {
               items.push(parsedItem);
               parsedItem = {
-                AppliedComboItems: [],
                 AppliedModifiers: [],
                 AppliedMeal: {}
               };
@@ -3912,8 +3910,6 @@ __webpack_require__.r(__webpack_exports__);
                 if (parseInt(item.GrossPrice) > 0) {
                   newPLU = item.PLU;
                   mainPlus.push(item.PLU);
-                } else {
-                  parsedItem.AppliedComboItems.push(item);
                 }
               } else if (item.MenuType === '3') {
                 parsedItem.AppliedModifiers.push(item);
@@ -5317,11 +5313,10 @@ __webpack_require__.r(__webpack_exports__);
         };
 
         _this4.menuItems.forEach(function (menuItem) {
+          console.log(item.MainItem);
+
           if (menuItem.PLU === item.MainItem.PLU) {
             if (menuItem.hasOwnProperty('Components')) {
-              console.log(menuItem);
-              push = false;
-            } else {
               push = true;
 
               for (var key in menuItem) {
@@ -5331,6 +5326,18 @@ __webpack_require__.r(__webpack_exports__);
                   }
 
                   parsedItem[key] = menuItem[key];
+                }
+              }
+            } else {
+              push = true;
+
+              for (var _key in menuItem) {
+                if (menuItem.hasOwnProperty(_key)) {
+                  if (_key === 'Price') {
+                    parsedItem.TotalPrice = parseInt(menuItem[_key]);
+                  }
+
+                  parsedItem[_key] = menuItem[_key];
                 }
               }
 
@@ -5440,10 +5447,10 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       axios.get('/orders/all').then(function (response) {
+        console.log("Orders", response.data);
         var items = [];
         var mainPlus = [];
         var parsedItem = {
-          AppliedComboItems: [],
           AppliedModifiers: [],
           AppliedMeal: {}
         };
@@ -5462,7 +5469,6 @@ __webpack_require__.r(__webpack_exports__);
             if (append) {
               items.push(parsedItem);
               parsedItem = {
-                AppliedComboItems: [],
                 AppliedModifiers: [],
                 AppliedMeal: {}
               };
@@ -5475,10 +5481,8 @@ __webpack_require__.r(__webpack_exports__);
                 parsedItem.MainItem = item;
 
                 if (parseInt(item.GrossPrice) > 0) {
-                  newPLU = item.PLU;
                   mainPlus.push(item.PLU);
-                } else {
-                  parsedItem.AppliedComboItems.push(item);
+                  newPLU = item.PLU;
                 }
               } else if (item.MenuType === '3') {
                 parsedItem.AppliedModifiers.push(item);

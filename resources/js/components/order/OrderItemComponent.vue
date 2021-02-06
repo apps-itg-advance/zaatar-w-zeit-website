@@ -254,10 +254,18 @@
                         AppliedModifiers: []
                     }
                     this.menuItems.forEach((menuItem) => {
+                        console.log(item.MainItem);
                         if (menuItem.PLU === item.MainItem.PLU) {
                             if (menuItem.hasOwnProperty('Components')) {
-                                console.log(menuItem)
-                                push = false;
+                                push = true;
+                                for (let key in menuItem) {
+                                    if (menuItem.hasOwnProperty(key)) {
+                                        if (key === 'Price') {
+                                            parsedItem.TotalPrice = parseInt(menuItem[key]);
+                                        }
+                                        parsedItem[key] = menuItem[key];
+                                    }
+                                }
                             } else {
                                 push = true;
                                 for (let key in menuItem) {
