@@ -176,8 +176,7 @@
                 removeFavLoading: false
             }
         },
-        mounted() {
-        },
+        mounted() {},
         methods: {
             setFav(order) {
                 order.Favorite = '1';
@@ -253,38 +252,42 @@
                         AppliedModifiers: []
                     }
                     this.menuItems.forEach((menuItem) => {
-                        if (menuItem.PLU === item.MainItem.PLU) {
-                            for (let key in menuItem) {
-                                if (menuItem.hasOwnProperty(key)) {
-                                    if (key === 'Price') {
-                                        parsedItem.TotalPrice = parseInt(menuItem[key]);
+                        if (menuItem.hasOwnProperty('Components')) {
+                            console.log(menuItem);
+                        } else {
+                            if (menuItem.PLU === item.MainItem.PLU) {
+                                for (let key in menuItem) {
+                                    if (menuItem.hasOwnProperty(key)) {
+                                        if (key === 'Price') {
+                                            parsedItem.TotalPrice = parseInt(menuItem[key]);
+                                        }
+                                        parsedItem[key] = menuItem[key];
                                     }
-                                    parsedItem[key] = menuItem[key];
                                 }
-                            }
-                            item.AppliedModifiers.forEach((appliedModifier) => {
-                                menuItem.Modifiers.forEach((modifier) => {
-                                    modifier.details.items.forEach((modifierItem) => {
-                                        if (appliedModifier.PLU === modifierItem.PLU) {
-                                            parsedItem.TotalPrice += parseInt(modifierItem.Price);
-                                            modifierItem.Quantity = 1;
-                                            parsedItem.AppliedModifiers.push(modifierItem);
-                                        }
-                                    });
-                                });
-                            })
-                            if (item.AppliedMeal.hasOwnProperty('AppliedItems') && item.AppliedMeal.AppliedItems.length > 0) {
-                                item.AppliedMeal.AppliedItems.forEach((appliedItem) => {
-                                    menuItem.MakeMeal.Items.forEach((mealItem) => {
-                                        if (appliedItem.PLU === mealItem.PLU) {
-                                            parsedItem.TotalPrice += parseInt(menuItem.MakeMeal.Price);
-                                            menuItem.MakeMeal.Details = this.checkLang(menuItem.MakeMeal.Details);
-                                            parsedItem.AppliedMeal = menuItem.MakeMeal;
-                                            parsedItem.AppliedMeal.AppliedItems = [];
-                                            parsedItem.AppliedMeal.AppliedItems[0] = mealItem;
-                                        }
+                                item.AppliedModifiers.forEach((appliedModifier) => {
+                                    menuItem.Modifiers.forEach((modifier) => {
+                                        modifier.details.items.forEach((modifierItem) => {
+                                            if (appliedModifier.PLU === modifierItem.PLU) {
+                                                parsedItem.TotalPrice += parseInt(modifierItem.Price);
+                                                modifierItem.Quantity = 1;
+                                                parsedItem.AppliedModifiers.push(modifierItem);
+                                            }
+                                        });
                                     });
                                 })
+                                if (item.AppliedMeal.hasOwnProperty('AppliedItems') && item.AppliedMeal.AppliedItems.length > 0) {
+                                    item.AppliedMeal.AppliedItems.forEach((appliedItem) => {
+                                        menuItem.MakeMeal.Items.forEach((mealItem) => {
+                                            if (appliedItem.PLU === mealItem.PLU) {
+                                                parsedItem.TotalPrice += parseInt(menuItem.MakeMeal.Price);
+                                                menuItem.MakeMeal.Details = this.checkLang(menuItem.MakeMeal.Details);
+                                                parsedItem.AppliedMeal = menuItem.MakeMeal;
+                                                parsedItem.AppliedMeal.AppliedItems = [];
+                                                parsedItem.AppliedMeal.AppliedItems[0] = mealItem;
+                                            }
+                                        });
+                                    })
+                                }
                             }
                         }
                     });

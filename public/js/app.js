@@ -3877,6 +3877,7 @@ __webpack_require__.r(__webpack_exports__);
         var items = [];
         var mainPlus = [];
         var parsedItem = {
+          AppliedComboItems: [],
           AppliedModifiers: [],
           AppliedMeal: {}
         };
@@ -3895,6 +3896,7 @@ __webpack_require__.r(__webpack_exports__);
             if (append) {
               items.push(parsedItem);
               parsedItem = {
+                AppliedComboItems: [],
                 AppliedModifiers: [],
                 AppliedMeal: {}
               };
@@ -3905,9 +3907,14 @@ __webpack_require__.r(__webpack_exports__);
             if (item.OpenItem !== '1') {
               if (item.MenuType === '1') {
                 parsedItem.MainItem = item;
-                newPLU = item.PLU;
-                mainPlus.push(item.PLU);
-              } else if (item.MenuType === '2') {
+
+                if (parseInt(item.GrossPrice) > 0) {
+                  newPLU = item.PLU;
+                  mainPlus.push(item.PLU);
+                } else {
+                  parsedItem.AppliedComboItems.push(item);
+                }
+              } else if (item.MenuType === '3') {
                 parsedItem.AppliedModifiers.push(item);
               } else if (item.MenuType === '5') {
                 if (Object.keys(parsedItem.AppliedMeal).length === 0) {
@@ -4536,7 +4543,6 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      console.log("open-customization-modal", item);
       _this.customizedItem = JSON.parse(JSON.stringify(item));
       $('#customization-modal').modal('show');
     });
@@ -5309,41 +5315,45 @@ __webpack_require__.r(__webpack_exports__);
         };
 
         _this4.menuItems.forEach(function (menuItem) {
-          if (menuItem.PLU === item.MainItem.PLU) {
-            for (var key in menuItem) {
-              if (menuItem.hasOwnProperty(key)) {
-                if (key === 'Price') {
-                  parsedItem.TotalPrice = parseInt(menuItem[key]);
+          if (menuItem.hasOwnProperty('Components')) {
+            console.log(menuItem);
+          } else {
+            if (menuItem.PLU === item.MainItem.PLU) {
+              for (var key in menuItem) {
+                if (menuItem.hasOwnProperty(key)) {
+                  if (key === 'Price') {
+                    parsedItem.TotalPrice = parseInt(menuItem[key]);
+                  }
+
+                  parsedItem[key] = menuItem[key];
                 }
-
-                parsedItem[key] = menuItem[key];
               }
-            }
 
-            item.AppliedModifiers.forEach(function (appliedModifier) {
-              menuItem.Modifiers.forEach(function (modifier) {
-                modifier.details.items.forEach(function (modifierItem) {
-                  if (appliedModifier.PLU === modifierItem.PLU) {
-                    parsedItem.TotalPrice += parseInt(modifierItem.Price);
-                    modifierItem.Quantity = 1;
-                    parsedItem.AppliedModifiers.push(modifierItem);
-                  }
+              item.AppliedModifiers.forEach(function (appliedModifier) {
+                menuItem.Modifiers.forEach(function (modifier) {
+                  modifier.details.items.forEach(function (modifierItem) {
+                    if (appliedModifier.PLU === modifierItem.PLU) {
+                      parsedItem.TotalPrice += parseInt(modifierItem.Price);
+                      modifierItem.Quantity = 1;
+                      parsedItem.AppliedModifiers.push(modifierItem);
+                    }
+                  });
                 });
               });
-            });
 
-            if (item.AppliedMeal.hasOwnProperty('AppliedItems') && item.AppliedMeal.AppliedItems.length > 0) {
-              item.AppliedMeal.AppliedItems.forEach(function (appliedItem) {
-                menuItem.MakeMeal.Items.forEach(function (mealItem) {
-                  if (appliedItem.PLU === mealItem.PLU) {
-                    parsedItem.TotalPrice += parseInt(menuItem.MakeMeal.Price);
-                    menuItem.MakeMeal.Details = _this4.checkLang(menuItem.MakeMeal.Details);
-                    parsedItem.AppliedMeal = menuItem.MakeMeal;
-                    parsedItem.AppliedMeal.AppliedItems = [];
-                    parsedItem.AppliedMeal.AppliedItems[0] = mealItem;
-                  }
+              if (item.AppliedMeal.hasOwnProperty('AppliedItems') && item.AppliedMeal.AppliedItems.length > 0) {
+                item.AppliedMeal.AppliedItems.forEach(function (appliedItem) {
+                  menuItem.MakeMeal.Items.forEach(function (mealItem) {
+                    if (appliedItem.PLU === mealItem.PLU) {
+                      parsedItem.TotalPrice += parseInt(menuItem.MakeMeal.Price);
+                      menuItem.MakeMeal.Details = _this4.checkLang(menuItem.MakeMeal.Details);
+                      parsedItem.AppliedMeal = menuItem.MakeMeal;
+                      parsedItem.AppliedMeal.AppliedItems = [];
+                      parsedItem.AppliedMeal.AppliedItems[0] = mealItem;
+                    }
+                  });
                 });
-              });
+              }
             }
           }
         });
@@ -5509,6 +5519,7 @@ __webpack_require__.r(__webpack_exports__);
           voucher = null;
         });
         _this.orders = response.data;
+        console.log(_this.orders);
       })["catch"](function (error) {
         console.log(error);
       })["finally"](function () {
@@ -44392,7 +44403,9 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "d-inline-block mx-3" }, [
-                        _vm._v(_vm._s(cartItem.AppliedMeal.Details))
+                        _vm._v(
+                          _vm._s(_vm.checkLang(cartItem.AppliedMeal.Details))
+                        )
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "d-inline-block" }, [
@@ -48013,7 +48026,9 @@ var render = function() {
                     _c("div", { staticClass: "col-md-6" }, [
                       _c("h4", [
                         _vm._v(
-                          _vm._s(_vm.customizedItem.MakeMeal.Details) +
+                          _vm._s(
+                            _vm.checkLang(_vm.customizedItem.MakeMeal.Details)
+                          ) +
                             " " +
                             _vm._s(_vm.customizedItem.MakeMeal.Price)
                         )

@@ -72,7 +72,7 @@
                     <div class="speacial-meal bg-8DBF43">
                         <div class="meal-banner">
                             <span class="text-uppercase">{{trans('meal')}}</span>
-                            <span class="d-inline-block mx-3">{{cartItem.AppliedMeal.Details}}</span>
+                            <span class="d-inline-block mx-3">{{checkLang(cartItem.AppliedMeal.Details)}}</span>
                             <span class="d-inline-block">{{numberFormat(cartItem.AppliedMeal.Price)}}</span>
                         </div>
                         <a href="javascript:void(0)" class="close" @click="removeMeal(cartItem)">

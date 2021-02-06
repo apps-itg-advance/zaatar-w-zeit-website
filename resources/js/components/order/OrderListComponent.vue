@@ -81,10 +81,10 @@
                                         parsedItem.AppliedMeal = item;
                                         parsedItem.AppliedMeal.AppliedItems = [];
                                     } else {
-                                        if(Object.keys( parsedItem.AppliedMeal).length === 0){
+                                        if (Object.keys(parsedItem.AppliedMeal).length === 0) {
                                             parsedItem.AppliedMeal = item;
                                             parsedItem.AppliedMeal.AppliedItems = [];
-                                        }else{
+                                        } else {
                                             parsedItem.AppliedMeal.AppliedItems[0] = item;
                                         }
                                     }
@@ -122,6 +122,7 @@
                     });
 
                     this.orders = response.data
+                    console.log( this.orders );
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => {

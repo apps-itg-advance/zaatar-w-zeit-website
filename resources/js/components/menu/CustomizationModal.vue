@@ -84,7 +84,7 @@
                 <div class="items-row row align-items-center pl-4"
                      v-if="customizedItem.hasOwnProperty('MakeMeal') && customizedItem.MakeMeal.hasOwnProperty('Items')">
                     <div class="col-md-6">
-                        <h4>{{customizedItem.MakeMeal.Details}} {{customizedItem.MakeMeal.Price}}</h4>
+                        <h4>{{checkLang(customizedItem.MakeMeal.Details)}} {{customizedItem.MakeMeal.Price}}</h4>
                     </div>
                     <div class="col-md-6">
                         <div class="d-inline-block custom-control custom-radio"
@@ -138,7 +138,6 @@
                         })
                     });
                 }
-                console.log("open-customization-modal", item)
                 this.customizedItem = JSON.parse(JSON.stringify(item));
                 $('#customization-modal').modal('show');
             });
