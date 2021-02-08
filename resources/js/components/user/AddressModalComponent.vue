@@ -382,6 +382,13 @@
                 });
             },
             submit() {
+                console.log(this.item);
+                // const neededAddressKeys = ['country_id'];
+                // if (!neededAddressKeys.every(key => Object.keys(this.newShippingAddress).includes(key))) {
+                //     this.fireAlert("Please fill the required fields", "", false)
+                //     return;
+                // }
+                // return;
                 this.loading = true;
                 let formData = new FormData();
                 for (let key in this.item) {
@@ -403,6 +410,7 @@
                     $('#address-modal').modal('hide');
                     this.$emit('add-edit-address');
                     this.item = {}
+                    console.log(response);
                 }).catch((error) => {
                     this.fireAlert(error.response.data.message, 'Choose another location', false);
                     console.log(error.response.data.message);

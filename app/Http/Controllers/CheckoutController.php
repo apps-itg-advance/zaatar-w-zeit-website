@@ -283,23 +283,6 @@ class CheckoutController extends Controller
         return response()->json($times);
     }
 
-    public function gift_store(Request $request)
-    {
-        $go = explode('-:', $request->input('gift_value'));
-        $array = array(
-            'OpenItemId' => isset($go[1]) ? $go[1] : 0,
-            'OpenItemPlu' => isset($go[2]) ? $go[2] : 0,
-            'GiftTo' => $request->input('gift_to'),
-            'GiftFrom' => $request->input('gift_from'),
-            'GiftOpenItem' => isset($go[0]) ? $go[0] : ''
-        );
-        session()->forget('cart_gift');
-        session()->put('checkout_steps', 'gift');
-        session()->save();
-        session()->put('cart_gift', (object)$array);
-        return 'true';
-    }
-
     public function payment_card_save(Request $request)
     {
         $card = $request->input('card');

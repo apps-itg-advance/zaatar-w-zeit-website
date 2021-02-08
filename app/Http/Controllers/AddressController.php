@@ -58,7 +58,6 @@ class AddressController extends Controller
 
     public function addEditAddress(Request $request)
     {
-
 //        $response = CustomerLibrary::checkZone($request->y_location, $request->x_location);
 //        if (count($response) == 0) {
 //            return parent::respondWithError('Not in zone', 500);
@@ -80,7 +79,7 @@ class AddressController extends Controller
             'Line1' => 'Line1',
             'Line2' => $buildingName . ' Bldg ' . $buildingNumber,
             'PhoneCode' => '11',
-            'Phone' => '11',
+            'Phone' => '111',
             'CityId' => $cityId,
             'PersonalInfo' => '11',
             'AddressType' => $addressTypeId,

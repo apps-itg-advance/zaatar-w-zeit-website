@@ -72,15 +72,15 @@
                                     </div>
                                     <div class="order-info">
 
-                                        <!--                    <div class="row align-items-center">-->
-                                        <!--                        <div class="col-4 text-left text-sm-right mb-3">-->
-                                        <!--                            <h5 class="text-label text-uppercase text-666666 font-weight-bold">-->
-                                        <!--                                {{trans('wallet')}}</h5>-->
-                                        <!--                        </div>-->
-                                        <!--                        <div class="col-6 text-808080 mb-3 futura-book" v-if="order.Wallet !== null">-->
-                                        <!--                            {{order.Wallet}}-->
-                                        <!--                        </div>-->
-                                        <!--                    </div>-->
+<!--                                        <div class="row align-items-center">-->
+<!--                                            <div class="col-4 text-left text-sm-right mb-3">-->
+<!--                                                <h5 class="text-label text-uppercase text-666666 font-weight-bold">-->
+<!--                                                    {{trans('wallet')}}</h5>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-6 text-808080 mb-3 futura-book  pb-2">-->
+<!--                                                {{parseOpenItem('Wallet')}}-->
+<!--                                            </div>-->
+<!--                                        </div>-->
 
                                         <div class="row align-items-center">
                                             <div class="col-4 text-left text-sm-right mb-3">
@@ -226,6 +226,9 @@
                             this.total += parseInt(modifier.Price);
                         })
                     }
+                    if (cartItem.hasOwnProperty('AppliedMeal') && Object.keys(cartItem.AppliedMeal).length > 0) {
+                        this.total += parseInt(cartItem.AppliedMeal.Price);
+                    }
                 });
             },
             parseOpenItem(label) {
@@ -237,6 +240,8 @@
                         value = this.trans('yes');
                     } else if (label === 'PaymentMethods' && info.key === 'PaymentMethods') {
                         value = info.payment_method.Label;
+                    } else if (label === 'Wallet' && info.key === 'Wallet') {
+                        value = Math.trunc(parseInt(info.amount) / this.total * 100) + " % " + this.trans('discount');
                     } else {
                     }
                 });

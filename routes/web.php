@@ -63,11 +63,10 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::prefix('customer')->group(function () {
         Route::get('/profile', 'CustomerController@index')->name('customer.index');
         Route::post('/edit', 'CustomerController@edit')->name('customer.edit');
-        Route::post('/store', 'CustomerController@store')->name('customer.store');
+        Route::post('/update', 'CustomerController@update')->name('customer.update');
         Route::get('/credit-card-delete/{id?}', 'CustomerController@credit_cards_delete')->name('credit.cards.delete');
         Route::post('/delete-card', 'CustomerController@deleteCreditCard')->name('customer.delete.card');
         Route::get('/get-card', 'CustomerController@getPaymentCards')->name('customer.cards');
-
         Route::prefix('favourite')->group(function () {
             Route::post('/set-favourite', 'CustomerController@set_favourite')->name('customer.set.favourite');
             Route::post('/remove-favourite', 'CustomerController@remove_favourite')->name('customer.remove.favourite');
@@ -118,6 +117,10 @@ Route::group(['middleware' => ['checkLogin']], function () {
         Route::get('/payment/status/{status?}/{id?}', 'CheckoutController@flushSession')->name('checkout.flush.session');
         Route::get('/get-datetime', 'CheckoutController@getDateTime')->name('checkout.datetime');
         Route::get('/get-available-schedule-dates', 'CheckoutController@getAvailableScheduleDates')->name('checkout.available-schedule-dates');
+    });
+
+    Route::prefix('loyalty')->group(function () {
+        Route::get('/loyalty-corner', 'LoyaltyController@getLoyaltyCorner')->name('loyalty.corner');
     });
 
     Route::get('/checkout/address', 'CheckoutController@address')->name('checkout.address');

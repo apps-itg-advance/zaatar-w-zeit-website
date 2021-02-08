@@ -77,7 +77,7 @@
             return {
                 item: this.checkoutInfo,
                 loading: false,
-                skipLoading:false
+                skipLoading: false
             }
         },
         created() {
@@ -93,6 +93,16 @@
                 this.item.gift_option = giftOption;
             },
             confirm() {
+                if (!this.item.hasOwnProperty('gift_from') || this.item.gift_from === "" || !this.item.hasOwnProperty('gift_to') || this.item.gift_to === "") {
+                    this.fireAlert("Names are required", "", false);
+                    return;
+                }
+
+                if (!this.item.hasOwnProperty('gift_option') || Object.keys(this.item.gift_option).length === 0) {
+                    this.fireAlert("Select option", "", false);
+                    return;
+                }
+
                 this.loading = true;
                 this.nextStep(this.currentStep.NextRouteObj, this.item);
             },

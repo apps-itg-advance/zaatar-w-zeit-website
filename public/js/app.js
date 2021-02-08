@@ -1932,6 +1932,7 @@ __webpack_require__.r(__webpack_exports__);
     Vue.prototype.$org = this.org;
     Vue.prototype.$user = this.user;
     Vue.prototype.$addresses = this.addresses;
+    console.log("Addresses From Main", this.addresses);
   }
 });
 
@@ -2517,6 +2518,10 @@ __webpack_require__.r(__webpack_exports__);
             _this4.total += parseInt(modifier.Price);
           });
         }
+
+        if (cartItem.hasOwnProperty('AppliedMeal') && Object.keys(cartItem.AppliedMeal).length > 0) {
+          _this4.total += parseInt(cartItem.AppliedMeal.Price);
+        }
       });
     },
     parseOpenItem: function parseOpenItem(label) {
@@ -2530,6 +2535,8 @@ __webpack_require__.r(__webpack_exports__);
           value = _this5.trans('yes');
         } else if (label === 'PaymentMethods' && info.key === 'PaymentMethods') {
           value = info.payment_method.Label;
+        } else if (label === 'Wallet' && info.key === 'Wallet') {
+          value = Math.trunc(parseInt(info.amount) / _this5.total * 100) + " % " + _this5.trans('discount');
         } else {}
       });
       return value;
@@ -3068,6 +3075,16 @@ __webpack_require__.r(__webpack_exports__);
       this.item.gift_option = giftOption;
     },
     confirm: function confirm() {
+      if (!this.item.hasOwnProperty('gift_from') || this.item.gift_from === "" || !this.item.hasOwnProperty('gift_to') || this.item.gift_to === "") {
+        this.fireAlert("Names are required", "", false);
+        return;
+      }
+
+      if (!this.item.hasOwnProperty('gift_option') || Object.keys(this.item.gift_option).length === 0) {
+        this.fireAlert("Select option", "", false);
+        return;
+      }
+
       this.loading = true;
       this.nextStep(this.currentStep.NextRouteObj, this.item);
     },
@@ -3724,16 +3741,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3759,24 +3766,73 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      item: this.checkoutInfo,
+      item: {},
       cartItems: this.cart,
       total: 0,
-      cashBack: 0,
       loading: false,
+      redeemed: false,
       skipLoading: false
     };
   },
   created: function created() {
-    this.item.amount = 0;
-    this.checkoutData.Wallet.RedeemableAmountBalance = 100;
+    if (!this.checkoutInfo.hasOwnProperty('amount') || this.checkoutInfo.amount === "0") {
+      this.checkoutInfo.cashBack = 0;
+      this.checkoutInfo.amount = 0;
+      this.checkoutInfo.appliedCashBack = 0;
+    }
+
+    this.item = JSON.parse(JSON.stringify(this.checkoutInfo));
   },
   mounted: function mounted() {
-    this.calculateTotal();
-    console.log("cart", this.cart);
-    console.log("checkoutInfo", this.checkoutInfo);
+    this.getLoyaltyCorner();
+    this.calculateTotalOrder();
+    this.item.cashBack = this.checkoutData.Wallet.RedeemableAmountBalance;
+
+    if (this.item.amount === 0) {
+      this.item.appliedCashBack = this.item.cashBack;
+    }
   },
   methods: {
+    getLoyaltyCorner: function getLoyaltyCorner() {
+      axios.get('/loyalty/loyalty-corner').then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    calculate: function calculate() {
+      var cashBack = parseInt(this.item.cashBack);
+      var amount = parseInt(this.item.amount);
+
+      if (amount > this.total || amount > cashBack) {
+        if (this.total > this.cashBack) {
+          this.item.amount = parseInt(cashBack);
+        } else {
+          this.item.amount = parseInt(this.total);
+        }
+
+        this.item.appliedCashBack = cashBack - parseInt(this.item.amount);
+      } else {
+        this.item.appliedCashBack = cashBack - amount;
+      }
+    },
+    calculateTotalOrder: function calculateTotalOrder() {
+      var _this = this;
+
+      this.cartItems.forEach(function (cartItem) {
+        _this.total += parseInt(cartItem.Price);
+
+        if (cartItem.hasOwnProperty('AppliedModifiers') && cartItem.AppliedModifiers.length > 0) {
+          cartItem.AppliedModifiers.forEach(function (modifier) {
+            _this.total += parseInt(modifier.Price);
+          });
+        }
+
+        if (cartItem.hasOwnProperty('AppliedMeal') && Object.keys(cartItem.AppliedMeal).length > 0) {
+          _this.total += parseInt(cartItem.AppliedMeal.Price);
+        }
+      });
+    },
     confirm: function confirm() {
       this.loading = true;
       this.nextStep(this.currentStep.NextRouteObj, this.item);
@@ -3784,36 +3840,6 @@ __webpack_require__.r(__webpack_exports__);
     skip: function skip() {
       this.skipLoading = true;
       this.nextStep(this.currentStep.NextRouteObj, this.item, true);
-    },
-    calculateTotal: function calculateTotal() {
-      var _this = this;
-
-      this.total = 0;
-      this.cartItems.forEach(function (cartItem) {
-        _this.total += parseInt(cartItem.Price);
-
-        if (cartItem.hasOwnProperty('AppliedModifiers') && Object.keys(cartItem.AppliedModifiers).length > 0) {
-          cartItem.AppliedModifiers.forEach(function (modifier) {
-            _this.total += parseInt(modifier.Price);
-          });
-        }
-      });
-
-      if (parseInt(this.checkoutData.Wallet.RedeemableAmountBalance) > 0 && this.item.amount > 0) {
-        if (this.total > this.item.amount) {
-          this.cashBack = this.total - this.item.amount;
-        } else {
-          this.cashBack = this.item.amount - this.total;
-        }
-      }
-
-      console.log("Total Cart:", this.total);
-      console.log("Cash Back:", this.cashBack);
-    }
-  },
-  watch: {
-    'item.amount': function itemAmount(oldVal, newVal) {
-      console.log("Changed");
     }
   }
 });
@@ -5966,6 +5992,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     submit: function submit() {
       var _this7 = this;
 
+      console.log(this.item); // const neededAddressKeys = ['country_id'];
+      // if (!neededAddressKeys.every(key => Object.keys(this.newShippingAddress).includes(key))) {
+      //     this.fireAlert("Please fill the required fields", "", false)
+      //     return;
+      // }
+      // return;
+
       this.loading = true;
       var formData = new FormData();
 
@@ -6002,6 +6035,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         _this7.$emit('add-edit-address');
 
         _this7.item = {};
+        console.log(response);
       })["catch"](function (error) {
         _this7.fireAlert(error.response.data.message, 'Choose another location', false);
 
@@ -6637,7 +6671,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       axios.get('/general/cities').then(function (response) {
         _this2.cities = response.data;
-        console.log(response.data);
       })["catch"](function (error) {
         console.log(error);
       })["finally"](function () {});
@@ -6731,9 +6764,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             if (location.country) {
               country = location.country;
             }
-          } else {
-            console.log(status);
-          }
+          } else {}
         }
       });
     },
@@ -6756,9 +6787,35 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     submit: function submit() {
       var _this6 = this;
 
-      console.log("Updating Profile...");
-      console.log(this.item);
-      return;
+      console.log(this.item); // return;
+      // building_name: "dsa"
+      // building_number: "dsa"
+      // city_id: (...)
+      // company: (...)
+      // details: (...)
+      // email: (...)
+      // ext: (...)
+      // first_name: (...)
+      // floor_number: (...)
+      // full_number: (...)
+      // google_city: (...)
+      // google_street: (...)
+      // google_zone: (...)
+      // id: (...)
+      // is_default: (...)
+      // last_name: (...)
+      // nick_name: (...)
+      // show_company: (...)
+      // street: (...)
+      // type_id: (...)
+      // x_location: (...)
+      // y_location: (...)
+      // const neededAddressKeys = ['email', 'first_name', 'last_name', 'province_id', 'mobile_number', 'email', 'address'];
+      // if (!neededAddressKeys.every(key => Object.keys(this.newShippingAddress).includes(key))) {
+      //     this.fireToast("Please required shipping address fields")
+      //     return;
+      // }
+
       this.loading = true;
       var formData = new FormData();
 
@@ -6789,10 +6846,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       }
 
-      axios.post('/profile/update', formData).then(function (response) {
-        $('#address-modal').modal('hide');
+      axios.post('/customer/update', formData).then(function (response) {
+        $('#address-profile-modal').modal('hide');
+        _this6.item = {};
+        console.log(response);
       })["catch"](function (error) {
-        _this6.fireAlert(error.response.data.message, 'Choose another location', false);
+        console.log(error); //this.fireAlert(error.response.data.message, 'Choose another location', false);
       })["finally"](function () {
         _this6.loading = false;
       });
@@ -44607,7 +44666,7 @@ var render = function() {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                                        " +
+                                          "\n                                            " +
                                             _vm._s(_vm.trans("address"))
                                         )
                                       ]
@@ -44620,9 +44679,9 @@ var render = function() {
                                   { staticClass: "col-sm-8 text-808080 pb-2" },
                                   [
                                     _vm._v(
-                                      "\n                                    " +
+                                      "\n                                        " +
                                         _vm._s(_vm.orderAddress) +
-                                        "\n                                "
+                                        "\n                                    "
                                     )
                                   ]
                                 )
@@ -44645,9 +44704,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                        " +
+                                        "\n                                            " +
                                           _vm._s(_vm.trans("order")) +
-                                          "\n                                    "
+                                          "\n                                        "
                                       )
                                     ]
                                   ),
@@ -44676,7 +44735,7 @@ var render = function() {
                                                       { staticClass: "mb-1" },
                                                       [
                                                         _vm._v(
-                                                          "\n                                                    " +
+                                                          "\n                                                        " +
                                                             _vm._s(
                                                               item.ComboName
                                                             ) +
@@ -44737,13 +44796,13 @@ var render = function() {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                                    " +
+                                                          "\n                                                        " +
                                                             _vm._s(
                                                               _vm.parseAppliedItems(
                                                                 item
                                                               )
                                                             ) +
-                                                            "\n                                                "
+                                                            "\n                                                    "
                                                         )
                                                       ]
                                                     )
@@ -44755,7 +44814,7 @@ var render = function() {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          "\n                                                    " +
+                                                          "\n                                                        " +
                                                             _vm._s(
                                                               _vm.parseModifiers(
                                                                 item
@@ -44786,9 +44845,9 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                            " +
+                                            "\n                                                " +
                                               _vm._s(_vm.trans("sub_total")) +
-                                              "\n                                            "
+                                              "\n                                                "
                                           ),
                                           _c(
                                             "span",
@@ -44819,11 +44878,11 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                            " +
+                                            "\n                                                " +
                                               _vm._s(
                                                 _vm.trans("delivery_fee")
                                               ) +
-                                              "\n                                            "
+                                              "\n                                                "
                                           ),
                                           _c(
                                             "span",
@@ -44859,9 +44918,9 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                            " +
+                                            "\n                                                " +
                                               _vm._s(_vm.trans("total")) +
-                                              "\n                                            "
+                                              "\n                                                "
                                           ),
                                           _c(
                                             "span",
@@ -44911,9 +44970,9 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                                                " +
+                                                "\n                                                    " +
                                                   _vm._s(_vm.trans("gift")) +
-                                                  "\n                                            "
+                                                  "\n                                                "
                                               )
                                             ]
                                           )
@@ -44928,11 +44987,11 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                            " +
+                                            "\n                                                " +
                                               _vm._s(
                                                 _vm.parseOpenItem("Gift")
                                               ) +
-                                              "\n                                        "
+                                              "\n                                            "
                                           )
                                         ]
                                       )
@@ -44958,11 +45017,11 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                                                " +
+                                                "\n                                                    " +
                                                   _vm._s(
                                                     _vm.trans("go_green")
                                                   ) +
-                                                  "\n                                            "
+                                                  "\n                                                "
                                               )
                                             ]
                                           )
@@ -44977,11 +45036,11 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                            " +
+                                            "\n                                                " +
                                               _vm._s(
                                                 _vm.parseOpenItem("RealGreen")
                                               ) +
-                                              "\n                                        "
+                                              "\n                                            "
                                           )
                                         ]
                                       )
@@ -45007,9 +45066,9 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                                                " +
+                                                "\n                                                    " +
                                                   _vm._s(_vm.trans("method")) +
-                                                  "\n                                            "
+                                                  "\n                                                "
                                               )
                                             ]
                                           )
@@ -45024,13 +45083,13 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                            " +
+                                            "\n                                                " +
                                               _vm._s(
                                                 _vm.parseOpenItem(
                                                   "PaymentMethods"
                                                 )
                                               ) +
-                                              "\n                                        "
+                                              "\n                                            "
                                           )
                                         ]
                                       )
@@ -45059,9 +45118,9 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    " +
+                              "\n                        " +
                                 _vm._s(_vm.trans("confirm")) +
-                                "\n                "
+                                "\n                    "
                             )
                           ]
                         )
@@ -45080,7 +45139,8 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              _vm._s(_vm.trans("cancel")) + "\n                "
+                              _vm._s(_vm.trans("cancel")) +
+                                "\n                    "
                             )
                           ]
                         )
@@ -46744,55 +46804,177 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(0),
+        _c("div", { staticClass: "row my-5" }, [
+          _c("div", { staticClass: "col-md-8 offset-2" }, [
+            _c(
+              "div",
+              {
+                staticClass: "card-style item active",
+                attrs: { "data-mh": "matchHeight", id: "wallet-b" }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "item-div active text-white p-3",
+                    attrs: { id: "wallet-b-1" }
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media" }, [
+                      _c("div", { staticClass: "media-body" }, [
+                        _c("h5", { staticClass: "mt-0 text-uppercase" }, [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.trans("cashback")) +
+                              " " +
+                              _vm._s(_vm.item.appliedCashBack) +
+                              " " +
+                              _vm._s(_vm.org.currency) +
+                              "\n                                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "h5",
+                          {
+                            staticStyle: {
+                              "line-height": "0.3",
+                              "font-size": "12px"
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.trans("expire")) +
+                                " "
+                            ),
+                            _c("span", [_vm._v("1/1/220")])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "mr-3",
+                        attrs: {
+                          width: "50",
+                          src: "/assets/images/icon-logowhite.png",
+                          alt: "Generic placeholder image"
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row pt-2" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "col-sm-2 col-form-label pt-0 text-white",
+                          attrs: { for: "staticEmail" }
+                        },
+                        [_vm._v(_vm._s(_vm.trans("amount")))]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-6" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.item.amount,
+                              expression: "item.amount"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            disabled: parseInt(_vm.item.cashBack) === 0,
+                            type: "number",
+                            id: "staticEmail"
+                          },
+                          domProps: { value: _vm.item.amount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.item, "amount", $event.target.value)
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn redeem-btn btn-sm",
+                            staticStyle: { cursor: "pointer" },
+                            attrs: {
+                              disabled: parseInt(_vm.item.cashBack) === 0
+                            },
+                            on: { click: _vm.calculate }
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(_vm.trans("redeem")) +
+                                "\n                                "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ]
+            )
+          ])
+        ]),
         _vm._v(" "),
-        parseInt(_vm.checkoutData.Wallet.RedeemableAmountBalance) > 0
-          ? _c("div", { staticClass: "action-buttons text-center" }, [
-              _vm.currentStep.Required === false
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-B3B3B3 text-uppercase skip",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          return _vm.skip()
-                        }
-                      }
-                    },
-                    [
-                      !_vm.skipLoading
-                        ? _c("span", [_vm._v(_vm._s(_vm.trans("skip")))])
-                        : _c("i", {
-                            staticClass: "fas fa-circle-notch fa-spin"
-                          })
-                    ]
-                  )
-                : _vm._e()
-            ])
-          : _c("div", { staticClass: "action-buttons text-center" }, [
-              _vm.currentStep.Required === false
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-B3B3B3 text-uppercase skip",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          return _vm.skip()
-                        }
-                      }
-                    },
-                    [
-                      !_vm.skipLoading
-                        ? _c("span", [_vm._v(_vm._s(_vm.trans("skip")))])
-                        : _c("i", {
-                            staticClass: "fas fa-circle-notch fa-spin"
-                          })
-                    ]
-                  )
-                : _vm._e()
-            ])
+        _c("div", { staticClass: "action-buttons text-center" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-8DBF43 text-uppercase mr-sm-4 confirm",
+              attrs: {
+                type: "button",
+                disabled: _vm.loading || parseInt(_vm.item.cashBack) === 0
+              },
+              on: {
+                click: function($event) {
+                  return _vm.confirm()
+                }
+              }
+            },
+            [
+              !_vm.loading
+                ? _c("span", [_vm._v(_vm._s(_vm.trans("confirm")))])
+                : _c("i", { staticClass: "fas fa-circle-notch fa-spin" })
+            ]
+          ),
+          _vm._v(" "),
+          _vm.currentStep.Required === false
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-B3B3B3 text-uppercase skip",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.skip()
+                    }
+                  }
+                },
+                [
+                  !_vm.skipLoading
+                    ? _c("span", [_vm._v(_vm._s(_vm.trans("skip")))])
+                    : _c("i", { staticClass: "fas fa-circle-notch fa-spin" })
+                ]
+              )
+            : _vm._e()
+        ])
       ]
     )
   ])
@@ -46802,10 +46984,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row my-5" }, [
-      _c("div", { staticClass: "col-md-12 text-center" }, [
-        _c("h3", [_vm._v("Soon")])
-      ])
+    return _c("div", { staticClass: "py-4 item-quantity float-right" }, [
+      _c("div", { staticClass: "float-right" })
     ])
   }
 ]
@@ -68306,7 +68486,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             window.location.href = "/checkout?step=".concat(_nextStep.NextRouteObj.ArrayName);
           } else {
             window.location.href = "/checkout?step=".concat(_nextStep.ArrayName);
-          }
+          } // window.location.href = `/checkout?step=${nextStep.ArrayName}`;
+
         }
 
         if (!skip) {

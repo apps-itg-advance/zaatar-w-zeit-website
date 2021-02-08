@@ -280,7 +280,6 @@
             getCities() {
                 axios.get('/general/cities').then((response) => {
                     this.cities = response.data
-                    console.log(response.data)
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => {
@@ -363,7 +362,6 @@
                                 country = location.country;
                             }
                         } else {
-                            console.log(status);
                         }
                     }
                 });
@@ -383,9 +381,38 @@
                 });
             },
             submit() {
-                console.log("Updating Profile...");
                 console.log(this.item);
-                return;
+                // return;
+
+                // building_name: "dsa"
+                // building_number: "dsa"
+                // city_id: (...)
+                // company: (...)
+                // details: (...)
+                // email: (...)
+                // ext: (...)
+                // first_name: (...)
+                // floor_number: (...)
+                // full_number: (...)
+                // google_city: (...)
+                // google_street: (...)
+                // google_zone: (...)
+                // id: (...)
+                // is_default: (...)
+                // last_name: (...)
+                // nick_name: (...)
+                // show_company: (...)
+                // street: (...)
+                // type_id: (...)
+                // x_location: (...)
+                // y_location: (...)
+
+                // const neededAddressKeys = ['email', 'first_name', 'last_name', 'province_id', 'mobile_number', 'email', 'address'];
+                // if (!neededAddressKeys.every(key => Object.keys(this.newShippingAddress).includes(key))) {
+                //     this.fireToast("Please required shipping address fields")
+                //     return;
+                // }
+
                 this.loading = true;
                 let formData = new FormData();
                 for (let key in this.item) {
@@ -403,10 +430,13 @@
                         }
                     }
                 }
-                axios.post('/profile/update', formData).then((response) => {
-                    $('#address-modal').modal('hide');
+                axios.post('/customer/update', formData).then((response) => {
+                    $('#address-profile-modal').modal('hide');
+                    this.item = {}
+                    console.log(response);
                 }).catch((error) => {
-                    this.fireAlert(error.response.data.message, 'Choose another location', false);
+                    console.log(error);
+                    //this.fireAlert(error.response.data.message, 'Choose another location', false);
                 }).finally(() => {
                     this.loading = false;
                 });

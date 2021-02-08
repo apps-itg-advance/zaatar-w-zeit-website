@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Customer;
-use App\Http\Libraries\AuthLibrary;
-use App\Http\Libraries\MenuLibrary;
 use App\Http\Libraries\SettingsLib;
 use App\Http\Libraries\CustomerLibrary;
 use Illuminate\Http\Request;
@@ -58,13 +55,6 @@ class CustomerController extends Controller
                 }
             }
         }
-        $addresses = session()->has('addresses' . $Skey) ? session()->get('addresses' . $Skey) : array();
-        $address_types = array();
-        if (count($addresses) > 0) {
-            foreach ($addresses as $addr) {
-                array_push($address_types, $addr->TypeID);
-            }
-        }
         $vouchers = CustomerLibrary::GetVouchers(['LoyaltyId' => $loyalty_id]);
         $wallet_balance = $query->details->WalletAmountBalance;
         $page_title = 'Profile';
@@ -73,9 +63,8 @@ class CustomerController extends Controller
         $orders = $order_history['rows'];
         session()->put('orders_data', $orders);
         $cart = session()->get('cart');
-        return view('customers.index', compact('cart', 'query', 'addresses', 'class_css', 'flag', 'type', 'Skey', 'cities', 'loyalty_levels', 'next_level', 'vouchers', 'wallet_balance', 'addresses_types', 'address_types', 'page_title', 'orders', 'total_orders'));  //
+        return view('customers.index', compact('cart', 'query', 'class_css', 'flag', 'type', 'Skey', 'cities', 'loyalty_levels', 'next_level', 'vouchers', 'wallet_balance', 'page_title', 'orders', 'total_orders'));  //
     }
-
 
     public function getPaymentCards()
     {
@@ -89,70 +78,60 @@ class CustomerController extends Controller
         return response()->json("Card successfully deleted");
     }
 
-    //todo update customer
-    public function store(Request $request)
+    public function update(Request $request)
     {
         $Skey = session()->get('skey');
-        $is_default = $request->input('is_default' . $Skey);
-        $loyalty_id = $request->input('LoyaltyId');
-        $first_name = $request->input('first_name' . $Skey);
-        $last_name = $request->input('last_name' . $Skey);
-        $mobile = $request->input('mobile' . $Skey);
-        $email = $request->input('email' . $Skey);
-        $address_name = $request->input('name' . $Skey);
-        $address_type = $request->input('address_type' . $Skey);
-        $geo = $request->input('geo' . $Skey);
-        $line1 = $request->input('line1' . $Skey);
-        $building_name = $request->input('building_name' . $Skey);
-        $building_nbr = $request->input('building_nbr' . $Skey);
-        $floor = $request->input('floor' . $Skey);
-        $phone = $request->input('phone' . $Skey);
-        $ext = $request->input('ext' . $Skey);
-        $xLocation = $request->input('x_location' . $Skey);
-        $yLocation = $request->input('y_location' . $Skey);
-        $Company = $request->input('company' . $Skey);
-        $line2 = $building_name . ' Bldg ' . $building_nbr;
-        $apartment = $floor . ' Ext: ' . $ext;
-        $geo_array = explode('-', $geo);
-        $city_id = @$geo_array[0];
-        $province_id = @$geo_array[1];
-        $array_customer = array(
-            'LoyaltyId' => $loyalty_id,
+        $first_name = $request->first_name;
+        $last_name = $request->last_name;
+        $mobile = $request->mobile;
+        $email = $request->email;
+        $customerData = [
             'Email' => $email,
             'MobileNumber' => $mobile,
             'FirstName' => $first_name,
             'LastName' => $last_name
-        );
-        $query = CustomerLibrary::UpdateCustomers($array_customer);
-        $array_address = array(
-            'LoyaltyId' => $loyalty_id,
-            'AddressType' => $address_type,
-            'Name' => $address_name,
-            'AptNumber' => $apartment,
-            'Line1' => $line1,
-            'Line2' => $line2,
-            'PhoneCode' => $loyalty_id,
-            'Phone' => $phone,
-            'CityId' => $city_id,
-            'XLocation' => $xLocation,
-            'YLocation' => $yLocation,
-            'PersonalInfo' => '',
-            'Company' => $Company,
-            'IsDefault' => $is_default == 1 ? 1 : 0,
-        );
-        if ($request->has('address_id' . $Skey)) {
-            // echo 'adddresss update';
-            $array_address['ID'] = $request->input('address_id' . $Skey);
-            $address = CustomerLibrary::UpdateAddress($array_address);
+        ];
+        CustomerLibrary::UpdateCustomers($customerData);
+        $name = $request->nick_name;
+        $buildingName = $request->building_name;
+        $buildingNumber = $request->building_number;
+        $cityId = $request->city_id;
+        $details = isset($request->details) ?? $request->details;
+        $ext = $request->ext;
+        $floorNumber = $request->floor_number;
+        $street = $request->street;
+        $addressTypeId = $request->type_id;
+        $company = isset($request->company) ?? $request->company;
+        $data = [
+            'Name' => $name,
+            'AptNumber' => $floorNumber . ' Ext: ' . $ext,
+            'Line1' => 'Line1',
+            'Line2' => $buildingName . ' Bldg ' . $buildingNumber,
+            'PhoneCode' => '11',
+            'Phone' => '111',
+            'CityId' => $cityId,
+            'PersonalInfo' => '11',
+            'AddressType' => $addressTypeId,
+            'CompanyName' => $company,
+            'IsDefault' => 1,
+            'ExtraAddress' => $details,
+            'YLocation' => $request->y_location,
+            'XLocation' => $request->x_location,
+        ];
+        if ($request->has('id')) {
+            $data['ID'] = $request->id;
+            CustomerLibrary::updateAddress($data);
         } else {
-            $address = CustomerLibrary::AddAddress($array_address);
+            CustomerLibrary::addAddress($data);
         }
-        CustomerLibrary::UpdateSessionAddresses($loyalty_id);
-        $skey = session('skey');
-        $user = session("user{$skey}");
-        $user->details->FirstName = $first_name;
-        $user->details->LastName = $last_name;
-        session(["user.$skey" => $user]);
-        return redirect(route('customer.index'));
+        return response()->json("Customer updated successfully");
+
+//        CustomerLibrary::UpdateSessionAddresses($loyalty_id);
+//        $skey = session('skey');
+//        $user = session("user{$skey}");
+//        $user->details->FirstName = $first_name;
+//        $user->details->LastName = $last_name;
+//        session(["user.$skey" => $user]);
+//        return redirect(route('customer.index'));
     }
 }

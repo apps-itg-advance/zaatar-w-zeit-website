@@ -23,6 +23,8 @@
             Vue.prototype.$org = this.org;
             Vue.prototype.$user = this.user;
             Vue.prototype.$addresses = this.addresses;
+
+            console.log("Addresses From Main",this.addresses)
         }
     }
 </script>

@@ -81,7 +81,7 @@ class CustomerLibrary
     public static function UpdateCustomers($data)
     {
         $url = env('BASE_URL') . 'customers/edit';
-        return Helper::postApi($url, $data, false);
+        return Helper::postApi($url, $data);
     }
 
     public static function GetOrdersHistory($loyalty_id, $row = false, $limit = false, $favorite)
@@ -127,6 +127,20 @@ class CustomerLibrary
         $lang = session()->get('locale');
         $url = env('BASE_URL') . 'LoyaltiesApi/GetVouchers?lang=' . $lang;
         $query = Helper::postApi($url, $array);
+        $res = $query->data;
+        return $res;
+    }
+
+    public static function GetLoyaltyCorner()
+    {
+        $skey = session()->get('skey');
+        $s_org = session()->get('_org');
+        $token = session()->get('token');
+        $lang = session()->get('locale');
+        $user = session()->has('user' . $skey) ? session()->get('user' . $skey) : array();
+        $loyalty_id = $user->details->LoyaltyId;
+        $url = env('BASE_URL') . 'loyalty/corner?token=' . $token . '&organization_id=' . $s_org->id . '&channel_id=1&LoyaltyId=' . $loyalty_id . '&lang=' . $lang;
+        $query = Helper::getApi($url);
         $res = $query->data;
         return $res;
     }

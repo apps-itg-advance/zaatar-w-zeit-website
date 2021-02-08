@@ -224,7 +224,6 @@ class OrdersLibrary
             }
         }
 
-
         if (count($giftInfo) > 0 && count(get_object_vars($giftInfo['gift_option'])) > 0) {
             $giftData1 = array(
                 'ItemPlu' => $giftInfo['gift_option']->PLU,
@@ -264,14 +263,16 @@ class OrdersLibrary
             array_push($arrayItems, $giftData3);
         }
 
-
         if (count($walletInfo) > 0 && isset($walletInfo['amount'])) {
+            if (isset($paymentInfo['currency']) && count(get_object_vars($paymentInfo['currency'])) > 0) {
+                $currency = $paymentInfo['currency']->Currency;
+            }
             if ($walletInfo['amount'] > 0) {
                 $walletData = array(
                     'Settlement' => $walletInfo['amount'],
                     'Currency' => $currency,
                     'Category' => 'wallet',
-                    'PaymentTypeId' => session()->get('cart_wallet_id'),
+                    'PaymentTypeId' => '1',
                     'ConfirmationCode' => 0
                 );
                 array_push($arrayPayments, $walletData);
@@ -294,7 +295,6 @@ class OrdersLibrary
             }
             array_push($arrayPayments, $payments);
         }
-
 
         $post_array['token'] = session()->get('token');
         $post_array['OrderId'] = '';

@@ -33,6 +33,7 @@ export default {
                     }else{
                         window.location.href = `/checkout?step=${nextStep.ArrayName}`;
                     }
+                    // window.location.href = `/checkout?step=${nextStep.ArrayName}`;
                 }
                 if (!skip) {
                     Bus.$emit('step-confirmed', response);
